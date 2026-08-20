@@ -95,9 +95,9 @@ src
 패키지를 계층(controller/service/repository)이 아닌 **기능(도메인) 단위**로 나눈 구조입니다. 도메인이 늘어나도 기존 코드에 영향을 주지 않고 확장할 수 있습니다.
 
 \`\`\`
-com.yomirichi.yomirichi
+com.yorimichi.yorimichi
 │
-├── YoMiRiChiApplication.java    # 스프링 부트 실행 진입점
+├── YoRiMiChiApplication.java    # 스프링 부트 실행 진입점
 │
 ├── global                     # 여러 도메인에서 공통으로 사용하는 설정/기능
 │   ├── config
@@ -158,4 +158,4 @@ src/main/resources
     ├── user
     │   └── UserMapper.xml      # domain/user/repository/UserMapper.java 와 1:1 매칭
     └── (도메인 늘어날 때마다 하위 폴더 추가)
-\`\`\`# YoMiRiChi_front
+\`\`\`# YoRiMiChi_front
