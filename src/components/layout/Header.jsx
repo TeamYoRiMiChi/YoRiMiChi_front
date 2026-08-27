@@ -49,8 +49,8 @@ const TEXT = {
 
 function Header() {
   const dispatch = useDispatch();
-  const accessToken = useSelector((state) => state.auth.accessToken);
-  // const accessToken = 'test-token';
+  // const accessToken = useSelector((state) => state.auth.accessToken);
+  const accessToken = 'test-token';
   const [lang, setLang] = useState('ko');
   const [keyword, setKeyword] = useState('');
   const [searchOpen, setSearchOpen] = useState(false);
@@ -235,7 +235,7 @@ function Header() {
               </Link>
             )}
 
-            {accessToken ? (
+            {accessToken && (
               <button className="icon_menu cart_menu" onClick={() => setCartOpen(true)}>
                 <div className="cart_icon_wrap">
                   <FontAwesomeIcon icon={faCartShopping} />
@@ -243,9 +243,6 @@ function Header() {
                 </div>
                 <span>{t.cart}</span>
               </button>
-
-            ) : (
-              <div></div>
             )}
 
 
