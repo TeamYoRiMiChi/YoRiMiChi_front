@@ -1,0 +1,653 @@
+/* =========================
+   공통 변수
+========================= */
+.guide {
+  --gd-primary: rgb(117, 84, 239);
+  --gd-primary-dark: rgb(90, 63, 200);
+  --gd-primary-light: #f2eeff;
+  --gd-pink: #f2607a;
+  --gd-pink-light: #fdeef1;
+  --gd-text: #1f1f2e;
+  --gd-text-sub: #6b6b7b;
+  --gd-border: #e9e8f0;
+  --gd-bg-soft: #f8f7fd;
+
+  font-family: "Noto Sans JP", sans-serif;
+  color: var(--gd-text);
+}
+
+/* =========================
+   히어로
+========================= */
+.guide_hero {
+  width: 100%;
+  padding: 72px 40px 64px;
+
+  background: linear-gradient(180deg, #f4f1ff 0%, #faf9ff 60%, #fff 100%);
+
+  box-sizing: border-box;
+}
+
+.guide_hero_inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.guide_hero_badge {
+  display: inline-block;
+  padding: 6px 16px;
+  margin-bottom: 20px;
+
+  border-radius: 999px;
+  background-color: #fff;
+  border: 1px solid var(--gd-border);
+
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--gd-primary);
+}
+
+.guide_hero_title {
+  margin: 0 0 20px;
+
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: -0.5px;
+}
+
+.guide_hero_title strong {
+  color: var(--gd-primary);
+  font-weight: 700;
+}
+
+.guide_hero_desc {
+  margin: 0;
+
+  font-size: 16px;
+  color: var(--gd-text-sub);
+  line-height: 1.8;
+}
+
+/* =========================
+   본문 래퍼
+========================= */
+.guide_body {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px 90px;
+
+  box-sizing: border-box;
+}
+
+.guide_section {
+  padding-top: 70px;
+}
+
+.guide_section_title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  margin: 0 0 10px;
+
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.guide_section_title .deco {
+  font-size: 15px;
+  color: var(--gd-primary);
+  opacity: 0.55;
+}
+
+.guide_section_sub {
+  margin: 0 0 32px;
+
+  text-align: center;
+  font-size: 15px;
+  color: var(--gd-text-sub);
+}
+
+.guide_section_sub strong {
+  color: var(--gd-primary);
+  font-weight: 700;
+}
+
+/* =========================
+   탭
+========================= */
+.guide_tabs {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+
+  margin-bottom: 36px;
+}
+
+.guide_tab {
+  min-width: 130px;
+  height: 46px;
+
+  padding: 0 24px;
+
+  border: 1px solid var(--gd-border);
+  border-radius: 999px;
+  background-color: #fff;
+
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--gd-text-sub);
+
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.guide_tab:hover {
+  border-color: var(--gd-primary);
+  color: var(--gd-primary);
+}
+
+.guide_tab.active {
+  border-color: var(--gd-primary);
+  background-color: var(--gd-primary);
+  color: #fff;
+
+  box-shadow: 0 4px 14px rgba(117, 84, 239, 0.25);
+}
+
+/* =========================
+   STEP 카드
+========================= */
+.step_list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.step_card {
+  position: relative;
+
+  padding: 30px 24px 28px;
+
+  border: 1px solid var(--gd-border);
+  border-radius: 16px;
+  background-color: #fff;
+
+  box-sizing: border-box;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.step_card:hover {
+  transform: translateY(-4px);
+  border-color: #d8d2f7;
+  box-shadow: 0 10px 28px rgba(117, 84, 239, 0.1);
+}
+
+.step_num {
+  display: inline-block;
+  margin-bottom: 16px;
+
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  color: var(--gd-primary);
+  opacity: 0.7;
+}
+
+.step_icon {
+  width: 52px;
+  height: 52px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 16px;
+
+  border-radius: 14px;
+  background-color: var(--gd-primary-light);
+
+  font-size: 21px;
+  color: var(--gd-primary);
+}
+
+.step_title {
+  margin: 0 0 8px;
+
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.step_desc {
+  margin: 0;
+
+  font-size: 13.5px;
+  color: var(--gd-text-sub);
+  line-height: 1.7;
+}
+
+/* =========================
+   배송 흐름
+========================= */
+.ship_flow {
+  display: flex;
+  align-items: stretch;
+}
+
+.ship_item {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+
+.ship_card {
+  flex: 1;
+  min-width: 0;
+
+  padding: 26px 22px;
+
+  border: 1px solid var(--gd-border);
+  border-radius: 16px;
+  background-color: var(--gd-bg-soft);
+
+  box-sizing: border-box;
+}
+
+.ship_icon {
+  width: 46px;
+  height: 46px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 14px;
+
+  border-radius: 12px;
+  background-color: #fff;
+
+  font-size: 19px;
+  color: var(--gd-primary);
+}
+
+.ship_days {
+  display: inline-block;
+  margin-bottom: 8px;
+  padding: 3px 10px;
+
+  border-radius: 999px;
+  background-color: #fff;
+  border: 1px solid var(--gd-border);
+
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gd-primary);
+}
+
+.ship_title {
+  margin: 0 0 7px;
+
+  font-size: 15.5px;
+  font-weight: 700;
+}
+
+.ship_desc {
+  margin: 0;
+
+  font-size: 13px;
+  color: var(--gd-text-sub);
+  line-height: 1.65;
+}
+
+.ship_arrow {
+  flex-shrink: 0;
+  padding: 0 12px;
+
+  font-size: 14px;
+  color: #c9c5e0;
+}
+
+/* =========================
+   관세 안내
+========================= */
+.customs_wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.customs_card {
+  padding: 30px 30px 28px;
+
+  border: 1px solid var(--gd-border);
+  border-radius: 18px;
+  background-color: #fff;
+
+  box-sizing: border-box;
+}
+
+.customs_head {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+
+  margin-bottom: 16px;
+}
+
+.customs_head svg {
+  font-size: 19px;
+  color: var(--gd-primary);
+}
+
+.customs_head h3 {
+  margin: 0;
+
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.customs_card > p {
+  margin: 0;
+
+  font-size: 14px;
+  color: var(--gd-text-sub);
+  line-height: 1.8;
+}
+
+.customs_link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  margin-top: 18px;
+
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gd-primary);
+  text-decoration: none;
+
+  transition: gap 0.18s ease;
+}
+
+.customs_link:hover {
+  gap: 11px;
+}
+
+.customs_link svg {
+  font-size: 11px;
+}
+
+.customs_list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.customs_list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  font-size: 14px;
+  color: var(--gd-text-sub);
+}
+
+.tag {
+  flex-shrink: 0;
+
+  min-width: 42px;
+  padding: 4px 9px;
+
+  border-radius: 6px;
+
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.tag_free {
+  background-color: #e6f7f0;
+  color: #0f8f66;
+}
+
+.tag_pay {
+  background-color: var(--gd-primary-light);
+  color: var(--gd-primary);
+}
+
+.tag_warn {
+  background-color: #fff2e6;
+  color: #d97b1f;
+}
+
+.customs_note {
+  margin: 18px 0 0;
+  padding-top: 16px;
+
+  border-top: 1px solid var(--gd-border);
+
+  font-size: 13px;
+  color: #9a99a8;
+}
+
+/* =========================
+   유의사항
+========================= */
+.notice_list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.notice_item {
+  display: flex;
+  gap: 16px;
+
+  padding: 24px 26px;
+
+  border: 1px solid var(--gd-border);
+  border-radius: 16px;
+  background-color: var(--gd-bg-soft);
+
+  box-sizing: border-box;
+}
+
+.notice_icon {
+  flex-shrink: 0;
+
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 11px;
+  background-color: var(--gd-pink-light);
+
+  font-size: 16px;
+  color: var(--gd-pink);
+}
+
+.notice_text h3 {
+  margin: 0 0 7px;
+
+  font-size: 15.5px;
+  font-weight: 700;
+}
+
+.notice_text p {
+  margin: 0;
+
+  font-size: 13.5px;
+  color: var(--gd-text-sub);
+  line-height: 1.75;
+}
+
+/* =========================
+   CTA
+========================= */
+.guide_cta {
+  margin-top: 80px;
+  padding: 54px 40px;
+
+  border-radius: 22px;
+  background: linear-gradient(135deg, #f4f1ff 0%, #efeaff 100%);
+
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.guide_cta h2 {
+  margin: 0 0 10px;
+
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.guide_cta p {
+  margin: 0 0 28px;
+
+  font-size: 15px;
+  color: var(--gd-text-sub);
+}
+
+.guide_cta_btns {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.cta_bt {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+
+  height: 52px;
+  padding: 0 30px;
+
+  border-radius: 12px;
+
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.cta_bt svg {
+  font-size: 12px;
+}
+
+.cta_bt_primary {
+  border: 1px solid var(--gd-primary);
+  background-color: var(--gd-primary);
+  color: #fff;
+}
+
+.cta_bt_primary:hover {
+  background-color: var(--gd-primary-dark);
+  border-color: var(--gd-primary-dark);
+}
+
+.cta_bt_outline {
+  border: 1px solid var(--gd-primary);
+  background-color: #fff;
+  color: var(--gd-primary-dark);
+}
+
+.cta_bt_outline:hover {
+  background-color: #f7f4ff;
+}
+
+/* =========================
+   반응형
+========================= */
+@media (max-width: 1024px) {
+  .step_list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ship_flow {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .ship_arrow {
+    display: none;
+  }
+
+  .customs_wrap,
+  .notice_list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .guide_hero {
+    padding: 52px 20px 44px;
+  }
+
+  .guide_hero_title {
+    font-size: 28px;
+  }
+
+  .guide_hero_desc {
+    font-size: 14px;
+  }
+
+  .guide_body {
+    padding: 0 20px 60px;
+  }
+
+  .guide_section {
+    padding-top: 52px;
+  }
+
+  .guide_section_title {
+    font-size: 21px;
+  }
+
+  .step_list,
+  .ship_flow {
+    grid-template-columns: 1fr;
+  }
+
+  .guide_cta {
+    padding: 40px 24px;
+  }
+
+  .guide_cta h2 {
+    font-size: 20px;
+  }
+
+  .guide_cta_btns {
+    flex-direction: column;
+  }
+
+  .cta_bt {
+    justify-content: center;
+  }
+}

@@ -14,10 +14,10 @@ const QUICK_LINKS = [
 
 const BIZ_INFO = [
   { label: '상호명', value: '(주)요리미치' },
-  { label: '대표자', value: '유영수' },
+  { label: '대표자', value: '요리미치' },
   { label: '사업자등록번호', value: '123-45-67890' },
   { label: '통신판매업신고', value: '제 2026-대전유성-0000호' },
-  { label: '개인정보보호책임자', value: '유영수' },
+  { label: '개인정보보호책임자', value: '요리미치' },
   { label: '주소', value: '대전광역시 유성구 대학로 99, 3층 (궁동)' },
   { label: '이메일', value: 'help@yorimichi.co.kr' },
   { label: '호스팅 제공', value: '(주)요리미치' },

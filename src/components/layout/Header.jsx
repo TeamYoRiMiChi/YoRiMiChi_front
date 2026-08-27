@@ -49,8 +49,8 @@ const TEXT = {
 
 function Header() {
   const dispatch = useDispatch();
-  const accessToken = useSelector((state) => state.auth.accessToken);
-  // const accessToken = 'test-token';
+  // const accessToken = useSelector((state) => state.auth.accessToken);
+  const accessToken = 'test-token';
   const [lang, setLang] = useState('ko');
   const [keyword, setKeyword] = useState('');
   const [searchOpen, setSearchOpen] = useState(false);
@@ -224,7 +224,7 @@ function Header() {
             )}
 
             {accessToken ? (
-              <Link to="/join" className="icon_menu">
+              <Link to="/mypage" className="icon_menu">
                 <FontAwesomeIcon icon={faUserGear} />
                 <span>{t.mypage}</span>
               </Link>

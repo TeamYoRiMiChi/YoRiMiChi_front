@@ -11,6 +11,7 @@ import Overseas from '../pages/Overseas/Overseas';
 import Guide from '../pages/Guide/Guide';
 import CustomerService from '../pages/Customer_Service/CustomerService';
 import Sign_Up from '../pages/Sign_Up/Sign_Up';
+import MyPage from '../pages/MyPage/Home';
 
 function Router() {
   return (
@@ -24,9 +25,9 @@ function Router() {
         <Route path="/guide" element={<Guide />} />
         <Route path="/support" element={<CustomerService />} />
         <Route path="/join" element={<Sign_Up />} />
+        <Route path="/mypage" element={<MyPage />} />
 
         <Route element={<PrivateRoute />}> {/* 로그인 이후 사용 가능 router */}
-          {/* <Route path="/mypage" element={<MyPage />} /> */}
         </Route>
       </Route>
     </Routes>
