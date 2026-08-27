@@ -11,7 +11,7 @@ import Overseas from '../pages/Overseas/Overseas';
 import Guide from '../pages/Guide/Guide';
 import CustomerService from '../pages/Customer_Service/CustomerService';
 import Sign_Up from '../pages/Sign_Up/Sign_Up';
-import MyPage from '../pages/MyPage/Home';
+import MyPage from '../pages/MyPage/MyPage';
 
 function Router() {
   return (

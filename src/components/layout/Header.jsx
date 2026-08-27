@@ -28,7 +28,7 @@ const TEXT = {
     join: '会員登録',
     cart: 'カート',
     currentLang: '日本語',     // ← 현재 선택된 언어 표시
-    mypage: 'mypage',
+    mypage: 'マイページ',
     faq: 'FAQ',
   },
   ko: {
@@ -49,8 +49,8 @@ const TEXT = {
 
 function Header() {
   const dispatch = useDispatch();
-  // const accessToken = useSelector((state) => state.auth.accessToken);
-  const accessToken = 'test-token';
+  const accessToken = useSelector((state) => state.auth.accessToken);
+  // const accessToken = 'test-token';
   const [lang, setLang] = useState('ko');
   const [keyword, setKeyword] = useState('');
   const [searchOpen, setSearchOpen] = useState(false);
