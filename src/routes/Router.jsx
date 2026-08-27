@@ -3,6 +3,8 @@ import Layout from '../components/layout/Layout';
 import Home from '../pages/home/Home';
 import Login from '../pages/login/Login';
 import PrivateRoute from './PrivateRoute';
+import Faq from '../pages/Faq/Faq';
+
 
 function Router() {
   return (
@@ -10,7 +12,7 @@ function Router() {
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-
+        <Route path="/faq" element={<Faq />} />
         <Route element={<PrivateRoute />}> {/* 로그인 이후 사용 가능 router */}
           {/* <Route path="/mypage" element={<MyPage />} /> */}
         </Route>
