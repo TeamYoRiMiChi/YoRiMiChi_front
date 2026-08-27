@@ -29,6 +29,7 @@ const TEXT = {
     cart: 'カート',
     currentLang: '日本語',     // ← 현재 선택된 언어 표시
     mypage: 'mypage',
+    faq: 'FAQ',
   },
   ko: {
     overseas: '해외직구',
@@ -42,6 +43,7 @@ const TEXT = {
     cart: '장바구니',
     currentLang: '한국어',     // ← 현재 선택된 언어 표시
     mypage: '마이페이지',
+    faq: 'FAQ',
   },
 };
 
@@ -149,6 +151,7 @@ function Header() {
             <Link to="/groupbuy" className="featurs_menu">{t.groupBuy}</Link>
             <Link to="/guide" className="featurs_menu">{t.guide}</Link>
             <Link to="/support" className="featurs_menu">{t.support}</Link>
+            <Link to="/faq" className="featurs_menu">{t.faq}</Link>
           </nav>
 
           {/* 검색 (접힘/펼침) */}
@@ -227,7 +230,7 @@ function Header() {
               </Link>
 
             ) : (
-              <Link to="join/" className='join_bt'>
+              <Link to="/join" className='join_bt'>
                 <span>{t.join}</span>
               </Link>
             )}

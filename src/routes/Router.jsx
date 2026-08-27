@@ -7,6 +7,11 @@ import Faq from '../pages/Faq/Faq';
 
 
 import GroupPurchase from "../pages/group_purchase/group_purchase";
+import Overseas from '../pages/Overseas/Overseas';
+import Guide from '../pages/Guide/Guide';
+import CustomerService from '../pages/Customer_Service/CustomerService';
+import Sign_Up from '../pages/Sign_Up/Sign_Up';
+
 function Router() {
   return (
     <Routes>
@@ -15,6 +20,10 @@ function Router() {
         <Route path="/login" element={<Login />} />
         <Route path="/faq" element={<Faq />} />
         <Route path="/groupbuy" element={<GroupPurchase />} />
+        <Route path="/overseas" element={<Overseas />} />
+        <Route path="/guide" element={<Guide />} />
+        <Route path="/support" element={<CustomerService />} />
+        <Route path="/join" element={<Sign_Up />} />
 
         <Route element={<PrivateRoute />}> {/* 로그인 이후 사용 가능 router */}
           {/* <Route path="/mypage" element={<MyPage />} /> */}
