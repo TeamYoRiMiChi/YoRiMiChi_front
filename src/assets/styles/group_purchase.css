@@ -1,0 +1,226 @@
+.group_purchase_container {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero_box {
+  width: 100%;
+  height: 400px;
+
+  background-color: #f4f5f2;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  box-sizing: border-box;
+}
+
+.hero_image {
+  width: 95%;
+  height: 380px;
+
+  object-fit: contain;
+
+  border-radius: 30px;
+
+  display: block;
+}
+
+
+/* =========================
+   나의 공동구매 현황
+========================= */
+
+.group_purchase_my {
+  width: 80%;
+  height: 160px;
+
+  margin: 20px auto 0;
+
+  padding: 15px;
+
+  box-sizing: border-box;
+
+  background-color: blue;
+}
+
+
+/* 제목 */
+.group_purchase_my h4 {
+  margin: 0 0 10px 0;
+}
+
+
+/* 상태 상자 묶음 */
+.my_purchase_list {
+  width: 98%;
+  height: 110px;
+
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 20px;
+
+  background-color: aqua;
+
+  box-sizing: border-box;
+}
+
+
+/* 각각의 상태 상자 */
+.my_purchase_1 {
+  width: 15%;
+  height: 100px;
+
+  background-color: red;
+
+  border: 1px solid black;
+  border-radius: 10px;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================
+   검색 / 필터 영역
+========================= */
+
+.group_purchase_search {
+  width: 70%;
+  height: 70px;
+
+  margin-top: 10px;
+margin: 20px auto 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: green;
+
+  border: 1px solid black;
+
+  box-sizing: border-box;
+}
+
+/* 상품전체박스 */
+.products_container {
+  width: 70%;
+  height: 250px;
+margin: 0 auto 0;
+  
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+
+  background-color:pink;
+  border: 1px solid black;
+}
+
+.products_box{
+  width: 18%;
+  height: 250px;
+  margin: 0 auto 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: yellow;
+  border: 1px solid black;
+}
+
+.more_bt{
+    width: 100px;
+    height: 30px;
+    
+    margin: 20px auto 0;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    background-color:blueviolet;
+    
+    border: 1px solid black;
+    border-radius: 10px;
+    
+    box-sizing: border-box;
+}
+
+.my_purchase_more {
+  width: 98%;
+  margin: 10px auto 0;
+
+  text-align: right;
+}
+
+.more_bt {
+  border: none;
+  background: none;
+
+  font-size: 14px;
+  cursor: pointer;
+  background-color:burlywood;
+  border-radius: 10px;
+    
+}
+
+
+
+
+
+
+.purchase_footer_1 {
+  width: 80%;
+  height: 200px;
+
+  margin: 15px auto;
+  padding: 15px 20px;
+
+  border: 1px solid black;
+  border-radius: 10px;
+
+  background-color: aqua;
+
+  box-sizing: border-box;
+}
+
+.footer_title {
+  margin: 0 0 15px 0;
+}
+
+.footer_list {
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;   /* 가로 */
+  justify-content: center;
+  align-items: center;
+
+  gap: 20px;
+}
+
+.footer_content {
+  width: 20%;
+  height: 90px;
+
+  border: 1px solid black;
+  background-color: blueviolet;
+
+  box-sizing: border-box;
+}

@@ -6,6 +6,7 @@ import PrivateRoute from './PrivateRoute';
 import Faq from '../pages/Faq/Faq';
 
 
+import GroupPurchase from "../pages/group_purchase/group_purchase";
 function Router() {
   return (
     <Routes>
@@ -13,6 +14,8 @@ function Router() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/faq" element={<Faq />} />
+        <Route path="/groupbuy" element={<GroupPurchase />} />
+
         <Route element={<PrivateRoute />}> {/* 로그인 이후 사용 가능 router */}
           {/* <Route path="/mypage" element={<MyPage />} /> */}
         </Route>
