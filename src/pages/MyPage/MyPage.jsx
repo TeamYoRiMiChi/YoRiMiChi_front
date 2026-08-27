@@ -144,7 +144,7 @@ const ADDRESSES = [
   {
     id: 51,
     name: '집',
-    receiver: '유영수',
+    receiver: '아무개',
     phone: '010-1234-5678',
     zip: '34141',
     addr: '대전광역시 유성구 대학로 99',
@@ -154,7 +154,7 @@ const ADDRESSES = [
   {
     id: 52,
     name: '회사',
-    receiver: '유영수',
+    receiver: '아무개',
     phone: '010-1234-5678',
     zip: '35242',
     addr: '대전광역시 서구 둔산로 100',
@@ -167,7 +167,7 @@ function MyPage() {
   const [menu, setMenu] = useState('orders');
 
   const user = {
-    name: '유영수',
+    name: '아무개',
     email: 'abcdefg@gmail.com',
     joinDate: '2026.07.15',
     grade: 'GOLD',

@@ -8,7 +8,7 @@ const QUICK_LINKS = [
   { label: '공지사항', href: '#' },
   { label: '자주 묻는 질문', href: '/faq' },
   { label: '배송·교환·환불', href: '#' },
-  { label: '이용약관', href: '#' },
+  { label: '이용약관', href: '/guide' },
   { label: '개인정보처리방침', href: '#' },
 ];
 

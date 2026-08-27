@@ -9,12 +9,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faMagnifyingGlass,
   faUser,
-  faUserPlus,
   faCartShopping,
   faGlobe,
   faChevronDown,
   faUserGear,
+  faBars,
+  faXmark,
 } from '@fortawesome/free-solid-svg-icons';
+
 
 const TEXT = {
   ja: {
@@ -47,10 +49,12 @@ const TEXT = {
   },
 };
 
+
+
 function Header() {
   const dispatch = useDispatch();
-  // const accessToken = useSelector((state) => state.auth.accessToken);
-  const accessToken = 'test-token';
+  const accessToken = useSelector((state) => state.auth.accessToken);
+  // const accessToken = 'test-token';
   const [lang, setLang] = useState('ko');
   const [keyword, setKeyword] = useState('');
   const [searchOpen, setSearchOpen] = useState(false);
@@ -65,6 +69,19 @@ function Header() {
   const [langOpen, setLangOpen] = useState(false);
   const langRef = useRef(null);
 
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  // 모바일 메뉴 열렸을 때 배경 스크롤 막기
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [menuOpen]);
   // 검색창이 열리면 자동으로 인풋에 포커스
   useEffect(() => {
     if (searchOpen && inputRef.current) {
@@ -140,12 +157,22 @@ function Header() {
       <header className="header">
         <div className="header_inner">
 
+          {/* 햄버거 (모바일 전용) */}
+          <button
+            className="hamburger_bt"
+            onClick={() => setMenuOpen(true)}
+            aria-label="menu"
+          >
+            <FontAwesomeIcon icon={faBars} />
+          </button>
+
           <div className="logo">
             <Link to="/">
               <img src={logo} alt="YoRiMiChi" />
             </Link>
           </div>
 
+          {/* PC 메뉴 */}
           <nav className="featurs">
             <Link to="/overseas" className="featurs_menu">{t.overseas}</Link>
             <Link to="/groupbuy" className="featurs_menu">{t.groupBuy}</Link>
@@ -154,7 +181,7 @@ function Header() {
             <Link to="/faq" className="featurs_menu">{t.faq}</Link>
           </nav>
 
-          {/* 검색 (접힘/펼침) */}
+          {/* 검색 */}
           <div className={`search_wrap ${searchOpen ? 'open' : ''}`} ref={searchRef}>
             <form className="search_box" onSubmit={handleSearch}>
               <input
@@ -211,14 +238,13 @@ function Header() {
               )}
             </div>
 
-
             {accessToken ? (
               <button className="icon_menu" onClick={handleLogout}>
                 <FontAwesomeIcon icon={faUser} />
                 <span>{t.logout}</span>
               </button>
             ) : (
-              <Link to="/login" className='login_bt'>
+              <Link to="/login" className="login_bt">
                 <span>{t.login}</span>
               </Link>
             )}
@@ -228,9 +254,8 @@ function Header() {
                 <FontAwesomeIcon icon={faUserGear} />
                 <span>{t.mypage}</span>
               </Link>
-
             ) : (
-              <Link to="/join" className='join_bt'>
+              <Link to="/join" className="join_bt">
                 <span>{t.join}</span>
               </Link>
             )}
@@ -245,12 +270,76 @@ function Header() {
               </button>
             )}
 
-
-
-
           </div>
         </div>
       </header>
+
+      {/* ===== 모바일 메뉴 ===== */}
+      <div
+        className={`mnav_overlay ${menuOpen ? 'open' : ''}`}
+        onClick={() => setMenuOpen(false)}
+      />
+
+      <aside className={`mnav ${menuOpen ? 'open' : ''}`}>
+        <div className="mnav_head">
+          <img src={logo} alt="YoRiMiChi" className="mnav_logo" />
+          <button
+            className="mnav_close"
+            onClick={() => setMenuOpen(false)}
+            aria-label="close"
+          >
+            <FontAwesomeIcon icon={faXmark} />
+          </button>
+        </div>
+
+        <nav className="mnav_list">
+          <Link to="/overseas" onClick={() => setMenuOpen(false)}>{t.overseas}</Link>
+          <Link to="/groupbuy" onClick={() => setMenuOpen(false)}>{t.groupBuy}</Link>
+          <Link to="/guide" onClick={() => setMenuOpen(false)}>{t.guide}</Link>
+          <Link to="/support" onClick={() => setMenuOpen(false)}>{t.support}</Link>
+          <Link to="/faq" onClick={() => setMenuOpen(false)}>{t.faq}</Link>
+        </nav>
+
+        <div className="mnav_foot">
+          {accessToken ? (
+            <>
+              <Link
+                to="/mypage"
+                className="mnav_bt mnav_bt_line"
+                onClick={() => setMenuOpen(false)}
+              >
+                {t.mypage}
+              </Link>
+              <button
+                className="mnav_bt mnav_bt_primary"
+                onClick={() => {
+                  handleLogout();
+                  setMenuOpen(false);
+                }}
+              >
+                {t.logout}
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/login"
+                className="mnav_bt mnav_bt_line"
+                onClick={() => setMenuOpen(false)}
+              >
+                {t.login}
+              </Link>
+              <Link
+                to="/join"
+                className="mnav_bt mnav_bt_primary"
+                onClick={() => setMenuOpen(false)}
+              >
+                {t.join}
+              </Link>
+            </>
+          )}
+        </div>
+      </aside>
 
       {/* 장바구니 사이드바 */}
       <CartDrawer

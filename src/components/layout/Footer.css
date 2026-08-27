@@ -349,47 +349,186 @@
 /* =========================
    반응형
 ========================= */
+
+/* 태블릿 가로 — 간격 축소 */
+@media (max-width: 1280px) {
+  .footer_inner {
+    padding: 48px 32px 28px;
+  }
+
+  .footer_top {
+    gap: 48px;
+    padding-bottom: 32px;
+  }
+
+  .footer_brand {
+    width: 230px;
+  }
+
+  .footer_links ul {
+    gap: 12px 24px;
+  }
+}
+
+/* 태블릿 — 바로가기를 아래로 */
 @media (max-width: 1100px) {
   .footer_top {
     flex-wrap: wrap;
-    gap: 40px;
+    gap: 36px 40px;
+  }
+
+  .footer_brand {
+    width: 240px;
+  }
+
+  .footer_cs {
+    margin-left: auto;
   }
 
   .footer_links {
     order: 3;
     flex-basis: 100%;
+    padding-top: 0;
   }
 
   .footer_links ul {
     grid-template-columns: repeat(3, auto);
+    justify-content: start;
   }
 }
 
-@media (max-width: 700px) {
-  .footer_inner {
-    padding: 48px 20px 24px;
-  }
-
-  .footer_totop {
-    right: 20px;
-  }
-
+/* 태블릿 세로 */
+@media (max-width: 860px) {
   .footer_top {
-    flex-direction: column;
-    gap: 28px;
+    gap: 32px;
   }
 
   .footer_brand,
   .footer_cs {
     width: 100%;
+    min-width: 0;
+  }
+
+  .footer_cs {
+    margin-left: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    padding: 20px 24px;
+  }
+
+  .footer_cs .footer_col_title {
+    margin: 0 0 6px;
+  }
+
+  .footer_cs_tel {
+    margin: 0;
+  }
+
+  .footer_cs_time {
+    text-align: right;
+  }
+}
+
+/* 모바일 */
+@media (max-width: 700px) {
+  .footer_inner {
+    padding: 44px 20px 22px;
+  }
+
+  .footer_totop {
+    top: -18px;
+    right: 20px;
+
+    width: 36px;
+    height: 36px;
+  }
+
+  .footer_top {
+    flex-direction: column;
+    gap: 28px;
+    padding-bottom: 28px;
+  }
+
+  .footer_logo {
+    height: 36px;
+  }
+
+  .footer_slogan {
+    margin-bottom: 20px;
+    font-size: 14px;
   }
 
   .footer_links ul {
-    grid-template-columns: repeat(2, auto);
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px 16px;
+  }
+
+  .footer_links a {
+    font-size: 13px;
+  }
+
+  .footer_cs {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .footer_cs_time {
+    text-align: left;
+  }
+
+  .footer_cs_tel {
+    font-size: 24px;
   }
 
   .footer_bizinfo_grid {
     grid-template-columns: 1fr;
+    gap: 9px;
+    padding: 14px 16px;
+  }
+
+  .footer_bizinfo_item {
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .footer_bizinfo_item dt {
+    font-size: 11px;
+  }
+}
+
+/* 작은 모바일 */
+@media (max-width: 420px) {
+  .footer_inner {
+    padding: 40px 16px 20px;
+  }
+
+  .footer_totop {
+    right: 16px;
+  }
+
+  .footer_links ul {
+    grid-template-columns: 1fr;
+    gap: 13px;
+  }
+
+  .footer_sns a {
+    width: 34px;
+    height: 34px;
+    font-size: 14px;
+  }
+
+  .footer_cs_tel {
+    font-size: 22px;
+  }
+
+  .footer_copy {
+    font-size: 11px;
+    line-height: 1.6;
   }
 }
 
@@ -397,7 +536,8 @@
   .footer_sns a,
   .footer_totop,
   .footer_chevron,
-  .footer_bizinfo_panel {
+  .footer_bizinfo_panel,
+  .footer_links a::after {
     transition: none;
   }
 }
