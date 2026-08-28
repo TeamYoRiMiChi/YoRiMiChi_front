@@ -1,5 +1,5 @@
 import '../../assets/styles/group_purchase.css';
-import heroImage from '../../assets/images/공동구매hero_여백.png';
+import heroImage from '../../assets/images/purchase_hero.png';
 
 function GroupPurchase() {
   return (
@@ -18,7 +18,7 @@ function GroupPurchase() {
 
 
       {/* =========================
-          나의 공동구매 현황
+          my_purchase_status
       ========================= */}
       <div className="group_purchase_my">
 
@@ -82,7 +82,7 @@ function GroupPurchase() {
 
 
       {/* =========================
-          검색 / 필터
+         search/filter
       ========================= */}
       <div className="group_purchase_search">
 
@@ -135,7 +135,7 @@ function GroupPurchase() {
 
 
       {/* =========================
-          상품 카드
+         product card
       ========================= */}
       <div className="products_container">
 
@@ -198,7 +198,7 @@ function GroupPurchase() {
 
 
 
-        {/* 상품 2 */}
+        {/* product2  */}
         <div className="products_box">
 
           <div className="product_image_box">
@@ -259,7 +259,7 @@ function GroupPurchase() {
 
 
 
-        {/* 상품 3 */}
+        {/* product3*/}
         <div className="products_box">
 
           <div className="product_image_box">
@@ -320,7 +320,7 @@ function GroupPurchase() {
 
 
 
-        {/* 상품 4 */}
+        {/* product4 */}
         <div className="products_box">
 
           <div className="product_image_box">
@@ -383,7 +383,7 @@ function GroupPurchase() {
 
 
       {/* =========================
-          더보기
+          see more
       ========================= */}
       <div className="my_purchase_more">
 
@@ -396,7 +396,7 @@ function GroupPurchase() {
 
 
       {/* =========================
-          공동구매 진행방법
+         purchase_footer_1
       ========================= */}
       <div className="purchase_footer_1">
 
@@ -481,12 +481,12 @@ function GroupPurchase() {
 
 
       {/* =========================
-          공동구매 장점
+          purchase_footer_2
       ========================= */}
       <div className="purchase_footer_2">
 
         <h2 className="footer_title">
-          J-Connectの共同購入が選ばれる理由
+          YOMIの共同購入が選ばれる理由
         </h2>
 
 
