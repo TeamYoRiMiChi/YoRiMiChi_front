@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../features/auth/authSlice';
-import logo from '../../assets/images/yomi_logo_jp.png';
+import { useTheme } from '../../hooks/useTheme';
 import './Header.css';
 import CartDrawer from './CartDrawer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -29,33 +29,36 @@ const TEXT = {
     logout: 'ログアウト',
     join: '会員登録',
     cart: 'カート',
-    currentLang: '日本語',     // ← 현재 선택된 언어 표시
+    currentLang: '日本語',
     mypage: 'マイページ',
     faq: 'FAQ',
   },
-  ko: {
-    overseas: '해외직구',
-    groupBuy: '공동구매',
-    guide: '이용안내',
-    support: '고객센터',
-    searchPlaceholder: '상품명, 키워드로 검색',
-    login: '로그인',
-    logout: '로그아웃',
-    join: '회원가입',
-    cart: '장바구니',
-    currentLang: '한국어',     // ← 현재 선택된 언어 표시
-    mypage: '마이페이지',
-    faq: 'FAQ',
-  },
+  // ko: {
+  //   overseas: '해외직구',
+  //   groupBuy: '공동구매',
+  //   guide: '이용안내',
+  //   support: '고객센터',
+  //   searchPlaceholder: '상품명, 키워드로 검색',
+  //   login: '로그인',
+  //   logout: '로그아웃',
+  //   join: '회원가입',
+  //   cart: '장바구니',
+  //   currentLang: '한국어',
+  //   mypage: '마이페이지',
+  //   faq: 'FAQ',
+  // },
 };
-
 
 
 function Header() {
   const dispatch = useDispatch();
   const accessToken = useSelector((state) => state.auth.accessToken);
-  // const accessToken = 'test-token';
-  const [lang, setLang] = useState('ko');
+  //  const accessToken = 'test-token';
+
+  // 현재 경로에 맞는 테마 (색상 + 로고)
+  const theme = useTheme();
+
+  const [lang, setLang] = useState('ja');
   const [keyword, setKeyword] = useState('');
   const [searchOpen, setSearchOpen] = useState(false);
 
@@ -82,6 +85,7 @@ function Header() {
       document.body.style.overflow = '';
     };
   }, [menuOpen]);
+
   // 검색창이 열리면 자동으로 인풋에 포커스
   useEffect(() => {
     if (searchOpen && inputRef.current) {
@@ -168,7 +172,7 @@ function Header() {
 
           <div className="logo">
             <Link to="/">
-              <img src={logo} alt="YoRiMiChi" />
+              <img src={theme.logo} alt="YoRiMiChi" />
             </Link>
           </div>
 
@@ -206,7 +210,7 @@ function Header() {
 
           <div className="member">
 
-            <div className="lang_wrap" ref={langRef}>
+            {/* <div className="lang_wrap" ref={langRef}>
               <button
                 className={`lang_bt ${langOpen ? 'open' : ''}`}
                 onClick={() => setLangOpen((prev) => !prev)}
@@ -236,7 +240,7 @@ function Header() {
                   </li>
                 </ul>
               )}
-            </div>
+            </div> */}
 
             {accessToken ? (
               <button className="icon_menu" onClick={handleLogout}>
@@ -282,7 +286,7 @@ function Header() {
 
       <aside className={`mnav ${menuOpen ? 'open' : ''}`}>
         <div className="mnav_head">
-          <img src={logo} alt="YoRiMiChi" className="mnav_logo" />
+          <img src={theme.logo} alt="YoRiMiChi" className="mnav_logo" />
           <button
             className="mnav_close"
             onClick={() => setMenuOpen(false)}

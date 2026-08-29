@@ -1,26 +1,26 @@
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram, faLine, faYoutube } from '@fortawesome/free-brands-svg-icons';
-import logo from '../../assets/images/yomi_logo_jp.png';
+import { useTheme } from '../../hooks/useTheme';
 import './Footer.css';
 
 const QUICK_LINKS = [
-  { label: '공지사항', href: '#' },
-  { label: '자주 묻는 질문', href: '/faq' },
-  { label: '배송·교환·환불', href: '#' },
-  { label: '이용약관', href: '/guide' },
-  { label: '개인정보처리방침', href: '#' },
+  { label: 'お知らせ', href: '#' },
+  { label: 'よくある質問', href: '/faq' },
+  { label: '配送・交換・返品', href: '#' },
+  { label: '利用規約', href: '/guide' },
+  { label: 'プライバシーポリシー', href: '#' },
 ];
 
 const BIZ_INFO = [
-  { label: '상호명', value: '(주)요리미치' },
-  { label: '대표자', value: '요리미치' },
-  { label: '사업자등록번호', value: '123-45-67890' },
-  { label: '통신판매업신고', value: '제 2026-대전유성-0000호' },
-  { label: '개인정보보호책임자', value: '요리미치' },
-  { label: '주소', value: '대전광역시 유성구 대학로 99, 3층 (궁동)' },
-  { label: '이메일', value: 'help@yorimichi.co.kr' },
-  { label: '호스팅 제공', value: '(주)요리미치' },
+  { label: '商号', value: '株式会社よりみち' },
+  { label: '代表者', value: 'よりみち' },
+  { label: '事業者登録番号', value: '123-45-67890' },
+  { label: '通信販売業申告', value: '第 2026-テジョン儒城-0000号' },
+  { label: '個人情報保護責任者', value: 'よりみち' },
+  { label: '所在地', value: '大田広域市 儒城区 大学路99, 3階（弓洞）' },
+  { label: 'メールアドレス', value: 'help@yorimichi.co.kr' },
+  { label: 'ホスティング提供', value: '株式会社よりみち' },
 ];
 
 const ChevronIcon = ({ className }) => (
@@ -44,6 +44,7 @@ const TopArrowIcon = () => (
 
 const Footer = () => {
   const [bizOpen, setBizOpen] = useState(false);
+  const theme = useTheme();
 
   const scrollToTop = () => {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -52,22 +53,27 @@ const Footer = () => {
 
   return (
     <footer className="footer">
-      <button type="button" className="footer_totop" onClick={scrollToTop} aria-label="맨 위로 이동">
+      <button
+        type="button"
+        className="footer_totop"
+        onClick={scrollToTop}
+        aria-label="ページ上部へ戻る"
+      >
         <TopArrowIcon />
       </button>
 
       <div className="footer_inner">
         <div className="footer_top">
-          {/* 브랜드 */}
+          {/* ブランド */}
           <div className="footer_col footer_brand">
             <div className="footer_brand_row">
-              <img src={logo} alt="YoRiMiChi" className="footer_logo" />
+              <img src={theme.logo} alt="YoRiMiChi" className="footer_logo" />
               <span className="footer_seal" aria-hidden="true">良</span>
             </div>
             <p className="footer_slogan">
-              일본의 좋은 것들을
+              日本のいいものを、
               <br />
-              더 쉽고 저렴하게
+              もっと手軽に、もっとお得に
             </p>
             <div className="footer_sns">
               <a href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram">
@@ -82,9 +88,9 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* 바로가기 */}
-          <nav className="footer_col footer_links" aria-label="고객지원 링크">
-            <h4 className="footer_col_title">바로가기</h4>
+          {/* ご案内 */}
+          <nav className="footer_col footer_links" aria-label="サポートリンク">
+            <h4 className="footer_col_title">ご案内</h4>
             <ul>
               {QUICK_LINKS.map((link) => (
                 <li key={link.label}>
@@ -94,21 +100,21 @@ const Footer = () => {
             </ul>
           </nav>
 
-          {/* 고객센터 */}
+          {/* カスタマーセンター */}
           <div className="footer_col footer_cs">
-            <h4 className="footer_col_title">고객센터</h4>
+            <h4 className="footer_col_title">カスタマーセンター</h4>
             <p className="footer_cs_tel">1588-0000</p>
             <p className="footer_cs_time">
-              평일 10:00 - 18:00
+              平日 10:00 - 18:00
               <br />
-              점심 12:30 - 13:30
+              昼休み 12:30 - 13:30
               <br />
-              주말·공휴일 휴무
+              土日・祝日休み
             </p>
           </div>
         </div>
 
-        {/* 사업자 정보 (아코디언) */}
+        {/* 事業者情報（アコーディオン） */}
         <div className="footer_bizinfo">
           <button
             type="button"
@@ -116,7 +122,7 @@ const Footer = () => {
             aria-expanded={bizOpen}
             onClick={() => setBizOpen((prev) => !prev)}
           >
-            사업자 정보
+            事業者情報
             <ChevronIcon className={`footer_chevron ${bizOpen ? 'is-open' : ''}`} />
           </button>
 
@@ -134,7 +140,7 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* 저작권 */}
+        {/* 著作権 */}
         <div className="footer_bottom">
           <p className="footer_copy">&copy; 2026 YoRiMiChi Inc. All rights reserved.</p>
         </div>

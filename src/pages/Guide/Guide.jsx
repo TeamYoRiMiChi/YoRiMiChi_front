@@ -20,135 +20,135 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import '../../assets/styles/Guide.css';
 
-/* 해외직구 이용 순서 */
+/* 海外直送のご利用の流れ */
 const DIRECT_STEPS = [
   {
     icon: faMagnifyingGlass,
-    title: '상품 검색',
-    desc: '원하는 일본 상품을 검색하거나 카테고리에서 찾아보세요.',
+    title: '商品検索',
+    desc: 'お探しの日本商品を検索するか、カテゴリーから探してみてください。',
   },
   {
     icon: faCartShopping,
-    title: '장바구니 담기',
-    desc: '수량을 선택하고 장바구니에 담아 한 번에 주문할 수 있어요.',
+    title: 'カートに入れる',
+    desc: '数量を選択してカートに入れ、まとめて注文できます。',
   },
   {
     icon: faCreditCard,
-    title: '주문 · 결제',
-    desc: '배송지와 개인통관고유부호를 입력하고 결제를 진행합니다.',
+    title: '注文・決済',
+    desc: 'お届け先と個人通関固有符号を入力して決済を進めます。',
   },
   {
     icon: faBoxOpen,
-    title: '검수 후 배송',
-    desc: '일본 현지에서 상품을 검수한 뒤 안전하게 포장해 발송합니다.',
+    title: '検品後に発送',
+    desc: '日本現地で商品を検品した後、安全に梱包して発送します。',
   },
 ];
 
-/* 공동구매 이용 순서 */
+/* 共同購入のご利用の流れ */
 const GROUP_STEPS = [
   {
     icon: faUsers,
-    title: '공동구매 찾기',
-    desc: '진행 중인 공동구매를 둘러보고 마음에 드는 상품을 고르세요.',
+    title: '共同購入を探す',
+    desc: '進行中の共同購入を見て、気に入った商品を選んでください。',
   },
   {
     icon: faHandshake,
-    title: '참여 신청',
-    desc: '수량을 정해 참여하면 목표 인원 달성까지 함께 기다립니다.',
+    title: '参加申し込み',
+    desc: '数量を決めて参加すると、目標人数の達成まで一緒に待ちます。',
   },
   {
     icon: faCheckDouble,
-    title: '목표 달성',
-    desc: '모집 인원이 채워지면 공동구매가 확정되고 주문이 진행돼요.',
+    title: '目標達成',
+    desc: '募集人数が満たされると共同購入が確定し、注文が進行します。',
   },
   {
     icon: faTruckFast,
-    title: '일괄 배송',
-    desc: '한 번에 묶어 배송하기 때문에 배송비를 크게 아낄 수 있어요.',
+    title: '一括配送',
+    desc: 'まとめて配送するため、送料を大幅に節約できます。',
   },
 ];
 
-/* 배송 단계 */
+/* 配送ステップ */
 const SHIPPING_STEPS = [
   {
     icon: faWarehouse,
-    title: '일본 현지 창고 입고',
-    desc: '주문한 상품이 일본 물류창고에 도착해 검수를 받습니다.',
-    days: '2~3일',
+    title: '日本現地倉庫へ入庫',
+    desc: 'ご注文の商品が日本の物流倉庫に到着し、検品を受けます。',
+    days: '2〜3日',
   },
   {
     icon: faPlaneUp,
-    title: '국제 배송',
-    desc: '검수와 포장을 마친 상품이 한국으로 출발합니다.',
-    days: '2~4일',
+    title: '国際配送',
+    desc: '検品と梱包を終えた商品が韓国へ向けて出発します。',
+    days: '2〜4日',
   },
   {
     icon: faFileShield,
-    title: '통관 진행',
-    desc: '세관에서 통관 절차가 진행됩니다. 개인통관고유부호가 필요해요.',
-    days: '1~2일',
+    title: '通関手続き',
+    desc: '税関で通関手続きが行われます。個人通関固有符号が必要です。',
+    days: '1〜2日',
   },
   {
     icon: faHouseChimney,
-    title: '국내 배송',
-    desc: '국내 택배사를 통해 입력하신 주소로 배송됩니다.',
-    days: '1~2일',
+    title: '国内配送',
+    desc: '国内の配送業者を通じて、ご入力いただいた住所へ配送されます。',
+    days: '1〜2日',
   },
 ];
 
-/* 유의사항 */
+/* 注意事項 */
 const NOTICES = [
   {
-    title: '개인통관고유부호는 필수예요',
-    desc: '해외직구 상품은 통관 시 개인통관고유부호가 반드시 필요합니다. 관세청 홈페이지에서 무료로 발급받을 수 있어요.',
+    title: '個人通関固有符号は必須です',
+    desc: '海外直送商品は通関時に個人通関固有符号が必ず必要です。関税庁のホームページから無料で発給を受けられます。',
   },
   {
-    title: '관세 · 부가세가 발생할 수 있어요',
-    desc: '목록통관 기준 금액을 초과하면 관세와 부가세가 부과됩니다. 주문 시 예상 금액을 미리 안내해 드려요.',
+    title: '関税・付加価値税が発生することがあります',
+    desc: '目録通関の基準金額を超えると、関税と付加価値税が課されます。注文時に概算金額を事前にご案内します。',
   },
   {
-    title: '환율에 따라 가격이 달라져요',
-    desc: '상품 가격은 엔화 기준이며, 주문 시점의 환율이 적용됩니다. 결제 전 최종 금액을 꼭 확인해 주세요.',
+    title: '為替レートによって価格が変わります',
+    desc: '商品価格は円建てで、注文時点の為替レートが適用されます。決済前に最終金額を必ずご確認ください。',
   },
   {
-    title: '공동구매는 목표 미달 시 자동 취소돼요',
-    desc: '모집 기간 내 목표 수량에 도달하지 못하면 공동구매가 취소되고 결제 금액은 전액 환불됩니다.',
+    title: '共同購入は目標未達の場合、自動キャンセルされます',
+    desc: '募集期間内に目標数量に達しない場合、共同購入はキャンセルされ、決済金額は全額返金されます。',
   },
 ];
 
-function Guide() {
+const Guide = () => {
   const [tab, setTab] = useState('direct');
   const steps = tab === 'direct' ? DIRECT_STEPS : GROUP_STEPS;
 
   return (
     <div className="guide">
 
-      {/* ===== 히어로 ===== */}
+      {/* ===== ヒーロー ===== */}
       <section className="guide_hero">
         <div className="guide_hero_inner">
           <span className="guide_hero_badge">GUIDE</span>
           <h1 className="guide_hero_title">
-            처음이어도 괜찮아요,<br />
-            <strong>이렇게만 하시면 돼요</strong>
+            初めてでも大丈夫です、<br />
+            <strong>こうするだけでOKです</strong>
           </h1>
           <p className="guide_hero_desc">
-            상품을 고르는 것부터 문 앞에 도착하기까지,<br />
-            요리미치가 전 과정을 함께합니다.
+            商品を選ぶことから玄関先に届くまで、<br />
+            ヨリミチが全過程を共にします。
           </p>
         </div>
       </section>
 
       <div className="guide_body">
 
-        {/* ===== 이용 순서 (탭) ===== */}
+        {/* ===== ご利用の流れ（タブ） ===== */}
         <section className="guide_section">
           <h2 className="guide_section_title">
             <span className="deco">✦</span>
-            이용 순서
+            ご利用の流れ
             <span className="deco">✦</span>
           </h2>
           <p className="guide_section_sub">
-            원하는 방식을 선택해서 순서를 확인해 보세요.
+            ご希望の方法を選んで、流れをご確認ください。
           </p>
 
           <div className="guide_tabs">
@@ -156,13 +156,13 @@ function Guide() {
               className={`guide_tab ${tab === 'direct' ? 'active' : ''}`}
               onClick={() => setTab('direct')}
             >
-              해외직구
+              海外直送
             </button>
             <button
               className={`guide_tab ${tab === 'group' ? 'active' : ''}`}
               onClick={() => setTab('group')}
             >
-              공동구매
+              共同購入
             </button>
           </div>
 
@@ -180,15 +180,15 @@ function Guide() {
           </ol>
         </section>
 
-        {/* ===== 배송 단계 ===== */}
+        {/* ===== 配送ステップ ===== */}
         <section className="guide_section">
           <h2 className="guide_section_title">
             <span className="deco">✦</span>
-            배송은 이렇게 진행돼요
+            配送はこのように進みます
             <span className="deco">✦</span>
           </h2>
           <p className="guide_section_sub">
-            결제 완료부터 수령까지 평균 <strong>7~10일</strong> 정도 걸려요.
+            決済完了から受け取りまで平均<strong>7〜10日</strong>ほどかかります。
           </p>
 
           <div className="ship_flow">
@@ -212,11 +212,11 @@ function Guide() {
           </div>
         </section>
 
-        {/* ===== 관세 안내 ===== */}
+        {/* ===== 関税案内 ===== */}
         <section className="guide_section">
           <h2 className="guide_section_title">
             <span className="deco">✦</span>
-            관세 · 통관 안내
+            関税・通関案内
             <span className="deco">✦</span>
           </h2>
 
@@ -224,12 +224,12 @@ function Guide() {
             <div className="customs_card">
               <div className="customs_head">
                 <FontAwesomeIcon icon={faCircleInfo} />
-                <h3>개인통관고유부호란?</h3>
+                <h3>個人通関固有符号とは？</h3>
               </div>
               <p>
-                해외직구 시 주민등록번호 대신 사용하는 13자리 번호예요.
-                개인정보 보호를 위해 관세청에서 발급하며, 한 번 발급받으면
-                계속 사용할 수 있습니다.
+                海外直送の際、住民登録番号の代わりに使用する13桁の番号です。
+                個人情報保護のため関税庁が発給しており、一度発給を受ければ
+                継続して使用できます。
               </p>
               <a
                 className="customs_link"
@@ -237,7 +237,7 @@ function Guide() {
                 target="_blank"
                 rel="noreferrer"
               >
-                관세청에서 발급받기
+                関税庁で発給を受ける
                 <FontAwesomeIcon icon={faArrowRight} />
               </a>
             </div>
@@ -245,34 +245,34 @@ function Guide() {
             <div className="customs_card">
               <div className="customs_head">
                 <FontAwesomeIcon icon={faFileShield} />
-                <h3>관세는 언제 붙나요?</h3>
+                <h3>関税はいつかかりますか？</h3>
               </div>
               <ul className="customs_list">
                 <li>
-                  <span className="tag tag_free">면세</span>
-                  물품가액 150달러 이하 (미국은 200달러)
+                  <span className="tag tag_free">免税</span>
+                  物品価額150ドル以下（アメリカは200ドル）
                 </li>
                 <li>
-                  <span className="tag tag_pay">과세</span>
-                  150달러 초과 시 관세 + 부가세 부과
+                  <span className="tag tag_pay">課税</span>
+                  150ドル超過時に関税＋付加価値税が賦課
                 </li>
                 <li>
-                  <span className="tag tag_warn">주의</span>
-                  식품 · 화장품 등은 별도 기준이 적용돼요
+                  <span className="tag tag_warn">注意</span>
+                  食品・化粧品などは別途基準が適用されます
                 </li>
               </ul>
               <p className="customs_note">
-                주문서에서 예상 관세를 미리 계산해 보여드립니다.
+                注文書で概算関税を事前に計算してお見せします。
               </p>
             </div>
           </div>
         </section>
 
-        {/* ===== 유의사항 ===== */}
+        {/* ===== 注意事項 ===== */}
         <section className="guide_section">
           <h2 className="guide_section_title">
             <span className="deco">✦</span>
-            꼭 확인해 주세요
+            必ずご確認ください
             <span className="deco">✦</span>
           </h2>
 
@@ -293,15 +293,15 @@ function Guide() {
 
         {/* ===== CTA ===== */}
         <section className="guide_cta">
-          <h2>아직 궁금한 점이 있으신가요?</h2>
-          <p>고객센터에서 자주 묻는 질문을 확인하거나 직접 문의해 주세요.</p>
+          <h2>まだ気になる点はありますか？</h2>
+          <p>カスタマーセンターでよくある質問をご確認いただくか、直接お問い合わせください。</p>
           <div className="guide_cta_btns">
             <Link to="/support" className="cta_bt cta_bt_primary">
-              고객센터 바로가기
+              カスタマーセンターへ
               <FontAwesomeIcon icon={faArrowRight} />
             </Link>
             <Link to="/overseas" className="cta_bt cta_bt_outline">
-              해외직구 시작하기
+              海外直送を始める
               <FontAwesomeIcon icon={faArrowRight} />
             </Link>
           </div>
@@ -310,6 +310,6 @@ function Guide() {
       </div>
     </div>
   );
-}
+};
 
 export default Guide;

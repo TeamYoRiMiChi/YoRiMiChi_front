@@ -28,14 +28,14 @@
   margin-left: calc(50% - 50vw);
   padding: 25px 0;
 
-  background-color: #f4f3ef;
+
   overflow: hidden;
 }
 
 .group_purchase_container .hero_image {
   display: block;
 
-  width: 55%;
+  width: 75%;
   max-width: 1200px;
   height: 350px;
 
@@ -726,4 +726,20 @@
   .group_purchase_container .footer_content::after {
     display: none;
   }
+
+.filter_btn {
+  border: 1px solid #ddd;
+  background-color: #fff;
+  color: #555;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.filter_btn.active {
+  background-color: #18a957;
+  border-color: #18a957;
+  color: #fff;
+}
+
+
 }
