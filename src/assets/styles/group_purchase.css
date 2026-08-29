@@ -726,4 +726,20 @@
   .group_purchase_container .footer_content::after {
     display: none;
   }
+
+.filter_btn {
+  border: 1px solid #ddd;
+  background-color: #fff;
+  color: #555;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.filter_btn.active {
+  background-color: #18a957;
+  border-color: #18a957;
+  color: #fff;
+}
+
+
 }
