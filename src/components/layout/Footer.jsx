@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram, faLine, faYoutube } from '@fortawesome/free-brands-svg-icons';
-import logo from '../../assets/images/yomi_logo_jp.png';
+import { useTheme } from '../../hooks/useTheme';   // ← 추가 (logo import는 삭제)
 import './Footer.css';
 
 const QUICK_LINKS = [
@@ -44,6 +44,7 @@ const TopArrowIcon = () => (
 
 const Footer = () => {
   const [bizOpen, setBizOpen] = useState(false);
+  const theme = useTheme();          // ← 추가
 
   const scrollToTop = () => {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -61,7 +62,7 @@ const Footer = () => {
           {/* 브랜드 */}
           <div className="footer_col footer_brand">
             <div className="footer_brand_row">
-              <img src={logo} alt="YoRiMiChi" className="footer_logo" />
+              <img src={theme.logo} alt="YoRiMiChi" className="footer_logo" />
               <span className="footer_seal" aria-hidden="true">良</span>
             </div>
             <p className="footer_slogan">

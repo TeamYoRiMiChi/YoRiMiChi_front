@@ -7,8 +7,8 @@
   --footer-ink: #2b2a28;
   --footer-muted: #8f8a83;
   --footer-line: #e7e3dc;
-  --footer-accent: #7554ef;
-  --footer-accent-soft: #efebff;
+  --footer-accent: var(--brand, #7554ef);          /* ← 수정 */
+  --footer-accent-soft: var(--brand-soft, #efebff); /* ← 수정 */
   --footer-seal: #b8503b;
 
   position: relative;
