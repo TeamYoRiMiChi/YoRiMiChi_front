@@ -104,21 +104,21 @@ function Overseas() {
         <div className="overseas-hero-content">
           <div className="overseas-hero-copy">
             <h1>
-              일본의 인기 상품을
-              <strong>빠르고 안전하게 직구하세요!</strong>
+              欲しかった日本の商品を、
+              <strong>もっと手軽に、安心に。</strong>
             </h1>
             <p>
-              よりみち가 정품만을 선별하여
-              <span>안전하고 빠르게 배송해드립니다.</span>
+              日本の人気商品を
+              <span>簡単・安全にお届けします。</span>
             </p>
           </div>
 
-          <ul className="overseas-hero-features" aria-label="해외 직구 서비스 특징">
-            <li><FontAwesomeIcon icon={faShieldHalved} /><span>100% 정품 보장</span></li>
-            <li><FontAwesomeIcon icon={faSuitcaseRolling} /><span>일본 현지 구매</span></li>
-            <li><FontAwesomeIcon icon={faWallet} /><span>안전한 결제</span></li>
-            <li><FontAwesomeIcon icon={faTruckFast} /><span>빠른 배송</span></li>
-            <li><FontAwesomeIcon icon={faClock} /><span>실시간 배송<br />조회</span></li>
+          <ul className="overseas-hero-features" aria-label="海外ショッピングの特徴">
+            <li><FontAwesomeIcon icon={faShieldHalved} /><span>100％正規品保証</span></li>
+            <li><FontAwesomeIcon icon={faSuitcaseRolling} /><span>日本現地で購入</span></li>
+            <li><FontAwesomeIcon icon={faWallet} /><span>安心・安全な決済</span></li>
+            <li><FontAwesomeIcon icon={faTruckFast} /><span>スピード配送</span></li>
+            <li><FontAwesomeIcon icon={faClock} /><span>リアルタイム<br />配送追跡</span></li>
           </ul>
         </div>
       </section>
