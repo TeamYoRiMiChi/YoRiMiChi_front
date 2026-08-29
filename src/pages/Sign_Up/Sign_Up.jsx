@@ -10,6 +10,8 @@ import {
   faPhone,
 } from "@fortawesome/free-solid-svg-icons";
 import SignupImage from "../../assets/images/Sign_Up/signup-image.png";
+import GoogleIcon from "../../assets/images/google_social_btn.png";
+import LineIcon from "../../assets/images/line_social_btn.png";
 
 function Sign_up() {
   return (
@@ -135,7 +137,7 @@ function Sign_up() {
               </div>
 
               <div className="agreement">
-                <input id="term-areement" type="checkbox" />
+                <input id="term-agreement" type="checkbox" />
                 <label htmlFor="term-agreement">
                   <a href="#terms">利用規約</a>および
                   <a href="#privacy">プライバシーポリシー</a>に同意します。
@@ -146,6 +148,27 @@ function Sign_up() {
                 会員登録
               </button>
             </form>
+
+            <div className="social-divider">
+              <span>または</span>
+            </div>
+
+            <div className="social-signup">
+              <button className="social-button google-button" type="button">
+                <img src={GoogleIcon} alt="" />
+                <span>Googleで登録</span>
+              </button>
+
+              <button className="social-button line-button" type="button">
+                <img src={LineIcon} alt="" />
+                <span>LINEで登録</span>
+              </button>
+            </div>
+
+            <p className="login-prompt">
+              すでに会員ですか？
+              <a href="#login">ログインはこちら</a>
+            </p>
           </section>
         </div>
       </main>
