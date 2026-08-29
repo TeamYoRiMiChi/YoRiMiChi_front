@@ -7,7 +7,7 @@ function Home() {
     <div>
       <h1>Home</h1>
       <button className="btn btn-primary mt-md" onClick={() => navigate('/login')}>
-        로그인
+        로그인 테스트
       </button>
     </div>
   );

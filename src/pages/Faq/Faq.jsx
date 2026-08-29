@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import faqVisual from '../../assets/images/yomi_faq_logo.png';
 import goSupport from '../../assets/images/goCustomer_Service.png';
+import { Link } from 'react-router-dom';
 
 
 const faqData = [
@@ -157,9 +158,7 @@ function Faq() {
                     </p>
             </div>
     </div>
-        <button type="button" className="faq_contact_button">
-            お問い合わせ➜
-        </button>
+       <Link to="/support" className="faq_contact_button"> お問い合わせ ➜</Link>
     </section>
 
     </div>

@@ -1,4 +1,228 @@
 .customer_service_page {
   width: 100%;
+  font-family: "Noto Sans JP", sans-serif;
   color: #111827;
+}
+.customer_service_hero {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  background-color: #f7f5ff;
+  padding: 50px 0;
+}
+
+
+/* 상단 */
+.customer_service_hero_inner {
+  max-width: 1250px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+.customer_service_hero_text h1 {
+  margin: 0 0 18px;
+  font-size: 42px;
+  font-weight: 700;
+  color: #17142f;
+}
+/* 제목 아래 설명 */
+.customer_service_hero_text p {
+  margin: 0 0 6px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #525269;
+}
+
+/*상단 이미지*/
+.customer_service_hero_inner {
+  max-width: 1250px;
+  margin: 0 auto;
+  padding: 0 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.customer_service_hero_text {
+  flex: 1;
+}
+
+.customer_service_hero_visual {
+  width: 430px;
+  flex-shrink: 0;
+}
+
+.customer_service_hero_visual img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+/*큰 부분*/
+.customer_service_contact {
+  max-width: 1200px;
+  margin: 36px auto 0;
+  padding: 28px 28px 36px;
+
+  background-color: #ffffff;
+  border: 1px solid #e6e4f2;
+  border-radius: 14px;
+}
+.customer_service_contact_header {
+  padding-left: 4px;
+}
+
+.customer_service_contact_header h2 {
+  margin: 0 0 10px;
+
+  font-size: 30px;
+  font-weight: 700;
+
+  color: #17142f;
+}
+
+.customer_service_contact_header p {
+  margin: 0;
+
+  font-size: 15px;
+  line-height: 1.7;
+
+  color: #62677a;
+}
+
+
+/* 문의 부분 */
+.customer_service_card {
+  min-height: 150px;
+  display: flex;
+  align-items: center;
+  padding: 24px 28px;
+  background-color: #ffffff;
+  border: 1px solid #e1e4ee;
+  border-radius: 12px;
+}
+
+
+/* 아이콘 */
+.customer_service_card_icon {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 22px;
+  border-radius: 50%;
+  background-color: #f1edff;
+  color: #7554ef;
+  font-size: 30px;
+  flex-shrink: 0;
+}
+
+
+/* 가운데 글*/
+.customer_service_card_text {
+  flex: 1;
+}
+
+.customer_service_card_text h3 {
+  margin: 0 0 10px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #17142f;
+}
+.customer_service_card_text p {
+  margin: 3px 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #697086;
+}
+/* 박스 화살표 */
+.customer_service_card_arrow {
+  margin-left: 20px;
+  font-size: 32px;
+  color: #343a55;
+}
+.customer_service_cards {
+  margin-top: 28px;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+/* 이용 가이드 배너 */
+.customer_service_notice {
+  margin-top: 32px;
+  margin-bottom: 40px;
+
+  padding: 22px 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+
+  background-color: #f7f5ff;
+  border: 1px solid #e3ddff;
+  border-radius: 12px;
+}
+
+.customer_service_notice_text h3 {
+  margin: 0 0 8px;
+
+  font-size: 19px;
+  font-weight: 700;
+
+  color: #17142f;
+}
+
+.customer_service_notice_text p {
+  margin: 0;
+
+  font-size: 14px;
+  line-height: 1.7;
+
+  color: #697086;
+}
+.customer_service_notice_button {
+  min-width: 180px;
+  height: 46px;
+  padding: 0 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: 9px;
+
+  background-color: #7554ef;
+  color: #ffffff;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  text-decoration: none;
+  cursor: pointer;
+}
+.customer_service_notice_button:hover {
+  background-color: #6243da;
+}
+.customer_service_notice_left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  flex: 1;
+}
+
+.customer_service_notice_image {
+  width: 110px;
+  flex-shrink: 0;
+}
+
+.customer_service_notice_image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
 }
