@@ -1,3 +1,14 @@
+/* =========================
+   테마 기본값
+   (useTheme 훅이 :root에 덮어씁니다)
+========================= */
+:root {
+  --brand: rgb(117, 84, 239);
+  --brand-dark: rgb(90, 63, 200);
+  --brand-light: #f5f2ff;
+  --brand-soft: #efebff;
+}
+
 body {
   font-family: "Noto Sans JP", sans-serif;
   margin: 0;
@@ -7,7 +18,7 @@ body {
    전체 헤더
 ========================= */
 .header {
-  position: relative; 
+  position: relative;
   width: 100%;
   height: 80px;
 
@@ -33,26 +44,29 @@ body {
 /* =========================
    로고
 ========================= */
-.logo { 
-  width: 240px; 
-  height: 73px; 
- 
-  display: flex; 
-  align-items: center; 
- 
-  padding-left: 30px; 
-  box-sizing: border-box; 
- 
-  flex-shrink: 0; 
-} 
- 
-.logo img { 
-  width: 100%; 
-  height: 100%; 
- 
-  object-fit: contain; 
-  display: block; 
-} 
+.logo {
+  width: 240px;
+  height: 73px;
+
+  display: flex;
+  align-items: center;
+
+  padding-left: 30px;
+  box-sizing: border-box;
+
+  flex-shrink: 0;
+}
+
+.logo img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+  display: block;
+
+  /* 테마 전환 시 부드럽게 */
+  transition: opacity 0.2s ease;
+}
 
 /* =========================
    가운데 메뉴
@@ -85,7 +99,7 @@ a.featurs_menu {
 }
 
 a.featurs_menu:hover {
-  color: rgb(117, 84, 239);
+  color: var(--brand);
 }
 
 /* 하단 밑줄 (활성 메뉴 표시용) */
@@ -98,7 +112,7 @@ a.featurs_menu::after {
   width: 100%;
   height: 3px;
 
-  background-color: rgb(117, 84, 239);
+  background-color: var(--brand);
 
   transform: scaleX(0);
   transition: transform 0.2s ease;
@@ -117,7 +131,7 @@ a.featurs_menu:hover::after {
 }
 
 .search_box {
-  width: 44px;              /* 닫힌 상태: 아이콘만 */
+  width: 44px;
   height: 44px;
 
   display: flex;
@@ -148,7 +162,7 @@ a.featurs_menu:hover::after {
 }
 
 .search_wrap.open .search_box:focus-within {
-  border-color: rgb(117, 84, 239);
+  border-color: var(--brand);
   background-color: #fff;
 }
 
@@ -199,7 +213,7 @@ a.featurs_menu:hover::after {
 }
 
 .search_bt:hover {
-  color: rgb(117, 84, 239);
+  color: var(--brand);
 }
 
 /* =========================
@@ -211,7 +225,6 @@ a.featurs_menu:hover::after {
   gap: 16px;
 
   flex-shrink: 0;
-
 }
 
 .icon_menu {
@@ -242,59 +255,65 @@ a.featurs_menu:hover::after {
 }
 
 .icon_menu:hover {
-  color: rgb(117, 84, 239);
+  color: var(--brand);
 }
-/* ================== */
-.login_bt { 
-  width: 70px; 
-  height: 40px; 
- 
-  display: flex; 
-  align-items: center;
 
-  justify-content: center;
- 
-  border: 1px solid rgb(117, 84, 239); 
-  border-radius: 9px; 
- 
-  background-color: white; 
-  color: rgb(90, 63, 200); 
- 
-  font-family: "Noto Sans JP", sans-serif; 
-  font-size: 15px; 
-  font-weight: 500; 
- 
-  cursor: pointer; 
-} 
- 
-.login_bt:hover { 
-  background-color: #f5f2ff; 
-} 
+/* =========================
+   로그인 버튼
+========================= */
+.login_bt {
+  width: 70px;
+  height: 40px;
 
-/* ================================ */
-.join_bt { 
-  width: 70px; 
-  height: 40px; 
- 
-  display: flex; 
+  display: flex;
   align-items: center;
   justify-content: center;
- 
-  border: 1px solid rgb(117, 84, 239); 
-  border-radius: 9px; 
- 
-  background-color: rgb(117, 84, 239); 
-  color: white; 
- 
-  font-family: "Noto Sans JP", sans-serif; 
-  font-size: 15px; 
-  font-weight: 400; 
- 
-  cursor: pointer; 
-} 
- 
-.join_bt:hover { 
-  background-color: rgb(98, 67, 218); 
+
+  border: 1px solid var(--brand);
+  border-radius: 9px;
+
+  background-color: white;
+  color: var(--brand-dark);
+
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.login_bt:hover {
+  background-color: var(--brand-light);
+}
+
+/* =========================
+   회원가입 버튼
+========================= */
+.join_bt {
+  width: 70px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid var(--brand);
+  border-radius: 9px;
+
+  background-color: var(--brand);
+  color: white;
+
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.join_bt:hover {
+  background-color: var(--brand-dark);
 }
 
 /* =========================
@@ -331,12 +350,12 @@ a.featurs_menu:hover::after {
 }
 
 .lang_bt:hover {
-  border-color: rgb(117, 84, 239);
-  background-color: #faf9ff;
+  border-color: var(--brand);
+  background-color: var(--brand-light);
 }
 
 .lang_bt.open {
-  border-color: rgb(117, 84, 239);
+  border-color: var(--brand);
 }
 
 .lang_globe {
@@ -408,11 +427,11 @@ a.featurs_menu:hover::after {
 }
 
 .lang_option:hover {
-  background-color: #f5f2ff;
+  background-color: var(--brand-light);
 }
 
 .lang_option.active {
-  color: rgb(117, 84, 239);
+  color: var(--brand);
   font-weight: 700;
 }
 
@@ -440,7 +459,7 @@ a.featurs_menu:hover::after {
   justify-content: center;
 
   border-radius: 999px;
-  background-color: rgb(117, 84, 239);
+  background-color: var(--brand);
   color: #fff;
 
   font-size: 11px;
@@ -448,6 +467,7 @@ a.featurs_menu:hover::after {
   line-height: 1;
 
   box-sizing: border-box;
+  transition: background-color 0.15s ease;
 }
 
 /* =========================
@@ -580,8 +600,8 @@ a.featurs_menu:hover::after {
 }
 
 .mnav_list a:hover {
-  background-color: #f7f5ff;
-  color: rgb(117, 84, 239);
+  background-color: var(--brand-light);
+  color: var(--brand);
 }
 
 .mnav_foot {
@@ -612,27 +632,27 @@ a.featurs_menu:hover::after {
   text-decoration: none;
 
   cursor: pointer;
-  transition: background-color 0.15s ease;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
 }
 
 .mnav_bt_line {
-  border: 1px solid rgb(117, 84, 239);
+  border: 1px solid var(--brand);
   background-color: #fff;
-  color: rgb(90, 63, 200);
+  color: var(--brand-dark);
 }
 
 .mnav_bt_line:hover {
-  background-color: #f5f2ff;
+  background-color: var(--brand-light);
 }
 
 .mnav_bt_primary {
-  border: 1px solid rgb(117, 84, 239);
-  background-color: rgb(117, 84, 239);
+  border: 1px solid var(--brand);
+  background-color: var(--brand);
   color: #fff;
 }
 
 .mnav_bt_primary:hover {
-  background-color: rgb(98, 67, 218);
+  background-color: var(--brand-dark);
 }
 
 /* =========================
@@ -688,7 +708,7 @@ a.featurs_menu:hover::after {
   }
 
   .lang_text {
-    display: none;      /* 지구본 아이콘만 남김 */
+    display: none;
   }
 
   .lang_bt {
@@ -716,7 +736,6 @@ a.featurs_menu:hover::after {
     gap: 6px;
   }
 
-  /* 아이콘 라벨 숨기고 아이콘만 */
   .icon_menu span {
     display: none;
   }
@@ -755,7 +774,6 @@ a.featurs_menu:hover::after {
     font-size: 17px;
   }
 
-  /* 검색창 열리면 전체 폭 사용 */
   .search_wrap.open {
     position: absolute;
     left: 14px;
