@@ -1,5 +1,6 @@
 import '../../assets/styles/group_purchase.css';
-import heroImage from '../../assets/images/purchase_hero.png';
+import heroImage from '../../assets/images/purchase_hero_v2.png';
+import heroImage2 from '../../assets/images/purchase_background2.png';
 
 function GroupPurchase() {
   return (
@@ -11,7 +12,7 @@ function GroupPurchase() {
       <div className="hero_box">
         <img
           className="hero_image"
-          src={heroImage}
+          src={heroImage2}
           alt="共同購入"
         />
       </div>

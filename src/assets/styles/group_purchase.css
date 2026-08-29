@@ -28,14 +28,14 @@
   margin-left: calc(50% - 50vw);
   padding: 25px 0;
 
-  background-color: #f4f3ef;
+
   overflow: hidden;
 }
 
 .group_purchase_container .hero_image {
   display: block;
 
-  width: 55%;
+  width: 75%;
   max-width: 1200px;
   height: 350px;
 
