@@ -53,8 +53,8 @@ const TEXT = {
 
 function Header() {
   const dispatch = useDispatch();
-  const accessToken = useSelector((state) => state.auth.accessToken);
-  // const accessToken = 'test-token';
+  //const accessToken = useSelector((state) => state.auth.accessToken);
+  const accessToken = 'test-token';
   const [lang, setLang] = useState('ko');
   const [keyword, setKeyword] = useState('');
   const [searchOpen, setSearchOpen] = useState(false);
