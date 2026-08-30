@@ -32,6 +32,16 @@ export const THEMES = {
       brandSoft: '#e0efe5',
     },
   },
+  '/faq': {
+    key: 'groupbuy',
+    logo: logoGreen,
+    colors: {
+      brand: '#0c5c27',
+      brandDark: '#083f1a',
+      brandLight: '#f971f4',
+      brandSoft: '#e0efe5',
+    },
+  },
 
   // 나중에 색상 바꿀 카테고리는 아래 형식으로 추가하면 됨.
   //
