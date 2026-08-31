@@ -1,0 +1,135 @@
+/* ========================================
+  my purchase status
+======================================== */
+
+.group_purchase_container .group_purchase_my {
+  width: 94%;
+  max-width: 1440px;
+
+  margin: 28px auto;
+  padding: 24px;
+
+  background-color: white;
+
+  border: 1px solid #e2e6e3;
+  border-radius: 14px;
+
+  box-shadow: 0 5px 18px rgba(28, 52, 35, 0.05);
+}
+
+.group_purchase_container .purchase_my_title_box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 20px;
+}
+
+.group_purchase_container .purchase_my_title_box h4 {
+  margin: 0;
+
+  color: #181b19;
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.group_purchase_container .purchase_my_title_box h4::before {
+  content: "☷";
+
+  margin-right: 10px;
+
+  color: #1f7a3a;
+  font-size: 26px;
+}
+
+.group_purchase_container .detail_btn {
+  padding: 5px;
+
+  color: #1f7a3a;
+  font-weight: 700;
+
+  background: none;
+  border: none;
+
+  cursor: pointer;
+}
+
+.group_purchase_container .detail_btn::after {
+  content: "›";
+
+  margin-left: 10px;
+  font-size: 21px;
+}
+
+
+/* status card list */
+
+.group_purchase_container .my_purchase_list {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+
+  gap: 18px;
+}
+
+.group_purchase_container .my_purchase_1 {
+  min-height: 110px;
+  padding: 16px;
+
+  background-color: white;
+
+  border: 1px solid #e2e6e3;
+  border-radius: 11px;
+}
+
+.group_purchase_container .status_item {
+  display: grid;
+  grid-template-columns: 45px 1fr;
+  grid-template-rows: 1fr 1fr;
+
+  align-items: center;
+
+  height: 100%;
+}
+
+.group_purchase_container .status_icon {
+  grid-row: 1 / 3;
+
+  font-size: 25px;
+  text-align: center;
+}
+
+.group_purchase_container .status_title {
+  align-self: end;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.group_purchase_container .status_item strong {
+  align-self: start;
+
+  font-size: 28px;
+}
+
+
+/* status icons color */
+
+.group_purchase_container .my_purchase_1:nth-child(1) .status_icon {
+  color: #1f7a3a;
+}
+
+.group_purchase_container .my_purchase_1:nth-child(2) .status_icon {
+  color: #ff7900;
+}
+
+.group_purchase_container .my_purchase_1:nth-child(3) .status_icon {
+  color: #1670ef;
+}
+
+.group_purchase_container .my_purchase_1:nth-child(4) .status_icon {
+  color: #7048ff;
+}
+
+.group_purchase_container .my_purchase_1:nth-child(5) .status_icon {
+  color: #303633;
+}
