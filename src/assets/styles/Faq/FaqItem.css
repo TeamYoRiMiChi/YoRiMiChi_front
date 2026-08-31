@@ -1,0 +1,103 @@
+.faq_answer {
+  display: grid;
+  /* 닫힌 상태*/
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease;
+}
+/* 열렸을 때 */
+.faq_answer.open {
+  grid-template-rows: 1fr;
+}
+/* 답변 내용 */
+.faq_answer_inner {
+  overflow: hidden;
+
+  min-height: 0;
+}
+/* 답변쪽  글씨 */
+/* 답변 내용 전체 */
+.faq_answer_content {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+
+  padding: 20px 22px;
+
+  background-color: #f8faf9;
+}
+
+.faq_a {
+  flex-shrink: 0;
+
+  color: #7554ef;
+
+  font-size: 18px;
+  font-weight: 700;
+}
+/* 답변 글 */
+.faq_answer_inner p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.8;
+  color: #3f4858;
+}
+
+.faq_item {
+  border: 1px solid #e3e7ef;
+  border-radius: 12px;
+  background-color: #ffffff;
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+
+
+/* 질문 줄 */
+.faq_question {
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 0 22px;
+  gap: 14px;
+  
+}
+.faq_q {
+  color: #16803d;
+
+  font-size: 18px;
+  font-weight: 700;
+
+  flex-shrink: 0;
+}
+
+
+/* 질문 글 */
+.faq_question_text {
+  flex: 1;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  color: #1f2937;
+}
+
+
+/* 오른쪽 + / - 버튼 */
+.faq_toggle {
+  width: 36px;
+  height: 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  color: #7554ef;
+
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.faq_toggle:hover {
+  background-color: #f3f0ff;
+}

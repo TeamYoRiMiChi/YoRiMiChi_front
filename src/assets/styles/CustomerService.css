@@ -6,10 +6,12 @@
   color: #111827;
 }
 .customer_service_hero {
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
-  background-color: #f7f5ff;
+  width: 100%;
   padding: 50px 0;
+
+  background-color: #f7f5ff;
+  box-shadow: 0 0 0 100vmax #f7f5ff;
+  clip-path: inset(0 -100vmax);
 }
 
 
@@ -91,58 +93,6 @@
   color: #62677a;
 }
 
-
-/* 문의 부분 */
-.customer_service_card {
-  min-height: 150px;
-  display: flex;
-  align-items: center;
-  padding: 24px 28px;
-  background-color: #ffffff;
-  border: 1px solid #e1e4ee;
-  border-radius: 12px;
-}
-
-
-/* 아이콘 */
-.customer_service_card_icon {
-  width: 64px;
-  height: 64px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 22px;
-  border-radius: 50%;
-  background-color: #f1edff;
-  color: #7554ef;
-  font-size: 30px;
-  flex-shrink: 0;
-}
-
-
-/* 가운데 글*/
-.customer_service_card_text {
-  flex: 1;
-}
-
-.customer_service_card_text h3 {
-  margin: 0 0 10px;
-  font-size: 18px;
-  font-weight: 700;
-  color: #17142f;
-}
-.customer_service_card_text p {
-  margin: 3px 0;
-  font-size: 14px;
-  line-height: 1.6;
-  color: #697086;
-}
-/* 박스 화살표 */
-.customer_service_card_arrow {
-  margin-left: 20px;
-  font-size: 32px;
-  color: #343a55;
-}
 .customer_service_cards {
   margin-top: 28px;
 

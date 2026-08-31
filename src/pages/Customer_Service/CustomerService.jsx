@@ -1,10 +1,9 @@
 import '../../assets/styles/CustomerService.css';
 import supportImg from '../../assets/images/support_img.png';
 import guideCat from '../../assets/images/guideCat.png';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faComments, faPhone, faCircleQuestion } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-
+import CustomerServiceCard from '../../components/CustomerService_components/CustomerServiceCard';
 
 
 function CustomerService() {
@@ -45,74 +44,38 @@ function CustomerService() {
             </p>
         </div>
         <div className="customer_service_cards">
-        <div className="customer_service_card">
-            {/* 이메일 */}
-            <div className="customer_service_card_icon">
-                <FontAwesomeIcon icon={faEnvelope} />
-            </div>
-
-            <div className="customer_service_card_text">
-                <h3>メールでのお問い合わせ</h3>
-                    <p>24時間いつでもご利用いただけます。</p>
-                    <p>通常、1〜3営業日以内にご返信いたします。</p>
-            </div>
-
-            <div className="customer_service_card_arrow">
-                ›
-            </div>
-
-        </div>
+        {/* 메일 문의 */}
+        <CustomerServiceCard
+            icon={faEnvelope}
+            title="メールでのお問い合わせ"
+            description="24時間いつでもご利用いただけます。"
+            subDescription="通常、1〜3営業日以内にご返信いたします。"
+        />
         
-        <div className="customer_service_card">
-            {/* 말풍성 */}
-            <div className="customer_service_card_icon">
-                <FontAwesomeIcon icon={faComments} />
-            </div>
+        {/* 채팅 문의 */}
+        <CustomerServiceCard
+        icon={faComments}
+        title="チャットでのお問い合わせ"
+        description="チャットでお気軽にご相談いただけます。"
+        subDescription="受付時間内にスタッフが対応いたします。"
+        />
 
-            <div className="customer_service_card_text">
-                <h3>チャットでのお問い合わせ</h3>
-                    <p>チャットでお気軽にご相談いただけます。</p>
-                    <p>受付時間内にスタッフが対応いたします。</p>
-            </div>
+       {/* 전화 문의 */}
+        <CustomerServiceCard
+        icon={faPhone}
+        title="電話でのお問い合わせ"
+        description="お電話で直接ご相談いただけます。"
+        subDescription="受付時間内にスタッフが対応いたします。"
+        />
 
-            <div className="customer_service_card_arrow">
-                ›
-            </div>
-
-        </div>
-
-        <div className="customer_service_card">
-            <div className="customer_service_card_icon">
-                <FontAwesomeIcon icon={faPhone} />
-            </div>
-
-            <div className="customer_service_card_text">
-                <h3>電話でのお問い合わせ</h3>
-                    <p>お電話で直接ご相談いただけます。</p>
-                    <p>受付時間内にスタッフが対応いたします。</p>
-            </div>
-
-            <div className="customer_service_card_arrow">
-                ›
-            </div>
-        </div>
-
-        <Link to="/faq" className="customer_service_card customer_service_card_link">
-            {/* FAQ */}
-            <div className="customer_service_card_icon">
-             <FontAwesomeIcon icon={faCircleQuestion} />
-            </div>
-
-            <div className="customer_service_card_text">
-                <h3>よくあるご質問（FAQ）</h3>
-                    <p>よくあるご質問と回答をご確認いただけます。</p>
-                    <p>お問い合わせの前にぜひご確認ください。</p>
-            </div>
-
-            <div className="customer_service_card_arrow">
-                ›
-            </div>
-        </Link>
+        {/* FAQ */}
+        <CustomerServiceCard
+        icon={faCircleQuestion}
+        title="よくあるご質問（FAQ）"
+        description="よくあるご質問と回答をご確認いただけます。"
+        subDescription="お問い合わせの前にぜひご確認ください。"
+        to="/faq"
+        />
     </div>
     {/* 이용 가이드 안내 */}
     <div className="customer_service_notice">

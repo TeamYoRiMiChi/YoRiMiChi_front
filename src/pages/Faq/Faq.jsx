@@ -5,6 +5,7 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import faqVisual from '../../assets/images/yomi_faq_logo.png';
 import goSupport from '../../assets/images/goCustomer_Service.png';
 import { Link } from 'react-router-dom';
+import FaqItem from '../../components/Faq_components/FaqItem';
 
 
 const faqData = [
@@ -102,47 +103,21 @@ function Faq() {
     {/* FAQ 질문 목록 */}
     <section className="faq_list">
 
-    {filteredFaqData.map((faq, index) => (
-
-        <div className="faq_item" key={index}>
-
-        {/* 질문 */}
-            <div className="faq_question">
-
-                <span className="faq_q">Q.</span>
-
-                    <span className="faq_question_text">
-                    {faq.question}
-                    </span>
-
-                        <button type="button" className="faq_toggle" onClick={() => {
-                            setOpenIndexes((prev) =>
-                                prev.includes(index)
-                                ? prev.filter((item) => item !== index)
-                                : [...prev, index]
-                                );
-                            }}>
-                        {openIndexes.includes(index) ? '−' : '+'}
-                        </button>
-            </div>
-
-
-                {/* 답변 */}
-               <div className={`faq_answer ${openIndexes.includes(index) ? 'open' : ''}`}>
-                    <div className="faq_answer_inner">
-
-                        <div className="faq_answer_content">
-                            <span className="faq_a">A.</span>
-                                <p>{faq.answer}</p>
-
-                        </div>
-
-                    </div>
-                </div>
-
-         </div>
-
-            ))}
+        {filteredFaqData.map((faq, index) => (
+        <FaqItem
+            key={index}
+            question={faq.question}
+            answer={faq.answer}
+            isOpen={openIndexes.includes(index)}
+            onToggle={() => {
+            setOpenIndexes((prev) =>
+                prev.includes(index)
+                ? prev.filter((item) => item !== index)
+                : [...prev, index]
+            );
+            }}
+        />
+        ))}
     </section>
     {/* 문의 */}
     <section className="faq_contact">
