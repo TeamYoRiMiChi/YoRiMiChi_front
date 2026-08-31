@@ -14,6 +14,7 @@
 
   font-family: "Noto Sans JP", sans-serif;
   color: var(--mp-text);
+  width: 100vw;
 }
 
 /* =========================

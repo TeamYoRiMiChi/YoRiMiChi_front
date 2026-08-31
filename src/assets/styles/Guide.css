@@ -14,16 +14,19 @@
 
   font-family: "Noto Sans JP", sans-serif;
   color: var(--gd-text);
+
+  justify-items: center;
 }
 
 /* =========================
    히어로
 ========================= */
 .guide_hero {
-  width: 100%;
+  width: 100vw;
   padding: 72px 40px 64px;
-
+  
   background: linear-gradient(180deg, #f4f1ff 0%, #faf9ff 60%, #fff 100%);
+  /* background-color: #f4f1ff; */
 
   box-sizing: border-box;
 }
