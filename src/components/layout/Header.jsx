@@ -52,8 +52,8 @@ const TEXT = {
 
 function Header() {
   const dispatch = useDispatch();
-  const accessToken = useSelector((state) => state.auth.accessToken);
-  //  const accessToken = 'test-token';
+  //const accessToken = useSelector((state) => state.auth.accessToken);
+  const accessToken = 'test-token';
 
   // 현재 경로에 맞는 테마 (색상 + 로고)
   const theme = useTheme();
