@@ -3,8 +3,8 @@ import { login } from "../../api/userApi";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
-import AuthLayout from "../../components/auth/AuthLayout";
-import SocialAuthButtons from "../../components/auth/SocialAuthButtons";
+import AuthLayout from "../../components/Auth/AuthLayout";
+import SocialAuthButtons from "../../components/Auth/SocialAuthButtons";
 import "../../assets/styles/Login.css";
 
 function Login() {
