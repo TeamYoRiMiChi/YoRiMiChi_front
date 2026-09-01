@@ -1,9 +1,9 @@
-.signup-main {
+.auth-main {
   min-height: 900px;
   padding: 40px 24px 80px;
   background: #f5f4ff;
 }
-.signup-card {
+.auth-card {
   display: grid;
   grid-template-columns: 1fr 1.25fr;
   max-width: 1200px;
