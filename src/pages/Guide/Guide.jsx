@@ -15,10 +15,12 @@ import {
   faFileShield,
   faHouseChimney,
   faCircleInfo,
-  faTriangleExclamation,
   faArrowRight,
 } from '@fortawesome/free-solid-svg-icons';
 import '../../assets/styles/Guide.css';
+import GuideStepCard from '../../components/Guide_components/GuideStepCard';
+import ShippingStepCard from '../../components/Guide_components/ShippingStepCard';
+import GuideNoticeItem from '../../components/Guide_components/GuideNoticeItem';
 
 /* 海外直送のご利用の流れ */
 const DIRECT_STEPS = [
@@ -167,15 +169,14 @@ const Guide = () => {
           </div>
 
           <ol className="step_list">
-            {steps.map((step, i) => (
-              <li className="step_card" key={step.title}>
-                <span className="step_num">STEP {i + 1}</span>
-                <div className="step_icon">
-                  <FontAwesomeIcon icon={step.icon} />
-                </div>
-                <h3 className="step_title">{step.title}</h3>
-                <p className="step_desc">{step.desc}</p>
-              </li>
+            {steps.map((step, index) => (
+              <GuideStepCard
+                key={step.title}
+                icon={step.icon}
+                title={step.title}
+                description={step.desc}
+                stepNumber={index + 1}
+              />
             ))}
           </ol>
         </section>
@@ -191,24 +192,17 @@ const Guide = () => {
             決済完了から受け取りまで平均<strong>7〜10日</strong>ほどかかります。
           </p>
 
-          <div className="ship_flow">
-            {SHIPPING_STEPS.map((s, i) => (
-              <div className="ship_item" key={s.title}>
-                <div className="ship_card">
-                  <div className="ship_icon">
-                    <FontAwesomeIcon icon={s.icon} />
-                  </div>
-                  <span className="ship_days">{s.days}</span>
-                  <h3 className="ship_title">{s.title}</h3>
-                  <p className="ship_desc">{s.desc}</p>
-                </div>
-                {i < SHIPPING_STEPS.length - 1 && (
-                  <div className="ship_arrow">
-                    <FontAwesomeIcon icon={faArrowRight} />
-                  </div>
-                )}
-              </div>
-            ))}
+            <div className="ship_flow">
+              {SHIPPING_STEPS.map((step, index) => (
+                <ShippingStepCard
+                  key={step.title}
+                  icon={step.icon}
+                  title={step.title}
+                  description={step.desc}
+                  days={step.days}
+                  showArrow={index < SHIPPING_STEPS.length - 1}
+                />
+              ))}
           </div>
         </section>
 
@@ -277,16 +271,12 @@ const Guide = () => {
           </h2>
 
           <ul className="notice_list">
-            {NOTICES.map((n) => (
-              <li className="notice_item" key={n.title}>
-                <div className="notice_icon">
-                  <FontAwesomeIcon icon={faTriangleExclamation} />
-                </div>
-                <div className="notice_text">
-                  <h3>{n.title}</h3>
-                  <p>{n.desc}</p>
-                </div>
-              </li>
+            {NOTICES.map((notice) => (
+              <GuideNoticeItem
+                key={notice.title}
+                title={notice.title}
+                description={notice.desc}
+              />
             ))}
           </ul>
         </section>
