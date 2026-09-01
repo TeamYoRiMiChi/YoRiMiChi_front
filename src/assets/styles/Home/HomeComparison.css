@@ -1,0 +1,155 @@
+.home_comparison {
+    background-color: #fafaff;
+}
+
+/* comparison */
+.home_comparison_list {
+    position: relative;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 34px;
+
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.home_comparison_card {
+    min-height: 380px;
+    padding: 36px;
+
+    border: 1px solid #e8e5f3;
+    border-radius: 20px;
+    background-color: #ffffff;
+
+    box-shadow: 0 10px 30px rgba(38, 31, 78, 0.06);
+}
+
+.home_comparison_card_overseas {
+    border-color: #dcd5ff;
+}
+
+.home_comparison_card_group {
+    border-color: #ffd8e1;
+}
+
+.home_comparison_icon {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    font-size: 30px;
+}
+
+.home_comparison_icon_overseas {
+    background-color: #eeeaff;
+    color: #6752df;
+}
+
+.home_comparison_icon_group {
+    background-color: #fff0f4;
+    color: #e45f83;
+}
+
+.home_comparison_card_title {
+    margin-bottom: 10px;
+
+    font-size: 22px;
+    text-align: center;
+    color: #202038;
+}
+
+.home_comparison_description {
+    min-height: 52px;
+    margin-bottom: 26px;
+
+    font-size: 15px;
+    line-height: 1.7;
+    text-align: center;
+    color: #686579;
+}
+
+.home_comparison_points {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.home_comparison_points li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+
+    font-size: 15px;
+    line-height: 1.6;
+    color: #444154;
+}
+
+.home_comparison_check {
+    margin-top: 5px;
+    flex-shrink: 0;
+
+    font-size: 14px;
+    color: #6752df;
+}
+
+.home_comparison_card_group .home_comparison_check {
+    color: #e45f83;
+}
+
+.home_comparison_vs {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    width: 54px;
+    height: 54px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #e5e1f1;
+    border-radius: 50%;
+    background-color: #ffffff;
+
+    font-size: 15px;
+    font-weight: 800;
+    color: #312e45;
+
+    box-shadow: 0 6px 18px rgba(38, 31, 78, 0.1);
+
+    transform: translate(-50%, -50%);
+}
+/* mobile */
+@media (max-width: 768px) {
+    .home_comparison_list {
+        grid-template-columns: 1fr;
+        gap: 50px;
+    }
+
+    .home_comparison_card {
+        min-height: auto;
+        padding: 30px 24px;
+    }
+
+    .home_comparison_vs {
+        top: 50%;
+        left: 50%;
+    }
+
+    .home_comparison_description {
+        min-height: auto;
+    }
+}
+/* smaller mobile */
+@media (max-width: 480px) {
+    .home_comparison_card {
+        padding: 28px 20px;
+    }
+}

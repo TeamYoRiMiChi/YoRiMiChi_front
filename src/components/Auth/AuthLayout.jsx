@@ -3,8 +3,8 @@ import "../../assets/styles/Auth.css";
 
 function AuthLayout({ children, description, showMembershipBenefit = true }) {
   return (
-    <main className="signup-main">
-      <div className="signup-card">
+    <main className="auth-main">
+      <div className="auth-card">
         <AuthIntro
           description={description}
           showMembershipBenefit={showMembershipBenefit}

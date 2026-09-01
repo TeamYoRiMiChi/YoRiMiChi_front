@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons';
+import '../../assets/styles/Overseas/components/ProductToolbar.css';
 
 /**
  * 상품 목록 상단 툴바 (제목 + 정렬탭 + 검색)

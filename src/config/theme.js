@@ -28,7 +28,7 @@ export const THEMES = {
     colors: {
       brand: '#0c5c27',
       brandDark: '#083f1a',
-      brandLight: '#f971f4',
+      brandLight: '#F2FFF7',
       brandSoft: '#e0efe5',
     },
   },
@@ -38,7 +38,7 @@ export const THEMES = {
     colors: {
       brand: '#0c5c27',
       brandDark: '#083f1a',
-      brandLight: '#f971f4',
+      brandLight: '#F2FFF7',
       brandSoft: '#e0efe5',
     },
   },

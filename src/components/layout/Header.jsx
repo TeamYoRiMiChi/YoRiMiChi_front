@@ -52,8 +52,8 @@ const TEXT = {
 
 function Header() {
   const dispatch = useDispatch();
-  //const accessToken = useSelector((state) => state.auth.accessToken);
-  const accessToken = 'test-token';
+  const accessToken = useSelector((state) => state.auth.accessToken);
+  // const accessToken = 'test-token';
 
   // 현재 경로에 맞는 테마 (색상 + 로고)
   const theme = useTheme();
@@ -181,8 +181,8 @@ function Header() {
             <Link to="/overseas" className="featurs_menu">{t.overseas}</Link>
             <Link to="/groupbuy" className="featurs_menu">{t.groupBuy}</Link>
             <Link to="/guide" className="featurs_menu">{t.guide}</Link>
-            <Link to="/support" className="featurs_menu">{t.support}</Link>
             <Link to="/faq" className="featurs_menu">{t.faq}</Link>
+            <Link to="/support" className="featurs_menu">{t.support}</Link>
           </nav>
 
           {/* 검색 */}
@@ -259,7 +259,7 @@ function Header() {
                 <span>{t.mypage}</span>
               </Link>
             ) : (
-              <Link to="/join" className="join_bt">
+              <Link to="/signup" className="join_bt">
                 <span>{t.join}</span>
               </Link>
             )}

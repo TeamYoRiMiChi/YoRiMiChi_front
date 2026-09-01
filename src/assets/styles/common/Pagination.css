@@ -1,0 +1,120 @@
+/* =========================
+   공통 페이지네이션
+
+   색상은 전역 테마 변수(--brand 등)를 따라갑니다.
+   해외직구 페이지가 아닌 곳에서도 그대로 동작하도록
+   fallback 값을 함께 지정했습니다.
+========================= */
+.pagination-wrap {
+  --pg-brand: var(--brand, #5558e9);
+  --pg-line: var(--ov-line, #e7e9f2);
+  --pg-ink: var(--ov-ink, #11152f);
+  --pg-muted: var(--ov-muted, #71768c);
+  --pg-disabled: #c9cdda;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+
+  margin-top: 40px;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.page-numbers {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.page-numbers button,
+.page-arrow {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+
+  border: 1px solid var(--pg-line);
+  border-radius: 9px;
+  background: #fff;
+  color: var(--pg-ink);
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+  place-items: center;
+  transition: all 0.15s;
+}
+
+.page-numbers button:hover:not(.active),
+.page-arrow:hover:not(:disabled) {
+  border-color: var(--pg-brand);
+  color: var(--pg-brand);
+}
+
+.page-numbers button.active {
+  border-color: var(--pg-brand);
+  background: var(--pg-brand);
+  color: #fff;
+}
+
+.page-arrow {
+  font-size: 12px;
+}
+
+.page-arrow:disabled {
+  color: var(--pg-disabled);
+  cursor: not-allowed;
+}
+
+/* 생략 표시 (…) */
+.page-ellipsis {
+  display: grid;
+  width: 28px;
+  height: 38px;
+
+  color: var(--pg-muted);
+  font-size: 15px;
+  letter-spacing: 1px;
+
+  place-items: center;
+  user-select: none;
+}
+
+/* 하단 요약 (예: 1-8 / 14件) */
+.pagination-summary {
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--pg-muted);
+}
+
+@media (max-width: 560px) {
+  .pagination-wrap {
+    margin-top: 28px;
+    gap: 10px;
+  }
+
+  .page-numbers button,
+  .page-arrow {
+    width: 34px;
+    height: 34px;
+    font-size: 13px;
+  }
+
+  .page-ellipsis {
+    width: 22px;
+    height: 34px;
+  }
+}

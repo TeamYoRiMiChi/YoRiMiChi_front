@@ -1,8 +1,8 @@
 import "../../assets/styles/SignUp.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock, faPhone } from "@fortawesome/free-solid-svg-icons";
-import SocialAuthButtons from "../../components/auth/SocialAuthButtons";
-import AuthLayout from "../../components/auth/AuthLayout";
+import SocialAuthButtons from "../../components/Auth/SocialAuthButtons";
+import AuthLayout from "../../components/Auth/AuthLayout";
 
 function Sign_up() {
   return (

@@ -22,12 +22,25 @@
    히어로
 ========================= */
 .guide_hero {
-
   width: 100%;
   padding: 72px 40px 64px;
-  
-  background: linear-gradient(180deg, #f4f1ff 0%, #faf9ff 60%, #fff 100%);
-  /* background-color: #f4f1ff; */
+
+  background: linear-gradient(
+    180deg,
+    #f4f1ff 0%,
+    #faf9ff 60%,
+    #fff 100%
+  );
+
+  border-image-source: linear-gradient(
+    180deg,
+    #f4f1ff 0%,
+    #faf9ff 60%,
+    #fff 100%
+  );
+  border-image-slice: 0 fill;
+  border-image-width: 0;
+  border-image-outset: 0 100vmax;
 
   box-sizing: border-box;
 }
