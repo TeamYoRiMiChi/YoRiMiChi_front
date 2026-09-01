@@ -4,7 +4,7 @@ import CategoryFilter from '../../components/Overseas/CategoryFilter';
 import ProductToolbar from '../../components/Overseas/ProductToolbar';
 import ProductGrid from '../../components/Overseas/ProductGrid';
 import BenefitBanner from '../../components/Overseas/BenefitBanner';
-import Pagination from '../../components/Overseas/Pagination';
+import Pagination from '../../components/common/Pagination';
 import { CATEGORIES, PRODUCTS, SORT_TABS, PER_PAGE } from '../../data/Overseas/overseasData';
 import '../../assets/styles/Overseas.css';
 
