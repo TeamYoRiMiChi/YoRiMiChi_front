@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import ProductCard from './ProductCard';
+import '../../assets/styles/Overseas/components/ProductGrid.css';
 
 /**
  * 상품 목록 그리드 (결과 없으면 빈 상태 표시)

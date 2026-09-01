@@ -6,7 +6,7 @@ import ProductGrid from '../../components/Overseas/ProductGrid';
 import BenefitBanner from '../../components/Overseas/BenefitBanner';
 import Pagination from '../../components/common/Pagination';
 import { CATEGORIES, PRODUCTS, SORT_TABS, PER_PAGE } from '../../data/Overseas/overseasData';
-import '../../assets/styles/Overseas.css';
+import '../../assets/styles/Overseas/Overseas.css';
 
 function Overseas() {
   const [keyword, setKeyword] = useState('');

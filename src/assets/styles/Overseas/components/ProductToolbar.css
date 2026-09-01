@@ -1,0 +1,158 @@
+.products-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+
+  margin-bottom: 18px;
+}
+
+.products-heading h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+
+.product-tabs {
+  display: flex;
+  gap: 22px;
+}
+
+.product-tabs button {
+  padding: 8px 2px;
+
+  border: 0;
+  background: transparent;
+  color: var(--ov-muted);
+
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.product-tabs button:hover {
+  color: var(--ov-ink);
+}
+
+.product-tabs button.active {
+  border-bottom: 2px solid var(--ov-brand);
+  color: var(--ov-brand);
+  font-weight: 700;
+}
+
+
+.products-title-group {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+
+/* =========================
+   검색창
+========================= */
+.product-search {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  max-width: 300px;
+  height: 44px;
+
+  padding: 0 12px 0 40px;
+
+  border: 1px solid var(--ov-line);
+  border-radius: 999px;
+  background: #f8f9fc;
+
+  transition: border-color 0.15s, background-color 0.15s;
+}
+
+.product-search:focus-within {
+  border-color: var(--ov-brand);
+  background: #fff;
+}
+
+.product-search-icon {
+  position: absolute;
+  left: 16px;
+
+  color: #9aa0b4;
+  font-size: 14px;
+  pointer-events: none;
+}
+
+.product-search input {
+  width: 100%;
+  height: 100%;
+
+  border: 0;
+  outline: 0;
+  background: transparent;
+
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--ov-ink);
+}
+
+.product-search input::placeholder {
+  color: #a3a8ba;
+}
+
+.product-search-clear {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  padding: 0;
+
+  border: 0;
+  border-radius: 50%;
+  background: #dfe2ec;
+  color: #6b7085;
+
+  font-size: 11px;
+  cursor: pointer;
+  place-items: center;
+  transition: background-color 0.15s;
+}
+
+.product-search-clear:hover {
+  background: #cdd1de;
+}
+
+
+@media (max-width: 900px) {
+
+
+  .products-heading {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+  }
+  .product-search {
+    max-width: 100%;
+  }
+
+}
+
+@media (max-width: 560px) {
+
+
+  .products-heading h2 {
+    font-size: 20px;
+  }
+
+    .products-title-group {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+
+}

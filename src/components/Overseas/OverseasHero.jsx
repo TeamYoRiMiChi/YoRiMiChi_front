@@ -7,6 +7,7 @@ import {
   faWallet,
 } from '@fortawesome/free-solid-svg-icons';
 import overseasBanner from '../../assets/images/overseas_banner.png';
+import '../../assets/styles/Overseas/components/OverseasHero.css';
 
 const FEATURES = [
   { icon: faShieldHalved, label: '100％正規品保証' },

@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import '../../assets/styles/Overseas/components/ProductCard.css';
 
 /**
  * 상품 카드 한 장

@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBoxOpen, faPercent, faWallet } from '@fortawesome/free-solid-svg-icons';
+import '../../assets/styles/Overseas/components/BenefitBanner.css';
 
 const BENEFITS = [
   {

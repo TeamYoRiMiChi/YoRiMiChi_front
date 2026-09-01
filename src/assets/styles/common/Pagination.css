@@ -1,0 +1,78 @@
+/* =========================
+   페이징
+========================= */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  margin-top: 40px;
+}
+
+.page-numbers {
+  display: flex;
+  gap: 4px;
+
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.page-numbers button,
+.page-arrow {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+
+  border: 1px solid var(--ov-line);
+  border-radius: 9px;
+  background: #fff;
+  color: var(--ov-ink);
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+  place-items: center;
+  transition: all 0.15s;
+}
+
+.page-numbers button:hover:not(.active),
+.page-arrow:hover:not(:disabled) {
+  border-color: var(--ov-brand);
+  color: var(--ov-brand);
+}
+
+.page-numbers button.active {
+  border-color: var(--ov-brand);
+  background: var(--ov-brand);
+  color: #fff;
+}
+
+.page-arrow {
+  font-size: 12px;
+}
+
+.page-arrow:disabled {
+  color: #c9cdda;
+  cursor: not-allowed;
+}
+
+
+@media (max-width: 560px) {
+
+
+  .pagination {
+    margin-top: 28px;
+  }
+
+  .page-numbers button,
+  .page-arrow {
+    width: 34px;
+    height: 34px;
+    font-size: 13px;
+  }
+}

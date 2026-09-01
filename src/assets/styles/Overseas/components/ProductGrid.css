@@ -1,0 +1,84 @@
+/* =========================
+   검색 결과 없음
+========================= */
+.products-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+
+    padding: 80px 20px;
+
+    border: 1px solid var(--ov-line);
+    border-radius: 14px;
+    background: #fbfbfd;
+}
+
+.products-empty svg {
+    font-size: 36px;
+    color: #c9cdda;
+}
+
+.products-empty p {
+    margin: 0;
+    font-size: 15px;
+    color: var(--ov-muted);
+}
+
+.products-empty button {
+    margin-top: 4px;
+    padding: 10px 20px;
+
+    border: 1px solid var(--ov-brand);
+    border-radius: 8px;
+    background: #fff;
+    color: var(--ov-brand);
+
+    font-family: inherit;
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.15s;
+}
+
+.products-empty button:hover {
+    background: var(--ov-brand-soft);
+}
+
+
+/* =========================
+   상품 카드
+========================= */
+.product-list {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* =========================
+   반응형
+========================= */
+@media (max-width: 1200px) {
+    .product-list {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+}
+
+@media (max-width: 900px) {
+
+
+    .product-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 560px) {
+    .product-list {
+        gap: 12px;
+    }
+}

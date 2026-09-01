@@ -1,0 +1,87 @@
+/* =========================
+   혜택 배너
+========================= */
+.overseas-benefits {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    width: 100%;
+    max-width: var(--ov-max);
+    padding: 26px 20px;
+
+    border-radius: 18px;
+    background: linear-gradient(100deg, #f8f8ff, #eff0ff);
+}
+
+/* =========================
+   혜택 배너
+========================= */
+
+
+.benefit-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+
+    min-width: 0;
+    padding: 0 26px;
+}
+
+.benefit-item:not(:last-child) {
+    border-right: 1px solid #dfe1f0;
+}
+
+.benefit-item span {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ov-muted);
+}
+
+.benefit-item h2 {
+    margin: 6px 0;
+    color: var(--ov-brand);
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+.benefit-item p {
+    margin: 0;
+    font-size: 12.5px;
+    color: #4e5269;
+    line-height: 1.5;
+}
+
+.benefit-item>svg {
+    flex: 0 0 auto;
+    color: var(--ov-brand);
+    opacity: 0.65;
+    font-size: 46px;
+}
+
+/* =========================
+   반응형
+========================= */
+
+@media (max-width: 900px) {
+
+
+    .overseas-benefits {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 22px;
+    }
+
+    .benefit-item {
+        padding: 0;
+    }
+
+    .benefit-item:not(:last-child) {
+        padding-bottom: 20px;
+        border-right: 0;
+        border-bottom: 1px solid #dfe1f0;
+    }
+
+
+}
