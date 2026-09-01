@@ -19,17 +19,37 @@
 }
 
 /* =========================
-   히어로
+   상단
 ========================= */
 .guide_hero {
+  position: relative;
+  isolation: isolate;
 
   width: 100%;
   padding: 72px 40px 64px;
-  
-  background: linear-gradient(180deg, #f4f1ff 0%, #faf9ff 60%, #fff 100%);
-  /* background-color: #f4f1ff; */
+
+  background: linear-gradient(
+    180deg,
+    #f4f1ff 0%,
+    #faf9ff 60%,
+    #fff 100%
+  );
 
   box-sizing: border-box;
+}
+.guide_hero::before {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+
+  width: 100vw;
+  transform: translateX(-50%);
+
+  background: inherit;
+  z-index: -1;
 }
 
 .guide_hero_inner {
