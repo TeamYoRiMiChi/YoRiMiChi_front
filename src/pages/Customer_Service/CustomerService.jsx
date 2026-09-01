@@ -1,4 +1,4 @@
-import '../../assets/styles/CustomerService.css';
+import '../../assets/styles/CustomerService/CustomerService.css';
 import supportImg from '../../assets/images/support_img.png';
 import guideCat from '../../assets/images/guideCat.png';
 import { faEnvelope, faComments, faPhone, faCircleQuestion } from '@fortawesome/free-solid-svg-icons';

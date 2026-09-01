@@ -17,7 +17,7 @@ import {
   faCircleInfo,
   faArrowRight,
 } from '@fortawesome/free-solid-svg-icons';
-import '../../assets/styles/Guide.css';
+import '../../assets/styles/Guide/Guide.css';
 import GuideStepCard from '../../components/Guide_components/GuideStepCard';
 import ShippingStepCard from '../../components/Guide_components/ShippingStepCard';
 import GuideNoticeItem from '../../components/Guide_components/GuideNoticeItem';
