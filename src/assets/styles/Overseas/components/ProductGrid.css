@@ -1,5 +1,5 @@
 /* =========================
-   검색 결과 없음
+   검색 결과 없음 / 에러
 ========================= */
 .products-empty {
     display: flex;
@@ -45,9 +45,13 @@
     background: var(--ov-brand-soft);
 }
 
+/* 통신 실패 */
+.products-error svg {
+    color: #e8a33d;
+}
 
 /* =========================
-   상품 카드
+   상품 목록
 ========================= */
 .product-list {
     display: grid;
@@ -60,18 +64,74 @@
 }
 
 /* =========================
+   로딩 스켈레톤
+========================= */
+.product-skeleton {
+    padding: 14px;
+
+    border: 1px solid var(--ov-line);
+    border-radius: 14px;
+    background: #fff;
+}
+
+.skeleton-thumb {
+    height: 180px;
+    margin-bottom: 14px;
+    border-radius: 10px;
+}
+
+.skeleton-line {
+    height: 13px;
+    margin-bottom: 9px;
+    border-radius: 5px;
+}
+
+.skeleton-line.short {
+    width: 40%;
+}
+
+.skeleton-line.price {
+    width: 55%;
+    height: 18px;
+    margin-bottom: 0;
+    margin-top: 14px;
+}
+
+.skeleton-thumb,
+.skeleton-line {
+    background: linear-gradient(90deg, #f2f2f6 25%, #e9e9ef 50%, #f2f2f6 75%);
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.3s ease-in-out infinite;
+}
+
+@keyframes skeleton-shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .skeleton-thumb,
+    .skeleton-line {
+        animation: none;
+    }
+}
+
+/* =========================
    반응형
 ========================= */
 @media (max-width: 1200px) {
     .product-list {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
-
 }
 
 @media (max-width: 900px) {
-
-
     .product-list {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
@@ -80,5 +140,9 @@
 @media (max-width: 560px) {
     .product-list {
         gap: 12px;
+    }
+
+    .skeleton-thumb {
+        height: 140px;
     }
 }

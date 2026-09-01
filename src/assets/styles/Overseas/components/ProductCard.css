@@ -49,6 +49,13 @@
     color: #ef5f7c;
 }
 
+/* 찜한 상태 */
+.favorite-button.active {
+    border-color: #ef5f7c;
+    background: #fff5f7;
+    color: #ef5f7c;
+}
+
 .product-image-placeholder {
     display: grid;
     height: 180px;
@@ -61,6 +68,14 @@
     font-size: 14px;
     font-weight: 700;
     place-items: center;
+    overflow: hidden;
+}
+
+.product-image-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
 .product-brand {
