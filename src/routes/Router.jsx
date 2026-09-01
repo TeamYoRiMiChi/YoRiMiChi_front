@@ -9,7 +9,7 @@ import GroupPurchase from "../pages/group_purchase/group_purchase";
 import Overseas from '../pages/Overseas/Overseas';
 import Guide from '../pages/Guide/Guide';
 import CustomerService from '../pages/Customer_Service/CustomerService';
-import SignUp from '../pages/Sign_Up/SignUp';
+import SignUp from '../pages/SignUp/SignUp';
 import MyPage from '../pages/MyPage/MyPage';
 
 function Router() {
