@@ -14,9 +14,37 @@ import {
   faFaceSmile,
   faBoxOpen,
   faTruckFast,
+  faPlane,
 } from '@fortawesome/free-solid-svg-icons';
 import homeHeroBanner from '../../assets/images/home_hero_banner_v7.png';
 import '../../assets/styles/Home.css';
+
+const HERO_BENEFITS = [
+  {
+    id: 1,
+    icon: faPlane,
+    label: '日本現地購入',
+    path: '/mypage',
+  },
+  {
+    id: 2,
+    icon: faShieldHalved,
+    label: '安心の検品',
+    path: '/mypage',
+  },
+  {
+    id: 3,
+    icon: faTruckFast,
+    label: 'スピード配送',
+    path: '/mypage',
+  },
+  {
+    id: 4,
+    icon: faHeadset,
+    label: '24時間サポート',
+    path: '/support',
+  },
+];
 
 const FEATURES = [
   {
@@ -177,6 +205,22 @@ function Home() {
                   共同購入に参加する
                 </Link>
             </div>
+
+            <nav 
+              className="home_hero_benefits"
+              aria-label="サービスメニュー"
+            >
+              {HERO_BENEFITS.map((benefit) => (
+                <Link
+                  to={benefit.path}
+                  className="home_hero_benefit"
+                  key={benefit.id}
+                >
+                  <FontAwesomeIcon icon={benefit.icon} />
+                  <span>{benefit.label}</span>
+                </Link>
+              ))}
+            </nav>
           </div>
 
           {/* banner image area */}

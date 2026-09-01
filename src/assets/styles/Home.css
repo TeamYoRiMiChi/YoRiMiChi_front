@@ -24,7 +24,30 @@
 
 /* home hero */
 .home_hero {
-    background-color: #f7f6ff;
+    position: relative;
+    isolation: isolate;
+}
+.home_hero::before {
+    content: "";
+
+    position: absolute;
+    inset: 0 calc(50% - 50vw);
+    z-index: -1;
+
+    border-top: 1px solid #ebe9fa;
+    border-bottom: 1px solid #ebe9fa;
+    background:
+        radial-gradient(
+            circle at 72% 42%,
+            rgba(218, 212, 255, 0.55),
+            transparent 34%
+        ),
+        linear-gradient(
+            90deg,
+            #fafaff 0%,
+            #f5f3ff 52%,
+            #fafaff 100%
+        );
 }
 
 .home_hero_inner {
@@ -99,6 +122,67 @@
     background-color: #f0edff;
 }
 
+/* home_hero_benefits */
+.home_hero_benefits {
+    width: 100%;
+    margin-top: 24px;
+
+    display:grid;
+    grid-template-columns: repeat(4, minmax(0,1fr));
+
+    border: 1px solid #ded9f3;
+    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 0.82);
+
+    overflow: hidden;
+}
+
+.home_hero_benefit {
+    min-height: 54px;
+    padding: 10px 8px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    font-size: 12px;
+    font-weight: 600;
+    color: #454158;
+    white-space: nowrap;
+}
+
+.home_hero_benefit + .home_hero_benefit {
+    border-left: 1px solid #e7e3f5;
+}
+
+.home_hero_benefit svg {
+    flex-shrink: 0;
+
+    font-size: 16px;
+    color: #6752df;
+}
+
+.home_hero_benefit {
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.home_hero_benefit:hover {
+    background-color: #f0edff;
+    color: #5742cc;
+}
+
+.home_hero_benefit:focus-visible {
+    position: relative;
+    z-index: 1;
+
+    outline: 3px solid rgba(103, 82, 223, 0.35);
+    outline-offset: -3px;
+}
 /* hero image */
 .home_hero_visual {
     min-height: 360px;
@@ -605,6 +689,22 @@
 
     .home_statistic_item:last-child {
         border-bottom: none;
+    }
+
+    .home_hero_benefits {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .home_hero_benefit {
+        font-size: 13px;
+    }
+
+    .home_hero_benefit:nth-child(3) {
+        border-left: none;
+    }
+
+    .home_hero_benefit:nth-child(-n + 2) {
+        border-bottom: 1px solid #e7e3f5;
     }
 }
 
