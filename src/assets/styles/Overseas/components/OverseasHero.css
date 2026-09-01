@@ -3,7 +3,7 @@
 ========================= */
 .overseas-hero {
   position: relative;
-  width: 100%;
+  width: 99vw;
 
   aspect-ratio: 3 / 1;
   min-height: 300px;

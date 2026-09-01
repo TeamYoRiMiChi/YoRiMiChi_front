@@ -64,7 +64,7 @@ function Overseas() {
           onReset={handleReset}
         />
 
-        <Pagination {...pagination} onChange={pagination.goPage} />
+        <Pagination {...pagination} onChange={pagination.goPage} showSummary />
       </section>
 
       <BenefitBanner />
