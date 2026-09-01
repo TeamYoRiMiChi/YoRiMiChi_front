@@ -22,7 +22,8 @@
    히어로
 ========================= */
 .guide_hero {
-  width: 100vw;
+
+  width: 100%;
   padding: 72px 40px 64px;
   
   background: linear-gradient(180deg, #f4f1ff 0%, #faf9ff 60%, #fff 100%);
