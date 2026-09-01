@@ -27,24 +27,199 @@
   width: 100vw;
   margin-left: calc(50% - 50vw);
   padding: 25px 0;
-
-
   overflow: hidden;
+  font-family: "Yu Gothic", "YuGothic", "Meiryo", "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+  font-kerning: normal;
+  font-feature-settings: "palt" 1;
+  text-rendering: optimizeLegibility;
+}
+
+.group_purchase_container .hero_slider {
+  position: relative;
+  width: 75%;
+  max-width: 1200px;
+  height: 350px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 18px;
+  background: #edf5ef;
+  box-shadow: 0 12px 30px rgba(30, 72, 49, 0.12);
+}
+
+.group_purchase_container .hero_slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: scale(1.02);
+  transition: opacity 0.65s ease, transform 0.8s ease;
+  pointer-events: none;
+}
+
+.group_purchase_container .hero_slide.active {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
 }
 
 .group_purchase_container .hero_image {
   display: block;
-
-  width: 75%;
-  max-width: 1200px;
-  height: 350px;
-
-  margin: 0 auto;
-
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   object-position: center;
+}
 
-  border-radius: 18px;
+.group_purchase_container .hero_slide.photo-left .hero_image {
+  transform: scaleX(-1);
+}
+
+.group_purchase_container .hero_copy {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: clamp(34px, 6vw, 86px);
+  max-width: 46%;
+  transform: translateY(-50%);
+}
+
+.group_purchase_container .hero_slide.copy-left .hero_copy {
+  top: 46%;
+}
+
+.group_purchase_container .hero_slide.copy-right .hero_copy {
+  top: 54%;
+  right: clamp(34px, 6vw, 86px);
+  left: auto;
+  max-width: 43%;
+}
+
+.group_purchase_container .hero_slide.copy-center .hero_copy {
+  top: 49%;
+  left: 50%;
+  width: min(46%, 520px);
+  max-width: none;
+  padding: 24px 30px;
+  text-align: center;
+  transform: translate(-50%, -50%);
+}
+
+.group_purchase_container .hero_copy.dark {
+  color: #173d2a;
+}
+
+.group_purchase_container .hero_copy.light {
+  color: #fff;
+}
+
+.group_purchase_container .hero_copy.premium {
+  color: #4b2e05;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.group_purchase_container .hero_copy.premium span {
+  padding: 6px 13px;
+  border: 1px solid rgba(91, 55, 5, 0.35);
+  border-radius: 999px;
+  background: rgba(255, 248, 218, 0.48);
+  backdrop-filter: blur(5px);
+}
+
+.group_purchase_container .hero_copy.premium h2 {
+  letter-spacing: 0.02em;
+  white-space: pre-line;
+  word-break: keep-all;
+  overflow-wrap: normal;
+}
+
+.group_purchase_container .hero_copy span {
+  display: inline-block;
+  margin-bottom: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+}
+
+.group_purchase_container .hero_copy h2 {
+  margin: 0 0 12px;
+  font-size: clamp(25px, 2.8vw, 42px);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.group_purchase_container .hero_copy p {
+  margin: 0;
+  font-size: clamp(13px, 1.25vw, 17px);
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.group_purchase_container .hero_arrow {
+  position: absolute;
+  z-index: 4;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  color: #173d2a;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.group_purchase_container .hero_arrow svg {
+  display: block;
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.group_purchase_container .hero_arrow:hover {
+  background: #fff;
+}
+
+.group_purchase_container .hero_arrow.prev {
+  left: 14px;
+}
+
+.group_purchase_container .hero_arrow.next {
+  right: 14px;
+}
+
+.group_purchase_container .hero_dots {
+  position: absolute;
+  z-index: 4;
+  bottom: 16px;
+  left: 50%;
+  display: flex;
+  gap: 8px;
+  transform: translateX(-50%);
+}
+
+.group_purchase_container .hero_dots button {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.62);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.28);
+  cursor: pointer;
+  transition: width 0.2s ease, border-radius 0.2s ease, background 0.2s ease;
+}
+
+.group_purchase_container .hero_dots button.active {
+  width: 24px;
+  border-radius: 8px;
+  background: #fff;
 }
 
 
@@ -293,7 +468,7 @@
     ======================================== */
 
 @media (max-width: 1100px) {
-  .group_purchase_container .hero_image {
+  .group_purchase_container .hero_slider {
     width: 90%;
     height: 300px;
   }
@@ -324,8 +499,9 @@
   .group_purchase_container .footer_content::after {
     display: none;
   }
+}
 
-.filter_btn {
+.group_purchase_container .filter_btn {
   border: 1px solid #ddd;
   background-color: #fff;
   color: #555;
@@ -333,11 +509,79 @@
   transition: 0.2s;
 }
 
-.filter_btn.active {
+.group_purchase_container .filter_btn.active {
   background-color: #18a957;
   border-color: #18a957;
   color: #fff;
 }
 
+@media (max-width: 640px) {
+  .group_purchase_container .hero_box {
+    padding: 14px 0;
+  }
 
+  .group_purchase_container .hero_slider {
+    width: calc(100% - 28px);
+    height: 240px;
+    border-radius: 14px;
+  }
+
+  .group_purchase_container .hero_copy {
+    top: auto;
+    right: 18px;
+    bottom: 42px;
+    left: 18px;
+    max-width: none;
+    padding: 15px 17px;
+    border-radius: 12px;
+    color: #173d2a;
+    background: rgba(255, 255, 255, 0.84);
+    backdrop-filter: blur(7px);
+    transform: none;
+  }
+
+  .group_purchase_container .hero_slide.copy-left .hero_copy,
+  .group_purchase_container .hero_slide.copy-right .hero_copy,
+  .group_purchase_container .hero_slide.copy-center .hero_copy {
+    top: auto;
+    right: 18px;
+    bottom: 42px;
+    left: 18px;
+    width: auto;
+    max-width: none;
+    text-align: left;
+    transform: none;
+  }
+
+  .group_purchase_container .hero_copy span {
+    margin-bottom: 5px;
+    font-size: 10px;
+  }
+
+  .group_purchase_container .hero_copy h2 {
+    margin-bottom: 5px;
+    font-size: 21px;
+  }
+
+  .group_purchase_container .hero_copy p {
+    font-size: 12px;
+  }
+
+  .group_purchase_container .hero_arrow {
+    width: 28px;
+    height: 28px;
+  }
+
+  .group_purchase_container .hero_arrow svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .group_purchase_container .hero_arrow.prev {
+    left: 9px;
+  }
+
+  .group_purchase_container .hero_arrow.next {
+    right: 9px;
+  }
 }

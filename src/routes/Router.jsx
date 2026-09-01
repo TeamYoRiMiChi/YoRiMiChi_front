@@ -6,7 +6,7 @@ import PrivateRoute from './PrivateRoute';
 import Faq from '../pages/Faq/Faq';
 
 
-import GroupPurchase from "../pages/group_purchase/group_purchase";
+import GroupPurchase from '../pages/Group_purchase/Group_purchase';
 import Overseas from '../pages/Overseas/Overseas';
 import Guide from '../pages/Guide/Guide';
 import CustomerService from '../pages/Customer_Service/CustomerService';
