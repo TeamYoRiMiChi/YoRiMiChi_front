@@ -1,18 +1,13 @@
 import '../../assets/styles/Group_purchase/Group_purchase.css';
 
 import {useState } from 'react';
-import Purchase_hero from  '../../components/Group_purchase/Purchase_hero';
+import Hero_slide from  '../../components/common/Hero_slide';
 import Purchase_status from '../../components/Group_purchase/Purchase_status';
 import Purchase_product_card from '../../components/Group_purchase/Purchase_product_card';
+import { heroSlides } from '../../data/Group_purchase/Group_purchase';
 
 function GroupPurchase() {
     const [activeFilter, setActiveFilter] = useState('すべて');
- 
-
-   
-
-    
-
 
     const handleFilterClick = (filter) => {
      
@@ -24,7 +19,7 @@ function GroupPurchase() {
 
             <div className="group_purchase_container">
 
-                <Purchase_hero  />
+                <Hero_slide slides={heroSlides} />
 
                 <Purchase_status />
                 

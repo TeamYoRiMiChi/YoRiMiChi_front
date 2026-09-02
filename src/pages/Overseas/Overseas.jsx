@@ -1,4 +1,4 @@
-import OverseasHero from '../../components/Overseas/OverseasHero';
+// import OverseasHero from '../../components/Overseas/OverseasHero';
 import CategoryFilter from '../../components/Overseas/CategoryFilter';
 import ProductToolbar from '../../components/Overseas/ProductToolbar';
 import ProductGrid from '../../components/Overseas/ProductGrid';
@@ -6,6 +6,9 @@ import BenefitBanner from '../../components/Overseas/BenefitBanner';
 import Pagination from '../../components/common/Pagination';
 import { useOverseas } from '../../hooks/Overseas/useOverseas';
 import { CATEGORIES, SORT_TABS } from '../../data/Overseas/overseasData';
+import Hero_slide from '../../components/common/Hero_slide';
+import { heroSlides } from '../../data/Overseas/OverseasHeroData';
+
 import '../../assets/styles/Overseas/Overseas.css';
 
 function Overseas() {
@@ -29,8 +32,10 @@ function Overseas() {
 
   return (
     <div className="overseas-page">
-      <OverseasHero />
-
+      {/* <OverseasHero /> */}
+      <div className='overseas-slider'>
+        <Hero_slide slides={heroSlides} />
+      </div>
       <CategoryFilter
         categories={CATEGORIES}
         activeId={activeCategory}

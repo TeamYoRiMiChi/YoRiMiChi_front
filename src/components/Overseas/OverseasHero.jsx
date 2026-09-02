@@ -6,7 +6,7 @@ import {
   faTruckFast,
   faWallet,
 } from '@fortawesome/free-solid-svg-icons';
-import overseasBanner from '../../assets/images/overseas_banner.png';
+import overseasBanner from '../../assets/images/Overseas_banner.png';
 import '../../assets/styles/Overseas/components/OverseasHero.css';
 
 const FEATURES = [
