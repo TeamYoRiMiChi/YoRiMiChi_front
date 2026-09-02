@@ -1,3 +1,5 @@
+import "../../../assets/styles/MyPage/ProfileManagement.css";
+
 function ProfileManagement({ user }) {
   return (
     <div className="mp_panel">

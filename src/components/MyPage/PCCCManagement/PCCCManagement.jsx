@@ -3,6 +3,7 @@ import {
   faCircleInfo,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
+import "../../../assets/styles/MyPage/PCCCManagement.css";
 
 function PCCCManagement() {
   return (

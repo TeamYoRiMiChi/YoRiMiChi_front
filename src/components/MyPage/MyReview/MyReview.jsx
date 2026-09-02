@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
+import "../../../assets/styles/MyPage/MyReview.css";
 
 function MyReview({ myReviews }) {
   return (

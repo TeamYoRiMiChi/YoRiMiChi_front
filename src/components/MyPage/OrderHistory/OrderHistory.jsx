@@ -1,3 +1,5 @@
+import "../../../assets/styles/MyPage/OrderHistory.css";
+
 function OrderHistory({ orders }) {
   return (
     <div className="mp_panel">

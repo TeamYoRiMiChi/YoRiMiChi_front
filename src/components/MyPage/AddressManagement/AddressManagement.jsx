@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
+import "../../../assets/styles/MyPage/AddressManagement.css";
 
 function AddressManagement({ addresses }) {
   return (

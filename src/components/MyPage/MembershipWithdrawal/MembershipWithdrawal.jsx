@@ -1,3 +1,5 @@
+import "../../../assets/styles/MyPage/MembershipWithdrawal.css";
+
 function MembershipWithdrawal() {
   return (
     <div className="mp_panel">

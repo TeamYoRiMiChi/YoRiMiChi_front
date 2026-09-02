@@ -1,3 +1,5 @@
+import "../../../assets/styles/MyPage/GroupBuyParticipationStatus.css";
+
 function GroupBuyPartitionStatus({ groupBuys }) {
   return (
     <div className="mp_panel">

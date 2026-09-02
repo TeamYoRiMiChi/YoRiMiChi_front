@@ -1,0 +1,130 @@
+.mp_panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.mini_bt {
+  height: 36px;
+  padding: 0 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 1px solid var(--mp-primary);
+  border-radius: 8px;
+  background-color: var(--mp-primary);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.mini_bt:hover:not(:disabled) {
+  background-color: var(--mp-primary-dark);
+}
+
+.mini_bt_line {
+  background-color: #fff;
+  color: var(--mp-primary-dark);
+}
+
+.mini_bt_line:hover:not(:disabled) {
+  background-color: #f7f4ff;
+}
+
+.wide_bt {
+  width: 100%;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--mp-primary);
+  border-radius: 11px;
+  background-color: var(--mp-primary);
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: all 0.15s ease;
+}
+
+.wide_bt:hover {
+  background-color: var(--mp-primary-dark);
+}
+
+.form_box {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 28px;
+  border: 1px solid var(--mp-border);
+  border-radius: 16px;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+
+.form_row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form_row label {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--mp-text);
+}
+
+.form_row input {
+  height: 48px;
+  padding: 0 16px;
+  border: 1px solid var(--mp-border);
+  border-radius: 10px;
+  background-color: #fff;
+  font-family: inherit;
+  font-size: 14.5px;
+  color: var(--mp-text);
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.15s ease;
+}
+
+.form_row input:focus {
+  border-color: var(--mp-primary);
+}
+
+.form_row input:disabled {
+  background-color: #f7f7fa;
+  color: var(--mp-text-light);
+}
+
+.form_hint {
+  font-size: 12.5px;
+  color: var(--mp-text-light);
+}
+
+.form_inline {
+  display: flex;
+  gap: 8px;
+}
+
+.form_inline input {
+  flex: 1;
+}
+
+.form_inline .mini_bt {
+  height: 48px;
+  flex-shrink: 0;
+  padding: 0 22px;
+}
+
+.form_divider {
+  height: 1px;
+  background-color: #f3f2f7;
+}

@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faCartPlus } from "@fortawesome/free-solid-svg-icons";
+import "../../../assets/styles/MyPage/Wishlist.css";
 
 function Wishlist({ wishItems }) {
   return (

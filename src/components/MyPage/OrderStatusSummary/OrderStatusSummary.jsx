@@ -1,4 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "../../../assets/styles/MyPage/OrderStatusSummary.css";
 
 function OrderStatusSummary({ orderStatus }) {
   return (

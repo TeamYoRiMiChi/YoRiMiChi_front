@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
+import "../../../assets/styles/MyPage/DeliveryTracking.css";
 
 function DeliveryTracking({ orderStatuses }) {
   return (
