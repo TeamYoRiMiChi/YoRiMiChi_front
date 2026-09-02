@@ -1,5 +1,5 @@
 import '../../assets/styles/Faq/Faq.css';
-import { useState } from 'react';
+import { useFaq } from '../../hooks/Faq_hooks/useFaq';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import faqVisual from '../../assets/images/yomi_faq_logo.png';
@@ -46,18 +46,14 @@ const faqData = [
   },
 ];
 function Faq() {
-   const [openIndexes, setOpenIndexes] = useState([]);
-   const [searchText, setSearchText] = useState('');
-   const [searchKeyword, setSearchKeyword] = useState('');
-
-    const filteredFaqData = faqData.filter((faq) => {
-    const keyword = searchKeyword.toLowerCase();
-
-    return (
-      faq.question.toLowerCase().includes(keyword) ||
-      faq.answer.toLowerCase().includes(keyword)
-    );
-  });
+   const {
+              openIndexes,
+              searchText,
+              filteredFaqData,
+              handleSearchTextChange,
+              handleSearch,
+              handleToggle,
+            } = useFaq(faqData);
   return (
     <div className="faq_page">
       <section className="faq_hero">
@@ -90,11 +86,11 @@ function Faq() {
                     className="faq_search_icon"/>
 
                     <input type="text" placeholder="キーワードで検索 （例：送料、支払い、キャンセル）"
-                    value={searchText} onChange={(e) => setSearchText(e.target.value)}/>
+                    value={searchText} onChange={handleSearchTextChange}/>
 
                 </div>
 
-                <button type="button" onClick={() => setSearchKeyword(searchText.trim())}>
+                <button type="button" onClick={handleSearch}>
                     検索</button>
 
             </div>
@@ -109,13 +105,7 @@ function Faq() {
             question={faq.question}
             answer={faq.answer}
             isOpen={openIndexes.includes(index)}
-            onToggle={() => {
-            setOpenIndexes((prev) =>
-                prev.includes(index)
-                ? prev.filter((item) => item !== index)
-                : [...prev, index]
-            );
-            }}
+            onToggle={() => handleToggle(index)}
         />
         ))}
     </section>

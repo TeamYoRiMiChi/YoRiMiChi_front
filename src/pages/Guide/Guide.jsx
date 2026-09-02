@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useGuide } from '../../hooks/Guide_hooks/useGuide';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -119,8 +119,12 @@ const NOTICES = [
 ];
 
 const Guide = () => {
-  const [tab, setTab] = useState('direct');
-  const steps = tab === 'direct' ? DIRECT_STEPS : GROUP_STEPS;
+    const {
+      tab,
+      steps,
+      handleDirectTab,
+      handleGroupTab,
+    } = useGuide(DIRECT_STEPS, GROUP_STEPS);
 
   return (
     <div className="guide">
@@ -156,13 +160,13 @@ const Guide = () => {
           <div className="guide_tabs">
             <button
               className={`guide_tab ${tab === 'direct' ? 'active' : ''}`}
-              onClick={() => setTab('direct')}
+              onClick={handleDirectTab}
             >
               海外直送
             </button>
             <button
               className={`guide_tab ${tab === 'group' ? 'active' : ''}`}
-              onClick={() => setTab('group')}
+              onClick={handleGroupTab}
             >
               共同購入
             </button>
