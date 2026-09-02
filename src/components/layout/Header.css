@@ -471,6 +471,43 @@ a.featurs_menu:hover::after {
 }
 
 /* =========================
+   로그인 사용자 이름
+========================= */
+.user_greeting {
+  display: flex;
+  align-items: center;
+
+  max-width: 160px;
+  padding: 0 4px;
+
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 14px;
+  color: #444;
+  text-decoration: none;
+  white-space: nowrap;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  transition: color 0.15s ease;
+}
+
+.user_greeting strong {
+  max-width: 110px;
+  margin-right: 1px;
+
+  font-weight: 700;
+  color: var(--brand);
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user_greeting:hover {
+  color: var(--brand);
+}
+
+/* =========================
    햄버거 버튼 (모바일 전용)
 ========================= */
 .hamburger_bt {
@@ -608,12 +645,36 @@ a.featurs_menu:hover::after {
   flex-shrink: 0;
 
   display: flex;
-  gap: 10px;
+  flex-direction: column;
+  gap: 14px;
 
   padding: 20px;
   border-top: 1px solid #eee;
 
   box-sizing: border-box;
+}
+
+/* 모바일 메뉴 인사말 */
+.mnav_greeting {
+  margin: 0;
+
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 15px;
+  color: #444;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mnav_greeting strong {
+  font-weight: 700;
+  color: var(--brand);
+}
+
+.mnav_btns {
+  display: flex;
+  gap: 10px;
 }
 
 .mnav_bt {
@@ -713,6 +774,11 @@ a.featurs_menu:hover::after {
 
   .lang_bt {
     padding: 0 12px;
+  }
+
+  /* 이름은 모바일 메뉴 안에서 보여주므로 헤더에서는 숨김 */
+  .user_greeting {
+    display: none;
   }
 }
 

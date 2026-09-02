@@ -32,6 +32,7 @@ const TEXT = {
     currentLang: '日本語',
     mypage: 'マイページ',
     faq: 'FAQ',
+    greeting: 'さん',        // 이름 뒤에 붙는 경칭 (例: 山田さん)
   },
   // ko: {
   //   overseas: '해외직구',
@@ -212,6 +213,13 @@ function Header() {
 
           <div className="member">
 
+            {/* 로그인한 사용자 이름 */}
+            {/* {accessToken && user?.name && (
+              <Link to="/mypage" className="user_greeting" title={user.email}>
+                <strong>{user.name}</strong>{t.greeting}
+              </Link>
+            )} */}
+
             {/* <div className="lang_wrap" ref={langRef}>
               <button
                 className={`lang_bt ${langOpen ? 'open' : ''}`}
@@ -309,25 +317,32 @@ function Header() {
         <div className="mnav_foot">
           {accessToken ? (
             <>
-              <Link
-                to="/mypage"
-                className="mnav_bt mnav_bt_line"
-                onClick={() => setMenuOpen(false)}
-              >
-                {t.mypage}
-              </Link>
-              <button
-                className="mnav_bt mnav_bt_primary"
-                onClick={() => {
-                  handleLogout();
-                  setMenuOpen(false);
-                }}
-              >
-                {t.logout}
-              </button>
+              {user?.name && (
+                <p className="mnav_greeting">
+                  <strong>{user.name}</strong>{t.greeting}
+                </p>
+              )}
+              <div className="mnav_btns">
+                <Link
+                  to="/mypage"
+                  className="mnav_bt mnav_bt_line"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {t.mypage}
+                </Link>
+                <button
+                  className="mnav_bt mnav_bt_primary"
+                  onClick={() => {
+                    handleLogout();
+                    setMenuOpen(false);
+                  }}
+                >
+                  {t.logout}
+                </button>
+              </div>
             </>
           ) : (
-            <>
+            <div className="mnav_btns">
               <Link
                 to="/login"
                 className="mnav_bt mnav_bt_line"
@@ -336,13 +351,13 @@ function Header() {
                 {t.login}
               </Link>
               <Link
-                to="/join"
+                to="/signup"
                 className="mnav_bt mnav_bt_primary"
                 onClick={() => setMenuOpen(false)}
               >
                 {t.join}
               </Link>
-            </>
+            </div>
           )}
         </div>
       </aside>
