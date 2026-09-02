@@ -2,8 +2,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import "../../../assets/styles/MyPage/Cart.css";
+import useCart from "../../../hooks/MyPage/Cart/useCart";
 
 function Cart({ cartItems }) {
+  const { totalPrice } = useCart(cartItems);
+
   return (
     <div className="mp_panel">
       <ul className="line_list">
@@ -25,10 +28,7 @@ function Cart({ cartItems }) {
 
       <div className="cart_sum">
         <span>총 결제 예상금액</span>
-        <strong>
-          {cartItems.reduce((s, i) => s + i.price * i.qty, 0).toLocaleString()}
-          원
-        </strong>
+        <strong>{totalPrice.toLocaleString()}원</strong>
       </div>
 
       <Link to="/order" className="wide_bt">

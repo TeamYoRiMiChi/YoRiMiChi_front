@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCreditCard,
@@ -31,6 +30,7 @@ import ProfileManagement from "../../components/MyPage/ProfileManagement/Profile
 import AddressManagement from "../../components/MyPage/AddressManagement/AddressManagement";
 import PCCCManagement from "../../components/MyPage/PCCCManagement/PCCCManagement";
 import MembershipWithdrawal from "../../components/MyPage/MembershipWithdrawal/MembershipWithdrawal";
+import useMyPageSideMenus from "../../hooks/MyPage/MyPage/useMyPageSideMenus";
 
 /* ===== 주문 진행 현황 ===== */
 const ORDER_STATUS = [
@@ -257,8 +257,6 @@ const ADDRESSES = [
 ];
 
 function MyPage() {
-  const [menu, setMenu] = useState("orders");
-
   const user = {
     name: "安徳",
     email: "antoku@yahoo.com",
@@ -266,9 +264,7 @@ function MyPage() {
     grade: "VIP",
   };
 
-  const currentLabel = MENU_GROUPS.flatMap((g) => g.items).find(
-    (i) => i.key === menu,
-  )?.label;
+  const { menu, setMenu, currentLabel } = useMyPageSideMenus(MENU_GROUPS);
 
   return (
     <div className="mypage">

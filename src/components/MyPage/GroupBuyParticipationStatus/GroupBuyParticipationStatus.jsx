@@ -1,9 +1,11 @@
 import "../../../assets/styles/MyPage/GroupBuyParticipationStatus.css";
+import useGroupBuyWithProcess from "../../../hooks/MyPage/GroupBuyParticipationStatus/useGroupBuyWithProcess";
 
 function GroupBuyPartitionStatus({ groupBuys }) {
+  const { groupBuyWithProgress } = useGroupBuyWithProcess(groupBuys);
   return (
     <div className="mp_panel">
-      {groupBuys.map((gb) => (
+      {groupBuyWithProgress.map((gb) => (
         <div className="gb_card" key={gb.id}>
           <div className="gb_head">
             <h4>{gb.title}</h4>
@@ -14,7 +16,7 @@ function GroupBuyPartitionStatus({ groupBuys }) {
             <div className="gb_bar">
               <div
                 className="gb_bar_fill"
-                style={{ width: `${(gb.current / gb.target) * 100}%` }}
+                style={{ width: `${gb.progress * 100}%` }}
               />
             </div>
             <span className="gb_count">
