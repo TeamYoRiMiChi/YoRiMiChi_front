@@ -40,10 +40,44 @@
   font-size: 16px;
   font-weight: 700;
   cursor: pointer;
+  transition: background 0.15s;
 }
 
-.login-submit:hover {
+.login-submit:hover:not(:disabled) {
   background: #4937d4;
+}
+
+.login-submit:disabled {
+  background: #b6afe8;
+  cursor: not-allowed;
+}
+
+/* 로그인 실패 메시지 */
+.login-error {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  margin: 0;
+  padding: 12px 14px;
+
+  border: 1px solid #f5c2c7;
+  border-radius: 8px;
+  background: #fdf2f3;
+
+  color: #b02a37;
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+.login-error svg {
+  flex-shrink: 0;
+  font-size: 14px;
+}
+
+.login-form input:disabled {
+  background: #f5f5f7;
+  cursor: not-allowed;
 }
 
 .login-content .social-signup {

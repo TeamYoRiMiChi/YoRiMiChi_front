@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Layout from "../components/layout/Layout";
 import Home from "../pages/home/Home";
 import Login from "../pages/Login/Login";
@@ -16,20 +16,27 @@ function Router() {
   return (
     <Routes>
       <Route element={<Layout />}>
+
+        {/* 누구나 접근 가능 */}
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+        {/* 헤더 링크가 /join이라 같은 화면으로 연결 */}
+        <Route path="/join" element={<Navigate to="/signup" replace />} />
+
         <Route path="/faq" element={<Faq />} />
         <Route path="/groupbuy" element={<GroupPurchase />} />
         <Route path="/overseas" element={<Overseas />} />
         <Route path="/guide" element={<Guide />} />
         <Route path="/support" element={<CustomerService />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/mypage" element={<MyPage />} />
 
+        {/* 로그인 필요 */}
         <Route element={<PrivateRoute />}>
-          {" "}
-          {/* 로그인 이후 사용 가능 router */}
+          <Route path="/mypage" element={<MyPage />} />
         </Route>
+
+        {/* 없는 경로는 홈으로 */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
     </Routes>
   );

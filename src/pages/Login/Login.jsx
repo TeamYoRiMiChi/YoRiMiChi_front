@@ -1,26 +1,21 @@
-import { useState } from "react";
-import { login } from "../../api/userApi";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope, faLock, faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
 import AuthLayout from "../../components/Auth/AuthLayout";
 import SocialAuthButtons from "../../components/Auth/SocialAuthButtons";
 import "../../assets/styles/Login.css";
+import { useLogin } from '../../hooks/Auth/useLogin';
 
 function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const res = await login({ email, password });
-      console.log(res.data.data);
-    } catch (err) {
-      console.error(err.response?.data?.message);
-    }
-  };
+  const {
+    email,
+    setEmail,
+    password,
+    setPassword,
+    handleSubmit,
+    isLoading,
+    error,
+  } = useLogin();
 
   return (
     <div className="login-page">
@@ -47,9 +42,11 @@ function Login() {
               <input
                 id="email"
                 type="email"
+                autoComplete="email"
                 placeholder="メールアドレスを入力してください"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                disabled={isLoading}
                 required
               />
             </div>
@@ -60,12 +57,21 @@ function Login() {
               <input
                 id="password"
                 type="password"
+                autoComplete="current-password"
                 placeholder="パスワードを入力してください"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                disabled={isLoading}
                 required
               />
             </div>
+
+            {error && (
+              <p className="login-error" role="alert">
+                <FontAwesomeIcon icon={faCircleExclamation} />
+                {error}
+              </p>
+            )}
 
             <div className="login-options">
               <label>
@@ -76,8 +82,8 @@ function Login() {
               <a href="#forgot-password">パスワードをお忘れですか?</a>
             </div>
 
-            <button className="login-submit" type="submit">
-              ログイン
+            <button className="login-submit" type="submit" disabled={isLoading}>
+              {isLoading ? 'ログイン中...' : 'ログイン'}
             </button>
           </form>
 

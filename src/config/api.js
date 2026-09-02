@@ -7,7 +7,7 @@
  */
 
 /* 상품 API가 아직 백엔드에 없어서 목 데이터 사용 중 */
-export const USE_MOCK = true;
+export const USE_MOCK = false;
 
 /* API 엔드포인트 (백엔드 명세와 맞춰서 관리) */
 export const ENDPOINTS = {

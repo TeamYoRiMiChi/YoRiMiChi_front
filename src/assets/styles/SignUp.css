@@ -71,7 +71,104 @@
   font-size: 16px;
   font-weight: 700;
   cursor: pointer;
+  transition: background 0.15s;
 }
-.signup-submit:hover {
+.signup-submit:hover:not(:disabled) {
   background: #4937d4;
+}
+
+.signup-submit:disabled {
+  background: #b6afe8;
+  cursor: not-allowed;
+}
+
+/* =========================
+   이메일 중복확인
+========================= */
+.email-row {
+  display: flex;
+  gap: 8px;
+}
+
+.email-row input {
+  flex: 1;
+  min-width: 0;
+}
+
+.email-check-btn {
+  flex-shrink: 0;
+  width: 92px;
+  height: 48px;
+
+  border: 1px solid #5945e8;
+  border-radius: 9px;
+  background: #ffffff;
+  color: #5945e8;
+
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.email-check-btn:hover:not(:disabled) {
+  background: #f3f0ff;
+}
+
+.email-check-btn:disabled {
+  border-color: #d5d2e6;
+  color: #b0adc4;
+  cursor: not-allowed;
+}
+
+/* =========================
+   검증 메시지
+========================= */
+.field-error {
+  margin: 6px 0 0;
+  color: #d64550;
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
+.field-success {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  margin: 6px 0 0;
+  color: #1f8a4c;
+  font-size: 12.5px;
+}
+
+.field-success svg {
+  font-size: 12px;
+}
+
+.signup-error {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  margin: 0;
+  padding: 12px 14px;
+
+  border: 1px solid #f5c2c7;
+  border-radius: 8px;
+  background: #fdf2f3;
+
+  color: #b02a37;
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+.signup-error svg {
+  flex-shrink: 0;
+  font-size: 14px;
+}
+
+.signup-form input:disabled {
+  background: #f5f5f7;
+  cursor: not-allowed;
 }

@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../features/auth/authSlice';
 import { useTheme } from '../../hooks/useTheme';
@@ -52,8 +52,9 @@ const TEXT = {
 
 function Header() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const accessToken = useSelector((state) => state.auth.accessToken);
-  // const accessToken = 'test-token';
+  const user = useSelector((state) => state.auth.user);
 
   // 현재 경로에 맞는 테마 (색상 + 로고)
   const theme = useTheme();
@@ -135,6 +136,7 @@ function Header() {
 
   const handleLogout = () => {
     dispatch(logout());
+    navigate('/', { replace: true });
   };
 
   const selectLang = (code) => {
