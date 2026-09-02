@@ -1,42 +1,28 @@
 /* =========================
-   카테고리
+   카테고리 컨테이너
 ========================= */
 .overseas-categories {
     position: relative;
     width: 100%;
     max-width: var(--ov-max);
 
-    padding: 16px 22px;
+    /* 좌우 여백은 화살표가 들어갈 자리 */
+    padding: 16px 54px;
 
     border: 1px solid var(--ov-line);
     border-radius: 16px;
     background: #fff;
 
+    /* 스크롤 영역이 둥근 모서리 밖으로 나가지 않게 */
     overflow: hidden;
-    /* 스크롤 영역이 모서리 밖으로 안 나가게 */
 }
 
-.overseas-categories>.carousel-arrow {
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.overseas-categories>.arrow-left {
-    left: 8px;
-}
-
-.overseas-categories>.arrow-right {
-    right: 8px;
-}
 
 /* =========================
-   카테고리
+   카테고리 목록 (가로 스크롤)
 ========================= */
-
-
 .category-list {
     display: flex;
-    /* grid → flex */
     gap: 8px;
 
     margin: 0;
@@ -47,7 +33,7 @@
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
 
-    /* 스크롤바 숨기기 */
+    /* 스크롤바는 숨기고 화살표로만 이동 */
     scrollbar-width: none;
     -ms-overflow-style: none;
 }
@@ -109,19 +95,9 @@
     white-space: nowrap;
 }
 
-.carousel-arrow:disabled {
-    opacity: 0.35;
-    cursor: not-allowed;
-}
-
-.carousel-arrow:disabled:hover {
-    background: #fff;
-    color: #242941;
-}
-
 
 /* =========================
-   화살표 (공통)
+   좌우 화살표
 ========================= */
 .carousel-arrow {
     position: absolute;
@@ -140,67 +116,88 @@
 
     cursor: pointer;
     place-items: center;
-    transition: background-color 0.15s, color 0.15s;
+    transition: background-color 0.15s, color 0.15s, opacity 0.15s;
 }
 
-.carousel-arrow:hover {
+.carousel-arrow:hover:not(:disabled) {
     background: var(--ov-brand);
     color: #fff;
 }
 
-.arrow-left {
-    left: -18px;
+.carousel-arrow:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
 }
 
-.arrow-right {
-    right: -18px;
+.overseas-categories>.carousel-arrow {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.overseas-categories>.arrow-left {
+    left: 8px;
+}
+
+.overseas-categories>.arrow-right {
+    right: 8px;
 }
 
 
 /* =========================
    반응형
+   화살표는 모든 화면에서 유지합니다.
+   스크롤바를 숨겨놔서 화살표가 없으면
+   마우스로 넘길 방법이 사라집니다.
 ========================= */
-@media (max-width: 1200px) {
-    .category-list {
-        grid-template-columns: repeat(10, 96px);
-        width: max-content;
-    }
 
-    .overseas-categories {
-        overflow-x: auto;
-    }
-
-    .overseas-categories>.carousel-arrow {
-        display: none;
-    }
-}
-
+/* 태블릿: 4개씩 */
 @media (max-width: 900px) {
-
-
-    /* 태블릿: 4개씩 */
     .category-item {
         flex: 0 0 calc((100% - 24px) / 4);
     }
-
 }
 
-
+/* 모바일: 3개씩, 화살표를 작게 */
 @media (max-width: 560px) {
-
-
-    .overseas-categories>.carousel-arrow {
-        display: none;
+    .overseas-categories {
+        padding: 12px 42px;
     }
 
-    /* 모바일: 3개씩, 화살표 숨김 */
     .category-item {
         flex: 0 0 calc((100% - 16px) / 3);
     }
 
-    .product-card h3 {
-        font-size: 13px;
-        min-height: 38px;
+    .category-button {
+        min-height: 74px;
+        gap: 8px;
     }
 
+    .category-icon {
+        font-size: 21px;
+    }
+
+    .category-button span {
+        font-size: 10.5px;
+    }
+
+    .carousel-arrow {
+        width: 30px;
+        height: 30px;
+        font-size: 12px;
+    }
+
+    .overseas-categories>.arrow-left {
+        left: 6px;
+    }
+
+    .overseas-categories>.arrow-right {
+        right: 6px;
+    }
+}
+
+/* 아주 좁은 화면: 2.5개씩 보여서 더 있다는 걸 알림 */
+@media (max-width: 400px) {
+    .category-item {
+        flex: 0 0 calc((100% - 12px) / 2.5);
+    }
 }
