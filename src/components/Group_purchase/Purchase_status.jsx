@@ -1,7 +1,8 @@
 import '../../assets/styles/Group_purchase/Purchase_status.css';
-
+// import {usePurchaseProductCard} from '../../hooks/usePurchaseProductCard';
 function Purchase_status() {
 
+    
 
     return (
         <>

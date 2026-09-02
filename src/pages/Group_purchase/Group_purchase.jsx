@@ -5,14 +5,13 @@ import Hero_slide from  '../../components/common/Hero_slide';
 import Purchase_status from '../../components/Group_purchase/Purchase_status';
 import Purchase_product_card from '../../components/Group_purchase/Purchase_product_card';
 import { heroSlides } from '../../data/Group_purchase/Group_purchase';
-
+import useGroupPurchase from '../../hooks/Group_purchase/useGroup_purchase';
 function GroupPurchase() {
-    const [activeFilter, setActiveFilter] = useState('すべて');
+    
 
-    const handleFilterClick = (filter) => {
-     
-        setActiveFilter(filter);
-    };
+    
+
+    const { listRef, activeFilter, handleFilterClick} = useGroupPurchase();
 
     return (
         <>
