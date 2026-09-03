@@ -1,5 +1,5 @@
-import axiosInstance from './axiosInstance';
-import { ENDPOINTS } from '../config/api';
+import axiosInstance from '../axiosInstance';
+import { ENDPOINTS } from '../../config/api';
 
 /**
  * User 도메인 API

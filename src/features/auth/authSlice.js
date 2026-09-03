@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import * as userApi from '../../api/userApi';
+import * as userApi from '../../api/Auth/userApi';
 
 const STORAGE_KEY = 'yorimichi_auth';
 

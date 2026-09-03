@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { signupUser, clearAuthError } from '../../features/auth/authSlice';
-import { checkEmail } from '../../api/userApi';
+import { checkEmail } from '../../api/Auth/userApi';
 
 const INITIAL_FORM = {
   lastName: '',
