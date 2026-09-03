@@ -1,21 +1,18 @@
-// import OverseasHero from '../../components/Overseas/OverseasHero';
+import OverseasHero from '../../components/Overseas/OverseasHero';
 import CategoryFilter from '../../components/Overseas/CategoryFilter';
 import ProductToolbar from '../../components/Overseas/ProductToolbar';
 import ProductGrid from '../../components/Overseas/ProductGrid';
 import BenefitBanner from '../../components/Overseas/BenefitBanner';
 import Pagination from '../../components/common/Pagination';
 import { useOverseas } from '../../hooks/Overseas/useOverseas';
+import { useCategories } from '../../hooks/Overseas/components/useCategories';
 import { CATEGORIES, SORT_TABS } from '../../data/Overseas/overseasData';
-import Hero_slide from '../../components/common/Hero_slide';
-import { heroSlides } from '../../data/Overseas/OverseasHeroData';
-
 import '../../assets/styles/Overseas/Overseas.css';
 
 function Overseas() {
   const {
     keyword,
     activeCategory,
-    activeCategoryName,
     sort,
     totalElements,
     isLoading,
@@ -30,14 +27,17 @@ function Overseas() {
     handleReset,
   } = useOverseas();
 
+  /* 카테고리는 서버(DB)에서 받아옵니다. 실패하면 CATEGORIES를 대신 씁니다. */
+  const { categories } = useCategories(CATEGORIES);
+
+  const activeCategoryName = categories.find((c) => c.id === activeCategory)?.name;
+
   return (
     <div className="overseas-page">
-      {/* <OverseasHero /> */}
-      <div className='overseas-slider'>
-        <Hero_slide slides={heroSlides} />
-      </div>
+      <OverseasHero />
+
       <CategoryFilter
-        categories={CATEGORIES}
+        categories={categories}
         activeId={activeCategory}
         onSelect={handleCategory}
       />
@@ -69,7 +69,7 @@ function Overseas() {
           onReset={handleReset}
         />
 
-        <Pagination {...pagination} onChange={pagination.goPage} showSummary />
+        <Pagination {...pagination} onChange={pagination.goPage} />
       </section>
 
       <BenefitBanner />
