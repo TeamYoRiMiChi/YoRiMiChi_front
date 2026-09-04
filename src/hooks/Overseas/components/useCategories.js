@@ -35,7 +35,7 @@ export function useCategories(fallback = []) {
           name: c.name,
           icon: CATEGORY_ICONS[c.id] ?? DEFAULT_CATEGORY_ICON,
         }));
-
+        
         if (!ignore) {
           setCategories(withIcons);
           setError(null);

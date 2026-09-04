@@ -1,13 +1,6 @@
 /**
  * API 공통 설정
- *
- * 백엔드 API가 준비되기 전까지는 USE_MOCK을 true로 두고
- * 목 데이터로 화면을 개발합니다.
- * 서버 API가 완성되면 false로만 바꾸면 실제 통신으로 전환됩니다.
  */
-
-/* 상품 API가 아직 백엔드에 없어서 목 데이터 사용 중 */
-export const USE_MOCK = true;
 
 /* API 엔드포인트 (백엔드 명세와 맞춰서 관리) */
 export const ENDPOINTS = {
@@ -23,5 +16,11 @@ export const ENDPOINTS = {
   WISHLIST: '/wishlist',
 };
 
-/* 서버 응답 지연 흉내 (목 모드에서만 사용) */
+/**
+ * 찜(WISHLIST) API는 아직 백엔드에 없어서 목 데이터로 동작합니다.
+ * 서버가 준비되면 false로 바꾸세요.
+ */
+export const USE_MOCK_WISHLIST = true;
+
+/* 목 응답 지연 흉내 (ms) */
 export const MOCK_DELAY = 300;

@@ -12,7 +12,7 @@ export const fetchProducts = createAsyncThunk(
   async (params, { rejectWithValue }) => {
     try {
       const res = await getProducts(params);
-      const page = res.data.data; // ApiResponse의 data = Spring Page
+      const page = res.data.data; // ApiResponse의 data = PageResponse
 
       return {
         items: (page.content ?? []).map(toProductView),

@@ -1,5 +1,5 @@
 import axiosInstance from './axiosInstance';
-import { USE_MOCK, ENDPOINTS, MOCK_DELAY } from '../config/api';
+import { USE_MOCK_WISHLIST, ENDPOINTS, MOCK_DELAY } from '../config/api';
 
 /**
  * Wishlist(찜) 도메인 API
@@ -21,13 +21,13 @@ function mockRespond(data) {
 
 /** 내 찜 목록 조회 → productId 배열 */
 export const getWishlist = () => {
-  if (USE_MOCK) return mockRespond([...mockWishlist]);
+  if (USE_MOCK_WISHLIST) return mockRespond([...mockWishlist]);
   return axiosInstance.get(ENDPOINTS.WISHLIST);
 };
 
 /** 찜 추가 */
 export const addWishlist = (productId) => {
-  if (USE_MOCK) {
+  if (USE_MOCK_WISHLIST) {
     mockWishlist.add(productId);
     return mockRespond({ productId });
   }
@@ -36,7 +36,7 @@ export const addWishlist = (productId) => {
 
 /** 찜 삭제 */
 export const removeWishlist = (productId) => {
-  if (USE_MOCK) {
+  if (USE_MOCK_WISHLIST) {
     mockWishlist.delete(productId);
     return mockRespond({ productId });
   }
