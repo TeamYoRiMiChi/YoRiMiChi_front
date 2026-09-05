@@ -15,6 +15,9 @@ export const ENDPOINTS = {
   // 찜
   WISHLIST: '/wishlist',
 
+  // 장바구니
+  CART: '/cart',
+
   // 주문 내역
   ORDERHISTORY: '/orderhistory',
 };

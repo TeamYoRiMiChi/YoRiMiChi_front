@@ -1,0 +1,142 @@
+/* =========================
+   추천 상품
+========================= */
+.pinfo-related-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 18px;
+}
+
+.pinfo-related-head h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.pinfo-related-head a {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    font-size: 13px;
+    color: var(--pi-muted, #71768c);
+    text-decoration: none;
+    transition: color 0.15s;
+}
+
+.pinfo-related-head a:hover {
+    color: var(--pi-brand, #5558e9);
+}
+
+.pinfo-related-head svg {
+    font-size: 10px;
+}
+
+.pinfo-related-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+}
+
+.pinfo-related-card {
+    display: block;
+    padding: 14px;
+
+    border: 1px solid var(--pi-line, #e7e9f2);
+    border-radius: 14px;
+    background: #fff;
+
+    color: inherit;
+    text-decoration: none;
+
+    transition: border-color 0.18s, box-shadow 0.18s, transform 0.18s;
+}
+
+.pinfo-related-card:hover {
+    border-color: #d5d8ea;
+    box-shadow: 0 8px 24px rgba(20, 25, 65, 0.08);
+    transform: translateY(-3px);
+}
+
+.pinfo-related-thumb {
+    display: grid;
+    aspect-ratio: 1 / 1;
+    margin-bottom: 12px;
+
+    border-radius: 10px;
+    background: linear-gradient(145deg, #fafaff, #eef0f8);
+    color: #a4a8bb;
+
+    font-size: 13px;
+    font-weight: 700;
+    place-items: center;
+    overflow: hidden;
+}
+
+.pinfo-related-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.pinfo-related-card .name {
+    display: -webkit-box;
+    min-height: 38px;
+    margin: 0 0 8px;
+    overflow: hidden;
+
+    font-size: 13px;
+    line-height: 1.5;
+
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
+.pinfo-related-card .price-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.pinfo-related-card .price-row strong {
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.pinfo-related-card .cart-icon {
+    display: grid;
+    width: 30px;
+    height: 30px;
+
+    border: 1px solid var(--pi-line, #e7e9f2);
+    border-radius: 8px;
+    color: var(--pi-brand, #5558e9);
+
+    font-size: 12px;
+    place-items: center;
+}
+
+/* =========================
+   반응형
+========================= */
+@media (max-width: 1100px) {
+    .pinfo-related-list {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 700px) {
+    .pinfo-related-head h2 {
+        font-size: 18px;
+    }
+
+    .pinfo-related-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
