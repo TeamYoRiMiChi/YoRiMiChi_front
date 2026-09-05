@@ -11,6 +11,7 @@ import Guide from '../pages/Guide/Guide';
 import CustomerService from '../pages/Customer_Service/CustomerService';
 import SignUp from '../pages/SignUp/SignUp';
 import MyPage from '../pages/MyPage/MyPage';
+import ProductInfo from "../pages/Overseas/ProductInfo";
 
 function Router() {
   return (
@@ -29,6 +30,7 @@ function Router() {
         <Route path="/overseas" element={<Overseas />} />
         <Route path="/guide" element={<Guide />} />
         <Route path="/support" element={<CustomerService />} />
+        <Route path="/overseas/:productId" element={<ProductInfo />} />
 
         {/* 로그인 필요 */}
         <Route element={<PrivateRoute />}>
