@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import '../../assets/styles/Overseas/components/ProductCard.css';
+import { Link } from 'react-router-dom';
 
 /**
  * 상품 카드 한 장
@@ -41,6 +42,9 @@ function ProductCard({ product, isWished = false, onToggleWish }) {
         <strong>{product.price}</strong>
         {product.originalPrice && <del>{product.originalPrice}</del>}
         {product.discount && <span>{product.discount}</span>}
+      </div>
+      <div className='product-sea-box'>
+        <Link className='product-sea' to={`/overseas/${product.id}`}>商品を見る</Link>
       </div>
     </li>
   );
