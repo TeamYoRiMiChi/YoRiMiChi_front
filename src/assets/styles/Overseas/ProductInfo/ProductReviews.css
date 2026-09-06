@@ -1,0 +1,185 @@
+/* =========================
+   리뷰 요약
+========================= */
+.pinfo-review-summary {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 40px;
+
+    padding-bottom: 28px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--pi-line, #e7e9f2);
+}
+
+.pinfo-review-score {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.pinfo-review-score strong {
+    font-size: 52px;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.pinfo-review-score span {
+    font-size: 12.5px;
+    color: var(--pi-muted, #71768c);
+}
+
+.pinfo-review-stars {
+    display: flex;
+    gap: 3px;
+
+    font-size: 15px;
+    color: #e2e1e9;
+}
+
+.pinfo-review-stars.small {
+    font-size: 12px;
+}
+
+.pinfo-review-stars .on {
+    color: #ffb020;
+}
+
+/* 별점 분포 막대 */
+.pinfo-review-bars {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 9px;
+}
+
+.pinfo-review-bars li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    font-size: 12.5px;
+    color: var(--pi-muted, #71768c);
+}
+
+.pinfo-review-bars svg {
+    color: #ffb020;
+    font-size: 11px;
+}
+
+.pinfo-review-bars .star {
+    width: 10px;
+    text-align: right;
+}
+
+.pinfo-review-bars .bar {
+    flex: 1;
+    height: 8px;
+
+    border-radius: 999px;
+    background: #f0eff5;
+    overflow: hidden;
+}
+
+.pinfo-review-bars .bar i {
+    display: block;
+    height: 100%;
+
+    border-radius: 999px;
+    background: #34b37e;
+}
+
+.pinfo-review-bars .percent {
+    width: 36px;
+    text-align: right;
+}
+
+/* =========================
+   리뷰 목록
+========================= */
+.pinfo-review-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.pinfo-review-list li {
+    padding: 20px;
+
+    border: 1px solid var(--pi-line, #e7e9f2);
+    border-radius: 12px;
+}
+
+.pinfo-review-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 12px;
+}
+
+.pinfo-review-user {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.pinfo-review-user .avatar {
+    display: grid;
+    width: 32px;
+    height: 32px;
+
+    border-radius: 50%;
+    background: var(--pi-brand-soft, #f2f2ff);
+    color: var(--pi-brand, #5558e9);
+
+    font-size: 13px;
+    font-weight: 700;
+    place-items: center;
+}
+
+.pinfo-review-user strong {
+    font-size: 13px;
+}
+
+.pinfo-review-list p {
+    margin: 0 0 10px;
+
+    font-size: 13.5px;
+    color: #4a4f68;
+    line-height: 1.7;
+}
+
+.pinfo-review-list .date {
+    font-size: 12px;
+    color: #a3a8ba;
+}
+
+/* =========================
+   반응형
+========================= */
+@media (max-width: 1100px) {
+    .pinfo-review-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 700px) {
+
+    .pinfo-review-summary,
+    .pinfo-review-list {
+        grid-template-columns: 1fr;
+    }
+
+    .pinfo-review-summary {
+        gap: 24px;
+    }
+}

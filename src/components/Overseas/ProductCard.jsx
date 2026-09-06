@@ -1,10 +1,13 @@
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import '../../assets/styles/Overseas/components/ProductCard.css';
-import { Link } from 'react-router-dom';
 
 /**
  * 상품 카드 한 장
+ *
+ * 카드 본문을 클릭하면 상세 페이지로 이동합니다.
+ * 찜 버튼은 링크 바깥에 둬야 클릭이 겹치지 않습니다.
  *
  * @param {Object}   product      상품 데이터
  * @param {boolean}  isWished     찜한 상품인지
@@ -27,25 +30,24 @@ function ProductCard({ product, isWished = false, onToggleWish }) {
         <FontAwesomeIcon icon={faHeart} />
       </button>
 
-      <div className="product-image-placeholder" aria-hidden="true">
-        {product.thumbnailUrl ? (
-          <img src={product.thumbnailUrl} alt="" />
-        ) : (
-          <span>{product.placeholder}</span>
-        )}
-      </div>
+      <Link to={`/overseas/${product.id}`} className="product-card-link">
+        <div className="product-image-placeholder" aria-hidden="true">
+          {product.thumbnailUrl ? (
+            <img src={product.thumbnailUrl} alt="" />
+          ) : (
+            <span>{product.placeholder}</span>
+          )}
+        </div>
 
-      <p className="product-brand">{product.brand}</p>
-      <h3>{product.name}</h3>
+        <p className="product-brand">{product.brand}</p>
+        <h3>{product.name}</h3>
 
-      <div className="product-price-row">
-        <strong>{product.price}</strong>
-        {product.originalPrice && <del>{product.originalPrice}</del>}
-        {product.discount && <span>{product.discount}</span>}
-      </div>
-      <div className='product-sea-box'>
-        <Link className='product-sea' to={`/overseas/${product.id}`}>商品を見る</Link>
-      </div>
+        <div className="product-price-row">
+          <strong>{product.price}</strong>
+          {product.originalPrice && <del>{product.originalPrice}</del>}
+          {product.discount && <span>{product.discount}</span>}
+        </div>
+      </Link>
     </li>
   );
 }

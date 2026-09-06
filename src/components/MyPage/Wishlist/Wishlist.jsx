@@ -1,12 +1,22 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import "../../../assets/styles/MyPage/Wishlist.css";
+import useWishlist from "../../../hooks/MyPage/MyPage/useWishlist";
 
 function Wishlist({ wishItems }) {
+
+  const {
+    wishlist,
+    isLoading,
+    error,
+  } = useWishlist();
+
+
+
   return (
     <div className="mp_panel">
       <div className="grid_list">
-        {wishItems.map((item) => (
+        {wishlist.map((item) => (
           <div className="grid_card" key={item.id}>
             <div className="grid_thumb">
               {item.soldOut && <span className="soldout">품절</span>}

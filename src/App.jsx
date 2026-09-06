@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Router from './routes/Router';
 import { fetchMyInfo } from './features/auth/authSlice';
 import { fetchWishlist, clearWishlist } from './features/wishlist/wishlistSlice';
+import { fetchCart, resetCart } from './features/cart/cartSlice';
 import './App.css';
 
 function App() {
@@ -17,16 +18,18 @@ function App() {
     if (accessToken) {
       dispatch(fetchMyInfo());
     }
-    // 최초 1회만 검증 (로그인 직후에는 이미 user 정보를 받아왔으므로 불필요)
+    // 최초 1회만 검증
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  /* 로그인하면 찜 목록을 불러오고, 로그아웃하면 비웁니다 */
+  /* 로그인하면 찜·장바구니를 불러오고, 로그아웃하면 비웁니다 */
   useEffect(() => {
     if (accessToken) {
       dispatch(fetchWishlist());
+      dispatch(fetchCart());
     } else {
       dispatch(clearWishlist());
+      dispatch(resetCart());
     }
   }, [accessToken, dispatch]);
 

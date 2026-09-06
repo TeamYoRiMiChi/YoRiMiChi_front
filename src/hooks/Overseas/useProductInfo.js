@@ -1,136 +1,51 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { getProduct, getProducts, toProductView } from '../../api/productApi';
-import { toggleWishlist } from '../../features/wishlist/wishlistSlice';
+import { useParams } from 'react-router-dom';
+import { useProductDetail } from './components/useProductDetail';
+import { useProductGallery } from './components/useProductGallery';
+import { useProductPurchase } from './components/useProductPurchase';
 
 /**
- * 상품 상세 페이지 로직
+ * 상품 상세 페이지 로직 (묶음)
  *
- * URL의 productId로 상품을 불러오고,
- * 갤러리·수량·탭 상태를 함께 관리합니다.
+ * 역할별로 나눈 훅 세 개를 모아서 페이지에 넘겨줍니다.
+ * 페이지는 이 훅 하나만 부르면 되고,
+ * 각 기능을 고칠 때는 해당 훅만 열면 됩니다.
+ *
+ *   useProductDetail   : 서버에서 상품·추천 상품 조회
+ *   useProductGallery  : 이미지 전환
+ *   useProductPurchase : 수량·장바구니·찜
  */
 export function useProductInfo() {
   const { productId } = useParams();
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
 
-  const accessToken = useSelector((s) => s.auth.accessToken);
-  const wishlistIds = useSelector((s) => s.wishlist.ids);
+  const { product, related, isLoading, error } = useProductDetail(productId);
+  const gallery = useProductGallery(product);
+  const purchase = useProductPurchase(product);
 
-  const [product, setProduct] = useState(null);
-  const [related, setRelated] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  const [imageIndex, setImageIndex] = useState(0);
-  const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState('detail');
 
-  const isWished = product ? wishlistIds.includes(product.id) : false;
-
-  /* 상품 불러오기 */
+  /* 다른 상품으로 이동하면 첫 번째 탭으로 되돌립니다 */
   useEffect(() => {
-    let ignore = false;
-
-    async function load() {
-      setIsLoading(true);
-      setError(null);
-
-      try {
-        const res = await getProduct(productId);
-        const view = toProductView(res.data.data);
-
-        if (ignore) return;
-
-        setProduct(view);
-        setImageIndex(0);
-        setQuantity(1);
-        setActiveTab('detail');
-
-        // 같은 카테고리 상품을 추천으로 함께 불러옵니다
-        const rel = await getProducts({ categoryId: view.categoryId, size: 6 });
-        if (ignore) return;
-
-        setRelated(
-          (rel.data.data.content ?? [])
-            .map(toProductView)
-            .filter((p) => p.id !== view.id)
-            .slice(0, 5)
-        );
-      } catch (err) {
-        if (!ignore) {
-          setError(err.response?.data?.message ?? '商品の取得に失敗しました。');
-        }
-      } finally {
-        if (!ignore) setIsLoading(false);
-      }
-    }
-
-    load();
-    window.scrollTo({ top: 0 });
-
-    return () => {
-      ignore = true;
-    };
+    setActiveTab('detail');
   }, [productId]);
 
-  /* 이미지가 여러 장일 때를 대비한 목록.
-     지금은 썸네일 하나뿐이라 자리만 잡아둡니다. */
-  const images = product?.thumbnailUrl ? [product.thumbnailUrl] : [null, null, null, null];
-
-  const moveImage = (dir) => {
-    setImageIndex((cur) => (cur + dir + images.length) % images.length);
-  };
-
-  const changeQuantity = (delta) => {
-    setQuantity((cur) => {
-      const next = cur + delta;
-      if (next < 1) return 1;
-      if (product?.stock && next > product.stock) return product.stock;
-      return next;
-    });
-  };
-
-  const handleToggleWish = () => {
-    if (!accessToken) {
-      alert('ログインが必要です。');
-      navigate('/login');
-      return;
-    }
-    dispatch(toggleWishlist(product.id));
-  };
-
-  const handleAddToCart = () => {
-    if (!accessToken) {
-      alert('ログインが必要です。');
-      navigate('/login');
-      return;
-    }
-    // TODO: 장바구니 API 연동
-    alert(`${quantity}点をカートに追加しました。`);
-  };
+  /** 화면에 보여줄 상품 코드 (예: YM-000012) */
+  const productCode = product
+    ? `YM-${String(product.id).padStart(6, '0')}`
+    : '';
 
   return {
     product,
     related,
     isLoading,
     error,
+    productCode,
 
-    images,
-    imageIndex,
-    setImageIndex,
-    moveImage,
-
-    quantity,
-    changeQuantity,
+    gallery,
+    purchase,
 
     activeTab,
     setActiveTab,
-
-    isWished,
-    handleToggleWish,
-    handleAddToCart,
   };
 }
 

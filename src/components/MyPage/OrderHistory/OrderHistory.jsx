@@ -1,6 +1,34 @@
-import "../../../assets/styles/MyPage/OrderHistory.css";
+import '../../../assets/styles/MyPage/OrderHistory.css';
+import { useOrderHistory } from '../../../hooks/MyPage/OrderHistory/useOrderHistory';
 
-function OrderHistory({ orders }) {
+function OrderHistory() {
+  /* ===== 임시 데이터 ===== */
+  // const orders = [
+  //   {
+  //     id: 1,
+  //     orderNumber: 'YM-20260827-0012',
+  //     date: '2026.08.25',
+  //     status: '국제배송',
+  //     statusType: 'shipping',
+  //     items: [{ name: '[小山園] 雲鶴 100g', qty: 1, price: 222500 }],
+  //     total: 222500,
+  //   },
+  //   {
+  //     id: 2,
+  //     orderNumber: 'YM-20260820-0008',
+  //     date: '2026.08.20',
+  //     status: '배송완료',
+  //     statusType: 'done',
+  //     items: [
+  //       { name: '正広作 MV-本焼 牛刀 300mm', qty: 1, price: 425000 },
+  //       { name: 'クァンチョンキム 味付けのり30g *2缶', qty: 3, price: 61500 },
+  //     ],
+  //     total: 486500,
+  //   },
+  // ];
+
+  const { orders, isLoading, error } = useOrderHistory();
+
   return (
     <div className="mp_panel">
       {orders.map((order) => (

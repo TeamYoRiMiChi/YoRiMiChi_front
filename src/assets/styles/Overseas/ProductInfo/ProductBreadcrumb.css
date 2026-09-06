@@ -1,0 +1,45 @@
+/* =========================
+   빵부스러기
+========================= */
+.pinfo-breadcrumb {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    margin-bottom: 20px;
+
+    font-size: 13px;
+    color: var(--pi-muted, #71768c);
+}
+
+.pinfo-breadcrumb-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pinfo-breadcrumb a {
+    color: var(--pi-muted, #71768c);
+    text-decoration: none;
+    transition: color 0.15s;
+}
+
+.pinfo-breadcrumb a:hover {
+    color: var(--pi-brand, #5558e9);
+}
+
+.pinfo-breadcrumb .current {
+    color: var(--pi-ink, #11152f);
+    font-weight: 600;
+}
+
+.pinfo-breadcrumb .sep {
+    color: #c9cdda;
+}
+
+@media (max-width: 700px) {
+    .pinfo-breadcrumb {
+        font-size: 12px;
+    }
+}
