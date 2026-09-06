@@ -16,23 +16,8 @@ export function useOrderHistory(fallback = []) {
         // 서버 응답: { success, data: [...], message }
         const list = res.data.data ?? [];
 
-        // DB 값 + 화면용 아이콘을 합칩니다
-        const withIcons = list.map((c) => ({
-          order_id: c.order_id,
-          member_id: c.member_id,
-          group_buy_id: c.group_buy_id,
-          order_number: c.order_number,
-          order_type: c.order_type,
-          applied_exchange_rate: c.applied_exchange_rate,
-          product_amount: c.product_amount,
-          shipping_fee: c.shipping_fee,
-          customs_duty: c.customs_duty,
-          total_amount: c.total_amount,
-          order_status: c.order_status,
-        }));
-
         if (!ignore) {
-          setOrders(withIcons);
+          setOrders(list);
           setError(null);
         }
       } catch (err) {
