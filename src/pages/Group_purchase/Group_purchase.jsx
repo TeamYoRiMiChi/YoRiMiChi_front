@@ -1,17 +1,26 @@
 import '../../assets/styles/Group_purchase/Group_purchase.css';
 
-import {useState } from 'react';
-import Hero_slide from  '../../components/common/Hero_slide';
+import Hero_slide from '../../components/common/Hero_slide';
 import Purchase_status from '../../components/Group_purchase/Purchase_status';
 import Purchase_product_card from '../../components/Group_purchase/Purchase_product_card';
 import { heroSlides } from '../../data/Group_purchase/Group_purchase';
 import useGroupPurchase from '../../hooks/Group_purchase/useGroup_purchase';
 function GroupPurchase() {
-    
 
-    
 
-    const { listRef, activeFilter, handleFilterClick} = useGroupPurchase();
+
+
+    const {
+        activeFilter,
+        categories,
+        selectedCategoryId,
+        selectedSort,
+        handleFilterClick,
+        handleCategoryChange,
+        handleSortChange,
+        handleSearch,
+    } = useGroupPurchase();
+
 
     return (
         <>
@@ -21,7 +30,7 @@ function GroupPurchase() {
                 <Hero_slide slides={heroSlides} />
 
                 <Purchase_status />
-                
+
 
 
                 {/* =========================
@@ -47,23 +56,45 @@ function GroupPurchase() {
 
                     <div className="filter_right">
 
-                        <select className="filter_select">
-                            <option>すべてのカテゴリ</option>
-                            <option>ファッション</option>
-                            <option>食品</option>
-                            <option>美容</option>
-                            <option>生活用品</option>
+                        <select
+                            className="filter_select"
+                            value={selectedCategoryId}
+                            onChange={handleCategoryChange}
+                        >
+                            <option value="">すべてのカテゴリー</option>
+
+                            {categories.map((category) => (
+                                <option key={category.id} value={category.id}>
+                                    {category.name}
+                                </option>
+                            ))}
                         </select>
 
-
-                        <select className="filter_select">
-                            <option>新着順</option>
-                            <option>人気順</option>
-                            <option>価格順</option>
+                        <select
+                            className="filter_select"
+                            name="sort"
+                            value={selectedSort}
+                            onChange={handleSortChange}
+                        >
+                            <option value="newest">新着順</option>
+                            <option value="popular">人気順</option>
+                            <option value="priceAsc">価格順</option>
                         </select>
 
+                        <button
+                            type="button"
+                            className="search_purchase_btn"
+                            onClick={handleSearch}
+                        >
+                            検索
+                        </button>
 
-                        <button className="create_purchase_btn">
+
+
+
+                        <button
+                            type="button"
+                            className="create_purchase_btn">
                             ＋ 共同購入を作る
                         </button>
 
@@ -72,13 +103,9 @@ function GroupPurchase() {
                 </div>
 
 
-                {/* =========================
-         product card
-      ========================= */}
+                {/* product card */}
 
-                
                 <Purchase_product_card activeFilter={activeFilter} />
-
                 {/* =========================
          purchase_footer_1
       ========================= */}

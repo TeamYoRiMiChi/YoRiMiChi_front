@@ -11,6 +11,11 @@ export const ENDPOINTS = {
   // 상품
   PRODUCTS: '/products',
   CATEGORIES: '/categories',
+  GB_CATEGORIES: '/gb-categories',
+
+
+
+
 
   // 찜
   WISHLIST: '/wishlist',
