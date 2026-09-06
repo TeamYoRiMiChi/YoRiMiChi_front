@@ -1,5 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { getGpCategories } from '../../api/Group_purchase/categoryPurchaseApi';
+import { getProducts, toProductView } from '../../api/productApi';
+
 
 
 export function useGroupPurchase(fallback = []) {
@@ -10,7 +12,7 @@ export function useGroupPurchase(fallback = []) {
     const [error, setError] = useState(null);
     const [selectedCategoryId, setSelectedCategoryId] = useState('');
     const [selectedSort, setSelectedSort] = useState('newest');
-
+    const [products, setProducts] = useState([]);
 
     const handleFilterClick = (filter) => {
 
@@ -74,24 +76,50 @@ export function useGroupPurchase(fallback = []) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    useEffect(() => {
+        async function loadProducts() {
+            try {
+                const res = await getProducts({
+                    categoryId: selectedCategoryId
+                    ? Number(selectedCategoryId) 
+                    : undefined,
+                    page: 1,
+                    size: 50,
+                  
+                });
+                const pageData = res.data.data;
+                const productList = (pageData.content ??[]).map(toProductView);
+               
+                setProducts(productList);
+            }catch (err) {
+                console.error('상품 조회 실패:', err);
+                setProducts([]);
+            }
+        }
+
+        loadProducts();
+    },[selectedCategoryId]);
+
+
 
 
 
     return {
-    listRef,
-    activeFilter,
-    categories,
-    isLoading,
-    error,
+        products,
+        listRef,
+        activeFilter,
+        categories,
+        isLoading,
+        error,
 
-    selectedCategoryId,
-    selectedSort,
+        selectedCategoryId,
+        selectedSort,
 
-    handleFilterClick,
-    handleCategoryChange,
-    handleSortChange,
-    handleSearch,
-};
+        handleFilterClick,
+        handleCategoryChange,
+        handleSortChange,
+        handleSearch,
+    };
 
 
 

@@ -13,6 +13,8 @@ function GroupPurchase() {
     const {
         activeFilter,
         categories,
+        products,
+        listRef,
         selectedCategoryId,
         selectedSort,
         handleFilterClick,
@@ -105,7 +107,7 @@ function GroupPurchase() {
 
                 {/* product card */}
 
-                <Purchase_product_card activeFilter={activeFilter} />
+                <Purchase_product_card activeFilter={activeFilter} products={products} />
                 {/* =========================
          purchase_footer_1
       ========================= */}
