@@ -69,7 +69,9 @@ function Header() {
 
   const t = TEXT[lang];
   const [cartOpen, setCartOpen] = useState(false);
-  const cartCount = 2;
+
+  /* 장바구니 개수는 Redux에서 가져옵니다 (담기·삭제 시 자동 반영) */
+  const cartCount = useSelector((state) => state.cart.totalQuantity);
 
   const [langOpen, setLangOpen] = useState(false);
   const langRef = useRef(null);

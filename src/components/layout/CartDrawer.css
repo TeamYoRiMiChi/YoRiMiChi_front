@@ -184,13 +184,14 @@
 }
 
 .cart_item_img {
-  width: 68px;
-  height: 68px;
-  flex-shrink: 0;
+width: 68px;
+height: 68px;
+flex-shrink: 0;
 
-  border-radius: 8px;
-  overflow: hidden;
-  background-color: #f5f5f5;
+display: block;
+border-radius: 8px;
+overflow: hidden;
+    background-color: #f5f5f5;
 }
 
 .cart_item_img img {
