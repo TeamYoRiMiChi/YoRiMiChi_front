@@ -1,0 +1,282 @@
+/* 상품 상세 탭과 리뷰 영역 */
+.group_purchase_detail_content {
+  margin-top: 30px;
+  overflow: hidden;
+  border: 1px solid #e2e6e3;
+  border-radius: 14px;
+  background: #fff;
+}
+
+.group_purchase_tabs {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 20px;
+  border-bottom: 1px solid #e2e6e3;
+}
+
+.detail_tab {
+  position: relative;
+  padding: 20px 12px;
+  border: 0;
+  background: transparent;
+  color: #444;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.detail_tab.active {
+  color: #237b39;
+  font-weight: 700;
+}
+
+.detail_tab.active::after {
+  position: absolute;
+  right: 8px;
+  bottom: 0;
+  left: 8px;
+  height: 3px;
+  background: #237b39;
+  content: '';
+}
+
+.group_purchase_tab_panel {
+  min-height: 230px;
+  padding: 28px;
+}
+
+/* 공동구매 후기 */
+.group_purchase_tab_panel {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr 1fr;
+  gap: 28px;
+}
+
+.group_purchase_tab_panel > div {
+  padding-right: 28px;
+  border-right: 1px solid #e2e6e3;
+}
+
+.group_purchase_tab_panel > div:last-child {
+  padding-right: 0;
+  border-right: 0;
+}
+
+.group_purchase_tab_panel h2 {
+  margin: 0 0 16px;
+  font-size: 16px;
+}
+
+.group_purchase_tab_panel ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.group_purchase_tab_panel li {
+  margin-bottom: 10px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.product_feature_section li {
+  color: #444;
+}
+
+.product_information_section dl {
+  margin: 0;
+  padding: 12px;
+  border: 1px solid #e2e6e3;
+  border-radius: 8px;
+}
+
+.product_information_section dl > div {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 12px;
+  margin-bottom: 8px;
+  font-size: 12px;
+}
+
+.product_information_section dl > div:last-child {
+  margin-bottom: 0;
+}
+
+.product_information_section dt {
+  color: #666;
+}
+
+.product_information_section dd {
+  margin: 0;
+}
+
+
+
+
+/* 상품 리뷰 영역 */
+.group_purchase_reviews {
+  margin-top: 24px;
+  padding: 28px;
+  border: 1px solid #e2e6e3;
+  border-radius: 14px;
+  background: #fff;
+}
+
+/* 리뷰 영역 제목 */
+.group_purchase_reviews > h2 {
+  margin: 0 0 24px;
+  font-size: 20px;
+}
+
+/* 리뷰 점수와 별점 통계 배치 */
+.review_content {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+
+/* 리뷰 평균 점수 */
+.review_summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 210px;
+}
+
+.review_score {
+  font-size: 48px;
+  line-height: 1;
+}
+
+.review_stars {
+  margin-top: 10px;
+  color: #ff9f0a;
+  letter-spacing: 3px;
+}
+
+.review_summary p {
+  margin: 8px 0 18px;
+  color: #777;
+  font-size: 13px;
+}
+
+/* 전체 리뷰 보기 버튼 */
+.review_more_button {
+  width: 100%;
+  height: 40px;
+  border: 1px solid #d9ddda;
+  border-radius: 8px;
+  background: #fff;
+  cursor: pointer;
+}
+
+/* 별점별 리뷰 비율 */
+.review_statistics {
+  width: 260px;
+}
+
+.review_statistics > div {
+  display: grid;
+  grid-template-columns: 40px 1fr 38px;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  font-size: 12px;
+}
+
+.review_statistics progress {
+  width: 100%;
+  height: 8px;
+  accent-color: #237b39;
+}
+
+
+
+/*작성된 리뷰 카드 목록 */
+.review_card_list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 28px;
+}
+
+/* 리뷰 카드 한 개 */
+.review_card {
+  padding: 20px;
+  border: 1px solid #e2e6e3;
+  border-radius: 12px;
+}
+
+/* 리뷰 작성자 정보 */
+.review_user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.review_avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #edf3ee;
+  color: #237b39;
+  font-weight: 700;
+}
+
+.review_user > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.review_user span {
+  color: #ff9f0a;
+  font-size: 12px;
+}
+
+/* 리뷰 본문과 날짜 */
+.review_card p {
+  min-height: 44px;
+  margin: 18px 0;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.review_card time {
+  color: #999;
+  font-size: 11px;
+}
+
+/*리뷰 탭 전용 배치 */
+.review_tab_panel {
+  display: block;
+  min-height: auto;
+}
+
+/* 리뷰 내용을 탭 박스의 전체 너비로 표시 */
+.review_tab_panel > .review_tab_content {
+  width: 100%;
+  padding: 0;
+  border: 0;
+}
+
+/* 리뷰 제목 간격 */
+.review_tab_content > h2 {
+  margin-bottom: 22px;
+}
+
+/* 평균 점수와 별점 비율을 가운데 정렬 */
+.review_tab_content .review_content {
+  justify-content: center;
+  gap: 60px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #e2e6e3;
+}
+
+/* 리뷰 카드를 동일한 너비로 표시 */
+.review_tab_content .review_card_list {
+  margin-top: 24px;
+}

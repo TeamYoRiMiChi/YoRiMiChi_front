@@ -12,6 +12,7 @@ import CustomerService from '../pages/Customer_Service/CustomerService';
 import SignUp from '../pages/SignUp/SignUp';
 import MyPage from '../pages/MyPage/MyPage';
 import ProductInfo from "../pages/Overseas/ProductInfo";
+import GroupPurchaseView from "../pages/Group_purchase/GroupPurchaseView";
 
 function Router() {
   return (
@@ -27,6 +28,7 @@ function Router() {
 
         <Route path="/faq" element={<Faq />} />
         <Route path="/groupbuy" element={<GroupPurchase />} />
+        <Route path="/groupbuy/:groupBuyId" element={<GroupPurchaseView />} />
         <Route path="/overseas" element={<Overseas />} />
         <Route path="/guide" element={<Guide />} />
         <Route path="/support" element={<CustomerService />} />
