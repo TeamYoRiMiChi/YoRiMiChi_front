@@ -1,0 +1,73 @@
+/* =========================
+   섹션 카드 공통 껍데기
+
+   왼쪽 아이콘+제목(180px 고정) / 오른쪽 내용
+========================= */
+.order-section {
+    display: grid;
+    grid-template-columns: 180px minmax(0, 1fr);
+    gap: 20px;
+
+    padding: 26px 28px;
+
+    border: 1px solid var(--od-line, #e7e9f2);
+    border-radius: var(--od-radius, 16px);
+    background: #fff;
+}
+
+.order-section.align-center {
+    align-items: center;
+}
+
+.order-section.align-start {
+    align-items: start;
+}
+
+.order-section-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.order-section-icon {
+    display: grid;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+
+    border-radius: 12px;
+    background: var(--od-brand-soft, #f2f2ff);
+    color: var(--od-brand, #5558e9);
+
+    font-size: 16px;
+    place-items: center;
+}
+
+.order-section-head h2 {
+    margin: 0;
+
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+}
+
+.order-section-body {
+    min-width: 0;
+}
+
+/* =========================
+   반응형
+========================= */
+@media (max-width: 700px) {
+    .order-section {
+        grid-template-columns: 1fr;
+        gap: 16px;
+
+        padding: 20px;
+    }
+
+    .order-section-head h2 {
+        font-size: 16px;
+    }
+}

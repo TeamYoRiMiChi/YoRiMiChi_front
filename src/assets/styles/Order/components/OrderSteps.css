@@ -1,0 +1,43 @@
+/* =========================
+   주문 진행 단계
+========================= */
+.order-steps {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+
+    font-size: 14px;
+}
+
+.order-step-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.order-step {
+    color: var(--od-muted, #71768c);
+    text-decoration: none;
+    transition: color 0.15s;
+}
+
+a.order-step:hover {
+    color: var(--od-ink, #11152f);
+}
+
+.order-step.active {
+    color: var(--od-brand, #5558e9);
+    font-weight: 700;
+}
+
+.order-step-arrow {
+    font-size: 10px;
+    color: #c9cdda;
+}
+
+@media (max-width: 700px) {
+    .order-steps {
+        font-size: 12.5px;
+    }
+}

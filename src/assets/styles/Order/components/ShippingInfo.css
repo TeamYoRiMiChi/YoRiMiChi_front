@@ -1,0 +1,115 @@
+/* =========================
+   배송지 정보
+========================= */
+.shipping-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+
+    margin-bottom: 8px;
+}
+
+.shipping-receiver {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.shipping-receiver strong {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.shipping-receiver span {
+    font-size: 14px;
+    color: var(--od-muted, #71768c);
+}
+
+.shipping-change-btn {
+    flex-shrink: 0;
+    height: 36px;
+    padding: 0 16px;
+
+    border: 1px solid var(--od-brand, #5558e9);
+    border-radius: 8px;
+    background: #fff;
+    color: var(--od-brand, #5558e9);
+
+    font-family: inherit;
+    font-size: 13.5px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.shipping-change-btn:hover {
+    background: var(--od-brand-soft, #f2f2ff);
+}
+
+.shipping-address {
+    margin: 0 0 18px;
+
+    font-size: 14px;
+    color: #4a4f68;
+    line-height: 1.6;
+}
+
+/* 배송 메모 */
+.shipping-memo {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    padding-top: 16px;
+    border-top: 1px solid #f2f3f7;
+}
+
+.shipping-memo label {
+    flex-shrink: 0;
+
+    font-size: 13.5px;
+    color: var(--od-muted, #71768c);
+}
+
+.shipping-memo select {
+    flex: 1;
+    min-width: 0;
+    height: 44px;
+    padding: 0 14px;
+
+    border: 1px solid var(--od-line, #e7e9f2);
+    border-radius: 10px;
+    background: #fff;
+
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--od-ink, #11152f);
+
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.15s;
+}
+
+.shipping-memo select:focus {
+    border-color: var(--od-brand, #5558e9);
+}
+
+/* =========================
+   반응형
+========================= */
+@media (max-width: 700px) {
+    .shipping-top {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .shipping-memo {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 8px;
+    }
+}
