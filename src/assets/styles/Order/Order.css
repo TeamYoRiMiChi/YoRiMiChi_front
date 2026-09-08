@@ -67,6 +67,55 @@
 }
 
 /* =========================
+   로딩 / 에러 / 안내 상태
+========================= */
+.order-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+
+    padding: 120px 20px;
+
+    font-size: 15px;
+    color: var(--od-muted, #71768c);
+}
+
+.order-state p {
+    margin: 0;
+}
+
+.order-state-btn {
+    padding: 11px 24px;
+
+    border: 1px solid var(--od-brand, #5558e9);
+    border-radius: 9px;
+    color: var(--od-brand, #5558e9);
+
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.15s;
+}
+
+.order-state-btn:hover {
+    background: var(--od-brand-soft, #f2f2ff);
+}
+
+/* 배송지 미등록 등 안내 */
+.order-notice {
+    padding: 22px 26px;
+
+    border: 1px solid #f5c2c7;
+    border-radius: var(--od-radius, 16px);
+    background: #fdf2f3;
+
+    font-size: 14px;
+    color: #b02a37;
+    line-height: 1.6;
+}
+
+/* =========================
    반응형
 ========================= */
 @media (max-width: 1024px) {

@@ -6,39 +6,11 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 /**
- * 주문/결제 페이지 임시 데이터
+ * 주문/결제 페이지 고정 데이터
  *
- * 백엔드 연동 전까지 화면 개발용으로 사용합니다.
- * API가 준비되면 이 파일 대신 서버 응답을 쓰면 됩니다.
+ * 배송지·상품·금액은 서버에서 받아옵니다.
+ * 여기에는 화면 선택지처럼 서버와 무관한 값만 둡니다.
  */
-
-/* 배송지 (ADDRESS 테이블 기준) */
-export const MOCK_ADDRESS = {
-  addressId: 1,
-  receiverName: '김지윤',
-  receiverPhone: '010-1234-5678',
-  postalCode: '06234',
-  address: '서울특별시 강남구 테헤란로 123',
-  addressDetail: '',
-  isDefault: true,
-};
-
-/* 개인통관고유부호 (MEMBER.personal_customs_code) */
-export const MOCK_CUSTOMS_CODE = 'P123456789012';
-
-/* 주문 상품 (CART_ITEM → ORDER_ITEM 으로 넘어갈 데이터) */
-export const MOCK_ORDER_ITEMS = [
-  {
-    productId: 1,
-    brand: 'SK-II',
-    name: 'SK-II 피테라 에센스 230ml',
-    thumbnailUrl: null,
-    priceKrw: 126500,
-    quantity: 1,
-    overseasShipping: 8000,
-    domesticShipping: 3000,
-  },
-];
 
 /* 배송 메모 선택지 */
 export const DELIVERY_MEMOS = [
@@ -50,17 +22,6 @@ export const DELIVERY_MEMOS = [
   '직접 입력',
 ];
 
-/* 사용 가능한 쿠폰 */
-export const MOCK_COUPONS = [
-  { id: 0, name: '쿠폰을 선택해주세요', discount: 0 },
-  { id: 1, name: '10,000원 할인 쿠폰', discount: 10000 },
-  { id: 2, name: '5,000원 할인 쿠폰', discount: 5000 },
-  { id: 3, name: '첫 구매 3,000원 할인', discount: 3000 },
-];
-
-/* 보유 포인트 */
-export const MOCK_AVAILABLE_POINT = 2000;
-
 /* 결제 수단 */
 export const PAYMENT_METHODS = [
   { key: 'CARD', label: '신용카드', icon: faCreditCard },
@@ -68,3 +29,19 @@ export const PAYMENT_METHODS = [
   { key: 'NAVERPAY', label: '네이버페이', icon: faN },
   { key: 'TRANSFER', label: '계좌이체', icon: faBuildingColumns },
 ];
+
+/**
+ * 쿠폰 · 포인트
+ *
+ * COUPON / POINT 테이블이 아직 없어서 화면 확인용 임시 데이터입니다.
+ * 서버가 준비되면 API 응답으로 교체하세요.
+ * 지금은 화면에서만 차감되고 실제 결제 금액에는 반영되지 않습니다.
+ */
+export const MOCK_COUPONS = [
+  { id: 0, name: '쿠폰을 선택해주세요', discount: 0 },
+  { id: 1, name: '10,000원 할인 쿠폰', discount: 10000 },
+  { id: 2, name: '5,000원 할인 쿠폰', discount: 5000 },
+  { id: 3, name: '첫 구매 3,000원 할인', discount: 3000 },
+];
+
+export const MOCK_AVAILABLE_POINT = 2000;
