@@ -18,6 +18,7 @@ function ShippingInfo({
   onCopyFromSaved,
   memo,
   onMemoChange,
+  onToggleManual,
 }) {
   return (
     <OrderSection icon={faLocationDot} title="배송지 정보">
