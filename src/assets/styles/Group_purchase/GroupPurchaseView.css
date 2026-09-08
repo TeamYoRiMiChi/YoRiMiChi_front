@@ -1,0 +1,35 @@
+.group_purchase_view {
+  width: 100%;
+  padding: 28px 0 80px;
+  color: #222;
+}
+
+.group_purchase_view_inner {
+  width: min(1180px, calc(100% - 40px));
+  margin: 0 auto;
+}
+
+.group_purchase_breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 32px;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.group_purchase_breadcrumb strong {
+  color: #222;
+  font-weight: 600;
+}
+/* 공동구매 상품 */
+.group_purchase_product {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 40px;
+}
+
+
+
+

@@ -26,6 +26,16 @@
   box-sizing: border-box;
 }
 
+.overseas-page .hero_box {
+  width: 100%;
+  margin-left: 0;
+  padding: 25px 0;
+}
+
+.overseas-page .hero_box .hero_slider {
+  width: 100%;
+}
+
 /* =========================
    상품 섹션
 ========================= */

@@ -1,0 +1,38 @@
+/* 상품 이미지 전체 배치 */
+.group_purchase_gallery {
+  display: grid;
+  grid-template-columns: 82px 1fr;
+  gap: 18px;
+}
+
+/* 작은 상품 이미지 목록 */
+.group_purchase_thumbnails {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* 작은 상품 이미지 버튼 */
+.thumbnail_item {
+  height: 82px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background: #f7f5f1;
+  cursor: pointer;
+}
+
+/* 현재 선택된 작은 상품 이미지 */
+.thumbnail_item.active {
+  border: 2px solid #2e8b45;
+}
+
+/* 선택된 큰 상품 이미지 */
+.group_purchase_main_image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 520px;
+  border-radius: 16px;
+  background: #f7f5f1;
+  color: #8b8b8b;
+}

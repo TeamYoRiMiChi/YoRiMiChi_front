@@ -188,6 +188,7 @@
   height: 68px;
   flex-shrink: 0;
 
+  display: block;
   border-radius: 8px;
   overflow: hidden;
   background-color: #f5f5f5;
@@ -300,6 +301,16 @@
 .wish_add_bt:hover {
   background-color: #f2eeff;
   color: rgb(117, 84, 239);
+}
+
+.wish_add_bt:disabled {
+  color: #ddd;
+  cursor: not-allowed;
+}
+
+.wish_add_bt:disabled:hover {
+  background-color: transparent;
+  color: #ddd;
 }
 
 /* =========================

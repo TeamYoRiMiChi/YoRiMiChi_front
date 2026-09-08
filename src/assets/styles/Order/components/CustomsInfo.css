@@ -1,0 +1,56 @@
+/* =========================
+   개인통관고유부호
+========================= */
+.customs-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.customs-code {
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.customs-verified {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--od-brand, #5558e9);
+}
+
+.customs-verified svg {
+    font-size: 16px;
+}
+
+/* 미등록 상태 */
+.customs-empty {
+    font-size: 14px;
+    color: #d64550;
+}
+
+.customs-register-btn {
+    height: 34px;
+    padding: 0 14px;
+
+    border: 1px solid var(--od-brand, #5558e9);
+    border-radius: 8px;
+    background: #fff;
+    color: var(--od-brand, #5558e9);
+
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.customs-register-btn:hover {
+    background: var(--od-brand-soft, #f2f2ff);
+}

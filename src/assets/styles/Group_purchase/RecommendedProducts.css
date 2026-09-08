@@ -1,0 +1,82 @@
+/* 추천 상품 영역 */
+.recommended_products {
+  margin-top: 30px;
+  padding: 24px;
+  border: 1px solid #e2e6e3;
+  border-radius: 14px;
+}
+
+/* 추천 상품 제목 */
+.recommended_products_heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.recommended_products_heading h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.recommended_products_heading button {
+  border: 0;
+  background: transparent;
+  color: #237b39;
+  cursor: pointer;
+}
+
+/* 추천 상품 카드 목록 */
+.recommended_product_list {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+
+/* 추천 상품 카드 한 개 */
+.recommended_product_card {
+  overflow: hidden;
+  border: 1px solid #e2e6e3;
+  border-radius: 12px;
+}
+
+/* 추천 상품 이미지 자리 */
+.recommended_product_image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 150px;
+  background: #f7f5f1;
+  color: #999;
+}
+
+/* 추천 상품 이름과 가격 */
+.recommended_product_info {
+  position: relative;
+  padding: 14px;
+}
+
+.recommended_product_info p {
+  margin: 0 0 8px;
+  font-size: 13px;
+}
+
+.recommended_product_info strong {
+  font-size: 16px;
+}
+
+.recommended_product_info small {
+  font-size: 10px;
+}
+
+.recommended_product_info button {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  width: 34px;
+  height: 34px;
+  border: 1px solid #dce5de;
+  border-radius: 50%;
+  background: #fff;
+  cursor: pointer;
+}
