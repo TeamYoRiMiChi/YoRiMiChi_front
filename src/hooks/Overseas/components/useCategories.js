@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
 import { getCategories } from '../../../api/Overseas/categoryApi';
-import { CATEGORY_ICONS, DEFAULT_CATEGORY_ICON } from '../../../data/Overseas/overseasData';
+import {
+  ALL_CATEGORY,
+  CATEGORY_ICONS,
+  DEFAULT_CATEGORY_ICON,
+} from '../../../data/Overseas/overseasData';
 
 /**
  * 카테고리를 서버에서 불러옵니다.
@@ -9,13 +13,20 @@ import { CATEGORY_ICONS, DEFAULT_CATEGORY_ICON } from '../../../data/Overseas/ov
  * 이 훅  →  categoryApi  →  (HTTP)  →  CategoryController
  *        →  CategoryService  →  CategoryMapper  →  CategoryMapper.xml  →  MySQL
  *
- * 아이콘은 DB에 없는 화면 전용 정보라 프론트에서 id로 매칭합니다.
+ * 아이콘은 DB에 없는 화면 전용 정보라 프론트에서 이름으로 매칭합니다.
+ * id로 짝지으면 DB를 다시 넣을 때 번호가 바뀌어 아이콘이 어긋납니다.
+ *
+ * 맨 앞에는 '전체 보기'를 끼워 넣습니다.
+ * 이건 DB에 없는 화면 전용 항목이라 서버에서 오지 않습니다.
  *
  * 서버가 꺼져 있거나 통신에 실패하면 화면이 비어버리지 않도록
- * 기존 하드코딩 목록으로 대체합니다.
+ * fallback 목록으로 대체합니다.
  */
 export function useCategories(fallback = []) {
-  const [categories, setCategories] = useState(fallback);
+  /* 전체 보기를 항상 맨 앞에 둡니다 */
+  const withAll = (list) => [ALL_CATEGORY, ...list];
+
+  const [categories, setCategories] = useState(withAll(fallback));
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -33,17 +44,17 @@ export function useCategories(fallback = []) {
         const withIcons = list.map((c) => ({
           id: c.id,
           name: c.name,
-          icon: CATEGORY_ICONS[c.id] ?? DEFAULT_CATEGORY_ICON,
+          icon: CATEGORY_ICONS[c.name] ?? DEFAULT_CATEGORY_ICON,
         }));
-        
+
         if (!ignore) {
-          setCategories(withIcons);
+          setCategories(withAll(withIcons));
           setError(null);
         }
       } catch (err) {
         if (!ignore) {
           setError(err.response?.data?.message ?? 'カテゴリの取得に失敗しました。');
-          setCategories(fallback); // 실패해도 화면은 보이도록
+          setCategories(withAll(fallback)); // 실패해도 화면은 보이도록
         }
       } finally {
         if (!ignore) setIsLoading(false);
