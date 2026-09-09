@@ -26,6 +26,7 @@ const GROUP_BUY_PER_PAGE = 12;
  */
 export const getGroupBuyProducts = (params = {}) => {
   const {
+    status,
     categoryId,
     keyword,
     sort = 'recommend',
@@ -34,11 +35,16 @@ export const getGroupBuyProducts = (params = {}) => {
   } = params;
 
   return axiosInstance.get(BASE_URL, {
-    params: buildProductParams({ categoryId, keyword, sort, page, size }),
-  });
-};
+    params: {
+      ...buildProductParams({
+        categoryId,
+        keyword,
+        sort,
+        page,
+        size,
+      }),
 
-/** 공동구매 상품 상세 */
-export const getGroupBuyProduct = (productId) => {
-  return axiosInstance.get(`${BASE_URL}/${productId}`);
+      ...(status ? { status } : {}),
+    },
+  });
 };

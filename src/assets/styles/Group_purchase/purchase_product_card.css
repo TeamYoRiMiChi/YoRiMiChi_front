@@ -265,3 +265,17 @@
 
   cursor: pointer;
 }
+
+/* 마감임박: 주황색 */
+.product_badge_closing {
+    color: #ea580c !important;
+    background-color: #ffedd5 !important;
+    border: 1px solid #fdba74 !important;
+}
+
+/* 완료: 빨간색 */
+.product_badge_completed {
+    color: #dc2626 !important;
+    background-color: #fee2e2 !important;
+    border: 1px solid #fca5a5 !important;
+}
