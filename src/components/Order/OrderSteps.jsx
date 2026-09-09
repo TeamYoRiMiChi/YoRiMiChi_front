@@ -6,18 +6,22 @@ import '../../assets/styles/Order/components/OrderSteps.css';
 /**
  * 주문 진행 단계 표시
  *
- * @param {string} current 현재 단계 key (cart | order | done)
+ * 바로구매는 장바구니를 거치지 않으므로
+ * showCart를 false로 주면 그 단계를 빼고 보여줍니다.
+ *
+ * @param {string}  current  현재 단계 key (cart | order | done)
+ * @param {boolean} showCart 장바구니 단계를 표시할지
  */
-const STEPS = [
-  { key: 'cart', label: '장바구니', to: '/cart' },
-  { key: 'order', label: '주문 / 결제', to: null },
-  { key: 'done', label: '주문완료', to: null },
-];
+function OrderSteps({ current = 'order', showCart = true }) {
+  const steps = [
+    ...(showCart ? [{ key: 'cart', label: '장바구니', to: '/cart' }] : []),
+    { key: 'order', label: '주문 / 결제', to: null },
+    { key: 'done', label: '주문완료', to: null },
+  ];
 
-function OrderSteps({ current = 'order' }) {
   return (
     <nav className="order-steps" aria-label="주문 진행 단계">
-      {STEPS.map((step, i) => {
+      {steps.map((step, i) => {
         const isActive = step.key === current;
 
         return (
@@ -32,7 +36,7 @@ function OrderSteps({ current = 'order' }) {
               </span>
             )}
 
-            {i < STEPS.length - 1 && (
+            {i < steps.length - 1 && (
               <FontAwesomeIcon icon={faChevronRight} className="order-step-arrow" />
             )}
           </span>

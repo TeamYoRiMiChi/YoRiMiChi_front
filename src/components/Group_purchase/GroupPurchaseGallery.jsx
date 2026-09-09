@@ -2,8 +2,8 @@ import '../../assets/styles/Group_purchase/GroupPurchaseGallery.css';
 import groupPurchaseGalleryData from '../../data/Group_purchase/groupPurchaseGalleryData';
 import useGroupPurchaseGallery from '../../hooks/Group_purchase/useGroupPurchaseGallery';
 
-function GroupPurchaseGallery() {
-  // Hook에서 선택된 이미지 번호와 선택 함수를 가져옵니다.
+function GroupPurchaseGallery({ productName }) {
+  // Hook에서 선택된 이미지 번호와 선택 함수 가지고옴
   const { selectedImageIndex, handleSelectImage } = useGroupPurchaseGallery();
 
   return (
@@ -19,14 +19,14 @@ function GroupPurchaseGallery() {
             aria-pressed={selectedImageIndex === index}
             key={image.id}
           >
-            {image.label}
+            <span className="thumbnail_item_label">{productName}</span>
           </button>
         ))}
       </div>
 
       {/* 선택된 큰 상품 이미지 */}
       <div className="group_purchase_main_image">
-        商品画像 {selectedImageIndex + 1}
+        <span className="group_purchase_main_image_label">{productName}</span>
       </div>
     </div>
   );

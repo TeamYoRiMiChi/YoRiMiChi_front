@@ -10,5 +10,5 @@ import { ENDPOINTS } from '../../config/api';
 
 /** 전체 카테고리 조회 */
 export const getGpCategories = () => {
-  return axiosInstance.get(ENDPOINTS.GB_CATEGORIES);
+  return axiosInstance.get(ENDPOINTS.CATEGORIES);
 };

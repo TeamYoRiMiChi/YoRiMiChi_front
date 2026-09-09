@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { fetchProducts } from '../../features/product/productSlice';
 import { toggleWishlist } from '../../features/wishlist/wishlistSlice';
 import { usePagination } from '../common/usePagination';
@@ -14,13 +15,15 @@ import { CATEGORIES, PER_PAGE } from '../../data/Overseas/overseasData';
  */
 export function useOverseas() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const { items, totalElements, status, error } = useSelector((s) => s.product);
   const wishlistIds = useSelector((s) => s.wishlist.ids);
   const accessToken = useSelector((s) => s.auth.accessToken);
 
   const [keyword, setKeyword] = useState('');
-  const [activeCategory, setActiveCategory] = useState(1);
+  const [activeCategory, setActiveCategory] = useState('');
   const [sort, setSort] = useState('recommend');
 
   const debouncedKeyword = useDebounce(keyword, 300);
@@ -57,24 +60,36 @@ export function useOverseas() {
 
   const handleSort = (key) => {
     setSort(key);
+
+  //おすすめ를 누르면 카테고리 조건을 해제하여
+  // 전체 상품을 추천순으로 조회합니다.
+    if(key ==='recommend'){
+      setActiveCategory('');
+    }
     resetPage();
   };
-
+  
   const handleKeyword = (value) => {
     setKeyword(value);
     resetPage();
   };
 
+  //기본값은 '' 공백으로 넣어뒀습니더!
+  // 검색 조건을 초기화합니다.
   const handleReset = () => {
     setKeyword('');
-    setActiveCategory(1);
+    setActiveCategory('');
+    setSort('recommend');
     resetPage();
   };
 
   /* 찜 토글 — 비로그인이면 로그인 안내 */
   const handleToggleWish = (productId) => {
     if (!accessToken) {
-      alert('ログインが必要です。');
+      alert('ログインが必要です。ログインページへ移動します。');
+      navigate('/login', {
+        state: { from: location.pathname + location.search },
+      });
       return;
     }
     dispatch(toggleWishlist(productId));

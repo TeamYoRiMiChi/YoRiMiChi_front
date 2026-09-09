@@ -12,10 +12,7 @@ export const ENDPOINTS = {
   PRODUCTS: '/products',
   CATEGORIES: '/categories',
   GB_CATEGORIES: '/gb-categories',
-
-
-
-
+  GROUP_BUYS: '/group-buys',
 
   // 찜
   WISHLIST: '/wishlist',
@@ -23,8 +20,12 @@ export const ENDPOINTS = {
   // 장바구니
   CART: '/cart',
 
+  // 주문
+  ORDERS: '/orders',
+
   // 주문 내역
   ORDERHISTORY: '/orderhistory',
+  ORDERDETAIL: (orderId) => `/orderhistory/${orderId}`,
 };
 
 /**

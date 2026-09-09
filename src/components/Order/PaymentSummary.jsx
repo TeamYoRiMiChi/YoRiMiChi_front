@@ -11,7 +11,7 @@ import '../../assets/styles/Order/components/PaymentSummary.css';
  * @param {Function} onSubmit      결제 버튼 콜백
  * @param {boolean}  isSubmitting  결제 진행 중 여부
  */
-function PaymentSummary({ amounts, agreed, onAgreeChange, onSubmit, isSubmitting }) {
+function PaymentSummary({ amounts, agreed, onAgreeChange, onSubmit, isSubmitting, disabled = false }) {
   const {
     productAmount,
     overseasShipping,
@@ -77,7 +77,7 @@ function PaymentSummary({ amounts, agreed, onAgreeChange, onSubmit, isSubmitting
         type="button"
         className="pay-submit-btn"
         onClick={onSubmit}
-        disabled={!agreed || isSubmitting}
+        disabled={!agreed || isSubmitting || disabled}
       >
         {isSubmitting ? '결제 중...' : `₩${total.toLocaleString()} 결제하기`}
       </button>

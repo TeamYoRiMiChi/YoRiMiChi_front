@@ -1,12 +1,20 @@
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { addCartItem } from '../../features/cart/cartSlice';
+import { toggleWishlist } from '../../features/wishlist/wishlistSlice';
 
 // 공동구매 상품 요약 영역의 동작을 관리하는 Hook
-function useGroupPurchaseSummary(initialOption) {
+function useGroupPurchaseSummary(initialOption, productId) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const accessToken = useSelector((state) => state.auth.accessToken);
+  const wishlistIds = useSelector((state) => state.wishlist.ids);
   // 현재 선택한 상품 수량을 기억 처음 수량은 1
   const [quantity, setQuantity] = useState(1);
 
-  // 상품을 찜했는지 기억 처음에는 찜하지 않은 상태
-  const [isWished, setIsWished] = useState(false);
+  const isWished = wishlistIds.includes(productId);
 
   // 현재 선택한 상품 옵션을 기억
   const [selectedOption, setSelectedOption] = useState(initialOption);
@@ -26,7 +34,13 @@ function useGroupPurchaseSummary(initialOption) {
 
   // 찜 버튼을 누를 때마다 선택 상태를 반대로
   const handleToggleWish = () => {
-    setIsWished((previousIsWished) => !previousIsWished);
+    if (!accessToken) {
+      alert('ログインが必要です。ログインページへ移動します。');
+      navigate('/login', { state: { from: location.pathname } });
+      return;
+    }
+
+    dispatch(toggleWishlist(productId));
   };
 
   // 옵션 선택 상자에서 고른 값으로 상태를 변경
@@ -35,8 +49,19 @@ function useGroupPurchaseSummary(initialOption) {
   };
 
   // API 연결 전까지 선택한 옵션과 수량을 안내 문구로 
-  const handleAddToCart = () => {
-    setCartMessage(`${selectedOption}を${quantity}個、カートに入れました。`);
+  const handleAddToCart = async () => {
+    if (!accessToken) {
+      alert('ログインが必要です。ログインページへ移動します。');
+      navigate('/login', { state: { from: location.pathname } });
+      return;
+    }
+
+    try {
+      await dispatch(addCartItem({ productId, quantity })).unwrap();
+      setCartMessage(`${selectedOption}を${quantity}個、カートに入れました。`);
+    } catch (message) {
+      setCartMessage(message || 'カートへの追加に失敗しました。');
+    }
   };
 
   return {

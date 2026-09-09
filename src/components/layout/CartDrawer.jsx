@@ -43,6 +43,10 @@ const TEXT = {
   },
 };
 
+const getDetailPath = (item) => item.groupBuyId
+  ? `/groupbuy/${item.groupBuyId}`
+  : `/overseas/${item.productId}`;
+
 function CartDrawer({ open, onClose, lang = 'ja' }) {
   const dispatch = useDispatch();
   const [tab, setTab] = useState('cart');
@@ -190,7 +194,7 @@ function CartDrawer({ open, onClose, lang = 'ja' }) {
                   {cartItems.map((item) => (
                     <li key={item.cartItemId} className="cart_item">
                       <Link
-                        to={`/overseas/${item.productId}`}
+                        to={getDetailPath(item)}
                         className="cart_item_img"
                         onClick={onClose}
                       >
@@ -201,13 +205,17 @@ function CartDrawer({ open, onClose, lang = 'ja' }) {
                         )}
                       </Link>
 
-                      <div className="cart_item_info">
+                      <Link
+                        to={getDetailPath(item)}
+                        className="cart_item_info"
+                        onClick={onClose}
+                      >
                         <p className="cart_item_name">{item.name}</p>
                         <p className="cart_item_price">
                           {item.price}
                           <span className="cart_item_qty">× {item.quantity}</span>
                         </p>
-                      </div>
+                      </Link>
 
                       <button
                         className="cart_item_del"
@@ -260,7 +268,7 @@ function CartDrawer({ open, onClose, lang = 'ja' }) {
                   {wishItems.map((item) => (
                     <li key={item.wishlistId} className="cart_item">
                       <Link
-                        to={`/overseas/${item.productId}`}
+                        to={getDetailPath(item)}
                         className="cart_item_img"
                         onClick={onClose}
                       >
@@ -271,10 +279,14 @@ function CartDrawer({ open, onClose, lang = 'ja' }) {
                         )}
                       </Link>
 
-                      <div className="cart_item_info">
+                      <Link
+                        to={getDetailPath(item)}
+                        className="cart_item_info"
+                        onClick={onClose}
+                      >
                         <p className="cart_item_name">{item.name}</p>
                         <p className="cart_item_price">{item.price}</p>
-                      </div>
+                      </Link>
 
                       <div className="wish_item_actions">
                         <button

@@ -83,13 +83,7 @@ function GroupPurchase() {
                             <option value="priceAsc">価格順</option>
                         </select>
 
-                        <button
-                            type="button"
-                            className="search_purchase_btn"
-                            onClick={handleSearch}
-                        >
-                            検索
-                        </button>
+                        
 
 
 

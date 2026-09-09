@@ -57,7 +57,117 @@
     line-height: 1.6;
 }
 
-/* 배송 메모 */
+/* =========================
+   직접 입력 폼
+========================= */
+.shipping-form {
+    margin-bottom: 18px;
+}
+
+.shipping-form-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    margin-bottom: 14px;
+}
+
+.shipping-form-title {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.shipping-form-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.shipping-mini-btn {
+    height: 32px;
+    padding: 0 12px;
+
+    border: 1px solid var(--od-line, #e7e9f2);
+    border-radius: 7px;
+    background: #fff;
+    color: var(--od-muted, #71768c);
+
+    font-family: inherit;
+    font-size: 12.5px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+}
+
+.shipping-mini-btn:hover {
+    border-color: var(--od-brand, #5558e9);
+    color: var(--od-brand, #5558e9);
+}
+
+/* 입력칸 배치 — 2열, 일부는 전체 폭 */
+.shipping-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.shipping-field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+
+    min-width: 0;
+}
+
+.shipping-field-full {
+    grid-column: 1 / -1;
+}
+
+.shipping-field-short {
+    max-width: 200px;
+}
+
+.shipping-field label {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--od-muted, #71768c);
+}
+
+.shipping-field input {
+    height: 44px;
+    padding: 0 14px;
+
+    border: 1px solid var(--od-line, #e7e9f2);
+    border-radius: 10px;
+    background: #fff;
+
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--od-ink, #11152f);
+
+    outline: none;
+    transition: border-color 0.15s;
+}
+
+.shipping-field input:focus {
+    border-color: var(--od-brand, #5558e9);
+}
+
+.shipping-field input::placeholder {
+    color: #b0b4c4;
+}
+
+.shipping-error {
+    margin: 0;
+    font-size: 12px;
+    color: #d64550;
+}
+
+/* =========================
+   배송 메모
+========================= */
 .shipping-memo {
     display: flex;
     align-items: center;
@@ -105,6 +215,14 @@
         align-items: flex-start;
         flex-direction: column;
         gap: 12px;
+    }
+
+    .shipping-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .shipping-field-short {
+        max-width: 100%;
     }
 
     .shipping-memo {

@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { getGpCategories } from '../../api/Group_purchase/categoryPurchaseApi';
-import { getProducts, toProductView } from '../../api/productApi';
+import { getGroupBuyProducts } from '../../api/Group_purchase/groupBuyProductApi';
+import { toProductView } from '../../api/productApi';
 
 
 
@@ -39,7 +40,7 @@ export function useGroupPurchase(fallback = []) {
     };
 
     useEffect(() => {
-        let ignore = false; // 컴포넌트가 사라진 뒤 setState 하는 걸 막습니다
+        let ignore = false; // 컴포넌트가 사라진 뒤 setState 하는 걸 막기
 
         async function load() {
             try {
@@ -47,7 +48,7 @@ export function useGroupPurchase(fallback = []) {
 
                 // 서버 응답: { success, data: [...], message }
                 const list = res.data.data ?? [];
-                // DB 값 + 화면용 아이콘을 합칩니다
+                // DB 값 + 화면용 아이콘을 합
                 const withIcons = list.map((c) => ({
                     id: c.id,
                     name: c.name,
@@ -76,29 +77,33 @@ export function useGroupPurchase(fallback = []) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+
+    //공동구매 화면이 백엔드 상품 api에 보내는조건
     useEffect(() => {
         async function loadProducts() {
             try {
-                const res = await getProducts({
+                // 서버가 saleType을 GROUP_BUY로 고정하므로 따로 보내지 않습니다
+                const res = await getGroupBuyProducts({
                     categoryId: selectedCategoryId
-                    ? Number(selectedCategoryId) 
-                    : undefined,
+                        ? Number(selectedCategoryId)
+                        : undefined,
+
+                    sort: selectedSort,
                     page: 1,
                     size: 50,
-                  
                 });
                 const pageData = res.data.data;
-                const productList = (pageData.content ??[]).map(toProductView);
-               
+                const productList = (pageData.content ?? []).map(toProductView);
+                console.log('상품 조회 성공:', productList);
                 setProducts(productList);
-            }catch (err) {
+            } catch (err) {
                 console.error('상품 조회 실패:', err);
                 setProducts([]);
             }
         }
 
         loadProducts();
-    },[selectedCategoryId]);
+    }, [selectedCategoryId, selectedSort]);
 
 
 

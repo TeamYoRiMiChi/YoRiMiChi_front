@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getWishlist } from '../../../api/wishlistApi';
+import { getWishlistItems, toWishlistItemView } from '../../../api/wishlistApi';
 
 export function useWishlist() {
   const [wishlist, setWishlist] = useState([]);
@@ -11,12 +11,11 @@ export function useWishlist() {
 
     async function loadWishlist() {
       try {
-        const response = await getWishlist();
+        const response = await getWishlistItems();
         const list = response.data?.data ?? [];
 
-        console.log('Wishlist data:', list);    
         if (!ignore) {
-          setWishlist(Array.isArray(list) ? list : []);
+          setWishlist(Array.isArray(list) ? list.map(toWishlistItemView) : []);
           setError(null);
         }
       } catch (err) {
