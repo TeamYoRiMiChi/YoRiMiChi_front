@@ -89,10 +89,7 @@ export function toProductView(dto) {
  */
 export const getProducts = (params = {}) => {
   const {
-<<<<<<< HEAD
     saleType = SALE_TYPE.OVERSEAS,
-=======
->>>>>>> f68af70fbd0462ef8b15e3d1a3ee92fd42298c88
     categoryId,
     keyword,
     sort = 'recommend',
@@ -102,12 +99,12 @@ export const getProducts = (params = {}) => {
 
   return axiosInstance.get(ENDPOINTS.PRODUCTS, {
     params: {
-<<<<<<< HEAD
+      /**
+       * 판매 방식 (OVERSEAS | GROUP_BUY)
+       * 해외직구 페이지에 공동구매 전용 상품이 섞이지 않도록 항상 보냅니다.
+       */
       saleType,
-      // 전체(1)는 서버에서도 전체로 처리하지만, 굳이 보내지 않습니다
-      ...(categoryId && categoryId !== 1 ? { categoryId } : {}),
-      ...(keyword?.trim() ? { keyword: keyword.trim() } : {}),
-=======
+
       /**
        * 전체 카테고리는 빈 값('')으로 관리합니다.
        *
@@ -133,7 +130,6 @@ export const getProducts = (params = {}) => {
       /**
        * 정렬, 페이지, 페이지 크기는 항상 전송합니다.
        */
->>>>>>> f68af70fbd0462ef8b15e3d1a3ee92fd42298c88
       sort,
       page,
       size,
