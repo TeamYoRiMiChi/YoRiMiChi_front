@@ -1,0 +1,75 @@
+/* =========================
+   결제 수단
+========================= */
+.pay-method-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.pay-method {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    width: 100%;
+    min-height: 92px;
+    padding: 16px 10px;
+
+    border: 1.5px solid var(--od-line, #e7e9f2);
+    border-radius: 12px;
+    background: #fff;
+    color: var(--od-ink, #11152f);
+
+    font-family: inherit;
+    font-size: 13.5px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+}
+
+.pay-method:hover {
+    border-color: #c9cbee;
+}
+
+.pay-method.active {
+    border-color: var(--od-brand, #5558e9);
+    background: #fbfbff;
+}
+
+.pay-icon {
+    font-size: 20px;
+    color: #4a4f68;
+}
+
+.pay-method.active .pay-icon {
+    color: var(--od-brand, #5558e9);
+}
+
+/* 선택 표시 */
+.pay-check {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+
+    font-size: 15px;
+    color: var(--od-brand, #5558e9);
+}
+
+/* =========================
+   반응형
+========================= */
+@media (max-width: 900px) {
+    .pay-method-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

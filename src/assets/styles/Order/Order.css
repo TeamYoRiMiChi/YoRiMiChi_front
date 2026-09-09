@@ -1,0 +1,153 @@
+/* =========================
+   주문/결제 페이지 공통
+
+   색상 변수는 여기서 한 번만 선언하고
+   하위 컴포넌트 CSS가 함께 사용합니다.
+========================= */
+.order-page {
+    --od-brand: var(--brand, #5558e9);
+    --od-brand-dark: var(--brand-dark, #4245c8);
+    --od-brand-soft: var(--brand-soft, #f2f2ff);
+    --od-ink: #11152f;
+    --od-muted: #71768c;
+    --od-line: #e7e9f2;
+    --od-bg: #f6f7fb;
+    --od-radius: 16px;
+
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 28px 24px 90px;
+
+    font-family: "Noto Sans JP", sans-serif;
+    color: var(--od-ink);
+    box-sizing: border-box;
+}
+
+.order-page * {
+    box-sizing: border-box;
+}
+
+/* =========================
+   상단 제목 + 단계
+========================= */
+.order-page-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+
+    margin-bottom: 24px;
+}
+
+.order-page-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.order-page-head h1 {
+    margin: 0;
+
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+}
+
+/* 바로구매 표시 */
+.order-badge {
+    padding: 6px 13px;
+
+    border-radius: 999px;
+    background: var(--od-brand-soft, #f2f2ff);
+    color: var(--od-brand, #5558e9);
+
+    font-size: 12.5px;
+    font-weight: 700;
+}
+
+/* =========================
+   본문 2단 레이아웃
+========================= */
+.order-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 400px;
+    align-items: start;
+    gap: 24px;
+}
+
+.order-main {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    min-width: 0;
+}
+
+/* =========================
+   로딩 / 에러 / 안내 상태
+========================= */
+.order-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+
+    padding: 120px 20px;
+
+    font-size: 15px;
+    color: var(--od-muted, #71768c);
+}
+
+.order-state p {
+    margin: 0;
+}
+
+.order-state-btn {
+    padding: 11px 24px;
+
+    border: 1px solid var(--od-brand, #5558e9);
+    border-radius: 9px;
+    color: var(--od-brand, #5558e9);
+
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.15s;
+}
+
+.order-state-btn:hover {
+    background: var(--od-brand-soft, #f2f2ff);
+}
+
+/* 배송지 미등록 등 안내 */
+.order-notice {
+    padding: 22px 26px;
+
+    border: 1px solid #f5c2c7;
+    border-radius: var(--od-radius, 16px);
+    background: #fdf2f3;
+
+    font-size: 14px;
+    color: #b02a37;
+    line-height: 1.6;
+}
+
+/* =========================
+   반응형
+========================= */
+@media (max-width: 1024px) {
+    .order-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 700px) {
+    .order-page {
+        padding: 20px 16px 60px;
+    }
+
+    .order-page-head h1 {
+        font-size: 24px;
+    }
+}

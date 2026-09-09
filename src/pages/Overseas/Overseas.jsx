@@ -1,4 +1,5 @@
-import OverseasHero from '../../components/Overseas/OverseasHero';
+import { heroSlides } from '../../data/Group_purchase/Group_purchase';
+import Hero_slide from '../../components/common/Hero_slide';
 import CategoryFilter from '../../components/Overseas/CategoryFilter';
 import ProductToolbar from '../../components/Overseas/ProductToolbar';
 import ProductGrid from '../../components/Overseas/ProductGrid';
@@ -34,7 +35,8 @@ function Overseas() {
 
   return (
     <div className="overseas-page">
-      <OverseasHero />
+      {/* <OverseasHero /> */}
+      <Hero_slide slides={heroSlides} />
 
       <CategoryFilter
         categories={categories}

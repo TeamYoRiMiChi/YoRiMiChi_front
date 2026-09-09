@@ -1,5 +1,8 @@
+import { useState } from 'react';
 import '../../../assets/styles/MyPage/OrderHistory.css';
 import { useOrderHistory } from '../../../hooks/MyPage/OrderHistory/useOrderHistory';
+import Pagination from '../../common/Pagination';
+import OrderDetailModal from './OrderDetailModal';
 
 function OrderHistory() {
   /* ===== 임시 데이터 ===== */
@@ -27,11 +30,21 @@ function OrderHistory() {
   //   },
   // ];
 
-  const { orders, isLoading, error } = useOrderHistory();
+  const { pagination, isLoading, error } = useOrderHistory();
+
+  const [selectedOrderId, setSelectedOrderId] = useState(null);
+
+  const openModal = (orderId) => {
+    setSelectedOrderId(orderId);
+  };
+
+  const closeModal = () => {
+    setSelectedOrderId(null);
+  };
 
   return (
     <div className="mp_panel">
-      {orders.map((order) => (
+      {pagination.visible.map((order) => (
         <div className="order_card" key={order.id}>
           <div className="order_head">
             <div>
@@ -62,12 +75,22 @@ function OrderHistory() {
               결제금액 <strong>{order.total.toLocaleString()}원</strong>
             </span>
             <div className="order_btns">
-              <button className="mini_bt">배송 조회</button>
-              <button className="mini_bt mini_bt_line">주문 상세</button>
+              <button
+                className="mini_bt mini_bt_line"
+                onClick={() => openModal(order.id)}
+              >
+                주문 상세
+              </button>
             </div>
           </div>
         </div>
       ))}
+
+      <Pagination {...pagination} onChange={pagination.goPage} maxVisible={3} />
+
+      {selectedOrderId && (
+        <OrderDetailModal orderId={selectedOrderId} onClose={closeModal} />
+      )}
     </div>
   );
 }

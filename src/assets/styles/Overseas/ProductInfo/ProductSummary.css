@@ -252,12 +252,16 @@
 
 /* =========================
    구매 버튼
+
+   바로구매는 채운 버튼, 장바구니는 테두리 버튼로
+   주·보조를 구분합니다.
 ========================= */
 .pinfo-actions {
     display: flex;
     gap: 10px;
 }
 
+.pinfo-buy-btn,
 .pinfo-cart-btn {
     flex: 1;
     height: 56px;
@@ -267,25 +271,51 @@
     justify-content: center;
     gap: 10px;
 
-    border: 0;
     border-radius: 12px;
-    background: var(--pi-brand, #5558e9);
-    color: #fff;
 
     font-family: inherit;
     font-size: 16px;
     font-weight: 700;
+    text-decoration: none;
 
     cursor: pointer;
-    transition: background 0.15s;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+/* 바로구매 — 주 버튼 */
+.pinfo-buy-btn {
+    border: 1px solid var(--pi-brand, #5558e9);
+    background: var(--pi-brand, #5558e9);
+    color: #fff;
+}
+
+.pinfo-buy-btn:hover {
+    background: var(--pi-brand-dark, #4245c8);
+    border-color: var(--pi-brand-dark, #4245c8);
+}
+
+.pinfo-buy-btn.disabled {
+    border-color: #d6d8e6;
+    background: #b9bcd6;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* 장바구니 — 보조 버튼 */
+.pinfo-cart-btn {
+    border: 1px solid var(--pi-brand, #5558e9);
+    background: #fff;
+    color: var(--pi-brand, #5558e9);
 }
 
 .pinfo-cart-btn:hover:not(:disabled) {
-    background: var(--pi-brand-dark, #4245c8);
+    background: var(--pi-brand-soft, #f2f2ff);
 }
 
 .pinfo-cart-btn:disabled {
-    background: #b9bcd6;
+    border-color: #d6d8e6;
+    background: #f4f5f9;
+    color: #a9adc2;
     cursor: not-allowed;
 }
 

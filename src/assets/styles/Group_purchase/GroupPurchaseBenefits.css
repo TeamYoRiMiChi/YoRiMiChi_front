@@ -1,0 +1,41 @@
+/* YOMI 공동구매 서비스 장점 */
+.group_purchase_benefits {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-top: 70px;
+  padding: 26px 22px;
+  border: 1px solid #dfe7e1;
+  border-radius: 14px;
+  background: #fbfdfb;
+}
+
+.group_purchase_benefit {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 20px;
+  border-right: 1px solid #dfe7e1;
+}
+
+.group_purchase_benefit:last-child {
+  border-right: 0;
+}
+
+.group_purchase_benefit .benefit_icon {
+  color: #237b39;
+  font-size: 32px;
+}
+
+.group_purchase_benefit strong {
+  color: #237b39;
+  font-size: 15px;
+}
+
+.group_purchase_benefit p {
+  margin: 7px 0 0;
+  color: #555;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* 공동구매 상세 정보 */

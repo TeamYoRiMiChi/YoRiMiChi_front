@@ -1,0 +1,233 @@
+/* =========================
+   배송지 정보
+========================= */
+.shipping-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+
+    margin-bottom: 8px;
+}
+
+.shipping-receiver {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.shipping-receiver strong {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.shipping-receiver span {
+    font-size: 14px;
+    color: var(--od-muted, #71768c);
+}
+
+.shipping-change-btn {
+    flex-shrink: 0;
+    height: 36px;
+    padding: 0 16px;
+
+    border: 1px solid var(--od-brand, #5558e9);
+    border-radius: 8px;
+    background: #fff;
+    color: var(--od-brand, #5558e9);
+
+    font-family: inherit;
+    font-size: 13.5px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.shipping-change-btn:hover {
+    background: var(--od-brand-soft, #f2f2ff);
+}
+
+.shipping-address {
+    margin: 0 0 18px;
+
+    font-size: 14px;
+    color: #4a4f68;
+    line-height: 1.6;
+}
+
+/* =========================
+   직접 입력 폼
+========================= */
+.shipping-form {
+    margin-bottom: 18px;
+}
+
+.shipping-form-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    margin-bottom: 14px;
+}
+
+.shipping-form-title {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.shipping-form-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.shipping-mini-btn {
+    height: 32px;
+    padding: 0 12px;
+
+    border: 1px solid var(--od-line, #e7e9f2);
+    border-radius: 7px;
+    background: #fff;
+    color: var(--od-muted, #71768c);
+
+    font-family: inherit;
+    font-size: 12.5px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+}
+
+.shipping-mini-btn:hover {
+    border-color: var(--od-brand, #5558e9);
+    color: var(--od-brand, #5558e9);
+}
+
+/* 입력칸 배치 — 2열, 일부는 전체 폭 */
+.shipping-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.shipping-field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+
+    min-width: 0;
+}
+
+.shipping-field-full {
+    grid-column: 1 / -1;
+}
+
+.shipping-field-short {
+    max-width: 200px;
+}
+
+.shipping-field label {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--od-muted, #71768c);
+}
+
+.shipping-field input {
+    height: 44px;
+    padding: 0 14px;
+
+    border: 1px solid var(--od-line, #e7e9f2);
+    border-radius: 10px;
+    background: #fff;
+
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--od-ink, #11152f);
+
+    outline: none;
+    transition: border-color 0.15s;
+}
+
+.shipping-field input:focus {
+    border-color: var(--od-brand, #5558e9);
+}
+
+.shipping-field input::placeholder {
+    color: #b0b4c4;
+}
+
+.shipping-error {
+    margin: 0;
+    font-size: 12px;
+    color: #d64550;
+}
+
+/* =========================
+   배송 메모
+========================= */
+.shipping-memo {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    padding-top: 16px;
+    border-top: 1px solid #f2f3f7;
+}
+
+.shipping-memo label {
+    flex-shrink: 0;
+
+    font-size: 13.5px;
+    color: var(--od-muted, #71768c);
+}
+
+.shipping-memo select {
+    flex: 1;
+    min-width: 0;
+    height: 44px;
+    padding: 0 14px;
+
+    border: 1px solid var(--od-line, #e7e9f2);
+    border-radius: 10px;
+    background: #fff;
+
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--od-ink, #11152f);
+
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.15s;
+}
+
+.shipping-memo select:focus {
+    border-color: var(--od-brand, #5558e9);
+}
+
+/* =========================
+   반응형
+========================= */
+@media (max-width: 700px) {
+    .shipping-top {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .shipping-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .shipping-field-short {
+        max-width: 100%;
+    }
+
+    .shipping-memo {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 8px;
+    }
+}

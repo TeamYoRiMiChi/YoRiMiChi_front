@@ -12,10 +12,7 @@ export const ENDPOINTS = {
   PRODUCTS: '/products',
   CATEGORIES: '/categories',
   GB_CATEGORIES: '/gb-categories',
-
-
-
-
+  GROUP_BUYS: '/group-buys',
 
   // 찜
   WISHLIST: '/wishlist',
@@ -23,13 +20,18 @@ export const ENDPOINTS = {
   // 장바구니
   CART: '/cart',
 
+  // 주문
+  ORDERS: '/orders',
+
   // 주문 내역
   ORDERHISTORY: '/orderhistory',
+  ORDERDETAIL: (orderId) => `/orderhistory/${orderId}`,
 };
 
 /**
- * 찜(WISHLIST) API는 아직 백엔드에 없어서 목 데이터로 동작합니다.
- * 서버가 준비되면 false로 바꾸세요.
+ * 목 데이터 사용 여부
+ *
+ * 찜(WISHLIST) API가 백엔드에 구현되어 false로 두었습니다.
  */
 export const USE_MOCK_WISHLIST = false;
 

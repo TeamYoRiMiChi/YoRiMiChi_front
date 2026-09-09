@@ -1,0 +1,125 @@
+/* =========================
+   주문 상품
+========================= */
+.order-item-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.order-item+.order-item {
+    padding-top: 20px;
+    border-top: 1px solid #f2f3f7;
+}
+
+.order-item-main {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.order-item-thumb {
+    display: grid;
+    width: 82px;
+    height: 82px;
+    flex-shrink: 0;
+
+    border-radius: 10px;
+    background: linear-gradient(145deg, #fafaff, #eef0f8);
+    color: #a4a8bb;
+
+    font-size: 11px;
+    font-weight: 700;
+    place-items: center;
+    overflow: hidden;
+}
+
+.order-item-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.order-item-info {
+    flex: 1;
+    min-width: 0;
+    padding-top: 4px;
+}
+
+.order-item-name {
+    margin: 0 0 8px;
+
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.order-item-qty {
+    margin: 0;
+
+    font-size: 13.5px;
+    color: var(--od-muted, #71768c);
+}
+
+.order-item-price {
+    flex-shrink: 0;
+    padding-top: 4px;
+
+    font-size: 17px;
+    font-weight: 800;
+}
+
+/* 배송비 */
+.order-item-shipping {
+    margin: 16px 0 0;
+    padding: 14px 16px;
+
+    border-radius: 10px;
+    background: var(--od-bg, #f6f7fb);
+}
+
+.order-item-shipping>div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    font-size: 13.5px;
+}
+
+.order-item-shipping>div+div {
+    margin-top: 8px;
+}
+
+.order-item-shipping dt {
+    color: var(--od-muted, #71768c);
+}
+
+.order-item-shipping dd {
+    margin: 0;
+    font-weight: 600;
+}
+
+/* =========================
+   반응형
+========================= */
+@media (max-width: 700px) {
+    .order-item-main {
+        flex-wrap: wrap;
+    }
+
+    .order-item-price {
+        width: 100%;
+        padding-top: 0;
+        text-align: right;
+    }
+
+    .order-item-thumb {
+        width: 68px;
+        height: 68px;
+    }
+}

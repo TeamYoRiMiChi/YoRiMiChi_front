@@ -1,0 +1,152 @@
+/* =========================
+   쿠폰 및 포인트
+========================= */
+.cp-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.cp-row+.cp-row {
+    margin-top: 14px;
+}
+
+.cp-row label,
+.cp-label {
+    flex-shrink: 0;
+    width: 110px;
+
+    font-size: 13.5px;
+    color: var(--od-muted, #71768c);
+}
+
+/* 쿠폰 선택 */
+.cp-select {
+    flex: 1;
+    min-width: 0;
+    height: 44px;
+    padding: 0 14px;
+
+    border: 1px solid var(--od-line, #e7e9f2);
+    border-radius: 10px;
+    background: #fff;
+
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--od-ink, #11152f);
+
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.15s;
+}
+
+.cp-select:focus {
+    border-color: var(--od-brand, #5558e9);
+}
+
+/* 보유 포인트 */
+.cp-available {
+    flex: 1;
+
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--od-brand, #5558e9);
+}
+
+/* 할인 금액 */
+.cp-discount {
+    flex-shrink: 0;
+    min-width: 96px;
+
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--od-brand, #5558e9);
+    text-align: right;
+}
+
+/* 포인트 입력 */
+.cp-point-input {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+}
+
+.cp-point-input input {
+    width: 100%;
+    height: 44px;
+    padding: 0 32px 0 14px;
+
+    border: 1px solid var(--od-line, #e7e9f2);
+    border-radius: 10px;
+    background: #fff;
+
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--od-ink, #11152f);
+    text-align: right;
+
+    outline: none;
+    transition: border-color 0.15s;
+}
+
+.cp-point-input input:focus {
+    border-color: var(--od-brand, #5558e9);
+}
+
+.cp-unit {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    font-size: 14px;
+    color: var(--od-muted, #71768c);
+    pointer-events: none;
+}
+
+.cp-all-btn {
+    flex-shrink: 0;
+    min-width: 96px;
+    height: 44px;
+    padding: 0 16px;
+
+    border: 1px solid var(--od-brand, #5558e9);
+    border-radius: 10px;
+    background: #fff;
+    color: var(--od-brand, #5558e9);
+
+    font-family: inherit;
+    font-size: 13.5px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.cp-all-btn:hover {
+    background: var(--od-brand-soft, #f2f2ff);
+}
+
+/* =========================
+   반응형
+========================= */
+@media (max-width: 700px) {
+    .cp-row {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .cp-row label,
+    .cp-label {
+        width: auto;
+    }
+
+    .cp-discount {
+        text-align: left;
+    }
+
+    .cp-all-btn {
+        width: 100%;
+    }
+}

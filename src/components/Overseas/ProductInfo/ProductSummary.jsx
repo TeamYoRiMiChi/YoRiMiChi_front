@@ -7,9 +7,11 @@ import {
   faShieldHalved,
   faMinus,
   faPlus,
+  faBagShopping,
 } from '@fortawesome/free-solid-svg-icons';
 import { MOCK_REVIEW_SUMMARY } from '../../../data/Overseas/productInfoData';
 import '../../../assets/styles/Overseas/ProductInfo/ProductSummary.css';
+import { Link } from 'react-router-dom';
 
 /**
  * 상품 정보 패널 (오른쪽)
@@ -136,6 +138,22 @@ function ProductSummary({ product, productCode, purchase }) {
 
       {/* 구매 버튼 */}
       <div className="pinfo-actions">
+        {isSoldOut ? (
+          <span className="pinfo-buy-btn disabled">
+            <FontAwesomeIcon icon={faBagShopping} />
+            在庫切れ
+          </span>
+        ) : (
+          <Link
+            to={`/order/${product.id}?quantity=${quantity}`}
+            className="pinfo-buy-btn"
+          >
+            <FontAwesomeIcon icon={faBagShopping} />
+            購入する
+          </Link>
+        )}
+
+        {/* 장바구니 버튼 */}
         <button
           type="button"
           className="pinfo-cart-btn"

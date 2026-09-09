@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faXmark,
@@ -8,6 +9,9 @@ import {
   faHeart,
   faCartPlus,
 } from '@fortawesome/free-solid-svg-icons';
+import { removeCartItem, addCartItem } from '../../features/cart/cartSlice';
+import { toggleWishlist } from '../../features/wishlist/wishlistSlice';
+import { getWishlistItems, toWishlistItemView } from '../../api/wishlistApi';
 import './CartDrawer.css';
 
 const TEXT = {
@@ -22,6 +26,7 @@ const TEXT = {
     addToCart: 'カートに入れる',
     viewWish: 'お気に入りをすべて見る',
     close: '閉じる',
+    loading: '読み込み中...',
   },
   ko: {
     cartTab: '장바구니',
@@ -34,31 +39,57 @@ const TEXT = {
     addToCart: '장바구니 담기',
     viewWish: '찜 목록 전체보기',
     close: '닫기',
+    loading: '불러오는 중...',
   },
 };
 
-function CartDrawer({ open, onClose, lang = 'ko' }) {
+const getDetailPath = (item) => item.groupBuyId
+  ? `/groupbuy/${item.groupBuyId}`
+  : `/overseas/${item.productId}`;
+
+function CartDrawer({ open, onClose, lang = 'ja' }) {
+  const dispatch = useDispatch();
   const [tab, setTab] = useState('cart');
-  const t = TEXT[lang];
 
-  // 임시 데이터 (나중에 Redux에서 가져오기)
-  const cartItems = [
-    { id: 1, name: '베이비 아기용품 세트', priceKrw: 32000, quantity: 1, image: null },
-    { id: 2, name: '일본 한정 과자 박스', priceKrw: 18500, quantity: 2, image: null },
-  ];
+  const t = TEXT[lang] ?? TEXT.ja;
 
-  const wishItems = [
-    { id: 11, name: '무인양품 수납 박스 L', priceKrw: 24000, image: null },
-    { id: 12, name: '시세이도 선크림 SPF50', priceKrw: 19800, image: null },
-    { id: 13, name: '일본 문구 세트', priceKrw: 12500, image: null },
-  ];
+  /* 장바구니는 Redux에서 (App에서 로그인 시 이미 불러옴) */
+  const cartItems = useSelector((s) => s.cart.items);
+  const cartTotal = useSelector((s) => s.cart.totalPriceNum);
 
-  const total = cartItems.reduce(
-    (sum, item) => sum + item.priceKrw * item.quantity,
-    0
-  );
+  /**
+   * 찜 목록은 상품 정보까지 필요해서 별도로 받아옵니다.
+   * Redux의 wishlist에는 id만 들어 있어서 이름·가격을 못 보여주거든요.
+   */
+  const wishlistIds = useSelector((s) => s.wishlist.ids);
+  const [wishItems, setWishItems] = useState([]);
+  const [wishLoading, setWishLoading] = useState(false);
 
-  // 드로어 닫힐 때 탭 초기화
+  /* 찜 탭을 열 때만 불러옵니다 */
+  useEffect(() => {
+    if (!open || tab !== 'wish') return;
+
+    let ignore = false;
+    setWishLoading(true);
+
+    getWishlistItems()
+      .then((res) => {
+        if (ignore) return;
+        setWishItems((res.data.data ?? []).map(toWishlistItemView));
+      })
+      .catch(() => {
+        if (!ignore) setWishItems([]);
+      })
+      .finally(() => {
+        if (!ignore) setWishLoading(false);
+      });
+
+    return () => {
+      ignore = true;
+    };
+  }, [open, tab, wishlistIds.length]);
+
+  /* 드로어 닫힐 때 탭 초기화 */
   useEffect(() => {
     if (!open) {
       const timer = setTimeout(() => setTab('cart'), 300);
@@ -66,7 +97,7 @@ function CartDrawer({ open, onClose, lang = 'ko' }) {
     }
   }, [open]);
 
-  // ESC 키로 닫기
+  /* ESC 키로 닫기 */
   useEffect(() => {
     if (!open) return;
 
@@ -78,7 +109,7 @@ function CartDrawer({ open, onClose, lang = 'ko' }) {
     return () => document.removeEventListener('keydown', handleEsc);
   }, [open, onClose]);
 
-  // 열려있을 때 배경 스크롤 막기
+  /* 열려있을 때 배경 스크롤 막기 */
   useEffect(() => {
     if (open) {
       document.body.style.overflow = 'hidden';
@@ -89,6 +120,23 @@ function CartDrawer({ open, onClose, lang = 'ko' }) {
       document.body.style.overflow = '';
     };
   }, [open]);
+
+  /* ===== 핸들러 ===== */
+  const handleRemoveCartItem = (cartItemId) => {
+    dispatch(removeCartItem(cartItemId));
+  };
+
+  const handleRemoveWish = (productId) => {
+    dispatch(toggleWishlist(productId));
+    setWishItems((cur) => cur.filter((it) => it.productId !== productId));
+  };
+
+  const handleWishToCart = async (productId) => {
+    const result = await dispatch(addCartItem({ productId, quantity: 1 }));
+    if (addCartItem.fulfilled.match(result)) {
+      setTab('cart');
+    }
+  };
 
   return (
     <>
@@ -121,8 +169,8 @@ function CartDrawer({ open, onClose, lang = 'ko' }) {
             >
               <FontAwesomeIcon icon={faHeart} />
               {t.wishTab}
-              {wishItems.length > 0 && (
-                <span className="cart_tab_count">{wishItems.length}</span>
+              {wishlistIds.length > 0 && (
+                <span className="cart_tab_count">{wishlistIds.length}</span>
               )}
             </button>
           </div>
@@ -144,24 +192,36 @@ function CartDrawer({ open, onClose, lang = 'ko' }) {
               ) : (
                 <ul className="cart_list">
                   {cartItems.map((item) => (
-                    <li key={item.id} className="cart_item">
-                      <div className="cart_item_img">
-                        {item.image ? (
-                          <img src={item.image} alt={item.name} />
+                    <li key={item.cartItemId} className="cart_item">
+                      <Link
+                        to={getDetailPath(item)}
+                        className="cart_item_img"
+                        onClick={onClose}
+                      >
+                        {item.thumbnailUrl ? (
+                          <img src={item.thumbnailUrl} alt={item.name} />
                         ) : (
                           <div className="cart_item_noimg" />
                         )}
-                      </div>
+                      </Link>
 
-                      <div className="cart_item_info">
+                      <Link
+                        to={getDetailPath(item)}
+                        className="cart_item_info"
+                        onClick={onClose}
+                      >
                         <p className="cart_item_name">{item.name}</p>
                         <p className="cart_item_price">
-                          {item.priceKrw.toLocaleString()}원
+                          {item.price}
                           <span className="cart_item_qty">× {item.quantity}</span>
                         </p>
-                      </div>
+                      </Link>
 
-                      <button className="cart_item_del" aria-label="delete">
+                      <button
+                        className="cart_item_del"
+                        onClick={() => handleRemoveCartItem(item.cartItemId)}
+                        aria-label="delete"
+                      >
                         <FontAwesomeIcon icon={faTrash} />
                       </button>
                     </li>
@@ -174,14 +234,14 @@ function CartDrawer({ open, onClose, lang = 'ko' }) {
               <div className="cart_drawer_foot">
                 <div className="cart_total">
                   <span>{t.total}</span>
-                  <strong>{total.toLocaleString()}원</strong>
+                  <strong>¥{cartTotal.toLocaleString()}</strong>
                 </div>
 
                 <div className="cart_actions">
-                  <Link to="/mypage" className="cart_bt cart_bt_outline" onClick={onClose}>
+                  <Link to="/cart" className="cart_bt cart_bt_outline" onClick={onClose}>
                     {t.viewCart}
                   </Link>
-                  <Link to="/mypage" className="cart_bt cart_bt_primary" onClick={onClose}>
+                  <Link to="/order" className="cart_bt cart_bt_primary" onClick={onClose}>
                     {t.checkout}
                   </Link>
                 </div>
@@ -194,7 +254,11 @@ function CartDrawer({ open, onClose, lang = 'ko' }) {
         {tab === 'wish' && (
           <>
             <div className="cart_drawer_body">
-              {wishItems.length === 0 ? (
+              {wishLoading ? (
+                <div className="cart_empty">
+                  <p>{t.loading}</p>
+                </div>
+              ) : wishItems.length === 0 ? (
                 <div className="cart_empty">
                   <FontAwesomeIcon icon={faHeart} className="cart_empty_icon" />
                   <p>{t.wishEmpty}</p>
@@ -202,27 +266,42 @@ function CartDrawer({ open, onClose, lang = 'ko' }) {
               ) : (
                 <ul className="cart_list">
                   {wishItems.map((item) => (
-                    <li key={item.id} className="cart_item">
-                      <div className="cart_item_img">
-                        {item.image ? (
-                          <img src={item.image} alt={item.name} />
+                    <li key={item.wishlistId} className="cart_item">
+                      <Link
+                        to={getDetailPath(item)}
+                        className="cart_item_img"
+                        onClick={onClose}
+                      >
+                        {item.thumbnailUrl ? (
+                          <img src={item.thumbnailUrl} alt={item.name} />
                         ) : (
                           <div className="cart_item_noimg" />
                         )}
-                      </div>
+                      </Link>
 
-                      <div className="cart_item_info">
+                      <Link
+                        to={getDetailPath(item)}
+                        className="cart_item_info"
+                        onClick={onClose}
+                      >
                         <p className="cart_item_name">{item.name}</p>
-                        <p className="cart_item_price">
-                          {item.priceKrw.toLocaleString()}원
-                        </p>
-                      </div>
+                        <p className="cart_item_price">{item.price}</p>
+                      </Link>
 
                       <div className="wish_item_actions">
-                        <button className="wish_add_bt" title={t.addToCart}>
+                        <button
+                          className="wish_add_bt"
+                          title={t.addToCart}
+                          onClick={() => handleWishToCart(item.productId)}
+                          disabled={!item.available}
+                        >
                           <FontAwesomeIcon icon={faCartPlus} />
                         </button>
-                        <button className="cart_item_del" aria-label="delete">
+                        <button
+                          className="cart_item_del"
+                          onClick={() => handleRemoveWish(item.productId)}
+                          aria-label="delete"
+                        >
                           <FontAwesomeIcon icon={faTrash} />
                         </button>
                       </div>

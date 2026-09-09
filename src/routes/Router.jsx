@@ -12,6 +12,8 @@ import CustomerService from '../pages/Customer_Service/CustomerService';
 import SignUp from '../pages/SignUp/SignUp';
 import MyPage from '../pages/MyPage/MyPage';
 import ProductInfo from "../pages/Overseas/ProductInfo";
+import GroupPurchaseView from "../pages/Group_purchase/GroupPurchaseView";
+import Order from "../pages/Order/Order";
 
 function Router() {
   return (
@@ -27,6 +29,7 @@ function Router() {
 
         <Route path="/faq" element={<Faq />} />
         <Route path="/groupbuy" element={<GroupPurchase />} />
+        <Route path="/groupbuy/:groupBuyId" element={<GroupPurchaseView />} />
         <Route path="/overseas" element={<Overseas />} />
         <Route path="/guide" element={<Guide />} />
         <Route path="/support" element={<CustomerService />} />
@@ -35,6 +38,10 @@ function Router() {
         {/* 로그인 필요 */}
         <Route element={<PrivateRoute />}>
           <Route path="/mypage" element={<MyPage />} />
+          {/* 장바구니에서 여러 상품을 한 번에 주문하는 경우 */}
+          <Route path="/order" element={<Order />} />
+          {/* 상품 상세에서 바로구매하는 경우 */}
+          <Route path="/order/:productId" element={<Order />} />
         </Route>
 
         {/* 없는 경로는 홈으로 */}
