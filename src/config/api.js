@@ -14,10 +14,6 @@ export const ENDPOINTS = {
   GB_CATEGORIES: '/gb-categories',
   GROUP_BUYS: '/group-buys',
 
-
-
-
-
   // 찜
   WISHLIST: '/wishlist',
 
@@ -29,6 +25,7 @@ export const ENDPOINTS = {
 
   // 주문 내역
   ORDERHISTORY: '/orderhistory',
+  ORDERDETAIL: (orderId) => `/orderhistory/${orderId}`,
 };
 
 /**

@@ -1,0 +1,230 @@
+/* 화면 전체를 덮는 배경 */
+.modal_overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+  box-sizing: border-box;
+  background: rgba(15, 18, 40, 0.45);
+}
+
+.order_modal {
+  display: flex;
+  flex-direction: column;
+
+  width: 680px;
+  max-width: 100%;
+  max-height: 85dvh;
+  overflow: hidden;
+
+  color: #171a35;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(15, 18, 40, 0.2);
+}
+.order_modal,
+.order_modal * {
+  box-sizing: border-box;
+}
+
+.order_modal .modal_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-shrink: 0;
+
+  padding: 20px 28px;
+  border-bottom: 1px solid #e8e9f0;
+}
+.order_modal .modal_header h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.order_modal .modal_body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 28px;
+}
+
+.order_modal .order_detail_section + .order_detail_section {
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid #e8e9f0;
+}
+.order_modal .order_detail_section h3 {
+  margin: 0 0 16px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.order_modal .order_detail_info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0;
+}
+.order_modal .order_detail_info > div {
+  display: grid;
+  grid-template-columns: 130px minmax(0, 1fr);
+  gap: 16px;
+  align-items: baseline;
+}
+.order_modal .order_detail_info dt {
+  color: #74798c;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.order_modal .order_detail_info dd {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.order_modal .order_detail_items {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.order_modal .order_detail_item {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px;
+
+  padding: 16px 0;
+}
+
+.order_modal .order_detail_item + .order_detail_item {
+  border-top: 1px solid #f0f0f5;
+}
+
+.order_modal .order_detail_thumb {
+  width: 64px;
+  height: 64px;
+
+  border: 1px solid #e8e9f0;
+  border-radius: 10px;
+  background: #f5f4fb;
+}
+
+.order_modal .order_detail_item_info {
+  min-width: 0;
+}
+.order_modal .order_detail_item_info h4 {
+  margin: 0 0 8px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.order_modal .order_detail_item_info p {
+  margin: 3px 0 0;
+  color: #74798c;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.order_modal .order_detail_item_total {
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.order_modal .order_detail_info > .order_detail_payment_total {
+  padding: 14px;
+  border-radius: 10px;
+  background: #f3f1ff;
+}
+
+.order_modal .order_detail_payment_total dt {
+  color: #5140df;
+  font-weight: 600;
+}
+.order_modal .order_detail_payment_total dd {
+  color: #5140df;
+  font-size: 18px;
+}
+
+.order_modal .modal_footer {
+  display: flex;
+  justify-content: flex-end;
+  flex-shrink: 0;
+
+  padding: 16px 28px;
+  border-top: 1px solid #e8e9f0;
+}
+.order_modal .order_detail_close_btn {
+  min-width: 120px;
+  padding: 12px 24px;
+
+  border: 0;
+  border-radius: 8px;
+  background: #5140df;
+  color: #fff;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.order_modal .order_detail_close_btn:hover {
+  background: #4231c8;
+}
+
+.order_modal button:focus-visible {
+  outline: 2px solid #5140df;
+  outline-offset: 3px;
+}
+
+@media (max-width: 600px) {
+  .modal_overlay {
+    padding: 12px;
+  }
+
+  .order_modal {
+    max-height: 90dvh;
+  }
+
+  .order_modal .modal_header,
+  .order_modal .modal_footer {
+    padding: 16px 20px;
+  }
+
+  .order_modal .modal_body {
+    padding: 20px;
+  }
+
+  .order_modal .order_detail_info > div {
+    grid-template-columns: 100px minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .order_modal .order_detail_item {
+    grid-template-columns: 56px minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .order_modal .order_detail_thumb {
+    width: 56px;
+    height: 56px;
+  }
+
+  .order_modal .order_detail_item_total {
+    grid-column: 2;
+    justify-self: end;
+  }
+
+  .order_modal .order_detail_close_btn {
+    width: 100%;
+  }
+}
