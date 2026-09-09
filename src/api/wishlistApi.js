@@ -38,7 +38,7 @@ export const removeWishlist = (productId) => {
 
 /**
  * 서버 DTO → 화면용 형태
- * 가격 포맷 같은 보여주기용 가공을 여기서 합니다.
+ * 가격 포맷 같은 보여주기용 가공
  */
 export function toWishlistItemView(dto) {
   const price = Number(dto.priceJpy ?? 0);
@@ -48,6 +48,8 @@ export function toWishlistItemView(dto) {
   return {
     wishlistId: dto.wishlistId,
     productId: dto.productId,
+    groupBuyId: dto.groupBuyId ?? null,
+    productStatus: dto.productStatus ?? null,
     brand: dto.brand ?? '',
     name: dto.productName ?? '',
     thumbnailUrl: dto.thumbnailUrl ?? null,

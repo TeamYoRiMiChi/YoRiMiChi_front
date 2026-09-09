@@ -12,6 +12,7 @@ export const ENDPOINTS = {
   PRODUCTS: '/products',
   CATEGORIES: '/categories',
   GB_CATEGORIES: '/gb-categories',
+  GROUP_BUYS: '/group-buys',
 
 
 

@@ -1,12 +1,9 @@
 import '../../assets/styles/Group_purchase/GroupPurchaseSummary.css';
-import groupPurchaseDetailData from '../../data/Group_purchase/groupPurchaseDetailData';
 import useGroupPurchaseSummary from '../../hooks/Group_purchase/useGroupPurchaseSummary';
 
-function GroupPurchaseSummary() {
-  // 임시 상품 데이터를 짧은 이름으로 꺼내 사용합니다.
-  const product = groupPurchaseDetailData;
+function GroupPurchaseSummary({ product }) {
 
-  // Hook에서 옵션·수량·찜 상태와 변경 함수를 가져옵니다.
+  // Hook에서 옵션·수량·찜 상태와 변경 함수를 가져오기
   const {
     quantity,
     isWished,
@@ -17,7 +14,7 @@ function GroupPurchaseSummary() {
     handleToggleWish,
     handleOptionChange,
     handleAddToCart,
-  } = useGroupPurchaseSummary(product.options[0]);
+  } = useGroupPurchaseSummary(product.options[0], product.productId);
 
   const participationRate =
     (product.currentParticipants / product.targetParticipants) * 100;

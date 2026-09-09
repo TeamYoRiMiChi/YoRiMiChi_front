@@ -39,7 +39,7 @@ export function useGroupPurchase(fallback = []) {
     };
 
     useEffect(() => {
-        let ignore = false; // 컴포넌트가 사라진 뒤 setState 하는 걸 막습니다
+        let ignore = false; // 컴포넌트가 사라진 뒤 setState 하는 걸 막기
 
         async function load() {
             try {
@@ -47,7 +47,7 @@ export function useGroupPurchase(fallback = []) {
 
                 // 서버 응답: { success, data: [...], message }
                 const list = res.data.data ?? [];
-                // DB 값 + 화면용 아이콘을 합칩니다
+                // DB 값 + 화면용 아이콘을 합
                 const withIcons = list.map((c) => ({
                     id: c.id,
                     name: c.name,

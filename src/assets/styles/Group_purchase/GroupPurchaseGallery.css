@@ -14,11 +14,30 @@
 
 /* 작은 상품 이미지 버튼 */
 .thumbnail_item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-width: 0;
   height: 82px;
+  padding: 8px;
+  overflow: hidden;
   border: 1px solid #e5e7eb;
   border-radius: 10px;
   background: #f7f5f1;
   cursor: pointer;
+}
+
+.thumbnail_item_label {
+  display: -webkit-box;
+  max-width: 100%;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  font-size: 12px;
+  line-height: 1.35;
+  text-align: center;
 }
 
 /* 현재 선택된 작은 상품 이미지 */
@@ -31,8 +50,23 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  min-width: 0;
   min-height: 520px;
+  padding: 24px;
+  overflow: hidden;
   border-radius: 16px;
   background: #f7f5f1;
   color: #8b8b8b;
+}
+
+.group_purchase_main_image_label {
+  display: -webkit-box;
+  max-width: 100%;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  font-size: clamp(14px, 2vw, 20px);
+  line-height: 1.5;
+  text-align: center;
 }

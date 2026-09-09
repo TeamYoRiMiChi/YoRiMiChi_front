@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { fetchProducts } from '../../features/product/productSlice';
 import { toggleWishlist } from '../../features/wishlist/wishlistSlice';
 import { usePagination } from '../common/usePagination';
@@ -14,6 +15,8 @@ import { CATEGORIES, PER_PAGE } from '../../data/Overseas/overseasData';
  */
 export function useOverseas() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const { items, totalElements, status, error } = useSelector((s) => s.product);
   const wishlistIds = useSelector((s) => s.wishlist.ids);
@@ -74,7 +77,10 @@ export function useOverseas() {
   /* 찜 토글 — 비로그인이면 로그인 안내 */
   const handleToggleWish = (productId) => {
     if (!accessToken) {
-      alert('ログインが必要です。');
+      alert('ログインが必要です。ログインページへ移動します。');
+      navigate('/login', {
+        state: { from: location.pathname + location.search },
+      });
       return;
     }
     dispatch(toggleWishlist(productId));
