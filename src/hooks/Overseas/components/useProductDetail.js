@@ -31,8 +31,15 @@ export function useProductDetail(productId) {
         if (ignore) return;
         setProduct(view);
 
-        // 추천 상품: 같은 카테고리에서 6개를 받아 자기 자신만 빼고 5개 사용
-        const rel = await getProducts({ categoryId: view.categoryId, size: 6 });
+        // 추천 상품: 같은 카테고리 + 같은 판매 방식으로 6개를 받아
+        // 자기 자신만 빼고 5개를 씁니다.
+        // 해외직구 상세에서 공동구매 전용 상품을 추천하면
+        // 클릭해도 바로 구매할 수 없어 혼란스러워집니다.
+        const rel = await getProducts({
+          saleType: view.saleType,
+          categoryId: view.categoryId,
+          size: 6,
+        });
 
         if (ignore) return;
         setRelated(

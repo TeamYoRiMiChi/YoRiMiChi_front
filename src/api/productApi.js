@@ -20,6 +20,18 @@ import { PER_PAGE } from '../data/Overseas/overseasData';
  * }
  */
 
+/** 판매 방식 — PRODUCT.sale_type 값과 같습니다 */
+export const SALE_TYPE = {
+  OVERSEAS: 'OVERSEAS',    // 해외직구 (바로 구매)
+  GROUP_BUY: 'GROUP_BUY',  // 공동구매 전용 (모집을 통해서만)
+};
+
+/** 화면에 표시할 라벨 */
+export const SALE_TYPE_LABEL = {
+  OVERSEAS: '海外直購',
+  GROUP_BUY: '共同購入',
+};
+
 /**
  * 서버 DTO → 화면에서 쓰는 형태로 변환
  *
@@ -33,6 +45,7 @@ export function toProductView(dto) {
   return {
     id: dto.productId,
     categoryId: dto.categoryId,
+    saleType: dto.saleType ?? SALE_TYPE.OVERSEAS,
     brand: dto.brand ?? '',
     name: dto.productName ?? '',
     nameJp: dto.productNameJp ?? '',
@@ -49,18 +62,33 @@ export function toProductView(dto) {
     inStock: dto.inStock ?? true,
     sales: dto.salesCount ?? 0,
     status: dto.status ?? 'ACTIVE',
+
+    /** 공동구매 전용 상품은 바로 구매할 수 없습니다 */
+    isGroupBuyOnly: dto.saleType === SALE_TYPE.GROUP_BUY,
   };
 }
 
 /**
  * 상품 목록 조회
- * @param {Object} params { categoryId, keyword, sort, page, size }
+ *
+ * saleType을 넘기지 않으면 서버가 해외직구 상품만 돌려줍니다.
+ * 공동구매 목록이 필요하면 SALE_TYPE.GROUP_BUY를 넘기세요.
+ *
+ * @param {Object} params { saleType, categoryId, keyword, sort, page, size }
  */
 export const getProducts = (params = {}) => {
-  const { categoryId, keyword, sort = 'recommend', page = 1, size = PER_PAGE } = params;
+  const {
+    saleType = SALE_TYPE.OVERSEAS,
+    categoryId,
+    keyword,
+    sort = 'recommend',
+    page = 1,
+    size = PER_PAGE,
+  } = params;
 
   return axiosInstance.get(ENDPOINTS.PRODUCTS, {
     params: {
+      saleType,
       // 전체(1)는 서버에서도 전체로 처리하지만, 굳이 보내지 않습니다
       ...(categoryId && categoryId !== 1 ? { categoryId } : {}),
       ...(keyword?.trim() ? { keyword: keyword.trim() } : {}),
