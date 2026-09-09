@@ -23,7 +23,7 @@ export function useOverseas() {
   const accessToken = useSelector((s) => s.auth.accessToken);
 
   const [keyword, setKeyword] = useState('');
-  const [activeCategory, setActiveCategory] = useState(1);
+  const [activeCategory, setActiveCategory] = useState('');
   const [sort, setSort] = useState('recommend');
 
   const debouncedKeyword = useDebounce(keyword, 300);
@@ -60,17 +60,26 @@ export function useOverseas() {
 
   const handleSort = (key) => {
     setSort(key);
+
+  //おすすめ를 누르면 카테고리 조건을 해제하여
+  // 전체 상품을 추천순으로 조회합니다.
+    if(key ==='recommend'){
+      setActiveCategory('');
+    }
     resetPage();
   };
-
+  
   const handleKeyword = (value) => {
     setKeyword(value);
     resetPage();
   };
 
+  //기본값은 '' 공백으로 넣어뒀습니더!
+  // 검색 조건을 초기화합니다.
   const handleReset = () => {
     setKeyword('');
-    setActiveCategory(1);
+    setActiveCategory('');
+    setSort('recommend');
     resetPage();
   };
 

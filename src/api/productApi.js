@@ -40,9 +40,11 @@ export const SALE_TYPE_LABEL = {
  */
 export function toProductView(dto) {
   const price = Number(dto.priceJpy ?? 0);
-  const originalPrice = dto.originalPriceJpy != null ? Number(dto.originalPriceJpy) : null;
+  const originalPrice = dto.originalPriceJpy != null 
+  ? Number(dto.originalPriceJpy) : null;
 
   return {
+    //상품 기본 정보
     id: dto.productId,
     categoryId: dto.categoryId,
     saleType: dto.saleType ?? SALE_TYPE.OVERSEAS,
@@ -50,17 +52,26 @@ export function toProductView(dto) {
     name: dto.productName ?? '',
     nameJp: dto.productNameJp ?? '',
 
+    //화면 출력용 가격 정보
     priceNum: price,
     price: `¥${price.toLocaleString()}`,
+
+    //할인 전 가격이 있는 경우에만 문자열로 반환합니다
     originalPrice: originalPrice ? `¥${originalPrice.toLocaleString()}` : null,
     discount: dto.discountRate > 0 ? `${dto.discountRate}%` : null,
 
+    //상품이미지
     thumbnailUrl: dto.thumbnailUrl ?? null,
+
+    //이미지없을때임시문구
     placeholder: dto.brand || dto.productName || '',
 
+    //상품 재고 및 판매 정보
     stock: dto.stock ?? 0,
     inStock: dto.inStock ?? true,
     sales: dto.salesCount ?? 0,
+
+    //상품 판매 상태
     status: dto.status ?? 'ACTIVE',
 
     /** 공동구매 전용 상품은 바로 구매할 수 없습니다 */
@@ -78,7 +89,10 @@ export function toProductView(dto) {
  */
 export const getProducts = (params = {}) => {
   const {
+<<<<<<< HEAD
     saleType = SALE_TYPE.OVERSEAS,
+=======
+>>>>>>> f68af70fbd0462ef8b15e3d1a3ee92fd42298c88
     categoryId,
     keyword,
     sort = 'recommend',
@@ -88,10 +102,38 @@ export const getProducts = (params = {}) => {
 
   return axiosInstance.get(ENDPOINTS.PRODUCTS, {
     params: {
+<<<<<<< HEAD
       saleType,
       // 전체(1)는 서버에서도 전체로 처리하지만, 굳이 보내지 않습니다
       ...(categoryId && categoryId !== 1 ? { categoryId } : {}),
       ...(keyword?.trim() ? { keyword: keyword.trim() } : {}),
+=======
+      /**
+       * 전체 카테고리는 빈 값('')으로 관리합니다.
+       *
+       * categoryId가 빈 값이면 요청 파라미터에서 제외됩니다.
+       * categoryId가 1이면 식품 카테고리로 정상 전송됩니다.
+       *
+       * categoryId: ''
+       * → categoryId를 전송하지 않음
+       *
+       * categoryId: 1
+       * → categoryId=1 전송
+       */
+      ...(categoryId ? { categoryId } : {}),
+
+      /**
+       * 검색어가 있고 공백을 제거한 결과가 비어 있지 않을 때만
+       * keyword 파라미터를 전송합니다.
+       */
+      ...(keyword?.trim()
+        ? { keyword: keyword.trim() }
+        : {}),
+
+      /**
+       * 정렬, 페이지, 페이지 크기는 항상 전송합니다.
+       */
+>>>>>>> f68af70fbd0462ef8b15e3d1a3ee92fd42298c88
       sort,
       page,
       size,

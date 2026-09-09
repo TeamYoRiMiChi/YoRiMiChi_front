@@ -76,6 +76,8 @@ export function useGroupPurchase(fallback = []) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+
+    //공동구매 화면이 백엔드 상품 api에 보내는조건
     useEffect(() => {
         async function loadProducts() {
             try {
@@ -83,6 +85,9 @@ export function useGroupPurchase(fallback = []) {
                     categoryId: selectedCategoryId
                     ? Number(selectedCategoryId) 
                     : undefined,
+                    // 공동구매 화면에서 선택한 정렬값을 전송합니다.
+                    // newest, popular, priceAsc 중 하나가 들어갑니다
+                    sort: selectedSort,
                     page: 1,
                     size: 50,
                   
@@ -98,7 +103,7 @@ export function useGroupPurchase(fallback = []) {
         }
 
         loadProducts();
-    },[selectedCategoryId]);
+    },[selectedCategoryId, selectedSort]);
 
 
 
