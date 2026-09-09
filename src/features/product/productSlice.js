@@ -1,17 +1,21 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getProducts, toProductView } from '../../api/productApi';
+import { getOverseasProducts } from '../../api/Overseas/overseasProductApi';
+import { toProductView } from '../../api/productApi';
 
 /**
- * 상품 목록 조회
+ * 해외직구 상품 목록 조회
  *
  * 서버가 필터·정렬·페이징까지 처리하므로 프론트는 받은 페이지만 그립니다.
  * 상품이 수천 개가 되어도 한 번에 8개씩만 받아옵니다.
+ *
+ * 공동구매 목록은 이 슬라이스를 쓰지 않습니다.
+ * 그쪽은 api/Group_purchase/groupBuyProductApi를 사용하세요.
  */
 export const fetchProducts = createAsyncThunk(
   'product/fetchProducts',
   async (params, { rejectWithValue }) => {
     try {
-      const res = await getProducts(params);
+      const res = await getOverseasProducts(params);
       const page = res.data.data; // ApiResponse의 data = PageResponse
 
       return {

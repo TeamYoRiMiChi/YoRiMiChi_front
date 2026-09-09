@@ -1,23 +1,17 @@
 import axiosInstance from './axiosInstance';
 import { ENDPOINTS } from '../config/api';
-import { PER_PAGE } from '../data/Overseas/overseasData';
 
 /**
- * Product 도메인 API
+ * Product 공용 모듈
  *
- * 서버 응답 형태:
- * {
- *   success: true,
- *   data: {
- *     content: [ ...상품 배열 ],
- *     page: 1,
- *     size: 8,
- *     totalElements: 21,
- *     totalPages: 3,
- *     first: true,
- *     last: false
- *   }
- * }
+ * 해외직구·공동구매 어느 쪽에도 속하지 않는 공통 코드만 둡니다.
+ *
+ * 목록 조회는 각 페이지 전용 파일을 쓰세요.
+ *   해외직구 → api/Overseas/overseasProductApi.js
+ *   공동구매 → api/Group_purchase/groupBuyProductApi.js
+ *
+ * 그래야 한쪽을 고칠 때 다른 쪽 파일을 건드리지 않아
+ * 병합 충돌이 생기지 않습니다.
  */
 
 /** 판매 방식 — PRODUCT.sale_type 값과 같습니다 */
@@ -37,14 +31,16 @@ export const SALE_TYPE_LABEL = {
  *
  * 가격 포맷(¥12,650)처럼 보여주기용 가공은 여기서 합니다.
  * 백엔드 필드명이 바뀌어도 이 함수만 고치면 화면은 그대로입니다.
+ *
+ * 두 페이지가 같은 상품 구조를 쓰므로 변환은 공유합니다.
  */
 export function toProductView(dto) {
   const price = Number(dto.priceJpy ?? 0);
-  const originalPrice = dto.originalPriceJpy != null 
-  ? Number(dto.originalPriceJpy) : null;
+  const originalPrice = dto.originalPriceJpy != null
+    ? Number(dto.originalPriceJpy) : null;
 
   return {
-    //상품 기본 정보
+    // 상품 기본 정보
     id: dto.productId,
     categoryId: dto.categoryId,
     saleType: dto.saleType ?? SALE_TYPE.OVERSEAS,
@@ -52,26 +48,26 @@ export function toProductView(dto) {
     name: dto.productName ?? '',
     nameJp: dto.productNameJp ?? '',
 
-    //화면 출력용 가격 정보
+    // 화면 출력용 가격 정보
     priceNum: price,
     price: `¥${price.toLocaleString()}`,
 
-    //할인 전 가격이 있는 경우에만 문자열로 반환합니다
+    // 할인 전 가격이 있는 경우에만 문자열로 반환합니다
     originalPrice: originalPrice ? `¥${originalPrice.toLocaleString()}` : null,
     discount: dto.discountRate > 0 ? `${dto.discountRate}%` : null,
 
-    //상품이미지
+    // 상품 이미지
     thumbnailUrl: dto.thumbnailUrl ?? null,
 
-    //이미지없을때임시문구
+    // 이미지 없을 때 임시 문구
     placeholder: dto.brand || dto.productName || '',
 
-    //상품 재고 및 판매 정보
+    // 상품 재고 및 판매 정보
     stock: dto.stock ?? 0,
     inStock: dto.inStock ?? true,
     sales: dto.salesCount ?? 0,
 
-    //상품 판매 상태
+    // 상품 판매 상태
     status: dto.status ?? 'ACTIVE',
 
     /** 공동구매 전용 상품은 바로 구매할 수 없습니다 */
@@ -80,64 +76,30 @@ export function toProductView(dto) {
 }
 
 /**
- * 상품 목록 조회
+ * 목록 조회 파라미터를 만듭니다.
  *
- * saleType을 넘기지 않으면 서버가 해외직구 상품만 돌려줍니다.
- * 공동구매 목록이 필요하면 SALE_TYPE.GROUP_BUY를 넘기세요.
+ * 해외직구·공동구매가 같은 규칙을 쓰므로 여기서 한 번만 정의합니다.
  *
- * @param {Object} params { saleType, categoryId, keyword, sort, page, size }
+ * - 전체 카테고리는 빈 값('')으로 관리합니다.
+ *   categoryId가 빈 값이면 요청 파라미터에서 제외됩니다.
+ * - 검색어는 공백을 제거한 결과가 있을 때만 전송합니다.
  */
-export const getProducts = (params = {}) => {
-  const {
-    saleType = SALE_TYPE.OVERSEAS,
-    categoryId,
-    keyword,
-    sort = 'recommend',
-    page = 1,
-    size = PER_PAGE,
-  } = params;
+export function buildProductParams({ categoryId, keyword, sort, page, size }) {
+  return {
+    ...(categoryId ? { categoryId } : {}),
+    ...(keyword?.trim() ? { keyword: keyword.trim() } : {}),
+    sort,
+    page,
+    size,
+  };
+}
 
-  return axiosInstance.get(ENDPOINTS.PRODUCTS, {
-    params: {
-      /**
-       * 판매 방식 (OVERSEAS | GROUP_BUY)
-       * 해외직구 페이지에 공동구매 전용 상품이 섞이지 않도록 항상 보냅니다.
-       */
-      saleType,
-
-      /**
-       * 전체 카테고리는 빈 값('')으로 관리합니다.
-       *
-       * categoryId가 빈 값이면 요청 파라미터에서 제외됩니다.
-       * categoryId가 1이면 식품 카테고리로 정상 전송됩니다.
-       *
-       * categoryId: ''
-       * → categoryId를 전송하지 않음
-       *
-       * categoryId: 1
-       * → categoryId=1 전송
-       */
-      ...(categoryId ? { categoryId } : {}),
-
-      /**
-       * 검색어가 있고 공백을 제거한 결과가 비어 있지 않을 때만
-       * keyword 파라미터를 전송합니다.
-       */
-      ...(keyword?.trim()
-        ? { keyword: keyword.trim() }
-        : {}),
-
-      /**
-       * 정렬, 페이지, 페이지 크기는 항상 전송합니다.
-       */
-      sort,
-      page,
-      size,
-    },
-  });
-};
-
-/** 상품 상세 조회 */
+/**
+ * 상품 단건 조회 (판매 방식 무관)
+ *
+ * 장바구니·주문처럼 이미 담긴 상품을 다시 읽을 때 씁니다.
+ * 화면에서 상세를 그릴 때는 각 페이지 전용 API를 쓰세요.
+ */
 export const getProduct = (productId) => {
   return axiosInstance.get(`${ENDPOINTS.PRODUCTS}/${productId}`);
 };
