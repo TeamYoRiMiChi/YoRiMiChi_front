@@ -1,10 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { getGpCategories } from '../../api/Group_purchase/categoryPurchaseApi';
-import {
-    getProducts,
-    toProductView,
-    SALE_TYPE,
-} from '../../api/productApi';
+import { getGroupBuyProducts } from '../../api/Group_purchase/groupBuyProductApi';
+import { toProductView } from '../../api/productApi';
 
 
 
@@ -85,9 +82,8 @@ export function useGroupPurchase(fallback = []) {
     useEffect(() => {
         async function loadProducts() {
             try {
-                const res = await getProducts({
-                    saleType: SALE_TYPE.GROUP_BUY,
-
+                // 서버가 saleType을 GROUP_BUY로 고정하므로 따로 보내지 않습니다
+                const res = await getGroupBuyProducts({
                     categoryId: selectedCategoryId
                         ? Number(selectedCategoryId)
                         : undefined,
