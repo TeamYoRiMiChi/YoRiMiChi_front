@@ -1,6 +1,10 @@
 import { useRef, useState, useEffect } from 'react';
 import { getGpCategories } from '../../api/Group_purchase/categoryPurchaseApi';
-import { getProducts, toProductView } from '../../api/productApi';
+import {
+    getProducts,
+    toProductView,
+    SALE_TYPE,
+} from '../../api/productApi';
 
 
 
@@ -82,28 +86,28 @@ export function useGroupPurchase(fallback = []) {
         async function loadProducts() {
             try {
                 const res = await getProducts({
+                    saleType: SALE_TYPE.GROUP_BUY,
+
                     categoryId: selectedCategoryId
-                    ? Number(selectedCategoryId) 
-                    : undefined,
-                    // 공동구매 화면에서 선택한 정렬값을 전송합니다.
-                    // newest, popular, priceAsc 중 하나가 들어갑니다
+                        ? Number(selectedCategoryId)
+                        : undefined,
+
                     sort: selectedSort,
                     page: 1,
                     size: 50,
-                  
                 });
                 const pageData = res.data.data;
-                const productList = (pageData.content ??[]).map(toProductView);
-               
+                const productList = (pageData.content ?? []).map(toProductView);
+                console.log('상품 조회 성공:', productList);
                 setProducts(productList);
-            }catch (err) {
+            } catch (err) {
                 console.error('상품 조회 실패:', err);
                 setProducts([]);
             }
         }
 
         loadProducts();
-    },[selectedCategoryId, selectedSort]);
+    }, [selectedCategoryId, selectedSort]);
 
 
 
