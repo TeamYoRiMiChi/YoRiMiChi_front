@@ -6,8 +6,8 @@ import {toProductView } from '../../api/productApi';
 
     const FILTER_MAP = {
 'すべて':'',
-'進行中':'ACTIVE',
-'締切間近':'CLOSINGSOON',
+'進行中':'RECRUITING',
+'締切間近':'CLOSING_SOON',
 '完了':'COMPLETED'
 
 

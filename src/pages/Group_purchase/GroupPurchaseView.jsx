@@ -1,9 +1,9 @@
 import '../../assets/styles/Group_purchase/GroupPurchaseView.css';
-import GroupPurchaseTabs from '../../components/Group_purchase/GroupPurchaseTabs';
-import GroupPurchaseGallery from '../../components/Group_purchase/GroupPurchaseGallery';
-import GroupPurchaseSummary from '../../components/Group_purchase/GroupPurchaseSummary';
-import GroupPurchaseBenefits from '../../components/Group_purchase/GroupPurchaseBenefits';
-import RecommendedProducts from '../../components/Group_purchase/RecommendedProducts';
+import GroupPurchaseTabs from '../../components/Group_purchaseView_Components/GroupPurchaseTabs';
+import GroupPurchaseGallery from '../../components/Group_purchaseView_Components/GroupPurchaseGallery';
+import GroupPurchaseSummary from '../../components/Group_purchaseView_Components/GroupPurchaseSummary';
+import GroupPurchaseBenefits from '../../components/Group_purchaseView_Components/GroupPurchaseBenefits';
+import RecommendedProducts from '../../components/Group_purchaseView_Components/RecommendedProducts';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getGroupBuy, toGroupBuyDetailView } from '../../api/groupBuyApi';

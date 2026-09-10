@@ -1,13 +1,16 @@
-import '../../assets/styles/Group_purchase/Purchase_product_card.css';
+dimport '../../assets/styles/Group_purchase/Purchase_product_card.css';
+import { Link } from 'react-router-dom';
 
 import usePurchaseProductCard
     from '../../hooks/Group_purchase/components/usePurchase_product_card';
 
 // DB 상태값 → 화면 표시 문구
 const STATUS_LABELS = {
-    ACTIVE: '進行中',
-    CLOSINGSOON: '締切間近',
-    COMPLETED: '完了',
+    RECRUITING: '進行中',
+    CLOSING_SOON: '締切間近',
+    SUCCESS: '完了',
+    FAILED: '未成立',
+    CANCELLED: '中止',
 };
 
 function Purchase_product_card({ products = [] }) {
@@ -32,9 +35,9 @@ function Purchase_product_card({ products = [] }) {
                                 {/* ACTIVE 등을 일본어로 바꿔서 표시 */}
                                <span
     className={`product_badge ${
-        product.status === 'CLOSINGSOON'
+        product.status === 'CLOSING_SOON'
             ? 'product_badge_closing'
-            : product.status === 'COMPLETED'
+            : product.status === 'SUCCESS'
                 ? 'product_badge_completed'
                 : ''
     }`}
@@ -52,31 +55,39 @@ function Purchase_product_card({ products = [] }) {
                                 </button>
 
                                 {/* 상품 이미지 */}
-                                {product.thumbnailUrl ? (
-                                    <img
-                                        className="product_image"
-                                        src={product.thumbnailUrl}
-                                        alt={
-                                            product.nameJp
-                                            || product.name
-                                            || '商品画像'
-                                        }
-                                    />
-                                ) : (
-                                    <div className="product_image_placeholder">
-                                        商品画像
-                                    </div>
-                                )}
+                                <Link
+                                    className="product_detail_image_link"
+                                    to={`/groupbuy/${product.id}`}
+                                    aria-label={`${product.nameJp || product.name}の詳細を見る`}
+                                >
+                                    {product.thumbnailUrl ? (
+                                        <img
+                                            className="product_image"
+                                            src={product.thumbnailUrl}
+                                            alt={
+                                                product.nameJp
+                                                || product.name
+                                                || '商品画像'
+                                            }
+                                        />
+                                    ) : (
+                                        <div className="product_image_placeholder">
+                                            {product.nameJp || product.name || '商品画像'}
+                                        </div>
+                                    )}
+                                </Link>
                             </div>
 
                             <div className="product_info">
 
                                 {/* 상품명 */}
-                                <h3>
-                                    {product.nameJp
-                                        || product.name
-                                        || '商品名なし'}
-                                </h3>
+                                <Link className="product_detail_name_link" to={`/groupbuy/${product.id}`}>
+                                    <h3>
+                                        {product.nameJp
+                                            || product.name
+                                            || '商品名なし'}
+                                    </h3>
+                                </Link>
 
                                 {/* 브랜드 */}
                                 <p className="product_period">

@@ -54,8 +54,29 @@
 }
 
 .group_purchase_container .product_image_placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 24px;
   color: #a4aaa6;
   font-size: 14px;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.group_purchase_container .product_detail_image_link {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+
+.group_purchase_container .product_detail_name_link {
+  color: inherit;
+  text-decoration: none;
 }
 
 
