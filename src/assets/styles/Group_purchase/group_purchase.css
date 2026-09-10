@@ -287,6 +287,51 @@
 }
 
 
+ /* ========================================
+   pagination
+======================================== */
+
+.group_purchase_container .pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin: 40px 0 60px;
+}
+
+.group_purchase_container .pagination .page_btn {
+  min-width: 36px;
+  height: 36px;
+  padding: 0 10px;
+
+  color: #555;
+  background-color: #fff;
+
+  border: 1px solid #ddd;
+  border-radius: 6px;
+
+  cursor: pointer;
+}
+
+.group_purchase_container .pagination .page_btn.active {
+  color: #fff;
+  font-weight: 600;
+
+  background-color: #1f7a3a;
+  border-color: #1f7a3a;
+}
+
+.group_purchase_container .pagination .page_btn:disabled {
+  color: #aaa;
+  background-color: #f5f5f5;
+
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+
+
+
 /* ========================================
    tablet responsive
     ======================================== */
@@ -365,35 +410,7 @@
     transform: none;
   }
 
-  .group_purchase_container .hero_copy span {
-    margin-bottom: 5px;
-    font-size: 10px;
-  }
 
-  .group_purchase_container .hero_copy h2 {
-    margin-bottom: 5px;
-    font-size: 21px;
-  }
 
-  .group_purchase_container .hero_copy p {
-    font-size: 12px;
-  }
-
-  .group_purchase_container .hero_arrow {
-    width: 28px;
-    height: 28px;
-  }
-
-  .group_purchase_container .hero_arrow svg {
-    width: 12px;
-    height: 12px;
-  }
-
-  .group_purchase_container .hero_arrow.prev {
-    left: 9px;
-  }
-
-  .group_purchase_container .hero_arrow.next {
-    right: 9px;
-  }
+  
 }

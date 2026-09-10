@@ -11,7 +11,6 @@ const STATUS_LABELS = {
 };
 
 function Purchase_product_card({ products = [] }) {
-    const { handleMore } = usePurchaseProductCard();
 
     return (
         <div className="group_purchase_container">
@@ -116,15 +115,7 @@ function Purchase_product_card({ products = [] }) {
             </div>
 
             {/* 기존 훅의 더 보기 함수 사용 */}
-            <div className="my_purchase_more">
-                <button
-                    type="button"
-                    className="more_bt"
-                    onClick={handleMore}
-                >
-                    もっと見る
-                </button>
-            </div>
+            
         </div>
     );
 }

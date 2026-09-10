@@ -11,6 +11,10 @@ function GroupPurchase() {
 
 
     const {
+        page,
+        setPage,
+        totalPages,
+
         activeFilter,
         categories,
         products,
@@ -22,6 +26,23 @@ function GroupPurchase() {
         handleSortChange,
         handleSearch,
     } = useGroupPurchase();
+
+
+const handlePageChange = (nextPage) => {
+    setPage(nextPage);
+
+    if (listRef.current) {
+        const top =
+            listRef.current.getBoundingClientRect().top
+            + window.scrollY
+            - 50;
+
+        window.scrollTo({
+            top,
+            behavior: 'smooth',
+        });
+    }
+};
 
 
     return (
@@ -38,7 +59,7 @@ function GroupPurchase() {
                 {/* =========================
          search/filter
       ========================= */}
-                <div className="group_purchase_search">
+                <div className="group_purchase_search" ref={listRef}>
 
                     <div className="filter_left">
                         {['すべて', '進行中', '締切間近', '完了'].map((filter) => (
@@ -88,11 +109,6 @@ function GroupPurchase() {
 
 
 
-                        <button
-                            type="button"
-                            className="create_purchase_btn">
-                            ＋ 共同購入を作る
-                        </button>
 
                     </div>
 
@@ -105,6 +121,42 @@ function GroupPurchase() {
                 {/* =========================
          purchase_footer_1
       ========================= */}
+             <div className="pagination">
+    <button
+        className="page_btn"
+        disabled={page === 1}
+        onClick={() => handlePageChange(page - 1)}
+    >
+        前へ
+    </button>
+
+    {Array.from({ length: totalPages }, (_, index) => {
+        const pageNumber = index + 1;
+
+        return (
+            <button
+                key={pageNumber}
+                className={
+                    page === pageNumber
+                        ? 'page_btn active'
+                        : 'page_btn'
+                }
+                onClick={() => handlePageChange(pageNumber)}
+            >
+                {pageNumber}
+            </button>
+        );
+    })}
+
+    <button
+        className="page_btn"
+        disabled={page === totalPages}
+        onClick={() => handlePageChange(page + 1)}
+    >
+        次へ
+    </button>
+</div>
+
                 <div className="purchase_footer_1">
 
                     <h2 className="footer_title">

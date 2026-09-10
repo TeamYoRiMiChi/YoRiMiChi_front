@@ -22,8 +22,8 @@ export function useGroupPurchase(fallback = []) {
     const [selectedCategoryId, setSelectedCategoryId] = useState('');
     const [selectedSort, setSelectedSort] = useState('newest');
     const [products, setProducts] = useState([]);
-
-
+    const [page,setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(0);
 
 
 
@@ -33,15 +33,18 @@ export function useGroupPurchase(fallback = []) {
     const handleFilterClick = (filter) => {
 
         setActiveFilter(filter);
+        setPage(1); // 필터 변경 시 페이지를 1로 초기화
 
     };
 
     const handleCategoryChange = (event) => {
         setSelectedCategoryId(event.target.value);
+        setPage(1); // 카테고리 변경 시 페이지를 1로 초기화
     };
 
     const handleSortChange = (event) => {
         setSelectedSort(event.target.value);
+        setPage(1); // 정렬 변경 시 페이지를 1로 초기화
     };
 
     const handleSearch = () => {
@@ -105,13 +108,17 @@ export function useGroupPurchase(fallback = []) {
                         : undefined,
 
                     sort: selectedSort,
-                    page: 1,
-                    size: 50,
+                    page,
+                    size: 8,
                 });
                 const pageData = res.data.data;
                 const productList = (pageData.content ?? []).map(toProductView);
+               console.log('pageData 전체:', pageData);
                 console.log('상품 조회 성공:', productList);
+                console.log('전체 페이지 수:', pageData.totalPages);
+                console.log('현재 페이지:', pageData.page);
                 setProducts(productList);
+                setTotalPages(pageData.totalPages);
             } catch (err) {
                 console.error('상품 조회 실패:', err);
                 setProducts([]);
@@ -119,7 +126,7 @@ export function useGroupPurchase(fallback = []) {
         }
 
         loadProducts();
-    }, [selectedCategoryId, selectedSort, activeFilter]);
+    }, [selectedCategoryId, selectedSort, activeFilter,page]);
 
 
 
@@ -127,6 +134,11 @@ export function useGroupPurchase(fallback = []) {
 
     return {
         products,
+        page,
+        setPage,
+        totalPages,
+
+
         listRef,
         activeFilter,
         categories,
