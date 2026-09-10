@@ -49,7 +49,7 @@
 }
 
 
-/* 공동구매 가격과 진행 상황 */
+/* 공동구매 가격 */
 .group_purchase_progress_box {
   margin-top: 24px;
   padding: 24px;
@@ -92,38 +92,6 @@
   background: #237b39;
   color: #fff;
   font-weight: 700;
-}
-
-.participation_heading,
-.participation_footer {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-}
-
-.participation_heading {
-  margin-top: 24px;
-  font-size: 14px;
-}
-
-.participation_bar {
-  height: 8px;
-  margin: 10px 0;
-  overflow: hidden;
-  border-radius: 10px;
-  background: #e8eee9;
-}
-
-.participation_bar_fill {
-  width: 90%;
-  height: 100%;
-  border-radius: inherit;
-  background: #27813d;
-}
-
-.participation_footer {
-  color: #477553;
-  font-size: 13px;
 }
 
 /* 상품 옵션과 수량 선택 */
@@ -205,6 +173,11 @@
   background: #1c672f;
 }
 
+.group_purchase_apply_button:disabled {
+  background: #9aa39c;
+  cursor: not-allowed;
+}
+
 .group_purchase_cart_button {
   border: 1px solid #237b39;
   background: #fff;
@@ -231,16 +204,6 @@
 
 /* API 연결 전 사용하는 임시 장바구니 완료 안내 */
 .group_purchase_cart_message {
-  margin: 10px 0 0;
-  padding: 10px 14px;
-  border-radius: 8px;
-  background: #eef8f0;
-  color: #237b39;
-  font-size: 13px;
-  text-align: center;
-}
-
-.group_purchase_participation_message {
   margin: 10px 0 0;
   padding: 10px 14px;
   border-radius: 8px;

@@ -48,7 +48,7 @@ function GroupPurchaseView() {
           <GroupPurchaseGallery productName={product.name} />
 
           {/* 오른쪽 상품 정보 컴포넌트 */}
-          <GroupPurchaseSummary product={product} />
+          <GroupPurchaseSummary key={product.productId} product={product} />
         </section>
         
         {/* 공동구매 서비스 장점 컴포넌트 */}

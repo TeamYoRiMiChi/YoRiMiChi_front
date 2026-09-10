@@ -1,0 +1,213 @@
+.group_buy_modal_backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(16, 30, 20, 0.55);
+}
+
+.group_buy_modal {
+  position: relative;
+  width: min(520px, 100%);
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  padding: 30px;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 24px 70px rgba(20, 43, 26, 0.25);
+}
+
+.group_buy_modal_close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  width: 38px;
+  height: 38px;
+  border: 0;
+  background: transparent;
+  color: #555;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.group_buy_modal header h2 {
+  margin: 12px 0 6px;
+  font-size: 24px;
+}
+
+.group_buy_modal header p {
+  margin: 0;
+  color: #555;
+}
+
+.group_buy_modal_badge {
+  color: #237b39;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.group_buy_modal_progress {
+  margin-top: 24px;
+  padding: 18px;
+  border-radius: 12px;
+  background: #f4f8f5;
+}
+
+.group_buy_modal_progress_heading,
+.group_buy_modal_progress_footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.group_buy_modal_progress_heading {
+  font-size: 14px;
+}
+
+.group_buy_modal_progress_bar {
+  height: 9px;
+  margin: 11px 0;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #dfe9e1;
+}
+
+.group_buy_modal_progress_bar div {
+  height: 100%;
+  border-radius: inherit;
+  background: #27813d;
+}
+
+.group_buy_modal_progress_footer {
+  color: #477553;
+  font-size: 12px;
+}
+
+.group_buy_modal_order {
+  margin: 20px 0 0;
+}
+
+.group_buy_modal_order > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 14px 0;
+  border-bottom: 1px solid #ecefec;
+}
+
+.group_buy_modal_order dt {
+  color: #666;
+  font-size: 13px;
+}
+
+.group_buy_modal_order dd {
+  margin: 0;
+  font-weight: 700;
+}
+
+.group_buy_modal_quantity {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  border: 1px solid #d9ddda;
+  border-radius: 8px;
+}
+
+.group_buy_modal_quantity button {
+  width: 38px;
+  height: 36px;
+  border: 0;
+  background: #f6f7f6;
+  cursor: pointer;
+}
+
+.group_buy_modal_quantity strong {
+  min-width: 38px;
+  text-align: center;
+}
+
+.group_buy_modal_error {
+  margin: 16px 0 0;
+  padding: 11px 13px;
+  border-radius: 8px;
+  background: #fff1f1;
+  color: #b42318;
+  font-size: 13px;
+}
+
+.group_buy_modal_actions {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.group_buy_modal_actions button,
+.group_buy_modal_complete button {
+  height: 48px;
+  border-radius: 9px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.group_buy_modal_actions .cancel {
+  border: 1px solid #d9ddda;
+  background: #fff;
+}
+
+.group_buy_modal_actions .confirm,
+.group_buy_modal_complete button {
+  border: 0;
+  background: #237b39;
+  color: #fff;
+}
+
+.group_buy_modal_actions button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.group_buy_modal_complete {
+  padding: 16px 0 2px;
+  text-align: center;
+}
+
+.group_buy_modal_complete > span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: #eaf6ed;
+  color: #237b39;
+  font-size: 30px;
+}
+
+.group_buy_modal_complete h2 {
+  margin: 16px 0 8px;
+}
+
+.group_buy_modal_complete p {
+  margin: 0 0 22px;
+  color: #555;
+}
+
+.group_buy_modal_complete button {
+  width: 100%;
+}
+
+@media (max-width: 560px) {
+  .group_buy_modal {
+    padding: 24px 18px;
+  }
+
+  .group_buy_modal_progress_footer {
+    flex-direction: column;
+    gap: 5px;
+  }
+}

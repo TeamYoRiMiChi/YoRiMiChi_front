@@ -1,5 +1,6 @@
 import '../../assets/styles/Group_purchase/GroupPurchaseSummary.css';
 import useGroupPurchaseSummary from '../../hooks/Group_purchase/useGroupPurchaseSummary';
+import GroupBuyApplicationModal from './GroupBuyApplicationModal';
 
 function GroupPurchaseSummary({ product }) {
 
@@ -9,17 +10,23 @@ function GroupPurchaseSummary({ product }) {
     isWished,
     selectedOption,
     cartMessage,
-    participationMessage,
+    currentParticipants,
+    isApplicationModalOpen,
+    isApplicationSubmitting,
+    isApplicationLoading,
+    isApplicationComplete,
+    applicationError,
+    appliedQuantity,
+    existingApplicationQuantity,
     handleIncreaseQuantity,
     handleDecreaseQuantity,
     handleToggleWish,
     handleOptionChange,
     handleApplyGroupBuy,
+    handleCloseApplicationModal,
+    handleConfirmApplication,
     handleAddToCart,
-  } = useGroupPurchaseSummary(product.options[0], product.productId);
-
-  const participationRate =
-    (product.currentParticipants / product.targetParticipants) * 100;
+  } = useGroupPurchaseSummary(product);
 
   return (
     <div className="group_purchase_summary">
@@ -37,7 +44,7 @@ function GroupPurchaseSummary({ product }) {
 
       <p className="group_purchase_description">{product.description}</p>
 
-      {/* 공동구매 가격과 진행 상황 */}
+      {/* 공동구매 가격 */}
       <div className="group_purchase_progress_box">
         <div className="group_purchase_price">
           <div>
@@ -54,24 +61,6 @@ function GroupPurchaseSummary({ product }) {
           <span className="discount_badge">{product.discountRate}</span>
         </div>
 
-        <div className="participation_heading">
-          <span>参加状況</span>
-          <strong>
-            {product.currentParticipants} / {product.targetParticipants}名
-          </strong>
-        </div>
-
-        <div className="participation_bar">
-          <div
-            className="participation_bar_fill"
-            style={{ width: `${participationRate}%` }}
-          ></div>
-        </div>
-
-        <div className="participation_footer">
-          <span>残り <strong>{product.remainingParticipants}名</strong> で成立</span>
-          <span>終了まであと <strong>{product.remainingTime}</strong></span>
-        </div>
       </div>
 
       {/* 상품 옵션과 수량 선택 */}
@@ -113,8 +102,9 @@ function GroupPurchaseSummary({ product }) {
           type="button"
           className="group_purchase_apply_button"
           onClick={handleApplyGroupBuy}
+          disabled={currentParticipants >= product.targetParticipants}
         >
-          共同購入を申し込む
+          {currentParticipants >= product.targetParticipants ? '募集完了' : '共同購入を申し込む'}
         </button>
         <button
           type="button"
@@ -133,12 +123,6 @@ function GroupPurchaseSummary({ product }) {
           {isWished ? '♥' : '♡'}
         </button>
       </div>
-
-      {participationMessage && (
-        <p className="group_purchase_participation_message" role="status">
-          {participationMessage}
-        </p>
-      )}
 
       {/* API 연결 전 사용하는 임시 장바구니 완료 안내 */}
       {cartMessage && (
@@ -165,6 +149,26 @@ function GroupPurchaseSummary({ product }) {
           </p>
         </div>
       </div>
+
+      <GroupBuyApplicationModal
+        isOpen={isApplicationModalOpen}
+        product={product}
+        quantity={quantity}
+        selectedOption={selectedOption}
+        currentParticipants={currentParticipants}
+        targetParticipants={product.targetParticipants}
+        remainingTime={product.remainingTime}
+        isSubmitting={isApplicationSubmitting}
+        isLoading={isApplicationLoading}
+        isComplete={isApplicationComplete}
+        error={applicationError}
+        appliedQuantity={appliedQuantity}
+        existingQuantity={existingApplicationQuantity}
+        onIncrease={handleIncreaseQuantity}
+        onDecrease={handleDecreaseQuantity}
+        onConfirm={handleConfirmApplication}
+        onClose={handleCloseApplicationModal}
+      />
     </div>
   );
 }
