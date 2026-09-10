@@ -1,9 +1,17 @@
 import { useRef, useState, useEffect } from 'react';
 import { getGpCategories } from '../../api/Group_purchase/categoryPurchaseApi';
 import { getGroupBuyProducts } from '../../api/Group_purchase/groupBuyProductApi';
-import { toProductView } from '../../api/productApi';
+import {toProductView } from '../../api/productApi';
 
 
+    const FILTER_MAP = {
+'すべて':'',
+'進行中':'ACTIVE',
+'締切間近':'CLOSINGSOON',
+'完了':'COMPLETED'
+
+
+    };
 
 export function useGroupPurchase(fallback = []) {
     const listRef = useRef(null);
@@ -14,6 +22,13 @@ export function useGroupPurchase(fallback = []) {
     const [selectedCategoryId, setSelectedCategoryId] = useState('');
     const [selectedSort, setSelectedSort] = useState('newest');
     const [products, setProducts] = useState([]);
+
+
+
+
+
+
+
 
     const handleFilterClick = (filter) => {
 
@@ -84,6 +99,7 @@ export function useGroupPurchase(fallback = []) {
             try {
                 // 서버가 saleType을 GROUP_BUY로 고정하므로 따로 보내지 않습니다
                 const res = await getGroupBuyProducts({
+                    status: FILTER_MAP[activeFilter] || undefined,
                     categoryId: selectedCategoryId
                         ? Number(selectedCategoryId)
                         : undefined,
@@ -103,7 +119,7 @@ export function useGroupPurchase(fallback = []) {
         }
 
         loadProducts();
-    }, [selectedCategoryId, selectedSort]);
+    }, [selectedCategoryId, selectedSort, activeFilter]);
 
 
 
