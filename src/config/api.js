@@ -19,6 +19,7 @@ export const ENDPOINTS = {
 
   // 장바구니
   CART: '/cart',
+  MYPAGE_CART: '/mypage/cart',
 
   // 주문
   ORDERS: '/orders',

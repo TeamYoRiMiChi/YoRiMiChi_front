@@ -23,7 +23,7 @@ import OrderStatusSummary from '../../components/MyPage/OrderStatusSummary/Order
 import OrderHistory from '../../components/MyPage/OrderHistory/OrderHistory';
 import GroupBuyParticipationStatus from '../../components/MyPage/GroupBuyParticipationStatus/GroupBuyParticipationStatus';
 import Wishlist from '../../components/MyPage/Wishlist/Wishlist';
-import Cart from '../../components/MyPage/Cart/Cart';
+import MypageCart from '../../components/MyPage/MypageCart/MypageCart';
 import DeliveryTracking from '../../components/MyPage/DeliveryTracking/DeliveryTracking';
 import MyReview from '../../components/MyPage/MyReview/MyReview';
 import ProfileManagement from '../../components/MyPage/ProfileManagement/ProfileManagement';
@@ -74,16 +74,6 @@ const WISH_ITEMS = [
   { id: 11, name: '八咫鏡', price: 93500, soldOut: false },
   { id: 12, name: '天叢雲剣', price: 121000, soldOut: false },
   { id: 13, name: '八尺瓊勾玉', price: 60500, soldOut: false },
-];
-
-const CART_ITEMS = [
-  {
-    id: 21,
-    name: 'Ｆａｔｅ／ｓｔｒａｎｇｅ　Ｆａｋｅ １０/ 成田良悟 (文庫)',
-    price: 4800,
-    qty: 1,
-  },
-  { id: 22, name: 'クァンチョンキム 味付けのり30g *2缶', price: 20500, qty: 1 },
 ];
 
 const GROUP_BUYS = [
@@ -318,7 +308,7 @@ function MyPage() {
           {menu === 'wishlist' && <Wishlist wishItems={WISH_ITEMS} />}
 
           {/* ---- 장바구니 ---- */}
-          {menu === 'cart' && <Cart cartItems={CART_ITEMS} />}
+          {menu === 'cart' && <MypageCart />}
 
           {/* ---- 내 리뷰 ---- */}
           {menu === 'reviews' && <MyReview myReviews={MY_REVIEWS} />}
