@@ -11,6 +11,11 @@ function Purchase_status() {
       ========================= */}
             <div className="group_purchase_my">
 
+
+
+
+
+                
                 <div className="purchase_my_title_box">
                     <h4>私の共同購入状況</h4>
 
