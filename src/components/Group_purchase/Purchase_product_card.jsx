@@ -1,8 +1,5 @@
-dimport '../../assets/styles/Group_purchase/Purchase_product_card.css';
+import '../../assets/styles/Group_purchase/purchase_product_card.css';
 import { Link } from 'react-router-dom';
-
-import usePurchaseProductCard
-    from '../../hooks/Group_purchase/components/usePurchase_product_card';
 
 // DB 상태값 → 화면 표시 문구
 const STATUS_LABELS = {
