@@ -1,4 +1,4 @@
-import '../../assets/styles/Group_purchase/Group_purchase.css';
+import '../../assets/styles/Group_purchase/group_purchase.css';
 
 import Hero_slide from '../../components/common/Hero_slide';
 import Purchase_status from '../../components/Group_purchase/Purchase_status';
