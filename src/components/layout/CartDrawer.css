@@ -416,3 +416,14 @@
 .cart_bt_primary:hover {
   background-color: rgb(98, 67, 218);
 }
+
+.cart_item_closed {
+  display: inline-block;
+  margin: 0 0 6px;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background-color: #f1f1f1;
+  color: #777;
+  font-size: 11px;
+  font-weight: 700;
+}

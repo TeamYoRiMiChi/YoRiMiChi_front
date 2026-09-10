@@ -9,7 +9,7 @@ import {
   faHeart,
   faCartPlus,
 } from '@fortawesome/free-solid-svg-icons';
-import { removeCartItem, addCartItem } from '../../features/cart/cartSlice';
+import { removeCartItem, addCartItem, fetchCart } from '../../features/cart/cartSlice';
 import { toggleWishlist } from '../../features/wishlist/wishlistSlice';
 import { getWishlistItems, toWishlistItemView } from '../../api/wishlistApi';
 import './CartDrawer.css';
@@ -27,6 +27,7 @@ const TEXT = {
     viewWish: 'お気に入りをすべて見る',
     close: '閉じる',
     loading: '読み込み中...',
+    groupBuyClosed: '募集終了',
   },
   ko: {
     cartTab: '장바구니',
@@ -40,6 +41,7 @@ const TEXT = {
     viewWish: '찜 목록 전체보기',
     close: '닫기',
     loading: '불러오는 중...',
+    groupBuyClosed: '모집 마감',
   },
 };
 
@@ -56,6 +58,7 @@ function CartDrawer({ open, onClose, lang = 'ja' }) {
   /* 장바구니는 Redux에서 (App에서 로그인 시 이미 불러옴) */
   const cartItems = useSelector((s) => s.cart.items);
   const cartTotal = useSelector((s) => s.cart.totalPriceNum);
+  const accessToken = useSelector((s) => s.auth.accessToken);
 
   /**
    * 찜 목록은 상품 정보까지 필요해서 별도로 받아옵니다.
@@ -88,6 +91,13 @@ function CartDrawer({ open, onClose, lang = 'ja' }) {
       ignore = true;
     };
   }, [open, tab, wishlistIds.length]);
+
+  /* 열 때마다 모집 종료 여부를 포함한 최신 장바구니를 받습니다. */
+  useEffect(() => {
+    if (open && tab === 'cart' && accessToken) {
+      dispatch(fetchCart());
+    }
+  }, [open, tab, accessToken, dispatch]);
 
   /* 드로어 닫힐 때 탭 초기화 */
   useEffect(() => {
@@ -211,6 +221,9 @@ function CartDrawer({ open, onClose, lang = 'ja' }) {
                         onClick={onClose}
                       >
                         <p className="cart_item_name">{item.name}</p>
+                        {item.groupBuyClosed && (
+                          <span className="cart_item_closed">{t.groupBuyClosed}</span>
+                        )}
                         <p className="cart_item_price">
                           {item.price}
                           <span className="cart_item_qty">× {item.quantity}</span>
