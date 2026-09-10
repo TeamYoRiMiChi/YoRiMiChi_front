@@ -8,14 +8,14 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getGroupBuy, toGroupBuyDetailView } from '../../api/groupBuyApi';
 function GroupPurchaseView() {
-  const { groupBuyId } = useParams();
+  const { productId } = useParams();
   const [product, setProduct] = useState(null);
   const [error, setError] = useState('');
 
   useEffect(() => {
     let active = true;
 
-    getGroupBuy(groupBuyId)
+    getGroupBuy(productId)
       .then((response) => {
         if (active) setProduct(toGroupBuyDetailView(response.data.data));
       })
@@ -26,7 +26,7 @@ function GroupPurchaseView() {
       });
 
     return () => { active = false; };
-  }, [groupBuyId]);
+  }, [productId]);
 
   if (error) return <main className="group_purchase_view"><p>{error}</p></main>;
   if (!product) return <main className="group_purchase_view"><p>読み込み中...</p></main>;
@@ -54,7 +54,7 @@ function GroupPurchaseView() {
         {/* 공동구매 서비스 장점 컴포넌트 */}
         <GroupPurchaseBenefits />
         {/* 상품 상세 정보 탭 컴포넌트 */}
-        <GroupPurchaseTabs />
+        <GroupPurchaseTabs product={product} />
 
         {/* 추천 상품 컴포넌트 */}
         <RecommendedProducts />

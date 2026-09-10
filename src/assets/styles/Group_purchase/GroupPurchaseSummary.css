@@ -182,7 +182,7 @@
 
 .group_purchase_actions {
   display: grid;
-  grid-template-columns: 1fr 58px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 58px;
   gap: 12px;
   margin-top: 16px;
 }
@@ -193,7 +193,7 @@
   cursor: pointer;
 }
 
-.group_purchase_cart_button {
+.group_purchase_apply_button {
   border: 0;
   background: #237b39;
   color: #fff;
@@ -201,8 +201,20 @@
   font-weight: 700;
 }
 
-.group_purchase_cart_button:hover {
+.group_purchase_apply_button:hover {
   background: #1c672f;
+}
+
+.group_purchase_cart_button {
+  border: 1px solid #237b39;
+  background: #fff;
+  color: #237b39;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.group_purchase_cart_button:hover {
+  background: #eef8f0;
 }
 
 .group_purchase_wish_button {
@@ -219,6 +231,16 @@
 
 /* API 연결 전 사용하는 임시 장바구니 완료 안내 */
 .group_purchase_cart_message {
+  margin: 10px 0 0;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: #eef8f0;
+  color: #237b39;
+  font-size: 13px;
+  text-align: center;
+}
+
+.group_purchase_participation_message {
   margin: 10px 0 0;
   padding: 10px 14px;
   border-radius: 8px;
@@ -258,4 +280,14 @@
 
 .group_purchase_delivery_info strong {
   font-size: 13px;
+}
+
+@media (max-width: 700px) {
+  .group_purchase_actions {
+    grid-template-columns: minmax(0, 1fr) 58px;
+  }
+
+  .group_purchase_apply_button {
+    grid-column: 1 / -1;
+  }
 }

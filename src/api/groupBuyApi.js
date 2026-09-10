@@ -2,8 +2,8 @@ import axiosInstance from './axiosInstance';
 import { ENDPOINTS } from '../config/api';
 
 /** 공동구매 상세 조회 */
-export const getGroupBuy = (groupBuyId) => {
-  return axiosInstance.get(`${ENDPOINTS.GROUP_BUYS}/${groupBuyId}`);
+export const getGroupBuy = (productId) => {
+  return axiosInstance.get(`${ENDPOINTS.GROUP_BUYS}/${productId}`);
 };
 
 /** 서버 DTO를 기존 상세 컴포넌트가 사용하는 화면 데이터로 */
@@ -20,6 +20,7 @@ export function toGroupBuyDetailView(dto) {
   return {
     badge: '共同購入',
     productId: dto.productId,
+    brand: dto.brand || '',
     // 일본어 사이트이므로 일본어 상품명을 먼저 표시
     name: dto.productNameJp || dto.productName || dto.title,
     productCode: `YOMI-GB-${String(dto.groupBuyId).padStart(4, '0')}`,

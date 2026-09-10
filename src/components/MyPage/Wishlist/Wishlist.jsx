@@ -18,7 +18,7 @@ function Wishlist() {
         {wishlist.map((item) => (
           <div className="grid_card" key={item.wishlistId}>
             <Link
-              to={item.groupBuyId ? `/groupbuy/${item.groupBuyId}` : `/overseas/${item.productId}`}
+              to={item.groupBuyId ? `/groupbuy/${item.productId}` : `/overseas/${item.productId}`}
             >
               <div className="grid_thumb">
                 {!item.available && <span className="soldout">품절</span>}

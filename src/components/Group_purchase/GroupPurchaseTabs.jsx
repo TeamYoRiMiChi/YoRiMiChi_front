@@ -2,9 +2,16 @@ import '../../assets/styles/Group_purchase/GroupPurchaseTabs.css';
 import groupPurchaseTabsData from '../../data/Group_purchase/groupPurchaseTabsData';
 import useGroupPurchaseView from '../../hooks/Group_purchase/useGroupPurchaseView';
 
-function GroupPurchaseTabs() {
+function GroupPurchaseTabs({ product }) {
   const { activeTab, handleTabChange } = useGroupPurchaseView();
   const tabData = groupPurchaseTabsData;
+  const productInformation = [
+    { label: '商品名', value: product.name || '情報なし' },
+    { label: 'ブランド', value: product.brand || '情報なし' },
+    { label: '商品コード', value: product.productCode || '情報なし' },
+    { label: '内容量', value: product.options?.[0] || '1セット' },
+    { label: '販売方式', value: product.badge || '共同購入' },
+  ];
 
   return (
     <section className="group_purchase_detail_content">
@@ -73,7 +80,7 @@ function GroupPurchaseTabs() {
             <h2>商品情報</h2>
 
             <dl>
-              {tabData.productInformation.map((information) => (
+              {productInformation.map((information) => (
                 <div key={information.label}>
                   <dt>{information.label}</dt>
                   <dd>{information.value}</dd>

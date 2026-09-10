@@ -29,7 +29,7 @@ function Router() {
 
         <Route path="/faq" element={<Faq />} />
         <Route path="/groupbuy" element={<GroupPurchase />} />
-        <Route path="/groupbuy/:groupBuyId" element={<GroupPurchaseView />} />
+        <Route path="/groupbuy/:productId" element={<GroupPurchaseView />} />
         <Route path="/overseas" element={<Overseas />} />
         <Route path="/guide" element={<Guide />} />
         <Route path="/support" element={<CustomerService />} />

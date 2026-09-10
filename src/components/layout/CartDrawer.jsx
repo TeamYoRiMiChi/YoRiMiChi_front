@@ -44,7 +44,7 @@ const TEXT = {
 };
 
 const getDetailPath = (item) => item.groupBuyId
-  ? `/groupbuy/${item.groupBuyId}`
+  ? `/groupbuy/${item.productId}`
   : `/overseas/${item.productId}`;
 
 function CartDrawer({ open, onClose, lang = 'ja' }) {

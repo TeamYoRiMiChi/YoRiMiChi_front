@@ -9,10 +9,12 @@ function GroupPurchaseSummary({ product }) {
     isWished,
     selectedOption,
     cartMessage,
+    participationMessage,
     handleIncreaseQuantity,
     handleDecreaseQuantity,
     handleToggleWish,
     handleOptionChange,
+    handleApplyGroupBuy,
     handleAddToCart,
   } = useGroupPurchaseSummary(product.options[0], product.productId);
 
@@ -105,8 +107,15 @@ function GroupPurchaseSummary({ product }) {
         </div>
       </div>
 
-      {/* 장바구니와 찜 버튼 */}
+      {/* 공동구매 신청, 장바구니, 찜 버튼 */}
       <div className="group_purchase_actions">
+        <button
+          type="button"
+          className="group_purchase_apply_button"
+          onClick={handleApplyGroupBuy}
+        >
+          共同購入を申し込む
+        </button>
         <button
           type="button"
           className="group_purchase_cart_button"
@@ -124,6 +133,12 @@ function GroupPurchaseSummary({ product }) {
           {isWished ? '♥' : '♡'}
         </button>
       </div>
+
+      {participationMessage && (
+        <p className="group_purchase_participation_message" role="status">
+          {participationMessage}
+        </p>
+      )}
 
       {/* API 연결 전 사용하는 임시 장바구니 완료 안내 */}
       {cartMessage && (
@@ -143,7 +158,7 @@ function GroupPurchaseSummary({ product }) {
         </div>
 
         <div>
-          <span className="delivery_icon">♢</span>
+          <span className="delivery_icon" aria-hidden="true">🛡️</span>
           <p>
             <strong>安心・安全の取引システム</strong>
             <span>YOMIでの保護で安心</span>

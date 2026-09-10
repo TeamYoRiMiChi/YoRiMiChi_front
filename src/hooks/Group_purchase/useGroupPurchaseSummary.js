@@ -21,6 +21,7 @@ function useGroupPurchaseSummary(initialOption, productId) {
 
   // 장바구니 버튼을 누른 뒤 보여줄 임시 안내 문구를 기억합니다.
   const [cartMessage, setCartMessage] = useState('');
+  const [participationMessage, setParticipationMessage] = useState('');
 
   // ＋ 버튼을 누르면 수량을 1 증가
   const handleIncreaseQuantity = () => {
@@ -48,6 +49,17 @@ function useGroupPurchaseSummary(initialOption, productId) {
     setSelectedOption(event.target.value);
   };
 
+  // 공동구매 신청 API 연결 전 안내
+  const handleApplyGroupBuy = () => {
+    if (!accessToken) {
+      alert('ログインが必要です。ログインページへ移動します。');
+      navigate('/login', { state: { from: location.pathname } });
+      return;
+    }
+
+    setParticipationMessage('共同購入のお申し込み機能は準備中です。');
+  };
+
   // API 연결 전까지 선택한 옵션과 수량을 안내 문구로 
   const handleAddToCart = async () => {
     if (!accessToken) {
@@ -69,10 +81,12 @@ function useGroupPurchaseSummary(initialOption, productId) {
     isWished,
     selectedOption,
     cartMessage,
+    participationMessage,
     handleIncreaseQuantity,
     handleDecreaseQuantity,
     handleToggleWish,
     handleOptionChange,
+    handleApplyGroupBuy,
     handleAddToCart,
   };
 }
