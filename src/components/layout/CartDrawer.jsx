@@ -28,6 +28,9 @@ const TEXT = {
     close: '閉じる',
     loading: '読み込み中...',
     groupBuyClosed: '募集終了',
+    groupBuySuccess: '募集完了',
+    groupBuyFailed: '目標未達で終了',
+    groupBuyCancelled: '募集中止',
   },
   ko: {
     cartTab: '장바구니',
@@ -42,12 +45,22 @@ const TEXT = {
     close: '닫기',
     loading: '불러오는 중...',
     groupBuyClosed: '모집 마감',
+    groupBuySuccess: '모집 완료',
+    groupBuyFailed: '목표 미달 종료',
+    groupBuyCancelled: '모집 중지',
   },
 };
 
 const getDetailPath = (item) => item.groupBuyId
   ? `/groupbuy/${item.productId}`
   : `/overseas/${item.productId}`;
+
+const getClosedLabel = (item, t) => {
+  if (item.groupBuyStatus === 'SUCCESS') return t.groupBuySuccess;
+  if (item.groupBuyStatus === 'FAILED') return t.groupBuyFailed;
+  if (item.groupBuyStatus === 'CANCELLED') return t.groupBuyCancelled;
+  return t.groupBuyClosed;
+};
 
 function CartDrawer({ open, onClose, lang = 'ja' }) {
   const dispatch = useDispatch();
@@ -202,7 +215,10 @@ function CartDrawer({ open, onClose, lang = 'ja' }) {
               ) : (
                 <ul className="cart_list">
                   {cartItems.map((item) => (
-                    <li key={item.cartItemId} className="cart_item">
+                    <li
+                      key={item.cartItemId}
+                      className={`cart_item ${item.groupBuyClosed ? 'is_closed' : ''}`}
+                    >
                       <Link
                         to={getDetailPath(item)}
                         className="cart_item_img"
@@ -222,7 +238,9 @@ function CartDrawer({ open, onClose, lang = 'ja' }) {
                       >
                         <p className="cart_item_name">{item.name}</p>
                         {item.groupBuyClosed && (
-                          <span className="cart_item_closed">{t.groupBuyClosed}</span>
+                          <span className={`cart_item_closed ${item.groupBuyStatus === 'FAILED' ? 'failed' : ''}`}>
+                            {getClosedLabel(item, t)}
+                          </span>
                         )}
                         <p className="cart_item_price">
                           {item.price}
@@ -279,7 +297,10 @@ function CartDrawer({ open, onClose, lang = 'ja' }) {
               ) : (
                 <ul className="cart_list">
                   {wishItems.map((item) => (
-                    <li key={item.wishlistId} className="cart_item">
+                    <li
+                      key={item.wishlistId}
+                      className={`cart_item ${item.groupBuyClosed ? 'is_closed' : ''}`}
+                    >
                       <Link
                         to={getDetailPath(item)}
                         className="cart_item_img"
@@ -298,6 +319,11 @@ function CartDrawer({ open, onClose, lang = 'ja' }) {
                         onClick={onClose}
                       >
                         <p className="cart_item_name">{item.name}</p>
+                        {item.groupBuyClosed && (
+                          <span className={`cart_item_closed ${item.groupBuyStatus === 'FAILED' ? 'failed' : ''}`}>
+                            {getClosedLabel(item, t)}
+                          </span>
+                        )}
                         <p className="cart_item_price">{item.price}</p>
                       </Link>
 

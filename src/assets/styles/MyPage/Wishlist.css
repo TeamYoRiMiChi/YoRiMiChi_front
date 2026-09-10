@@ -96,6 +96,10 @@
   color: #fff;
 }
 
+.soldout.group_failed {
+  background-color: rgba(161, 92, 0, 0.72);
+}
+
 .grid_name {
   margin: 0 0 6px;
   font-size: 14px;
