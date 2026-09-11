@@ -10,6 +10,14 @@ function Wishlist() {
     wishlist,
   } = useWishlist();
 
+  const getUnavailableLabel = (item) => {
+    if (item.groupBuyStatus === 'SUCCESS') return '募集完了';
+    if (item.groupBuyStatus === 'FAILED') return '目標未達で終了';
+    if (item.groupBuyStatus === 'CANCELLED') return '募集中止';
+    if (item.groupBuyClosed) return '募集終了';
+    return '売り切れ';
+  };
+
 
 
   return (
@@ -21,7 +29,11 @@ function Wishlist() {
               to={item.groupBuyId ? `/groupbuy/${item.productId}` : `/overseas/${item.productId}`}
             >
               <div className="grid_thumb">
-                {!item.available && <span className="soldout">품절</span>}
+                {!item.available && (
+                  <span className={`soldout ${item.groupBuyStatus === 'FAILED' ? 'group_failed' : ''}`}>
+                    {getUnavailableLabel(item)}
+                  </span>
+                )}
               </div>
               <p className="grid_name">{item.name}</p>
               <p className="grid_price">{item.price}</p>

@@ -48,6 +48,8 @@ export function toCartItemView(dto) {
     cartItemId: dto.cartItemId,
     productId: dto.productId,
     groupBuyId: dto.groupBuyId ?? null,
+    groupBuyStatus: dto.groupBuyStatus ?? null,
+    groupBuyClosed: dto.groupBuyClosed ?? false,
     productStatus: dto.productStatus ?? null,
     brand: dto.brand ?? '',
     name: dto.productName ?? '',

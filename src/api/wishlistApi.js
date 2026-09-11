@@ -49,6 +49,8 @@ export function toWishlistItemView(dto) {
     wishlistId: dto.wishlistId,
     productId: dto.productId,
     groupBuyId: dto.groupBuyId ?? null,
+    groupBuyStatus: dto.groupBuyStatus ?? null,
+    groupBuyClosed: dto.groupBuyClosed ?? false,
     productStatus: dto.productStatus ?? null,
     brand: dto.brand ?? '',
     name: dto.productName ?? '',

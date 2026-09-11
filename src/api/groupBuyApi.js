@@ -32,6 +32,7 @@ export function toGroupBuyDetailView(dto) {
   return {
     badge: '共同購入',
     productId: dto.productId,
+    status: dto.status,
     brand: dto.brand || '',
     // 일본어 사이트이므로 일본어 상품명을 먼저 표시
     name: dto.productNameJp || dto.productName || dto.title,

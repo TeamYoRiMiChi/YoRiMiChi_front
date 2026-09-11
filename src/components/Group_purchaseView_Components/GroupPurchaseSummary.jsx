@@ -4,6 +4,10 @@ import GroupBuyApplicationModal from './GroupBuyApplicationModal';
 
 function GroupPurchaseSummary({ product }) {
 
+  const isRecruitmentClosed = product.status !== 'RECRUITING'
+    || product.remainingTime === '終了'
+    || product.currentParticipants >= product.targetParticipants;
+
   // Hook에서 옵션·수량·찜 상태와 변경 함수를 가져오기
   const {
     quantity,
@@ -102,16 +106,19 @@ function GroupPurchaseSummary({ product }) {
           type="button"
           className="group_purchase_apply_button"
           onClick={handleApplyGroupBuy}
-          disabled={currentParticipants >= product.targetParticipants}
+          disabled={isRecruitmentClosed || currentParticipants >= product.targetParticipants}
         >
-          {currentParticipants >= product.targetParticipants ? '募集完了' : '共同購入を申し込む'}
+          {isRecruitmentClosed || currentParticipants >= product.targetParticipants ? '募集終了' : '共同購入を申し込む'}
         </button>
         <button
           type="button"
           className="group_purchase_cart_button"
           onClick={handleAddToCart}
+          disabled={isRecruitmentClosed || currentParticipants >= product.targetParticipants}
         >
-          🛒 カートに入れる
+          {isRecruitmentClosed || currentParticipants >= product.targetParticipants
+            ? '募集終了'
+            : '🛒 カートに入れる'}
         </button>
         <button
           type="button"

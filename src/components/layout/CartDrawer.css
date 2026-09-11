@@ -416,3 +416,26 @@
 .cart_bt_primary:hover {
   background-color: rgb(98, 67, 218);
 }
+
+.cart_item.is_closed {
+  border-left: 4px solid #d93025;
+  background-color: #fffafa;
+}
+
+.cart_item_closed {
+  display: inline-block;
+  margin: 0 0 6px;
+  padding: 4px 9px;
+  border: 1px solid #f3b5b0;
+  border-radius: 6px;
+  background-color: #fff0ef;
+  color: #c62828;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.cart_item_closed.failed {
+  border-color: #f0c36a;
+  background-color: #fff7e6;
+  color: #a15c00;
+}

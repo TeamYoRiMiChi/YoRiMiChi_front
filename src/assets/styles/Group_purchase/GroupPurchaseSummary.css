@@ -190,6 +190,17 @@
   background: #eef8f0;
 }
 
+.group_purchase_cart_button:disabled {
+  border-color: #d7d7d7;
+  background: #eeeeee;
+  color: #999999;
+  cursor: not-allowed;
+}
+
+.group_purchase_cart_button:disabled:hover {
+  background: #eeeeee;
+}
+
 .group_purchase_wish_button {
   border: 1px solid #d9ddda;
   background: #fff;
