@@ -45,7 +45,11 @@ function GroupPurchaseView() {
         </nav>
         <section className="group_purchase_product">
           {/* 왼쪽 상품 이미지 컴포넌트 */}
-          <GroupPurchaseGallery productName={product.name} />
+          <GroupPurchaseGallery
+            productName={product.name}
+            thumbnailUrl={product.thumbnailUrl}
+            status={product.displayStatus}
+          />
 
           {/* 오른쪽 상품 정보 컴포넌트 */}
           <GroupPurchaseSummary key={product.productId} product={product} />

@@ -417,19 +417,29 @@
   background-color: rgb(98, 67, 218);
 }
 
-.cart_item.is_closed {
-  border-left: 4px solid #d93025;
-  background-color: #fffafa;
+.cart_item.is_unavailable {
+  background-color: #f4f4f4;
+}
+
+.cart_item.is_unavailable .cart_item_img img {
+  filter: grayscale(1);
+  opacity: 0.55;
+}
+
+.cart_item.is_unavailable .cart_item_name,
+.cart_item.is_unavailable .cart_item_price,
+.cart_item.is_unavailable .cart_item_qty {
+  color: #888;
 }
 
 .cart_item_closed {
   display: inline-block;
   margin: 0 0 6px;
   padding: 4px 9px;
-  border: 1px solid #f3b5b0;
+  border: 1px solid #cfcfcf;
   border-radius: 6px;
-  background-color: #fff0ef;
-  color: #c62828;
+  background-color: #e5e5e5;
+  color: #5f5f5f;
   font-size: 12px;
   font-weight: 700;
 }
