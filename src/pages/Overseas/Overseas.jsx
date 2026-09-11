@@ -1,4 +1,5 @@
-import { heroSlides } from '../../data/Group_purchase/Group_purchase';
+// import { heroSlides } from '../../data/Group_purchase/Group_purchase';
+import { heroSlides } from '../../data/Overseas/OverseasHeroData';
 import Hero_slide from '../../components/common/Hero_slide';
 import CategoryFilter from '../../components/Overseas/CategoryFilter';
 import ProductToolbar from '../../components/Overseas/ProductToolbar';
