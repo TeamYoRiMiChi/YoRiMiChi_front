@@ -40,6 +40,13 @@
   text-align: center;
 }
 
+.thumbnail_item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
 /* 현재 선택된 작은 상품 이미지 */
 .thumbnail_item.active {
   border: 2px solid #2e8b45;
@@ -47,12 +54,13 @@
 
 /* 선택된 큰 상품 이미지 */
 .group_purchase_main_image {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   min-width: 0;
-  min-height: 520px;
-  padding: 24px;
+  width: 100%;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
   border-radius: 16px;
   background: #f7f5f1;
@@ -69,4 +77,67 @@
   font-size: clamp(14px, 2vw, 20px);
   line-height: 1.5;
   text-align: center;
+}
+
+.group_purchase_main_image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.thumbnail_item.is_closed img,
+.group_purchase_main_image.is_closed img {
+  filter: grayscale(1);
+  opacity: 0.55;
+}
+
+.group_purchase_main_image.is_closed::after {
+  position: absolute;
+  inset: 0;
+  background: rgba(80, 80, 80, 0.14);
+  content: '';
+  pointer-events: none;
+}
+
+.group_purchase_image_status {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  z-index: 1;
+  padding: 9px 16px;
+  border-radius: 999px;
+  background: #e5e7eb;
+  color: #4b5563;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.group_purchase_image_status.status_closing_soon {
+  background: #fff1db;
+  color: #d96500;
+}
+
+.group_purchase_image_status.status_failed {
+  background: #eee;
+  color: #666;
+}
+
+@media (max-width: 768px) {
+  .group_purchase_gallery {
+    grid-template-columns: 64px 1fr;
+    gap: 12px;
+  }
+
+  .thumbnail_item {
+    height: 64px;
+  }
+
+  .group_purchase_image_status {
+    top: 14px;
+    right: 14px;
+    padding: 7px 12px;
+    font-size: 13px;
+  }
 }

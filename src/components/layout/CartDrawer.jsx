@@ -217,7 +217,7 @@ function CartDrawer({ open, onClose, lang = 'ja' }) {
                   {cartItems.map((item) => (
                     <li
                       key={item.cartItemId}
-                      className={`cart_item ${item.groupBuyClosed ? 'is_closed' : ''}`}
+                      className={`cart_item ${item.available === false ? 'is_unavailable' : ''}`}
                     >
                       <Link
                         to={getDetailPath(item)}
@@ -299,7 +299,7 @@ function CartDrawer({ open, onClose, lang = 'ja' }) {
                   {wishItems.map((item) => (
                     <li
                       key={item.wishlistId}
-                      className={`cart_item ${item.groupBuyClosed ? 'is_closed' : ''}`}
+                      className={`cart_item ${item.available === false ? 'is_unavailable' : ''}`}
                     >
                       <Link
                         to={getDetailPath(item)}

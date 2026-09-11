@@ -28,11 +28,18 @@ export function toGroupBuyDetailView(dto) {
   const discountRate = originalPrice > 0
     ? Math.max(Math.round((1 - price / originalPrice) * 100), 0)
     : 0;
+  const displayStatus = getGroupBuyDisplayStatus(
+    dto.status,
+    currentQuantity,
+    targetQuantity,
+    dto.endDate,
+  );
 
   return {
     badge: '共同購入',
     productId: dto.productId,
     status: dto.status,
+    displayStatus,
     brand: dto.brand || '',
     // 일본어 사이트이므로 일본어 상품명을 먼저 표시
     name: dto.productNameJp || dto.productName || dto.title,
@@ -51,6 +58,19 @@ export function toGroupBuyDetailView(dto) {
     options: ['1セット'],
     thumbnailUrl: dto.thumbnailUrl ?? null,
   };
+}
+
+function getGroupBuyDisplayStatus(status, currentQuantity, targetQuantity, endDate) {
+  if (['SUCCESS', 'FAILED', 'CANCELLED'].includes(status)) return status;
+  if (targetQuantity > 0 && currentQuantity >= targetQuantity) return 'SUCCESS';
+
+  const remainingMs = new Date(endDate).getTime() - Date.now();
+  if (Number.isFinite(remainingMs) && remainingMs <= 0) return 'FAILED';
+  if (status === 'RECRUITING' && Number.isFinite(remainingMs) && remainingMs <= 3 * 24 * 60 * 60 * 1000) {
+    return 'CLOSING_SOON';
+  }
+
+  return status;
 }
 
 function formatRemainingTime(endDate) {
