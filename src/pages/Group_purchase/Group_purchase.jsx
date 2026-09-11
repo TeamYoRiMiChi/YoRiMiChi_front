@@ -1,5 +1,7 @@
 import '../../assets/styles/Group_purchase/group_purchase.css';
 
+
+import { useSelector } from 'react-redux'; // Redux 상태를 가져오기 위해 useSelector를 사용합니다
 import Hero_slide from '../../components/common/Hero_slide';
 import Purchase_status from '../../components/Group_purchase/Purchase_status';
 import Purchase_product_card from '../../components/Group_purchase/Purchase_product_card';
@@ -7,7 +9,7 @@ import { heroSlides } from '../../data/Group_purchase/Group_purchase';
 import useGroupPurchase from '../../hooks/Group_purchase/useGroup_purchase';
 function GroupPurchase() {
 
-
+const  accessToken  = useSelector((state) => state.auth.accessToken); // Redux 상태에서 accessToken을 가져옵니다
 
 
     const {
@@ -24,7 +26,7 @@ function GroupPurchase() {
         handleFilterClick,
         handleCategoryChange,
         handleSortChange,
-        handleSearch,
+   
     } = useGroupPurchase();
 
 
@@ -52,7 +54,7 @@ const handlePageChange = (nextPage) => {
 
                 <Hero_slide slides={heroSlides} />
 
-                <Purchase_status />
+                {accessToken && <Purchase_status />}
 
 
 

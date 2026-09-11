@@ -1,17 +1,17 @@
 import { useRef, useState, useEffect } from 'react';
 import { getGpCategories } from '../../api/Group_purchase/categoryPurchaseApi';
 import { getGroupBuyProducts } from '../../api/Group_purchase/groupBuyProductApi';
-import {toProductView } from '../../api/productApi';
+import { toProductView } from '../../api/productApi';
 
 
-    const FILTER_MAP = {
-'すべて':'',
-'進行中':'RECRUITING',
-'締切間近':'CLOSING_SOON',
-'完了':'COMPLETED'
+const FILTER_MAP = {
+    'すべて': '',
+    '進行中': 'ACTIVE',
+    '締切間近': 'CLOSING_SOON',
+    '完了': 'SUCCESS'
 
 
-    };
+};
 
 export function useGroupPurchase(fallback = []) {
     const listRef = useRef(null);
@@ -22,7 +22,7 @@ export function useGroupPurchase(fallback = []) {
     const [selectedCategoryId, setSelectedCategoryId] = useState('');
     const [selectedSort, setSelectedSort] = useState('newest');
     const [products, setProducts] = useState([]);
-    const [page,setPage] = useState(1);
+    const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(0);
 
 
@@ -113,7 +113,7 @@ export function useGroupPurchase(fallback = []) {
                 });
                 const pageData = res.data.data;
                 const productList = (pageData.content ?? []).map(toProductView);
-               console.log('pageData 전체:', pageData);
+                console.log('pageData 전체:', pageData);
                 console.log('상품 조회 성공:', productList);
                 console.log('전체 페이지 수:', pageData.totalPages);
                 console.log('현재 페이지:', pageData.page);
@@ -126,7 +126,7 @@ export function useGroupPurchase(fallback = []) {
         }
 
         loadProducts();
-    }, [selectedCategoryId, selectedSort, activeFilter,page]);
+    }, [selectedCategoryId, selectedSort, activeFilter, page]);
 
 
 
