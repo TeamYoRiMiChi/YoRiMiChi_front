@@ -300,3 +300,9 @@
     background-color: #fee2e2 !important;
     border: 1px solid #fca5a5 !important;
 }
+
+.group_purchase_container .heart_btn.active {
+  color: #dc2626;
+  border-color: #dc2626;
+  background-color: #fff1f2;
+}

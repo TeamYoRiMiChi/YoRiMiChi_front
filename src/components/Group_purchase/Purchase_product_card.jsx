@@ -1,5 +1,10 @@
 import '../../assets/styles/Group_purchase/purchase_product_card.css';
-import { Link } from 'react-router-dom';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+
+import { optimisticToggle } from '../../features/wishlist/wishlistSlice';
+import { toggleGroupBuyWishlist } from '../../api/Group_purchase/groupBuyWishlistApi';
 
 // DB 상태값 → 화면 표시 문구
 const STATUS_LABELS = {
@@ -11,6 +16,38 @@ const STATUS_LABELS = {
 };
 
 function Purchase_product_card({ products = [] }) {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const accessToken = useSelector((state) => state.auth.accessToken);
+    const wishlistIds = useSelector((state) => state.wishlist.ids);
+
+    const handleToggleWishlist = async (event, productId) => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        if (!accessToken) {
+            alert('ログインが必要です。');
+            navigate('/login', {
+                state: { from: location.pathname },
+            });
+            return;
+        }
+
+        dispatch(optimisticToggle(productId));
+
+        try {
+            await toggleGroupBuyWishlist(productId);
+        } catch (error) {
+            dispatch(optimisticToggle(productId));
+            alert(
+                error.response?.data?.message
+                ?? 'お気に入りの更新に失敗しました。'
+            );
+        }
+    };
+
 
     return (
         <div className="group_purchase_container">
@@ -30,13 +67,12 @@ function Purchase_product_card({ products = [] }) {
                             <div className="product_image_box">
 
                                 <span
-                                    className={`product_badge ${
-                                        product.status === 'CLOSING_SOON'
+                                    className={`product_badge ${product.status === 'CLOSING_SOON'
                                             ? 'product_badge_closing'
                                             : product.status === 'SUCCESS'
                                                 ? 'product_badge_completed'
                                                 : ''
-                                    }`}
+                                        }`}
                                 >
                                     {STATUS_LABELS[product.status]
                                         ?? product.status
@@ -45,13 +81,14 @@ function Purchase_product_card({ products = [] }) {
 
                                 <button
                                     type="button"
-                                    className="heart_btn"
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        e.stopPropagation();
-                                    }}
+                                    className={`heart_btn ${wishlistIds.includes(product.id) ? 'active' : ''
+                                        }`}
+                                    onClick={(event) =>
+                                        handleToggleWishlist(event, product.id)
+                                    }
+                                    aria-pressed={wishlistIds.includes(product.id)}
                                 >
-                                    ♡
+                                    {wishlistIds.includes(product.id) ? '♥' : '♡'}
                                 </button>
 
                                 {/* 상품 이미지 */}
