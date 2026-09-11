@@ -2,7 +2,7 @@ import '../../assets/styles/Group_purchase/GroupPurchaseSummary.css';
 import useGroupPurchaseSummary from '../../hooks/Group_purchase/useGroupPurchaseSummary';
 import GroupBuyApplicationModal from './GroupBuyApplicationModal';
 
-function GroupPurchaseSummary({ product }) {
+function GroupPurchaseSummary({ product, onParticipantsChange }) {
 
   const isRecruitmentClosed = product.status !== 'RECRUITING'
     || product.remainingTime === '終了'
@@ -30,7 +30,16 @@ function GroupPurchaseSummary({ product }) {
     handleCloseApplicationModal,
     handleConfirmApplication,
     handleAddToCart,
-  } = useGroupPurchaseSummary(product);
+  } = useGroupPurchaseSummary(product, onParticipantsChange);
+
+  const remainingParticipants = Math.max(
+    product.targetParticipants - currentParticipants,
+    0,
+  );
+  const participationRate = product.targetParticipants > 0
+    ? Math.min((currentParticipants / product.targetParticipants) * 100, 100)
+    : 0;
+  const selectedTotalPrice = product.groupPriceValue * quantity;
 
   return (
     <div className="group_purchase_summary">
@@ -65,6 +74,20 @@ function GroupPurchaseSummary({ product }) {
           <span className="discount_badge">{product.discountRate}</span>
         </div>
 
+        <div className="group_purchase_detail_progress">
+          <div className="group_purchase_detail_progress_heading">
+            <span>参加状況</span>
+            <strong>{currentParticipants} / {product.targetParticipants}</strong>
+          </div>
+          <div className="group_purchase_detail_progress_bar">
+            <div style={{ width: `${participationRate}%` }} />
+          </div>
+          <div className="group_purchase_detail_progress_footer">
+            <span>残り <strong>{remainingParticipants}</strong> で成立</span>
+            <span>終了まであと <strong>{product.remainingTime}</strong></span>
+          </div>
+        </div>
+
       </div>
 
       {/* 상품 옵션과 수량 선택 */}
@@ -96,6 +119,10 @@ function GroupPurchaseSummary({ product }) {
             >
               ＋
             </button>
+          </div>
+          <div className="group_purchase_quantity_total" aria-live="polite">
+            <span>合計</span>
+            <strong>¥{selectedTotalPrice.toLocaleString()}</strong>
           </div>
         </div>
       </div>

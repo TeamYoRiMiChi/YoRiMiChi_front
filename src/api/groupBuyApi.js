@@ -47,6 +47,7 @@ export function toGroupBuyDetailView(dto) {
     rating: 0,
     reviewCount: 0,
     description: dto.description || '',
+    groupPriceValue: price,
     groupPrice: `¥${price.toLocaleString()}`,
     referencePrice: `¥${originalPrice.toLocaleString()}`,
     discountRate: `${discountRate}% OFF`,

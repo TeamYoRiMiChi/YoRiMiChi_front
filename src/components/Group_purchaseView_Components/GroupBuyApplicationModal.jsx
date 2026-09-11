@@ -25,6 +25,7 @@ function GroupBuyApplicationModal({
   const progress = targetParticipants > 0
     ? Math.min((currentParticipants / targetParticipants) * 100, 100)
     : 0;
+  const totalPrice = product.groupPriceValue * quantity;
 
   const handleBackdropClick = (event) => {
     if (event.target === event.currentTarget) onClose();
@@ -101,6 +102,10 @@ function GroupBuyApplicationModal({
               <div>
                 <dt>追加後の合計数量</dt>
                 <dd>{isLoading ? '確認中...' : `${existingQuantity + quantity}個`}</dd>
+              </div>
+              <div className="group_buy_modal_total_price">
+                <dt>お支払い予定額</dt>
+                <dd>¥{totalPrice.toLocaleString()}</dd>
               </div>
             </dl>
 
