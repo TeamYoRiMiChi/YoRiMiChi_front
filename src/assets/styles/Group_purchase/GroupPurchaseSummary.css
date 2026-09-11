@@ -94,6 +94,43 @@
   font-weight: 700;
 }
 
+.group_purchase_detail_progress {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid #e4e7e5;
+}
+
+.group_purchase_detail_progress_heading,
+.group_purchase_detail_progress_footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.group_purchase_detail_progress_heading {
+  font-size: 14px;
+}
+
+.group_purchase_detail_progress_bar {
+  height: 8px;
+  margin: 9px 0;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #dfe9e1;
+}
+
+.group_purchase_detail_progress_bar div {
+  height: 100%;
+  border-radius: inherit;
+  background: #27813d;
+  transition: width 0.2s ease;
+}
+
+.group_purchase_detail_progress_footer {
+  color: #477553;
+  font-size: 12px;
+}
+
 /* 상품 옵션과 수량 선택 */
 .group_purchase_options {
   display: grid;
@@ -145,6 +182,26 @@
 .quantity_control strong {
   min-width: 38px;
   text-align: center;
+}
+
+.group_purchase_quantity_total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  padding-top: 8px;
+  border-top: 1px solid #edf0ed;
+  color: #555;
+}
+
+.group_purchase_quantity_total span {
+  font-size: 12px;
+}
+
+.group_purchase_quantity_total strong {
+  color: #237b39;
+  font-size: 16px;
 }
 
 
@@ -257,6 +314,12 @@
 }
 
 @media (max-width: 700px) {
+  .group_purchase_detail_progress_footer {
+    align-items: flex-end;
+    flex-direction: column;
+    gap: 5px;
+  }
+
   .group_purchase_actions {
     grid-template-columns: minmax(0, 1fr) 58px;
   }
