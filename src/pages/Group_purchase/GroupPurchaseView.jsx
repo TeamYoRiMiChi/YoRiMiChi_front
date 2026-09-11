@@ -31,6 +31,24 @@ function GroupPurchaseView() {
   if (error) return <main className="group_purchase_view"><p>{error}</p></main>;
   if (!product) return <main className="group_purchase_view"><p>読み込み中...</p></main>;
 
+  const handleParticipantsChange = (nextCurrentParticipants) => {
+    setProduct((previousProduct) => {
+      if (!previousProduct) return previousProduct;
+
+      const isCompleted = nextCurrentParticipants >= previousProduct.targetParticipants;
+      return {
+        ...previousProduct,
+        currentParticipants: nextCurrentParticipants,
+        remainingParticipants: Math.max(
+          previousProduct.targetParticipants - nextCurrentParticipants,
+          0,
+        ),
+        status: isCompleted ? 'SUCCESS' : previousProduct.status,
+        displayStatus: isCompleted ? 'SUCCESS' : previousProduct.displayStatus,
+      };
+    });
+  };
+
   return (
     <main className="group_purchase_view">
       <div className="group_purchase_view_inner">
@@ -52,7 +70,11 @@ function GroupPurchaseView() {
           />
 
           {/* 오른쪽 상품 정보 컴포넌트 */}
-          <GroupPurchaseSummary key={product.productId} product={product} />
+          <GroupPurchaseSummary
+            key={product.productId}
+            product={product}
+            onParticipantsChange={handleParticipantsChange}
+          />
         </section>
         
         {/* 공동구매 서비스 장점 컴포넌트 */}

@@ -6,7 +6,7 @@ import { toggleWishlist } from '../../features/wishlist/wishlistSlice';
 import { getMyGroupBuyParticipation, participateGroupBuy } from '../../api/groupBuyApi';
 
 // 공동구매 상품 요약 영역의 동작을 관리하는 Hook
-function useGroupPurchaseSummary(product) {
+function useGroupPurchaseSummary(product, onParticipantsChange) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -75,6 +75,7 @@ function useGroupPurchaseSummary(product) {
       const response = await getMyGroupBuyParticipation(product.productId);
       setExistingApplicationQuantity(response.data.data.quantity ?? 0);
       setCurrentParticipants(response.data.data.currentQuantity);
+      onParticipantsChange?.(response.data.data.currentQuantity);
     } catch (error) {
       setApplicationError(
         error.response?.data?.message || '申し込み情報を読み込めませんでした。'
@@ -96,6 +97,7 @@ function useGroupPurchaseSummary(product) {
     try {
       const response = await participateGroupBuy(product.productId, quantity);
       setCurrentParticipants(response.data.data.currentQuantity);
+      onParticipantsChange?.(response.data.data.currentQuantity);
       setAppliedQuantity(response.data.data.quantity);
       setExistingApplicationQuantity(response.data.data.quantity);
       setIsApplicationComplete(true);

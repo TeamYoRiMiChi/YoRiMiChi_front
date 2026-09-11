@@ -63,9 +63,9 @@ export function useOverseas() {
 
   //おすすめ를 누르면 카테고리 조건을 해제하여
   // 전체 상품을 추천순으로 조회합니다.
-    if(key ==='recommend'){
-      setActiveCategory('');
-    }
+    // if(key ==='recommend'){
+    //   setActiveCategory('');
+    // }
     resetPage();
   };
   

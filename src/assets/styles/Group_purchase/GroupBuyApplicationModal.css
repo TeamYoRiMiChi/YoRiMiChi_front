@@ -109,6 +109,19 @@
   font-weight: 700;
 }
 
+.group_buy_modal_order .group_buy_modal_total_price {
+  margin-top: 4px;
+  padding: 17px 14px;
+  border-bottom: 0;
+  border-radius: 10px;
+  background: #eef8f0;
+}
+
+.group_buy_modal_total_price dd {
+  color: #237b39;
+  font-size: 22px;
+}
+
 .group_buy_modal_quantity {
   display: flex;
   align-items: center;
