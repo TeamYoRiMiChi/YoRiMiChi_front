@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { addCartItem } from '../../features/cart/cartSlice';
+import { addCartItem, fetchCart } from '../../features/cart/cartSlice';
 import { toggleWishlist } from '../../features/wishlist/wishlistSlice';
 import { getMyGroupBuyParticipation, participateGroupBuy } from '../../api/groupBuyApi';
 
@@ -101,6 +101,7 @@ function useGroupPurchaseSummary(product, onParticipantsChange) {
       setAppliedQuantity(response.data.data.quantity);
       setExistingApplicationQuantity(response.data.data.quantity);
       setIsApplicationComplete(true);
+      dispatch(fetchCart());
     } catch (error) {
       setApplicationError(
         error.response?.data?.message || '共同購入への申し込みに失敗しました。'

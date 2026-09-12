@@ -1,4 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useSearchParams } from 'react-router-dom';
 import {
   faCreditCard,
   faWarehouse,
@@ -222,6 +223,7 @@ const ADDRESSES = [
 ];
 
 function MyPage() {
+  const [searchParams] = useSearchParams();
   const user = {
     name: '安徳',
     email: 'antoku@yahoo.com',
@@ -229,7 +231,10 @@ function MyPage() {
     grade: 'VIP',
   };
 
-  const { menu, setMenu, currentLabel } = useMyPageSideMenus(MENU_GROUPS);
+  const { menu, setMenu, currentLabel } = useMyPageSideMenus(
+    MENU_GROUPS,
+    searchParams.get('menu') ?? 'orders',
+  );
 
   return (
     <div className="mypage">

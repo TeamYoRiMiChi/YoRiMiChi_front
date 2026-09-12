@@ -52,6 +52,7 @@ export function toWishlistItemView(dto) {
     groupBuyStatus: dto.groupBuyStatus ?? null,
     groupBuyClosed: dto.groupBuyClosed ?? false,
     productStatus: dto.productStatus ?? null,
+    saleType: dto.saleType ?? (dto.groupBuyId != null ? 'GROUP_BUY' : 'OVERSEAS'),
     brand: dto.brand ?? '',
     name: dto.productName ?? '',
     thumbnailUrl: dto.thumbnailUrl ?? null,

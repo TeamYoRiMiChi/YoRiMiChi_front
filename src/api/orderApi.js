@@ -4,20 +4,24 @@ import { ENDPOINTS } from '../config/api';
 /**
  * Order 도메인 API
  *
- * 모두 로그인이 필요합니다.
- * 금액은 서버가 계산해서 내려주므로 프론트가 보내지 않습니다.
+ * 모두 로그인이 필요
+ * 금액은 서버가 계산해서 내려주므로 프론트가 보내지 않음
  *
- * 주문 방식이 두 가지입니다.
+ * 주문 방식이 두 가지
  *   - 바로구매 : productId 지정 → 그 상품만
  *   - 장바구니 : productId 없음 → 담긴 상품 전체
  */
 
 /** 주문서 데이터 (배송지 · 통관부호 · 상품 · 금액) */
-export const getCheckout = ({ productId, quantity } = {}) => {
+export const getCheckout = ({ productId, quantity, saleType, cartItemIds } = {}) => {
   return axiosInstance.get(`${ENDPOINTS.ORDERS}/checkout`, {
     params: {
       ...(productId ? { productId } : {}),
       ...(productId ? { quantity: quantity ?? 1 } : {}),
+      ...(!productId && saleType ? { saleType } : {}),
+      ...(!productId && cartItemIds?.length
+        ? { cartItemIds: cartItemIds.join(',') }
+        : {}),
     },
   });
 };
@@ -37,6 +41,8 @@ export const getCheckout = ({ productId, quantity } = {}) => {
 export const createOrder = ({
   productId,
   quantity,
+  saleType,
+  cartItemIds,
   addressId,
   manualAddress,
   customsCode,
@@ -46,6 +52,8 @@ export const createOrder = ({
   return axiosInstance.post(ENDPOINTS.ORDERS, {
     productId: productId ?? null,
     quantity: productId ? (quantity ?? 1) : null,
+    saleType: productId ? null : (saleType ?? null),
+    cartItemIds: productId ? null : (cartItemIds ?? null),
 
     addressId: addressId ?? null,
     receiverName: manualAddress?.receiverName ?? null,
@@ -68,8 +76,8 @@ export const getOrder = (orderId) => {
 /**
  * 서버 응답 → 화면용 형태
  *
- * 숫자를 그대로 두고, 화면에서 toLocaleString()으로 포맷합니다.
- * 금액 계산이 필요한 곳이 있어서 문자열로 바꾸지 않습니다.
+ * 숫자를 그대로 두고, 화면에서 toLocaleString()으로 포맷
+ * 금액 계산이 필요한 곳이 있어서 문자열로 바꾸지 않음
  */
 export function toCheckoutView(dto) {
   return {

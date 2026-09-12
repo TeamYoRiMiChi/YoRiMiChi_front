@@ -40,6 +40,12 @@ export function useOrder() {
   const directProductId = productId ? Number(productId) : null;
   const directQuantity = Number(searchParams.get('quantity')) || 1;
   const isDirectPurchase = Boolean(directProductId);
+  const cartSaleType = isDirectPurchase ? null : searchParams.get('saleType');
+  const cartItemIdsKey = isDirectPurchase ? '' : (searchParams.get('cartItemIds') ?? '');
+  const cartItemIds = useMemo(() => (cartItemIdsKey
+        .split(',')
+        .map(Number)
+        .filter((id) => Number.isInteger(id) && id > 0)), [cartItemIdsKey]);
 
   /* ===== 서버 데이터 ===== */
   const [checkout, setCheckout] = useState(null);
@@ -76,6 +82,8 @@ export function useOrder() {
         const res = await getCheckout({
           productId: directProductId,
           quantity: directQuantity,
+          saleType: cartSaleType,
+          cartItemIds,
         });
 
         if (ignore) return;
@@ -100,7 +108,7 @@ export function useOrder() {
     return () => {
       ignore = true;
     };
-  }, [directProductId, directQuantity]);
+  }, [directProductId, directQuantity, cartSaleType, cartItemIds]);
 
   /* ===== 금액 계산 ===== */
   const amounts = useMemo(() => {
@@ -209,6 +217,8 @@ export function useOrder() {
       const res = await createOrder({
         productId: directProductId,
         quantity: directQuantity,
+        saleType: cartSaleType,
+        cartItemIds,
 
         addressId: useManualAddress ? null : checkout?.address?.addressId,
         manualAddress: useManualAddress ? manualAddress : null,
@@ -237,6 +247,7 @@ export function useOrder() {
   return {
     // 주문 방식
     isDirectPurchase,
+    cartSaleType,
 
     // 서버 데이터
     address: checkout?.address ?? null,

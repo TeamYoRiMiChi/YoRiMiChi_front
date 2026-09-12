@@ -4,11 +4,11 @@ import { ENDPOINTS } from '../config/api';
 /**
  * Cart 도메인 API
  *
- * 모두 로그인이 필요합니다.
- * 회원 식별은 서버가 토큰에서 꺼내므로 memberId를 보내지 않습니다.
+ * 모두 로그인이 필요
+ * 회원 식별은 서버가 토큰에서 꺼내므로 memberId를 보내지 않음
  *
- * 응답은 항상 장바구니 전체 상태입니다.
- * 담기·삭제 후 따로 조회하지 않아도 되도록 서버가 최신 상태를 돌려줍니다.
+ * 응답은 항상 장바구니 전체 상태
+ * 담기·삭제 후 따로 조회하지 않아도 되도록 서버가 최신 상태를 돌려줌
  */
 
 /** 내 장바구니 조회 */
@@ -51,6 +51,7 @@ export function toCartItemView(dto) {
     groupBuyStatus: dto.groupBuyStatus ?? null,
     groupBuyClosed: dto.groupBuyClosed ?? false,
     productStatus: dto.productStatus ?? null,
+    saleType: dto.saleType ?? (dto.groupBuyId != null ? 'GROUP_BUY' : 'OVERSEAS'),
     brand: dto.brand ?? '',
     name: dto.productName ?? '',
     thumbnailUrl: dto.thumbnailUrl ?? null,

@@ -1,9 +1,7 @@
-/* =========================
-   주문/결제 페이지 공통
+/* 주문/결제 페이지 공통
 
    색상 변수는 여기서 한 번만 선언하고
-   하위 컴포넌트 CSS가 함께 사용합니다.
-========================= */
+   하위 컴포넌트 CSS가 함께 사용 */
 .order-page {
     --od-brand: var(--brand, #5558e9);
     --od-brand-dark: var(--brand-dark, #4245c8);
@@ -27,9 +25,7 @@
     box-sizing: border-box;
 }
 
-/* =========================
-   상단 제목 + 단계
-========================= */
+/*상단 제목 + 단계 */
 .order-page-head {
     display: flex;
     align-items: center;
@@ -66,9 +62,7 @@
     font-weight: 700;
 }
 
-/* =========================
-   본문 2단 레이아웃
-========================= */
+/* 본문 2단 레이아웃 */
 .order-layout {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 400px;
@@ -84,9 +78,7 @@
     min-width: 0;
 }
 
-/* =========================
-   로딩 / 에러 / 안내 상태
-========================= */
+/* 로딩 / 에러 / 안내 상태*/
 .order-state {
     display: flex;
     flex-direction: column;
@@ -133,9 +125,7 @@
     line-height: 1.6;
 }
 
-/* =========================
-   반응형
-========================= */
+/* 반응형 */
 @media (max-width: 1024px) {
     .order-layout {
         grid-template-columns: 1fr;

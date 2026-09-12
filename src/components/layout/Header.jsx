@@ -10,8 +10,6 @@ import {
   faMagnifyingGlass,
   faUser,
   faCartShopping,
-  faGlobe,
-  faChevronDown,
   faUserGear,
   faUserShield,
   faBars,
@@ -64,7 +62,7 @@ function Header() {
   // 현재 경로에 맞는 테마 (색상 + 로고)
   const theme = useTheme();
 
-  const [lang, setLang] = useState('ja');
+  const [lang] = useState('ja');
   const [keyword, setKeyword] = useState('');
   const [searchOpen, setSearchOpen] = useState(false);
 
@@ -144,11 +142,6 @@ function Header() {
   const handleLogout = () => {
     dispatch(logout());
     navigate('/', { replace: true });
-  };
-
-  const selectLang = (code) => {
-    setLang(code);
-    setLangOpen(false);
   };
 
   const handleSearch = (e) => {
