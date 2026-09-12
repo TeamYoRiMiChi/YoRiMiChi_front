@@ -258,6 +258,11 @@ a.featurs_menu:hover::after {
   color: var(--brand);
 }
 
+/* 관리자 전용 버튼 (admin 권한일 때만 렌더링됨) */
+.admin_bt {
+  color: var(--brand-dark);
+}
+
 /* =========================
    로그인 버튼
 ========================= */

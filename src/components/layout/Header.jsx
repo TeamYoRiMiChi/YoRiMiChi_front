@@ -13,6 +13,7 @@ import {
   faGlobe,
   faChevronDown,
   faUserGear,
+  faUserShield,
   faBars,
   faXmark,
 } from '@fortawesome/free-solid-svg-icons';
@@ -33,6 +34,7 @@ const TEXT = {
     mypage: 'マイページ',
     faq: 'FAQ',
     greeting: 'さん',        // 이름 뒤에 붙는 경칭 (例: 山田さん)
+    admin: '管理者ページ',
   },
   // ko: {
   //   overseas: '해외직구',
@@ -47,6 +49,7 @@ const TEXT = {
   //   currentLang: '한국어',
   //   mypage: '마이페이지',
   //   faq: 'FAQ',
+  //   admin: '관리자 페이지',
   // },
 };
 
@@ -56,6 +59,7 @@ function Header() {
   const navigate = useNavigate();
   const accessToken = useSelector((state) => state.auth.accessToken);
   const user = useSelector((state) => state.auth.user);
+  const isAdmin = user?.role === 'ADMIN';
 
   // 현재 경로에 맞는 테마 (색상 + 로고)
   const theme = useTheme();
@@ -286,6 +290,14 @@ function Header() {
               </button>
             )}
 
+            {/* 관리자로 로그인한 경우에만 노출 */}
+            {accessToken && isAdmin && (
+              <Link to="/admin" className="icon_menu admin_bt">
+                <FontAwesomeIcon icon={faUserShield} />
+                <span>{t.admin}</span>
+              </Link>
+            )}
+
           </div>
         </div>
       </header>
@@ -332,6 +344,15 @@ function Header() {
                 >
                   {t.mypage}
                 </Link>
+                {isAdmin && (
+                  <Link
+                    to="/admin"
+                    className="mnav_bt mnav_bt_line"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    {t.admin}
+                  </Link>
+                )}
                 <button
                   className="mnav_bt mnav_bt_primary"
                   onClick={() => {

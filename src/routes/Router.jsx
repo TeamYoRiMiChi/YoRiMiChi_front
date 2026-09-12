@@ -3,6 +3,7 @@ import Layout from "../components/layout/Layout";
 import Home from "../pages/home/Home";
 import Login from "../pages/Login/Login";
 import PrivateRoute from "./PrivateRoute";
+import AdminRoute from "./AdminRoute";
 import Faq from "../pages/Faq/Faq";
 
 import GroupPurchase from "../pages/Group_purchase/Group_purchase";
@@ -14,10 +15,33 @@ import MyPage from '../pages/MyPage/MyPage';
 import ProductInfo from "../pages/Overseas/ProductInfo";
 import GroupPurchaseView from "../pages/Group_purchase/GroupPurchaseView";
 import Order from "../pages/Order/Order";
+import AdminLayout from "../components/layout/AdminLayout";
+import AdminPage from "../pages/Admin/AdminPage";
+import AdminProducts from "../pages/Admin/AdminProducts";
+import AdminOrders from "../pages/Admin/AdminOrders";
+import AdminUsers from "../pages/Admin/AdminUsers";
+import AdminCategories from "../pages/Admin/AdminCategories";
+import AdminGroupBuy from "../pages/Admin/AdminGroupBuy";
+import AdminInquiries from "../pages/Admin/AdminInquiries";
+import AdminCoupons from "../pages/Admin/AdminCoupons";
 
 function Router() {
   return (
     <Routes>
+      {/* 관리자 전용 */}
+      <Route element={<AdminRoute />}>
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<AdminPage />} />
+          <Route path="products" element={<AdminProducts />} />
+          <Route path="orders" element={<AdminOrders />} />
+          <Route path="users" element={<AdminUsers />} />
+          <Route path="categories" element={<AdminCategories />} />
+          <Route path="groupbuy" element={<AdminGroupBuy />} />
+          <Route path="inquiries" element={<AdminInquiries />} />
+          <Route path="coupons" element={<AdminCoupons />} />
+        </Route>
+      </Route>
+
       <Route element={<Layout />}>
 
         {/* 누구나 접근 가능 */}

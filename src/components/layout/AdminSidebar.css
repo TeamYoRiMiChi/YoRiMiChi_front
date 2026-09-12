@@ -1,0 +1,151 @@
+/* =========================
+   관리자 색상 토큰
+   (고객 화면의 --brand와 별도로 관리자 전용 팔레트 사용)
+========================= */
+:root {
+  --admin-accent: #4a7bf0;
+  --admin-accent-dark: #3a63d1;
+  --admin-accent-soft: #eaf1ff;
+  --admin-leaf: #2f9e6e;
+  --admin-bg: #eef2f8;
+  --admin-surface: #ffffff;
+  --admin-border: #e9ecf2;
+  --admin-text: #232838;
+  --admin-text-muted: #8a93a3;
+  --admin-danger: #ef4453;
+}
+
+.admin-sidebar {
+  width: 260px;
+  flex-shrink: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  height: 100vh;
+  position: sticky;
+  top: 0;
+
+  background-color: var(--admin-surface);
+  border-right: 1px solid var(--admin-border);
+
+  box-sizing: border-box;
+}
+
+.admin-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  height: 76px;
+  padding: 0 24px;
+  flex-shrink: 0;
+
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--admin-text);
+
+  border-bottom: 1px solid var(--admin-border);
+  box-sizing: border-box;
+}
+
+.admin-logo-icon {
+  font-size: 18px;
+  color: var(--admin-leaf);
+}
+
+.admin-nav {
+  flex: 1;
+  overflow-y: auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  padding: 16px 14px;
+  box-sizing: border-box;
+}
+
+.admin-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  height: 46px;
+  padding: 0 14px;
+
+  border-radius: 10px;
+
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 14.5px;
+  font-weight: 500;
+  color: var(--admin-text);
+  text-decoration: none;
+
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.admin-nav-icon {
+  width: 18px;
+  font-size: 16px;
+  color: var(--admin-text-muted);
+  flex-shrink: 0;
+
+  transition: color 0.15s ease;
+}
+
+.admin-nav-item:hover {
+  background-color: var(--admin-accent-soft);
+}
+
+.admin-nav-item.active {
+  background-color: var(--admin-accent);
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.admin-nav-item.active .admin-nav-icon {
+  color: #ffffff;
+}
+
+.admin-sidebar-footer {
+  flex-shrink: 0;
+  padding: 20px 24px 26px;
+  border-top: 1px solid var(--admin-border);
+  box-sizing: border-box;
+}
+
+.admin-sidebar-footer p {
+  margin: 0;
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--admin-text-muted);
+}
+
+/* =========================
+   반응형 — 좁은 화면에서는 아이콘만
+========================= */
+@media (max-width: 1024px) {
+  .admin-sidebar {
+    width: 76px;
+  }
+
+  .admin-logo span,
+  .admin-nav-item span,
+  .admin-sidebar-footer {
+    display: none;
+  }
+
+  .admin-logo {
+    justify-content: center;
+    padding: 0;
+  }
+
+  .admin-nav-item {
+    justify-content: center;
+    padding: 0;
+  }
+}
