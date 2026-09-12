@@ -3,9 +3,7 @@ import '../../assets/styles/Group_purchase/purchase_product_card.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-import { optimisticToggle } from '../../features/wishlist/wishlistSlice';
-import { toggleGroupBuyWishlist } from '../../api/Group_purchase/groupBuyWishlistApi';
-
+import { toggleWishlist } from '../../features/wishlist/wishlistSlice';
 // DB 상태값 → 화면 표시 문구
 const STATUS_LABELS = {
     RECRUITING: '進行中',
@@ -23,7 +21,7 @@ function Purchase_product_card({ products = [] }) {
     const accessToken = useSelector((state) => state.auth.accessToken);
     const wishlistIds = useSelector((state) => state.wishlist.ids);
 
-    const handleToggleWishlist = async (event, productId) => {
+        const handleToggleWishlist = async (event, productId) => {
         event.preventDefault();
         event.stopPropagation();
 
@@ -35,14 +33,11 @@ function Purchase_product_card({ products = [] }) {
             return;
         }
 
-        dispatch(optimisticToggle(productId));
+        const result = await dispatch(toggleWishlist(productId));
 
-        try {
-            await toggleGroupBuyWishlist(productId);
-        } catch (error) {
-            dispatch(optimisticToggle(productId));
+        if (toggleWishlist.rejected.match(result)) {
             alert(
-                error.response?.data?.message
+                result.payload
                 ?? 'お気に入りの更新に失敗しました。'
             );
         }
@@ -156,6 +151,6 @@ function Purchase_product_card({ products = [] }) {
 
         </div>
     );
-}
 
+}
 export default Purchase_product_card;
