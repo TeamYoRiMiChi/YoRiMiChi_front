@@ -14,12 +14,25 @@
 
 .admin-content {
   flex: 1;
-  padding: 24px 28px 40px;
+  padding: 28px 32px 48px;
   box-sizing: border-box;
+
+  animation: admin-content-fade-in 0.25s ease;
+}
+
+@keyframes admin-content-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (max-width: 700px) {
   .admin-content {
-    padding: 16px 16px 32px;
+    padding: 18px 16px 32px;
   }
 }

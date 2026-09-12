@@ -1,43 +1,70 @@
 .admin-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   gap: 12px;
 
-  padding: 20px 28px 0;
+  height: 76px;
+  padding: 0 28px;
   box-sizing: border-box;
+
+  background-color: var(--admin-surface);
+  border-bottom: 1px solid var(--admin-border);
+}
+
+.admin-topbar-title {
+  margin: 0;
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--admin-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.admin-topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
 }
 
 .admin-icon-bt {
   position: relative;
 
-  width: 44px;
-  height: 44px;
+  width: 42px;
+  height: 42px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  border: none;
+  border: 1px solid var(--admin-border);
   border-radius: 50%;
   background-color: var(--admin-surface);
-  box-shadow: 0 1px 2px rgba(20, 30, 60, 0.06);
 
-  font-size: 17px;
+  font-size: 16px;
   color: var(--admin-text-muted);
 
   cursor: pointer;
-  transition: color 0.15s ease;
+  transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
 }
 
 .admin-icon-bt:hover {
   color: var(--admin-accent);
+  border-color: var(--admin-accent);
+  background-color: var(--admin-accent-soft);
 }
 
 .admin-notif-badge {
   position: absolute;
-  top: 4px;
-  right: 5px;
+  top: 3px;
+  right: 4px;
 
   min-width: 16px;
   height: 16px;
@@ -47,11 +74,12 @@
   align-items: center;
   justify-content: center;
 
+  border: 2px solid var(--admin-surface);
   border-radius: 999px;
   background-color: var(--admin-danger);
   color: #fff;
 
-  font-size: 10px;
+  font-size: 9.5px;
   font-weight: 700;
   line-height: 1;
 }
@@ -61,31 +89,50 @@
 }
 
 .admin-profile-bt {
-  height: 44px;
+  height: 42px;
 
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 9px;
 
-  padding: 0 14px 0 8px;
+  padding: 0 12px 0 6px;
 
-  border: none;
+  border: 1px solid var(--admin-border);
   border-radius: 999px;
   background-color: var(--admin-surface);
-  box-shadow: 0 1px 2px rgba(20, 30, 60, 0.06);
 
   font-family: "Noto Sans JP", sans-serif;
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 500;
   color: var(--admin-text);
 
   cursor: pointer;
   white-space: nowrap;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.admin-profile-bt:hover,
+.admin-profile-bt.open {
+  border-color: var(--admin-accent);
+  background-color: var(--admin-accent-soft);
 }
 
 .admin-profile-avatar {
-  font-size: 26px;
-  color: #c3c9d4;
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--admin-accent), #6f4de0);
+  color: #ffffff;
+
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
 }
 
 .admin-profile-arrow {
@@ -100,11 +147,11 @@
 
 .admin-profile-dropdown {
   position: absolute;
-  top: calc(100% + 8px);
+  top: calc(100% + 10px);
   right: 0;
   z-index: 20;
 
-  min-width: 140px;
+  min-width: 150px;
 
   list-style: none;
   margin: 0;
@@ -113,7 +160,7 @@
   background-color: var(--admin-surface);
   border: 1px solid var(--admin-border);
   border-radius: 12px;
-  box-shadow: 0 10px 26px rgba(20, 30, 60, 0.1);
+  box-shadow: 0 12px 28px rgba(20, 30, 60, 0.12);
 
   box-sizing: border-box;
 }
@@ -148,7 +195,12 @@
 
 @media (max-width: 700px) {
   .admin-topbar {
-    padding: 16px 16px 0;
+    padding: 0 16px;
+    height: 66px;
+  }
+
+  .admin-topbar-title {
+    font-size: 16px;
   }
 
   .admin-profile-name {
@@ -156,6 +208,6 @@
   }
 
   .admin-profile-bt {
-    padding: 0 10px 0 8px;
+    padding: 0 8px 0 6px;
   }
 }
