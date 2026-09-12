@@ -34,6 +34,36 @@
   flex-shrink: 0;
 }
 
+.admin-visit-site-bt {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  height: 38px;
+  padding: 0 14px;
+  box-sizing: border-box;
+
+  border: 1px solid var(--admin-border);
+  border-radius: 999px;
+  background-color: var(--admin-surface);
+
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--admin-text-muted);
+  text-decoration: none;
+  white-space: nowrap;
+
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.admin-visit-site-bt:hover {
+  color: var(--admin-accent);
+  border-color: var(--admin-accent);
+  background-color: var(--admin-accent-soft);
+}
+
 .admin-icon-bt {
   position: relative;
 
@@ -209,5 +239,15 @@
 
   .admin-profile-bt {
     padding: 0 8px 0 6px;
+  }
+
+  .admin-visit-site-bt span {
+    display: none;
+  }
+
+  .admin-visit-site-bt {
+    width: 38px;
+    padding: 0;
+    justify-content: center;
   }
 }

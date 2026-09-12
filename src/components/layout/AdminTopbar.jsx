@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBell, faChevronDown, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faChevronDown, faRightFromBracket, faStore } from '@fortawesome/free-solid-svg-icons';
 import { logout } from '../../features/auth/authSlice';
 import { ADMIN_NAV_ITEMS } from './AdminSidebar';
 import './AdminTopbar.css';
@@ -59,6 +59,17 @@ const AdminTopbar = () => {
       <h1 className="admin-topbar-title">{pageTitle}</h1>
 
       <div className="admin-topbar-actions">
+        {/* 구매자(고객) 화면으로 이동 — 새 탭에서 열어서 작업 중인 관리자 화면은 유지 */}
+        <a
+          href="/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="admin-visit-site-bt"
+        >
+          <FontAwesomeIcon icon={faStore} />
+          <span>쇼핑몰로 이동</span>
+        </a>
+
         {/* TODO: 실제 알림 목록/개수는 알림 기능 붙을 때 연동 */}
         <button className="admin-icon-bt" aria-label="알림">
           <FontAwesomeIcon icon={faBell} />
