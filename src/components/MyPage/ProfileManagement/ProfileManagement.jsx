@@ -1,44 +1,96 @@
 import "../../../assets/styles/MyPage/ProfileManagement.css";
+import useProfileManagement from "../../../hooks/MyPage/ProfileManagement/useProfileManagement";
 
-function ProfileManagement({ user }) {
+function ProfileManagement() {
+  // const user = {
+  //   name: "安徳",
+  //   email: "antoku@yahoo.com",
+  //   joinDate: "1178.12.22",
+  //   grade: "VIP",
+  // };
+
+  const {
+    newPassword,
+    setNewPassword,
+    confirmPassword,
+    setConfirmPassword,
+    handleSubmit,
+    profile,
+    setProfile,
+    isLoading,
+    error,
+  } = useProfileManagement();
+
   return (
     <div className="mp_panel">
-      <form className="form_box">
+      <form className="form_box" onSubmit={handleSubmit}>
         <div className="form_row">
-          <label>이메일</label>
-          <input type="email" value={user.email} disabled />
-          <span className="form_hint">이메일은 변경할 수 없어요</span>
+          <label>メールアドレス</label>
+          <input type="email" value={profile.email} disabled />
+          <span className="form_hint">メールアドレスは変更できません</span>
         </div>
 
         <div className="form_row">
-          <label>이름</label>
-          <input type="text" defaultValue={user.name} />
+          <label>名前</label>
+          <input
+            type="text"
+            value={profile.name}
+            onChange={(e) =>
+              setProfile((prev) => ({
+                ...prev,
+                name: e.target.value,
+              }))
+            }
+            required
+          />
         </div>
 
         <div className="form_row">
-          <label>휴대폰 번호</label>
+          <label>携帯電話番号</label>
           <div className="form_inline">
-            <input type="tel" defaultValue="010-1234-5678" />
-            <button type="button" className="mini_bt mini_bt_line">
-              인증
-            </button>
+            <input
+              type="tel"
+              value={profile.phone}
+              onChange={(e) =>
+                setProfile((prev) => ({
+                  ...prev,
+                  phone: e.target.value,
+                }))
+              }
+              pattern="[0-9]{2,3}-[0-9]{4}-[0-9]{4}"
+              title="電話番号の形式が正しくありません。"
+              required
+            />
           </div>
         </div>
 
         <div className="form_divider" />
 
         <div className="form_row">
-          <label>새 비밀번호</label>
-          <input type="password" placeholder="영문·숫자 포함 8자 이상" />
+          <label>新しいパスワード</label>
+          <input
+            type="password"
+            placeholder="英字・数字を含む8文字以上"
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
+            pattern="(?=.*[A-Za-z])(?=.*[0-9]).{8,100}"
+            title="英字と数字を含めて8文字以上で入力してください。"
+          />
         </div>
 
         <div className="form_row">
-          <label>새 비밀번호 확인</label>
-          <input type="password" placeholder="한 번 더 입력해 주세요" />
+          <label>新しいパスワードの確認</label>
+          <input
+            type="password"
+            placeholder="もう一度入力してください"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required={newPassword.trim().length > 0}
+          />
         </div>
 
         <button type="submit" className="wide_bt">
-          저장하기
+          保存する
         </button>
       </form>
     </div>

@@ -5,28 +5,30 @@
 /* API 엔드포인트 (백엔드 명세와 맞춰서 관리) */
 export const ENDPOINTS = {
   // 회원
-  USERS: '/users',
-  LOGIN: '/users/login',
+  USERS: "/users",
+  LOGIN: "/users/login",
 
   // 상품
-  PRODUCTS: '/products',
-  CATEGORIES: '/categories',
-  GB_CATEGORIES: '/gb-categories',
-  GROUP_BUYS: '/group-buys',
+  PRODUCTS: "/products",
+  CATEGORIES: "/categories",
+  GB_CATEGORIES: "/gb-categories",
+  GROUP_BUYS: "/group-buys",
 
   // 찜
-  WISHLIST: '/wishlist',
+  WISHLIST: "/wishlist",
 
   // 장바구니
-  CART: '/cart',
-  MYPAGE_CART: '/mypage/cart',
+  CART: "/cart",
+  MYPAGE_CART: "/mypage/cart",
 
   // 주문
-  ORDERS: '/orders',
+  ORDERS: "/orders",
 
   // 주문 내역
-  ORDERHISTORY: '/orderhistory',
+  ORDERHISTORY: "/orderhistory",
   ORDERDETAIL: (orderId) => `/orderhistory/${orderId}`,
+
+  PROFILE: "/myprofile",
 };
 
 /**
