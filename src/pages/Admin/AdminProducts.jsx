@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AdminProductFilter from "../../components/Admin/AdminProduct_Filter";
 import AdminProductTable from "../../components/Admin/AdminProduct_Table";
 import AdminProductTableFooter from "../../components/Admin/AdminProduct_Footer";
+import useProductFilter from "../../hooks/Admin/useProductFilter";
 import {
   faBan,
   faBoxOpen,
@@ -137,14 +138,23 @@ function AdminProducts() {
   const navigate = useNavigate();
 
   const [products, setProducts] = useState(initialProducts);
-  const [keyword, setKeyword] = useState("");
-  const [saleType, setSaleType] = useState("");
-  const [categoryId, setCategoryId] = useState("");
-  const [status, setStatus] = useState("");
+
   const [selectedIds, setSelectedIds] = useState([]);
   const [page, setPage] = useState(1);
   const totalPages = 5;
-
+const {
+  keyword,
+  saleType,
+  categoryId,
+  status,
+  filteredProducts,
+  handleKeywordChange,
+  handleSaleTypeChange,
+  handleCategoryChange,
+  handleStatusChange: handleFilterStatusChange,
+  handleReset,
+  getDisplayedStatus,
+} = useProductFilter(products, setPage);
   /*
    * 전체 상품 통계
    *
@@ -208,54 +218,6 @@ function AdminProducts() {
   ];
 
   /*
-   * 검색 및 필터 결과
-   */
-  const filteredProducts = useMemo(() => {
-    const normalizedKeyword = keyword
-      .trim()
-      .toLowerCase();
-
-    return products.filter((product) => {
-      const keywordMatches =
-        !normalizedKeyword ||
-        product.productName
-          .toLowerCase()
-          .includes(normalizedKeyword) ||
-        product.productNameJp
-          .toLowerCase()
-          .includes(normalizedKeyword) ||
-        product.brand
-          .toLowerCase()
-          .includes(normalizedKeyword);
-
-      const saleTypeMatches =
-        !saleType ||
-        product.saleType === saleType;
-
-      const categoryMatches =
-        !categoryId ||
-        product.categoryId === Number(categoryId);
-
-      const statusMatches =
-        !status ||
-        getDisplayedStatus(product) === status;
-
-      return (
-        keywordMatches &&
-        saleTypeMatches &&
-        categoryMatches &&
-        statusMatches
-      );
-    });
-  }, [
-    products,
-    keyword,
-    saleType,
-    categoryId,
-    status,
-  ]);
-
-  /*
    * 현재 화면에 표시된 상품 ID
    */
   const visibleIds = filteredProducts.map(
@@ -273,48 +235,10 @@ function AdminProducts() {
 
   
 
-  /*
-   * 상품 상태 결정
-   *
-   * HIDDEN이 가장 우선이고,
-   * SOLD_OUT 또는 재고 0이면 품절로 표시한다.
-   */
-  function getDisplayedStatus(product) {
-    if (product.status === "HIDDEN") {
-      return "HIDDEN";
-    }
+  
 
-    if (
-      product.status === "SOLD_OUT" ||
-      product.stock <= 0
-    ) {
-      return "SOLD_OUT";
-    }
 
-    return "ACTIVE";
-  }
-
-  /*
-   * 검색 또는 필터 변경
-   */
-  const handleFilterChange = (setter) => {
-    return (event) => {
-      setter(event.target.value);
-      setPage(1);
-    };
-  };
-
-  /*
-   * 검색 조건 초기화
-   */
-  const handleReset = () => {
-    setKeyword("");
-    setSaleType("");
-    setCategoryId("");
-    setStatus("");
-    setPage(1);
-  };
-
+  
   /*
    * 전체 상품 선택
    */
@@ -439,18 +363,19 @@ function AdminProducts() {
       <AdminStatusBox items={summaryItems} />
 
       <section className="ap-panel">
-        <AdminProductFilter
-          keyword={keyword}
-          saleType={saleType}
-          categoryId={categoryId}
-          status={status}
-          categories={initialCategories}
-          onKeywordChange={handleFilterChange(setKeyword)}
-          onSaleTypeChange={handleFilterChange(setSaleType)}
-          onCategoryChange={handleFilterChange(setCategoryId)}
-          onStatusChange={handleFilterChange(setStatus)}
-          onReset={handleReset}
-        />
+     <AdminProductFilter
+  keyword={keyword}
+  saleType={saleType}
+  categoryId={categoryId}
+  status={status}
+  categories={initialCategories}
+  onKeywordChange={handleKeywordChange}
+  onSaleTypeChange={handleSaleTypeChange}
+  onCategoryChange={handleCategoryChange}
+  onStatusChange={handleFilterStatusChange}
+  onReset={handleReset}
+/>
+        
 
         <AdminProductTable
           products={filteredProducts}
