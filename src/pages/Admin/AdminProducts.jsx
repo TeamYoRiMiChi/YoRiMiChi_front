@@ -1,27 +1,47 @@
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import AdminProductFilter from "../../components/Admin/AdminProduct_Filter";
+import AdminProductTable from "../../components/Admin/AdminProduct_Table";
+import AdminProductTableFooter from "../../components/Admin/AdminProduct_Footer";
 import {
   faBan,
   faBoxOpen,
   faCartShopping,
-  faChevronLeft,
-  faChevronRight,
+
   faCirclePause,
-  faMagnifyingGlass,
-  faPlus,
-  faRotateRight,
-  faTrashCan,
+  faPlus
+ 
 } from "@fortawesome/free-solid-svg-icons";
+
+import AdminStatusBox from "../../components/Admin/Admin_statusBox";
 import "./AdminProducts.css";
 
 const initialCategories = [
-  { categoryId: 1, categoryName: "수산물" },
-  { categoryId: 2, categoryName: "정육·육류" },
-  { categoryId: 3, categoryName: "가공식품" },
-  { categoryId: 4, categoryName: "과자·디저트" },
-  { categoryId: 5, categoryName: "면류" },
-  { categoryId: 6, categoryName: "과일" },
+  {
+    categoryId: 1,
+    categoryName: "수산물",
+  },
+  {
+    categoryId: 2,
+    categoryName: "정육·육류",
+  },
+  {
+    categoryId: 3,
+    categoryName: "가공식품",
+  },
+  {
+    categoryId: 4,
+    categoryName: "과자·디저트",
+  },
+  {
+    categoryId: 5,
+    categoryName: "면류",
+  },
+  {
+    categoryId: 6,
+    categoryName: "과일",
+  },
 ];
 
 const initialProducts = [
@@ -111,16 +131,7 @@ const initialProducts = [
   },
 ];
 
-const saleTypeText = {
-  OVERSEAS: "해외직구",
-  GROUP_BUY: "공동구매",
-};
 
-const statusText = {
-  ACTIVE: "판매 중",
-  SOLD_OUT: "품절",
-  HIDDEN: "판매 중지",
-};
 
 function AdminProducts() {
   const navigate = useNavigate();
@@ -132,42 +143,102 @@ function AdminProducts() {
   const [status, setStatus] = useState("");
   const [selectedIds, setSelectedIds] = useState([]);
   const [page, setPage] = useState(1);
+  const totalPages = 5;
 
+  /*
+   * 전체 상품 통계
+   *
+   * products가 변경될 때만 다시 계산한다.
+   */
   const summary = useMemo(() => {
     return {
       total: products.length,
+
       active: products.filter(
-        (product) => product.status === "ACTIVE" && product.stock > 0
+        (product) =>
+          product.status === "ACTIVE" &&
+          product.stock > 0
       ).length,
+
       soldOut: products.filter(
         (product) =>
-          product.status === "SOLD_OUT" || product.stock === 0
+          product.status !== "HIDDEN" &&
+          (product.status === "SOLD_OUT" ||
+            product.stock <= 0)
       ).length,
+
       hidden: products.filter(
         (product) => product.status === "HIDDEN"
       ).length,
     };
   }, [products]);
 
+  /*
+   * AdminStatusBox에 전달할 카드 데이터
+   */
+  const summaryItems = [
+    {
+      key: "total",
+      label: "전체 상품",
+      value: summary.total,
+      icon: faBoxOpen,
+      color: "blue",
+    },
+    {
+      key: "active",
+      label: "판매 중",
+      value: summary.active,
+      icon: faCartShopping,
+      color: "green",
+    },
+    {
+      key: "soldOut",
+      label: "품절",
+      value: summary.soldOut,
+      icon: faBan,
+      color: "red",
+    },
+    {
+      key: "hidden",
+      label: "판매 중지",
+      value: summary.hidden,
+      icon: faCirclePause,
+      color: "gray",
+    },
+  ];
+
+  /*
+   * 검색 및 필터 결과
+   */
   const filteredProducts = useMemo(() => {
-    const normalizedKeyword = keyword.trim().toLowerCase();
+    const normalizedKeyword = keyword
+      .trim()
+      .toLowerCase();
 
     return products.filter((product) => {
       const keywordMatches =
         !normalizedKeyword ||
-        product.productName.toLowerCase().includes(normalizedKeyword) ||
-        product.productNameJp.toLowerCase().includes(normalizedKeyword) ||
-        product.brand.toLowerCase().includes(normalizedKeyword);
+        product.productName
+          .toLowerCase()
+          .includes(normalizedKeyword) ||
+        product.productNameJp
+          .toLowerCase()
+          .includes(normalizedKeyword) ||
+        product.brand
+          .toLowerCase()
+          .includes(normalizedKeyword);
 
       const saleTypeMatches =
-        !saleType || product.saleType === saleType;
+        !saleType ||
+        product.saleType === saleType;
 
       const categoryMatches =
         !categoryId ||
         product.categoryId === Number(categoryId);
 
       const statusMatches =
-        !status || product.status === status;
+        !status ||
+        getDisplayedStatus(product) === status;
 
       return (
         keywordMatches &&
@@ -176,41 +247,66 @@ function AdminProducts() {
         statusMatches
       );
     });
-  }, [products, keyword, saleType, categoryId, status]);
+  }, [
+    products,
+    keyword,
+    saleType,
+    categoryId,
+    status,
+  ]);
 
+  /*
+   * 현재 화면에 표시된 상품 ID
+   */
   const visibleIds = filteredProducts.map(
     (product) => product.productId
   );
 
+  /*
+   * 현재 보이는 상품이 전부 선택됐는지 확인
+   */
   const isAllSelected =
     visibleIds.length > 0 &&
-    visibleIds.every((id) => selectedIds.includes(id));
-
-  const getCategoryName = (id) => {
-    return (
-      initialCategories.find(
-        (category) => category.categoryId === id
-      )?.categoryName ?? "-"
+    visibleIds.every((id) =>
+      selectedIds.includes(id)
     );
-  };
 
-  const getDisplayedStatus = (product) => {
+  
+
+  /*
+   * 상품 상태 결정
+   *
+   * HIDDEN이 가장 우선이고,
+   * SOLD_OUT 또는 재고 0이면 품절로 표시한다.
+   */
+  function getDisplayedStatus(product) {
     if (product.status === "HIDDEN") {
       return "HIDDEN";
     }
 
-    if (product.status === "SOLD_OUT" || product.stock <= 0) {
+    if (
+      product.status === "SOLD_OUT" ||
+      product.stock <= 0
+    ) {
       return "SOLD_OUT";
     }
 
     return "ACTIVE";
+  }
+
+  /*
+   * 검색 또는 필터 변경
+   */
+  const handleFilterChange = (setter) => {
+    return (event) => {
+      setter(event.target.value);
+      setPage(1);
+    };
   };
 
-  const handleFilterChange = (setter) => (event) => {
-    setter(event.target.value);
-    setPage(1);
-  };
-
+  /*
+   * 검색 조건 초기화
+   */
   const handleReset = () => {
     setKeyword("");
     setSaleType("");
@@ -219,55 +315,90 @@ function AdminProducts() {
     setPage(1);
   };
 
+  /*
+   * 전체 상품 선택
+   */
   const handleSelectAll = () => {
     if (isAllSelected) {
       setSelectedIds((current) =>
-        current.filter((id) => !visibleIds.includes(id))
+        current.filter(
+          (id) => !visibleIds.includes(id)
+        )
       );
+
       return;
     }
 
     setSelectedIds((current) => [
-      ...new Set([...current, ...visibleIds]),
+      ...new Set([
+        ...current,
+        ...visibleIds,
+      ]),
     ]);
   };
 
+  /*
+   * 상품 한 개 선택
+   */
   const handleSelectProduct = (productId) => {
     setSelectedIds((current) => {
       if (current.includes(productId)) {
-        return current.filter((id) => id !== productId);
+        return current.filter(
+          (id) => id !== productId
+        );
       }
 
-      return [...current, productId];
+      return [
+        ...current,
+        productId,
+      ];
     });
   };
 
+  /*
+   * 선택 상품 삭제
+   */
   const handleDeleteSelected = () => {
-    if (selectedIds.length === 0) return;
+    if (selectedIds.length === 0) {
+      return;
+    }
 
     const confirmed = window.confirm(
       `선택한 상품 ${selectedIds.length}개를 삭제하시겠습니까?`
     );
 
-    if (!confirmed) return;
+    if (!confirmed) {
+      return;
+    }
 
     setProducts((current) =>
       current.filter(
-        (product) => !selectedIds.includes(product.productId)
+        (product) =>
+          !selectedIds.includes(product.productId)
       )
     );
 
     setSelectedIds([]);
   };
 
+  /*
+   * 선택 상품 판매 상태 변경
+   */
   const handleStatusChange = (event) => {
     const nextStatus = event.target.value;
 
-    if (!nextStatus || selectedIds.length === 0) return;
+    if (
+      !nextStatus ||
+      selectedIds.length === 0
+    ) {
+      return;
+    }
 
     setProducts((current) =>
       current.map((product) => {
-        if (!selectedIds.includes(product.productId)) {
+        if (
+          !selectedIds.includes(product.productId)
+        ) {
           return product;
         }
 
@@ -287,337 +418,63 @@ function AdminProducts() {
       <header className="ap-page-header">
         <div>
           <h2>상품 관리</h2>
-          <p>등록된 상품과 재고 상태를 관리하세요.</p>
+
+          <p>
+            등록된 상품과 재고 상태를 관리하세요.
+          </p>
         </div>
 
         <button
           className="ap-register-button"
           type="button"
-          onClick={() => navigate("/admin/products/new")}
+          onClick={() =>
+            navigate("/admin/products/new")
+          }
         >
           <FontAwesomeIcon icon={faPlus} />
           상품 등록
         </button>
       </header>
 
-      <section className="ap-summary-grid">
-        <SummaryCard
-          label="전체 상품"
-          count={summary.total}
-          icon={faBoxOpen}
-          color="blue"
-        />
-
-        <SummaryCard
-          label="판매 중"
-          count={summary.active}
-          icon={faCartShopping}
-          color="green"
-        />
-
-        <SummaryCard
-          label="품절"
-          count={summary.soldOut}
-          icon={faBan}
-          color="red"
-        />
-
-        <SummaryCard
-          label="판매 중지"
-          count={summary.hidden}
-          icon={faCirclePause}
-          color="gray"
-        />
-      </section>
+      <AdminStatusBox items={summaryItems} />
 
       <section className="ap-panel">
-        <div className="ap-filter-bar">
-          <label className="ap-search-box">
-            <FontAwesomeIcon icon={faMagnifyingGlass} />
+        <AdminProductFilter
+          keyword={keyword}
+          saleType={saleType}
+          categoryId={categoryId}
+          status={status}
+          categories={initialCategories}
+          onKeywordChange={handleFilterChange(setKeyword)}
+          onSaleTypeChange={handleFilterChange(setSaleType)}
+          onCategoryChange={handleFilterChange(setCategoryId)}
+          onStatusChange={handleFilterChange(setStatus)}
+          onReset={handleReset}
+        />
 
-            <input
-              type="search"
-              value={keyword}
-              onChange={handleFilterChange(setKeyword)}
-              placeholder="상품명 또는 브랜드로 검색하세요."
-            />
-          </label>
+        <AdminProductTable
+          products={filteredProducts}
+          categories={initialCategories}
+          selectedIds={selectedIds}
+          isAllSelected={isAllSelected}
+          onSelectAll={handleSelectAll}
+          onSelectProduct={handleSelectProduct}
+          getDisplayedStatus={getDisplayedStatus}
+        />
 
-          <div className="ap-filter-item">
-            <span>판매 유형</span>
-
-            <select
-              value={saleType}
-              onChange={handleFilterChange(setSaleType)}
-            >
-              <option value="">전체</option>
-              <option value="OVERSEAS">해외직구</option>
-              <option value="GROUP_BUY">공동구매</option>
-            </select>
-          </div>
-
-          <div className="ap-filter-item">
-            <span>카테고리</span>
-
-            <select
-              value={categoryId}
-              onChange={handleFilterChange(setCategoryId)}
-            >
-              <option value="">전체</option>
-
-              {initialCategories.map((category) => (
-                <option
-                  key={category.categoryId}
-                  value={category.categoryId}
-                >
-                  {category.categoryName}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="ap-filter-item">
-            <span>판매 상태</span>
-
-            <select
-              value={status}
-              onChange={handleFilterChange(setStatus)}
-            >
-              <option value="">전체</option>
-              <option value="ACTIVE">판매 중</option>
-              <option value="SOLD_OUT">품절</option>
-              <option value="HIDDEN">판매 중지</option>
-            </select>
-          </div>
-
-          <button
-            className="ap-reset-button"
-            type="button"
-            onClick={handleReset}
-          >
-            <FontAwesomeIcon icon={faRotateRight} />
-            초기화
-          </button>
-        </div>
-
-        <div className="ap-table-scroll">
-          <table className="ap-table">
-            <thead>
-              <tr>
-                <th className="ap-checkbox-cell">
-                  <input
-                    type="checkbox"
-                    checked={isAllSelected}
-                    onChange={handleSelectAll}
-                    aria-label="전체 상품 선택"
-                  />
-                </th>
-
-                <th>상품 정보</th>
-                <th>상품 ID</th>
-                <th>판매 유형</th>
-                <th>카테고리</th>
-                <th>판매가(¥)</th>
-                <th>재고</th>
-                <th>누적 판매량</th>
-                <th>판매 상태</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {filteredProducts.map((product) => {
-                const displayedStatus =
-                  getDisplayedStatus(product);
-
-                return (
-                  <tr key={product.productId}>
-                    <td className="ap-checkbox-cell">
-                      <input
-                        type="checkbox"
-                        checked={selectedIds.includes(
-                          product.productId
-                        )}
-                        onChange={() =>
-                          handleSelectProduct(product.productId)
-                        }
-                        aria-label={`${product.productName} 선택`}
-                      />
-                    </td>
-
-                    <td>
-                      <div className="ap-product-info">
-                        <img
-                          src={product.thumbnailUrl}
-                          alt={product.productName}
-                        />
-
-                        <div>
-                          <strong>{product.productName}</strong>
-
-                          <p>
-                            <span>{product.productNameJp}</span>
-                            <i />
-                            <span>{product.brand}</span>
-                          </p>
-                        </div>
-                      </div>
-                    </td>
-
-                    <td className="ap-product-id">
-                      {product.productId}
-                    </td>
-
-                    <td>
-                      <span
-                        className={`ap-type-badge ${
-                          product.saleType === "OVERSEAS"
-                            ? "ap-type-overseas"
-                            : "ap-type-group"
-                        }`}
-                      >
-                        {saleTypeText[product.saleType]}
-                      </span>
-                    </td>
-
-                    <td>
-                      {getCategoryName(product.categoryId)}
-                    </td>
-
-                    <td className="ap-price">
-                      ¥{product.priceJpy.toLocaleString()}
-                    </td>
-
-                    <td
-                      className={
-                        product.stock === 0
-                          ? "ap-stock ap-stock-empty"
-                          : product.stock <= 8
-                            ? "ap-stock ap-stock-low"
-                            : "ap-stock"
-                      }
-                    >
-                      {product.stock}
-                    </td>
-
-                    <td>{product.salesCount}</td>
-
-                    <td>
-                      <span
-                        className={`ap-status-badge ap-status-${displayedStatus.toLowerCase()}`}
-                      >
-                        {statusText[displayedStatus]}
-                      </span>
-                    </td>
-                  </tr>
-                );
-              })}
-
-              {filteredProducts.length === 0 && (
-                <tr>
-                  <td
-                    className="ap-empty-result"
-                    colSpan={9}
-                  >
-                    조건에 맞는 상품이 없습니다.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-
-        <footer className="ap-table-footer">
-          <div className="ap-bulk-actions">
-            <input
-              type="checkbox"
-              checked={isAllSelected}
-              onChange={handleSelectAll}
-              aria-label="전체 상품 선택"
-            />
-
-            <button
-              className="ap-delete-button"
-              type="button"
-              disabled={selectedIds.length === 0}
-              onClick={handleDeleteSelected}
-            >
-              <FontAwesomeIcon icon={faTrashCan} />
-              선택 삭제
-            </button>
-
-            <select
-              className="ap-status-select"
-              defaultValue=""
-              disabled={selectedIds.length === 0}
-              onChange={handleStatusChange}
-            >
-              <option value="" disabled>
-                판매 상태 변경
-              </option>
-              <option value="ACTIVE">판매 중</option>
-              <option value="SOLD_OUT">품절</option>
-              <option value="HIDDEN">판매 중지</option>
-            </select>
-
-            <span className="ap-total-text">
-              총 {filteredProducts.length}개 상품
-            </span>
-          </div>
-
-          <div className="ap-pagination">
-            <button
-              type="button"
-              disabled={page === 1}
-              onClick={() =>
-                setPage((current) => Math.max(1, current - 1))
-              }
-              aria-label="이전 페이지"
-            >
-              <FontAwesomeIcon icon={faChevronLeft} />
-            </button>
-
-            {[1, 2, 3, 4, 5].map((pageNumber) => (
-              <button
-                className={
-                  page === pageNumber ? "ap-page-active" : ""
-                }
-                type="button"
-                key={pageNumber}
-                onClick={() => setPage(pageNumber)}
-              >
-                {pageNumber}
-              </button>
-            ))}
-
-            <button
-              type="button"
-              onClick={() =>
-                setPage((current) => Math.min(5, current + 1))
-              }
-              disabled={page === 5}
-              aria-label="다음 페이지"
-            >
-              <FontAwesomeIcon icon={faChevronRight} />
-            </button>
-          </div>
-        </footer>
+        <AdminProductTableFooter
+          selectedCount={selectedIds.length}
+          totalCount={filteredProducts.length}
+          isAllSelected={isAllSelected}
+          page={page}
+          totalPages={totalPages}
+          onSelectAll={handleSelectAll}
+          onDelete={handleDeleteSelected}
+          onStatusChange={handleStatusChange}
+          onPageChange={setPage}
+        />
       </section>
     </div>
-  );
-}
-
-function SummaryCard({ label, count, icon, color }) {
-  return (
-    <article className={`ap-summary-card ap-summary-${color}`}>
-      <div className="ap-summary-icon">
-        <FontAwesomeIcon icon={icon} />
-      </div>
-
-      <div>
-        <span>{label}</span>
-        <strong>{count}</strong>
-      </div>
-    </article>
   );
 }
 
