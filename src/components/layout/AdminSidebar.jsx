@@ -44,7 +44,7 @@ const NAV_GROUPS = [
   },
   {
     title: '프로모션',
-    items: [{ to: '/admin/coupons', label: '쿠폰·포인트 관리', icon: faTicket }],
+    items: [{ to: '/admin/coupons', label: '쿠폰관리', icon: faTicket }],
   },
 ];
 
@@ -91,7 +91,7 @@ const AdminSidebar = () => {
 
       <div className="admin-sidebar-footer">
         <FontAwesomeIcon icon={faLeaf} className="admin-sidebar-footer-icon" />
-        <p>좋은 먹거리가<br />좋은 일상을 만듭니다.</p>
+        <p>좋은상품이<br />좋은 일상을 만듭니다.</p>
       </div>
     </aside>
   );

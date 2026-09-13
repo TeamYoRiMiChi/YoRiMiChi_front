@@ -1,3 +1,5 @@
+//컴포넌트,훅 나누시면됩니다^^ㅎ
+
 import { useMemo, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -28,7 +30,7 @@ const initialOrders = [
     orderStatus: "PAID",
 
     member: {
-      name: "김서연",
+      name: "안덕",
       email: "seoyeon@example.com",
       phone: "010-1234-5678",
     },
@@ -74,7 +76,7 @@ const initialOrders = [
     orderStatus: "PREPARING",
 
     member: {
-      name: "이준호",
+      name: "오현민",
       email: "junho@example.com",
       phone: "010-2345-6789",
     },
@@ -120,7 +122,7 @@ const initialOrders = [
     orderStatus: "SHIPPING",
 
     member: {
-      name: "박지민",
+      name: "윤석민",
       email: "jimin@example.com",
       phone: "010-3456-7890",
     },
@@ -166,7 +168,7 @@ const initialOrders = [
     orderStatus: "DELIVERED",
 
     member: {
-      name: "최민수",
+      name: "유영수",
       email: "minsu@example.com",
       phone: "010-4567-8901",
     },
@@ -212,7 +214,7 @@ const initialOrders = [
     orderStatus: "CANCELED",
 
     member: {
-      name: "정하은",
+      name: "이지민",
       email: "haeun@example.com",
       phone: "010-5678-9012",
     },

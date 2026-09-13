@@ -1,0 +1,618 @@
+.agb-page {
+  width: 100%;
+  min-height: 100%;
+  padding: 28px;
+  color: #172d52;
+  background:
+    radial-gradient(
+      circle at 68% 0%,
+      rgba(172, 220, 255, 0.2),
+      transparent 35%
+    ),
+    linear-gradient(135deg, #f8fbff 0%, #eef8ff 100%);
+}
+
+/* 페이지 제목 */
+
+.agb-page-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.agb-page-header h2 {
+  margin: 0 0 6px;
+  color: #10284f;
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: -1.5px;
+}
+
+.agb-page-header p {
+  margin: 0;
+  color: #5876a3;
+  font-size: 14px;
+}
+
+.agb-create-button {
+  display: flex;
+  min-width: 165px;
+  height: 46px;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: 10px;
+  color: #fff;
+  background: linear-gradient(135deg, #347cff, #075ce9);
+  box-shadow: 0 8px 18px rgba(24, 101, 235, 0.24);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.agb-create-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 11px 22px rgba(24, 101, 235, 0.3);
+}
+
+/* AdminStatusBox 공통 카드 스타일 */
+
+.agb-page .ap-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.agb-page .ap-summary-card {
+  display: flex;
+  min-height: 105px;
+  align-items: center;
+  gap: 19px;
+  padding: 18px 22px;
+  border: 1px solid #e2ebf5;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 6px 18px rgba(31, 78, 126, 0.07);
+}
+
+.agb-page .ap-summary-icon {
+  display: flex;
+  width: 62px;
+  height: 62px;
+  flex: 0 0 62px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 18px;
+  font-size: 26px;
+}
+
+.agb-page .ap-summary-card span {
+  display: block;
+  margin-bottom: 6px;
+  color: #243a5f;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.agb-page .ap-summary-card strong {
+  display: block;
+  font-size: 29px;
+  line-height: 1;
+}
+
+.agb-page .ap-summary-blue .ap-summary-icon {
+  color: #1567ee;
+  background: #e2efff;
+}
+
+.agb-page .ap-summary-blue strong {
+  color: #105de1;
+}
+
+.agb-page .ap-summary-green .ap-summary-icon {
+  color: #08ac7c;
+  background: #dcf8ed;
+}
+
+.agb-page .ap-summary-green strong {
+  color: #098b68;
+}
+
+.agb-page .ap-summary-orange .ap-summary-icon {
+  color: #f57b1b;
+  background: #fff0df;
+}
+
+.agb-page .ap-summary-orange strong {
+  color: #ef6b0d;
+}
+
+.agb-page .ap-summary-red .ap-summary-icon {
+  color: #ef3651;
+  background: #ffe3e8;
+}
+
+.agb-page .ap-summary-red strong {
+  color: #e92846;
+}
+
+/* 목록 패널 */
+
+.agb-panel {
+  padding: 18px;
+  overflow: hidden;
+  border: 1px solid #e0eaf4;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 6px 20px rgba(31, 78, 126, 0.07);
+}
+
+/* 검색과 필터 */
+
+.agb-filter-bar {
+  display: grid;
+  grid-template-columns:
+    minmax(300px, 1.8fr)
+    minmax(200px, 0.8fr)
+    minmax(180px, 0.8fr)
+    105px;
+  gap: 15px;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.agb-search-box {
+  display: flex;
+  height: 46px;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px;
+  border: 1px solid #d4dfec;
+  border-radius: 9px;
+  color: #7288a8;
+  background: #f9fbfe;
+}
+
+.agb-search-box:focus-within {
+  border-color: #2772ee;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(39, 114, 238, 0.08);
+}
+
+.agb-search-box input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  color: #172d52;
+  background: transparent;
+  font-size: 13px;
+}
+
+.agb-search-box input::placeholder {
+  color: #8798b3;
+}
+
+.agb-filter-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.agb-filter-item > span {
+  color: #536986;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.agb-filter-item select {
+  width: 100%;
+  height: 46px;
+  padding: 0 13px;
+  border: 1px solid #d4dfec;
+  border-radius: 9px;
+  outline: 0;
+  color: #263d62;
+  background: #fff;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.agb-filter-item select:focus {
+  border-color: #2772ee;
+  box-shadow: 0 0 0 3px rgba(39, 114, 238, 0.08);
+}
+
+.agb-reset-button {
+  display: flex;
+  height: 46px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 0;
+  border-radius: 9px;
+  color: #1765e8;
+  background: #edf4ff;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.agb-reset-button:hover {
+  background: #dfebff;
+}
+
+/* 테이블 */
+
+.agb-table-scroll {
+  overflow-x: auto;
+  border: 1px solid #e3ebf4;
+  border-radius: 12px;
+}
+
+.agb-table {
+  width: 100%;
+  min-width: 1240px;
+  border-collapse: collapse;
+}
+
+.agb-table thead {
+  height: 53px;
+  color: #536b8e;
+  background: #f4f8fc;
+}
+
+.agb-table th,
+.agb-table td {
+  padding: 0 14px;
+  font-size: 12px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.agb-table th {
+  font-weight: 700;
+}
+
+.agb-table td {
+  height: 82px;
+  border-top: 1px solid #e8eef5;
+  color: #1c3358;
+}
+
+.agb-table tbody tr:hover {
+  background: #f8fbff;
+}
+
+.agb-checkbox-cell {
+  width: 48px;
+  padding-right: 6px !important;
+  padding-left: 6px !important;
+  text-align: center !important;
+}
+
+.agb-table input[type="checkbox"],
+.agb-bulk-actions input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: #1d6cf0;
+  cursor: pointer;
+}
+
+/* 공동구매 상품 */
+
+.agb-product-info {
+  display: flex;
+  min-width: 280px;
+  align-items: center;
+  gap: 13px;
+}
+
+.agb-product-info img {
+  width: 65px;
+  height: 56px;
+  flex: 0 0 65px;
+  border-radius: 9px;
+  object-fit: cover;
+  background: #edf2f7;
+}
+
+.agb-product-info > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.agb-product-info strong {
+  max-width: 215px;
+  overflow: hidden;
+  color: #172d52;
+  font-size: 12px;
+  text-overflow: ellipsis;
+}
+
+.agb-product-info p {
+  max-width: 215px;
+  margin: 0;
+  overflow: hidden;
+  color: #607692;
+  font-size: 11px;
+  text-overflow: ellipsis;
+}
+
+.agb-product-info span {
+  color: #8998af;
+  font-size: 10px;
+}
+
+.agb-id {
+  font-weight: 700;
+}
+
+/* 등록자 */
+
+.agb-creator-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.agb-creator-info strong {
+  font-size: 12px;
+}
+
+.agb-creator-info span {
+  color: #8494ad;
+  font-size: 10px;
+}
+
+/* 모집 기간 */
+
+.agb-period {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.agb-period span {
+  font-size: 11px;
+}
+
+.agb-period i {
+  color: #9aa8bc;
+  font-size: 10px;
+  font-style: normal;
+}
+
+/* 달성률 */
+
+.agb-progress-info {
+  width: 145px;
+}
+
+.agb-progress-label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.agb-progress-label strong {
+  color: #1766e8;
+  font-size: 13px;
+}
+
+.agb-progress-label span {
+  color: #8494ad;
+  font-size: 11px;
+}
+
+.agb-progress-label b {
+  margin-left: auto;
+  color: #172d52;
+  font-size: 11px;
+}
+
+.agb-progress-bar {
+  height: 7px;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #e9eff6;
+}
+
+.agb-progress-bar span {
+  display: block;
+  height: 100%;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #397cf3, #5e9cff);
+}
+
+.agb-count {
+  color: #1766e8;
+}
+
+.agb-comment-count {
+  color: #607692;
+}
+
+/* 상태 배지 */
+
+.agb-status-badge {
+  display: inline-flex;
+  min-width: 100px;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 12px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.agb-status-recruiting {
+  color: #098d6c;
+  background: #dff7ed;
+}
+
+.agb-status-success {
+  color: #176ee6;
+  background: #e3f0ff;
+}
+
+.agb-status-closed {
+  color: #65758c;
+  background: #e9edf2;
+}
+
+.agb-status-canceled {
+  color: #ef3651;
+  background: #ffe2e7;
+}
+
+.agb-empty {
+  height: 200px !important;
+  color: #8797ae !important;
+  text-align: center !important;
+}
+
+/* 하단 버튼 */
+
+.agb-table-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 15px;
+}
+
+.agb-bulk-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.agb-bulk-actions select {
+  height: 39px;
+  padding: 0 13px;
+  border: 1px solid #d4dfec;
+  border-radius: 8px;
+  outline: 0;
+  color: #263d62;
+  background: #fff;
+  font-size: 12px;
+}
+
+.agb-bulk-actions select:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.agb-bulk-actions span {
+  margin-left: 8px;
+  color: #637896;
+  font-size: 12px;
+}
+
+/* 페이지네이션 */
+
+.agb-pagination {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.agb-pagination button {
+  display: flex;
+  width: 35px;
+  height: 35px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #dfe7f1;
+  border-radius: 8px;
+  color: #294e83;
+  background: #fff;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.agb-pagination button:hover:not(:disabled) {
+  border-color: #2671ef;
+  color: #1763e8;
+}
+
+.agb-pagination button:disabled {
+  color: #bbc6d6;
+  cursor: default;
+}
+
+.agb-pagination .agb-page-active {
+  border-color: #1e6cf0;
+  color: #fff;
+  background: #1e6cf0;
+  box-shadow: 0 5px 12px rgba(30, 108, 240, 0.22);
+}
+
+/* 반응형 */
+
+@media (max-width: 1200px) {
+  .agb-filter-bar {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .agb-search-box {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 1050px) {
+  .agb-page .ap-summary-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .agb-page {
+    padding: 18px 14px;
+  }
+
+  .agb-page-header {
+    align-items: flex-start;
+  }
+
+  .agb-page-header h2 {
+    font-size: 27px;
+  }
+
+  .agb-create-button {
+    min-width: auto;
+    padding: 0 14px;
+    white-space: nowrap;
+  }
+
+  .agb-page .ap-summary-grid,
+  .agb-filter-bar {
+    grid-template-columns: 1fr;
+  }
+
+  .agb-search-box {
+    grid-column: auto;
+  }
+
+  .agb-table-footer {
+    align-items: flex-start;
+    gap: 18px;
+    flex-direction: column;
+  }
+
+  .agb-bulk-actions {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .agb-pagination {
+    align-self: center;
+  }
+}

@@ -1,0 +1,898 @@
+/* =========================
+   PAGE
+========================= */
+
+.am-page {
+  width: 100%;
+  min-height: 100%;
+  padding: 28px;
+
+  box-sizing: border-box;
+
+  color: #172d52;
+
+  background:
+    radial-gradient(
+      circle at 68% 0%,
+      rgba(172, 220, 255, 0.2),
+      transparent 35%
+    ),
+    linear-gradient(
+      135deg,
+      #f8fbff 0%,
+      #eef8ff 100%
+    );
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.am-page-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 24px;
+
+  margin-bottom: 24px;
+}
+
+
+.am-page-header h2 {
+  margin: 0 0 6px;
+
+  color: #10284f;
+
+  font-size: 34px;
+  font-weight: 800;
+
+  letter-spacing: -1.5px;
+}
+
+
+.am-page-header p {
+  margin: 0;
+
+  color: #5876a3;
+
+  font-size: 14px;
+}
+
+
+/* =========================
+   SUMMARY
+========================= */
+
+.am-summary-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      4,
+      minmax(180px, 1fr)
+    );
+
+  gap: 16px;
+
+  margin-bottom: 20px;
+}
+
+
+.am-summary-card {
+  display: flex;
+
+  min-height: 105px;
+
+  align-items: center;
+
+  gap: 19px;
+
+  padding: 18px 22px;
+
+  border: 1px solid #e2ebf5;
+  border-radius: 14px;
+
+  box-sizing: border-box;
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.95
+    );
+
+  box-shadow:
+    0 6px 18px
+    rgba(
+      31,
+      78,
+      126,
+      0.07
+    );
+}
+
+
+.am-summary-icon {
+  display: flex;
+
+  width: 62px;
+  height: 62px;
+
+  flex: 0 0 62px;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 18px;
+
+  font-size: 26px;
+}
+
+
+.am-summary-card span {
+  display: block;
+
+  margin-bottom: 6px;
+
+  color: #243a5f;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+
+.am-summary-card strong {
+  display: block;
+
+  font-size: 29px;
+
+  line-height: 1;
+}
+
+
+/* summary 색상 */
+
+.am-summary-blue {
+  color: #1567ee;
+
+  background: #e2efff;
+}
+
+
+.am-summary-green {
+  color: #08ac7c;
+
+  background: #dcf8ed;
+}
+
+
+.am-summary-red {
+  color: #ef3651;
+
+  background: #ffe3e8;
+}
+
+
+.am-summary-orange {
+  color: #f57b1b;
+
+  background: #fff0df;
+}
+
+
+/* =========================
+   PANEL
+========================= */
+
+.am-panel {
+  padding: 18px;
+
+  overflow: hidden;
+
+  border: 1px solid #e0eaf4;
+  border-radius: 14px;
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.96
+    );
+
+  box-shadow:
+    0 6px 20px
+    rgba(
+      31,
+      78,
+      126,
+      0.07
+    );
+}
+
+
+/* =========================
+   FILTER
+========================= */
+
+.am-filter-bar {
+  display: grid;
+
+  grid-template-columns:
+    minmax(320px, 1.8fr)
+    minmax(180px, 0.7fr)
+    minmax(190px, 0.7fr)
+    105px;
+
+  gap: 15px;
+
+  align-items: center;
+
+  margin-bottom: 18px;
+}
+
+
+/* 검색 */
+
+.am-search-box {
+  display: flex;
+
+  height: 46px;
+
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 0 16px;
+
+  border: 1px solid #d4dfec;
+  border-radius: 9px;
+
+  box-sizing: border-box;
+
+  color: #7288a8;
+
+  background: #f9fbfe;
+}
+
+
+.am-search-box:focus-within {
+  border-color: #2772ee;
+
+  background: #fff;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(
+      39,
+      114,
+      238,
+      0.08
+    );
+}
+
+
+.am-search-box input {
+  width: 100%;
+
+  border: 0;
+
+  outline: 0;
+
+  color: #172d52;
+
+  background: transparent;
+
+  font-size: 13px;
+}
+
+
+.am-search-box input::placeholder {
+  color: #8798b3;
+}
+
+
+/* 필터 */
+
+.am-filter-item {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+}
+
+
+.am-filter-item > span {
+  color: #536986;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+
+.am-filter-item select {
+  width: 100%;
+  height: 46px;
+
+  padding: 0 13px;
+
+  border: 1px solid #d4dfec;
+  border-radius: 9px;
+
+  outline: 0;
+
+  color: #263d62;
+
+  background: #fff;
+
+  font-size: 12px;
+
+  cursor: pointer;
+}
+
+
+.am-filter-item select:focus {
+  border-color: #2772ee;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(
+      39,
+      114,
+      238,
+      0.08
+    );
+}
+
+
+/* 초기화 */
+
+.am-reset-button {
+  display: flex;
+
+  height: 46px;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  border: 0;
+  border-radius: 9px;
+
+  color: #1765e8;
+
+  background: #edf4ff;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+
+.am-reset-button:hover {
+  background: #dfebff;
+}
+
+
+/* =========================
+   TABLE
+========================= */
+
+.am-table-scroll {
+  overflow-x: auto;
+
+  border: 1px solid #e3ebf4;
+  border-radius: 12px;
+}
+
+
+.am-table {
+  width: 100%;
+
+  min-width: 1250px;
+
+  border-collapse: collapse;
+}
+
+
+.am-table thead {
+  height: 53px;
+
+  color: #536b8e;
+
+  background: #f4f8fc;
+}
+
+
+.am-table th,
+.am-table td {
+  padding: 0 14px;
+
+  font-size: 12px;
+
+  text-align: left;
+
+  white-space: nowrap;
+}
+
+
+.am-table th {
+  font-weight: 700;
+}
+
+
+.am-table td {
+  height: 82px;
+
+  border-top: 1px solid #e8eef5;
+
+  color: #1c3358;
+}
+
+
+.am-table tbody tr:hover {
+  background: #f8fbff;
+}
+
+
+/* checkbox */
+
+.am-checkbox-cell {
+  width: 48px;
+
+  padding-right: 6px !important;
+  padding-left: 6px !important;
+
+  text-align: center !important;
+}
+
+
+.am-table input[type="checkbox"],
+.am-bulk-actions input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+
+  margin: 0;
+
+  accent-color: #1d6cf0;
+
+  cursor: pointer;
+}
+
+
+/* =========================
+   MEMBER INFO
+========================= */
+
+.am-member-info {
+  display: flex;
+
+  min-width: 220px;
+
+  align-items: center;
+
+  gap: 12px;
+}
+
+
+.am-avatar {
+  display: flex;
+
+  width: 42px;
+  height: 42px;
+
+  flex: 0 0 42px;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  color: #1766e8;
+
+  background: #e6f0ff;
+}
+
+
+.am-member-info > div:last-child {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 4px;
+}
+
+
+.am-member-info strong {
+  color: #172d52;
+
+  font-size: 12px;
+}
+
+
+.am-member-info span {
+  color: #8494ad;
+
+  font-size: 10px;
+}
+
+
+.am-member-id {
+  color: #1766e8;
+}
+
+
+.am-phone {
+  color: #405b7f;
+}
+
+
+.am-customs-code {
+  color: #607692;
+
+  font-size: 11px;
+}
+
+
+.am-date {
+  color: #607692;
+
+  font-size: 11px;
+}
+
+
+/* =========================
+   ROLE
+========================= */
+
+.am-role-badge {
+  display: inline-flex;
+
+  min-width: 82px;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 7px 11px;
+
+  border-radius: 20px;
+
+  font-size: 10px;
+  font-weight: 700;
+}
+
+
+.am-role-user {
+  color: #176ee6;
+
+  background: #e3f0ff;
+}
+
+
+.am-role-admin {
+  color: #8b56d9;
+
+  background: #f0e7ff;
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+.am-status-badge {
+  display: inline-flex;
+
+  min-width: 75px;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 7px 11px;
+
+  border-radius: 20px;
+
+  font-size: 10px;
+  font-weight: 700;
+}
+
+
+.am-status-active {
+  color: #098d6c;
+
+  background: #dff7ed;
+}
+
+
+.am-status-withdrawn {
+  color: #65758c;
+
+  background: #e9edf2;
+}
+
+
+/* =========================
+   ACTION
+========================= */
+
+.am-withdraw-button,
+.am-restore-button {
+  display: flex;
+
+  height: 34px;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  padding: 0 11px;
+
+  border-radius: 7px;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+
+.am-withdraw-button {
+  border: 1px solid #f5c1ca;
+
+  color: #e93450;
+
+  background: #fff7f8;
+}
+
+
+.am-withdraw-button:hover {
+  border-color: #ef3651;
+
+  background: #ffe9ed;
+}
+
+
+.am-restore-button {
+  border: 1px solid #b7ddcf;
+
+  color: #098b68;
+
+  background: #f2fcf8;
+}
+
+
+.am-restore-button:hover {
+  border-color: #09a87b;
+
+  background: #e5f8f1;
+}
+
+
+/* =========================
+   EMPTY
+========================= */
+
+.am-empty {
+  height: 190px !important;
+
+  color: #8797ae !important;
+
+  text-align: center !important;
+}
+
+
+/* =========================
+   TABLE FOOTER
+========================= */
+
+.am-table-footer {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  padding-top: 15px;
+}
+
+
+.am-bulk-actions {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+}
+
+
+.am-bulk-actions select {
+  height: 39px;
+
+  padding: 0 13px;
+
+  border: 1px solid #d4dfec;
+  border-radius: 8px;
+
+  outline: 0;
+
+  color: #263d62;
+
+  background: #fff;
+
+  font-size: 12px;
+}
+
+
+.am-bulk-actions select:disabled {
+  opacity: 0.45;
+
+  cursor: not-allowed;
+}
+
+
+.am-bulk-actions span {
+  margin-left: 8px;
+
+  color: #637896;
+
+  font-size: 12px;
+}
+
+
+.am-bulk-actions strong {
+  color: #1766e8;
+}
+
+
+/* =========================
+   PAGINATION
+========================= */
+
+.am-pagination {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+}
+
+
+.am-pagination button {
+  display: flex;
+
+  width: 35px;
+  height: 35px;
+
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid #dfe7f1;
+  border-radius: 8px;
+
+  color: #294e83;
+
+  background: #fff;
+
+  font-size: 12px;
+
+  cursor: pointer;
+}
+
+
+.am-pagination button:hover:not(:disabled) {
+  border-color: #2671ef;
+
+  color: #1763e8;
+}
+
+
+.am-pagination button:disabled {
+  color: #bbc6d6;
+
+  cursor: default;
+}
+
+
+.am-pagination .am-page-active {
+  border-color: #1e6cf0;
+
+  color: #fff;
+
+  background: #1e6cf0;
+
+  box-shadow:
+    0 5px 12px
+    rgba(
+      30,
+      108,
+      240,
+      0.22
+    );
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1200px) {
+
+  .am-filter-bar {
+    grid-template-columns:
+      1fr 1fr;
+  }
+
+
+  .am-search-box {
+    grid-column: 1 / -1;
+  }
+
+}
+
+
+@media (max-width: 1050px) {
+
+  .am-summary-grid {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+}
+
+
+@media (max-width: 700px) {
+
+  .am-page {
+    padding: 18px 14px;
+  }
+
+
+  .am-page-header h2 {
+    font-size: 27px;
+  }
+
+
+  .am-summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  .am-filter-bar {
+    grid-template-columns: 1fr;
+  }
+
+
+  .am-search-box {
+    grid-column: auto;
+  }
+
+
+  .am-table-footer {
+    align-items: flex-start;
+
+    gap: 18px;
+
+    flex-direction: column;
+  }
+
+
+  .am-bulk-actions {
+    width: 100%;
+
+    flex-wrap: wrap;
+  }
+
+
+  .am-pagination {
+    align-self: center;
+  }
+
+}
