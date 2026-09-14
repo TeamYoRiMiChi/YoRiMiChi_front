@@ -45,28 +45,28 @@ const ORDER_STATUS = [
 /* ===== 사이드 메뉴 ===== */
 const MENU_GROUPS = [
   {
-    title: '쇼핑 정보',
+    title: 'ショッピング情報',
     items: [
-      { key: 'orders', icon: faBoxOpen, label: '주문 내역' },
-      { key: 'shipping', icon: faTruckFast, label: '배송 조회' },
-      { key: 'groupbuy', icon: faUsers, label: '공동구매 참여' },
+      { key: 'orders', icon: faBoxOpen, label: '注文履歴' },
+      { key: 'shipping', icon: faTruckFast, label: '配送状況確認' },
+      { key: 'groupbuy', icon: faUsers, label: '共同購入参加状況' },
     ],
   },
   {
-    title: '관심 상품',
+    title: 'マイショッピング',
     items: [
-      { key: 'wishlist', icon: faHeart, label: '찜한 상품' },
-      { key: 'cart', icon: faCartShopping, label: '장바구니' },
-      { key: 'reviews', icon: faStar, label: '내 리뷰' },
+      { key: 'wishlist', icon: faHeart, label: 'お気に入り商品' },
+      { key: 'cart', icon: faCartShopping, label: 'カート' },
+      { key: 'reviews', icon: faStar, label: 'マイレビュー' },
     ],
   },
   {
-    title: '내 정보',
+    title: '会員情報',
     items: [
-      { key: 'profile', icon: faUserPen, label: '회원정보 수정' },
-      { key: 'address', icon: faLocationDot, label: '배송지 관리' },
-      { key: 'customs', icon: faIdCard, label: '통관고유부호' },
-      { key: 'withdraw', icon: faRightFromBracket, label: '회원 탈퇴' },
+      { key: 'profile', icon: faUserPen, label: '会員情報修正' },
+      { key: 'address', icon: faLocationDot, label: '配送先管理' },
+      { key: 'customs', icon: faIdCard, label: '個人通関固有符号' },
+      { key: 'withdraw', icon: faRightFromBracket, label: '会員退会' },
     ],
   },
 ];
