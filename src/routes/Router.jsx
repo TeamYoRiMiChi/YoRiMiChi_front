@@ -17,7 +17,7 @@ import ProductInfo from "../pages/Overseas/ProductInfo";
 import GroupPurchaseView from "../pages/Group_purchase/GroupPurchaseView";
 import Order from "../pages/Order/Order";
 import AdminLayout from "../components/layout/AdminLayout";
-import AdminPage from "../pages/Admin/AdminPage";
+import AdminPage from "../pages/Admin/DashBoardManagement/AdminPage";
 import AdminProducts from "../pages/Admin/ProductManagement/AdminProducts";
 import AdminOrders from "../pages/Admin/OrdersManagement/AdminOrders";
 import AdminUsers from "../pages/Admin/UsersManagement/AdminUsers";
