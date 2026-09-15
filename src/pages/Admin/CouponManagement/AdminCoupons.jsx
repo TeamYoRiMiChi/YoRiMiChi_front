@@ -257,13 +257,13 @@ function AdminCoupons() {
       const discountMatches =
         !discountType ||
         coupon.discountType ===
-          discountType;
+        discountType;
 
 
       const statusMatches =
         !couponStatus ||
         coupon.status ===
-          couponStatus;
+        couponStatus;
 
 
       return (
@@ -286,7 +286,7 @@ function AdminCoupons() {
       1,
       Math.ceil(
         filteredCoupons.length /
-          pageSize
+        pageSize
       )
     );
 
@@ -294,10 +294,10 @@ function AdminCoupons() {
   const pagedCoupons =
     filteredCoupons.slice(
       (couponPage - 1) *
-        pageSize,
+      pageSize,
 
       couponPage *
-        pageSize
+      pageSize
     );
 
 
@@ -358,7 +358,7 @@ function AdminCoupons() {
           const statusMatches =
             !memberCouponStatus ||
             memberCoupon.status ===
-              memberCouponStatus;
+            memberCouponStatus;
 
 
           return (
@@ -381,7 +381,7 @@ function AdminCoupons() {
       1,
       Math.ceil(
         filteredMemberCoupons.length /
-          pageSize
+        pageSize
       )
     );
 
@@ -389,10 +389,10 @@ function AdminCoupons() {
   const pagedMemberCoupons =
     filteredMemberCoupons.slice(
       (memberCouponPage - 1) *
-        pageSize,
+      pageSize,
 
       memberCouponPage *
-        pageSize
+      pageSize
     );
 
 
@@ -432,7 +432,7 @@ function AdminCoupons() {
       return coupons.find(
         (coupon) =>
           coupon.couponId ===
-            couponId
+          couponId
       );
     };
 
@@ -646,7 +646,7 @@ function AdminCoupons() {
           type="button"
           className={
             activeTab ===
-            "MEMBER_COUPON"
+              "MEMBER_COUPON"
               ? "acp-tab-active"
               : ""
           }
@@ -916,11 +916,11 @@ function AdminCoupons() {
                         <strong className="acp-discount">
 
                           {coupon.discountType ===
-                          "PERCENT"
+                            "PERCENT"
                             ? `${coupon.discountValue}%`
                             : `${formatMoney(
-                                coupon.discountValue
-                              )}원`}
+                              coupon.discountValue
+                            )}원`}
 
                         </strong>
 
@@ -1018,14 +1018,14 @@ function AdminCoupons() {
                         <span
                           className={
                             coupon.status ===
-                            "ACTIVE"
+                              "ACTIVE"
                               ? "acp-status acp-status-active"
                               : "acp-status acp-status-expired"
                           }
                         >
 
                           {coupon.status ===
-                          "ACTIVE"
+                            "ACTIVE"
                             ? "사용 가능"
                             : "만료"}
 
@@ -1044,21 +1044,21 @@ function AdminCoupons() {
                 {pagedCoupons.length ===
                   0 && (
 
-                  <tr>
+                    <tr>
 
-                    <td
-                      colSpan={9}
-                      className="acp-empty"
-                    >
+                      <td
+                        colSpan={9}
+                        className="acp-empty"
+                      >
 
-                      조건에 맞는
-                      쿠폰이 없습니다.
+                        조건에 맞는
+                        쿠폰이 없습니다.
 
-                    </td>
+                      </td>
 
-                  </tr>
+                    </tr>
 
-                )}
+                  )}
 
 
               </tbody>
@@ -1131,7 +1131,7 @@ function AdminCoupons() {
                     type="button"
                     className={
                       couponPage ===
-                      pageNumber
+                        pageNumber
                         ? "acp-page-active"
                         : ""
                     }
@@ -1464,12 +1464,12 @@ function AdminCoupons() {
                           >
 
                             {memberCoupon.status ===
-                            "ISSUED"
+                              "ISSUED"
                               ? "사용 가능"
                               : memberCoupon.status ===
                                 "USED"
-                              ? "사용 완료"
-                              : "만료"}
+                                ? "사용 완료"
+                                : "만료"}
 
                           </span>
 
@@ -1488,21 +1488,21 @@ function AdminCoupons() {
                 {pagedMemberCoupons.length ===
                   0 && (
 
-                  <tr>
+                    <tr>
 
-                    <td
-                      colSpan={8}
-                      className="acp-empty"
-                    >
+                      <td
+                        colSpan={8}
+                        className="acp-empty"
+                      >
 
-                      조건에 맞는
-                      발급 내역이 없습니다.
+                        조건에 맞는
+                        발급 내역이 없습니다.
 
-                    </td>
+                      </td>
 
-                  </tr>
+                    </tr>
 
-                )}
+                  )}
 
 
               </tbody>
@@ -1575,7 +1575,7 @@ function AdminCoupons() {
                     type="button"
                     className={
                       memberCouponPage ===
-                      pageNumber
+                        pageNumber
                         ? "acp-page-active"
                         : ""
                     }

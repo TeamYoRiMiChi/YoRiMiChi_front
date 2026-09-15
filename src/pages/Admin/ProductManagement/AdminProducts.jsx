@@ -2,10 +2,10 @@
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import AdminProductFilter from "../../components/Admin/AdminProduct_Filter";
-import AdminProductTable from "../../components/Admin/AdminProduct_Table";
-import AdminProductTableFooter from "../../components/Admin/AdminProduct_Footer";
-import useProductFilter from "../../hooks/Admin/useProductFilter";
+import AdminProductFilter from "../../../components/Admin/common/AdminProduct_Filter";
+import AdminProductTable from "../../../components/Admin/common/AdminProduct_Table";
+import AdminProductTableFooter from "../../../components/Admin/common/AdminProduct_Footer";
+import useProductFilter from "../../../hooks/Admin/ProductManagement/useProductFilter";
 import {
   faBan,
   faBoxOpen,
@@ -13,10 +13,10 @@ import {
 
   faCirclePause,
   faPlus
- 
+
 } from "@fortawesome/free-solid-svg-icons";
 
-import AdminStatusBox from "../../components/Admin/Admin_statusBox";
+import AdminStatusBox from "../../../components/Admin/common/Admin_statusBox";
 import "./AdminProducts.css";
 
 const initialCategories = [
@@ -143,19 +143,19 @@ function AdminProducts() {
   const [selectedIds, setSelectedIds] = useState([]);
   const [page, setPage] = useState(1);
   const totalPages = 5;
-const {
-  keyword,
-  saleType,
-  categoryId,
-  status,
-  filteredProducts,
-  handleKeywordChange,
-  handleSaleTypeChange,
-  handleCategoryChange,
-  handleStatusChange: handleFilterStatusChange,
-  handleReset,
-  getDisplayedStatus,
-} = useProductFilter(products, setPage);
+  const {
+    keyword,
+    saleType,
+    categoryId,
+    status,
+    filteredProducts,
+    handleKeywordChange,
+    handleSaleTypeChange,
+    handleCategoryChange,
+    handleStatusChange: handleFilterStatusChange,
+    handleReset,
+    getDisplayedStatus,
+  } = useProductFilter(products, setPage);
   /*
    * 전체 상품 통계
    *
@@ -234,12 +234,12 @@ const {
       selectedIds.includes(id)
     );
 
-  
-
-  
 
 
-  
+
+
+
+
   /*
    * 전체 상품 선택
    */
@@ -364,19 +364,19 @@ const {
       <AdminStatusBox items={summaryItems} />
 
       <section className="ap-panel">
-     <AdminProductFilter
-  keyword={keyword}
-  saleType={saleType}
-  categoryId={categoryId}
-  status={status}
-  categories={initialCategories}
-  onKeywordChange={handleKeywordChange}
-  onSaleTypeChange={handleSaleTypeChange}
-  onCategoryChange={handleCategoryChange}
-  onStatusChange={handleFilterStatusChange}
-  onReset={handleReset}
-/>
-        
+        <AdminProductFilter
+          keyword={keyword}
+          saleType={saleType}
+          categoryId={categoryId}
+          status={status}
+          categories={initialCategories}
+          onKeywordChange={handleKeywordChange}
+          onSaleTypeChange={handleSaleTypeChange}
+          onCategoryChange={handleCategoryChange}
+          onStatusChange={handleFilterStatusChange}
+          onReset={handleReset}
+        />
+
 
         <AdminProductTable
           products={filteredProducts}

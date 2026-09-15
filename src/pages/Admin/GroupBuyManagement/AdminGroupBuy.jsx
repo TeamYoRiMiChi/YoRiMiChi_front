@@ -13,7 +13,7 @@ import {
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 
-import AdminStatusBox from "../../components/Admin/Admin_statusBox";
+import AdminStatusBox from "../../../components/Admin/common/Admin_statusBox";
 import "./AdminGroupBuy.css";
 
 const initialGroupBuys = [
