@@ -1,8 +1,90 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
+import { faCircleInfo, faWarehouse, faPlaneUp, faFileShield, faHouseChimney, faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import "../../../assets/styles/MyPage/DeliveryTracking.css";
 
-function DeliveryTracking({ orderStatuses }) {
+function DeliveryTracking() {
+const orderStatuses = [
+  {
+    orderNumber: 'YM-20260827-0012',
+    shipCarrier: 'Yamato Transport',
+    trackingNumber: '1234-5678-9012',
+    deliveryType: '국제배송',
+    statuses: [
+      {
+        icon: faWarehouse,
+        label: '현지창고',
+        date: '08.25',
+        done: true,
+      },
+      {
+        icon: faPlaneUp,
+        label: '국제배송',
+        date: '08.27',
+        done: true,
+        now: true,
+      },
+      {
+        icon: faFileShield,
+        label: '통관중',
+        date: '-',
+        done: false,
+      },
+      {
+        icon: faHouseChimney,
+        label: '국내배송',
+        date: '-',
+        done: false,
+      },
+      {
+        icon: faCircleCheck,
+        label: '배송완료',
+        date: '-',
+        done: false,
+      },
+    ],
+  },
+
+  {
+    orderNumber: 'YM-20260901-0123',
+    shipCarrier: 'Takeru Transport',
+    trackingNumber: '9012-5678-1234',
+    deliveryType: '행성간배송',
+    statuses: [
+      {
+        icon: faWarehouse,
+        label: '현지창고',
+        date: '09.01',
+        done: true,
+      },
+      {
+        icon: faPlaneUp,
+        label: '행성간배송',
+        date: '09.01',
+        done: true,
+      },
+      {
+        icon: faFileShield,
+        label: '통관중',
+        date: '09.02',
+        done: false,
+        now: true,
+      },
+      {
+        icon: faHouseChimney,
+        label: '대륙간배송',
+        date: '-',
+        done: false,
+      },
+      {
+        icon: faCircleCheck,
+        label: '배송완료',
+        date: '-',
+        done: false,
+      },
+    ],
+  },
+];
+
   return (
     <div className="mp_panel">
       {orderStatuses.map((order) => (

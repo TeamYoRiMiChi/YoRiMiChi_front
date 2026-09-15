@@ -1,7 +1,30 @@
 import "../../../assets/styles/MyPage/GroupBuyParticipationStatus.css";
 import useGroupBuyWithProgress from "../../../hooks/MyPage/GroupBuyParticipationStatus/useGroupBuyWithProgress";
 
-function GroupBuyPartitionStatus({ groupBuys }) {
+function GroupBuyPartitionStatus() {
+  const groupBuys = [
+    {
+      id: 31,
+      title: '페스페 전권 공동구매',
+      status: '모집중',
+      statusType: 'ing',
+      current: 12,
+      target: 20,
+      myQty: 2,
+      endDate: '2026.09.05',
+    },
+    {
+      id: 32,
+      title: '虎屋羊羹',
+      status: '목표달성',
+      statusType: 'done',
+      current: 10,
+      target: 10,
+      myQty: 5,
+      endDate: '2026.08.18',
+    },
+  ];
+
   const { groupBuyWithProgress } = useGroupBuyWithProgress(groupBuys);
   return (
     <div className="mp_panel">
