@@ -47,9 +47,10 @@ function CustomerService() {
         {/* 메일 문의 */}
         <CustomerServiceCard
             icon={faEnvelope}
-            title="メールでのお問い合わせ"
+            title="1:1お問い合わせ"
             description="24時間いつでもご利用いただけます。"
             subDescription="通常、1〜3営業日以内にご返信いたします。"
+            to="/support/inquiry"
         />
         
         {/* 채팅 문의 */}

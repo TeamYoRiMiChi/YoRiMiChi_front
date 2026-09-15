@@ -1,0 +1,251 @@
+.inquiry-page {
+  width: min(920px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 34px 0 80px;
+  font-family: "Noto Sans JP", sans-serif;
+  color: #17142f;
+}
+
+.inquiry-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  padding: 17px 30px;
+  border-bottom: 1px solid #eeeaf8;
+  background: #fff;
+  color: #77758a;
+  font-size: 14px;
+}
+
+.inquiry-breadcrumb a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.inquiry-breadcrumb a:hover {
+  color: #7554ef;
+}
+
+.inquiry-breadcrumb strong {
+  color: #29263c;
+  font-weight: 600;
+}
+
+.inquiry-heading {
+  margin-bottom: 28px;
+  text-align: center;
+}
+
+.inquiry-eyebrow {
+  margin: 0 0 8px;
+  color: #7554ef;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.inquiry-heading h1 {
+  margin: 0 0 14px;
+  font-size: 36px;
+  line-height: 1.3;
+}
+
+.inquiry-heading > p:last-child {
+  margin: 0 auto;
+  max-width: 620px;
+  color: #666378;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.inquiry-panel {
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #e5e1f4;
+  border-radius: 16px;
+  box-shadow: 0 12px 34px rgba(52, 42, 96, 0.08);
+}
+
+.inquiry-guide {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 22px 30px;
+  background: #f7f5ff;
+  border-bottom: 1px solid #e5e1f4;
+}
+
+.inquiry-guide h2,
+.inquiry-guide p {
+  margin: 0;
+}
+
+.inquiry-guide h2 {
+  font-size: 20px;
+}
+
+.inquiry-guide p {
+  color: #757186;
+  font-size: 13px;
+}
+
+.inquiry-guide span,
+.inquiry-field label span {
+  color: #e5485d;
+}
+
+.inquiry-form {
+  display: grid;
+  gap: 25px;
+  padding: 32px 30px;
+}
+
+.inquiry-field {
+  display: grid;
+  gap: 9px;
+}
+
+.inquiry-field label {
+  font-size: 15px;
+  font-weight: 650;
+}
+
+.inquiry-field input,
+.inquiry-field select,
+.inquiry-field textarea {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid #dcd9e8;
+  border-radius: 9px;
+  background: #fff;
+  color: #242132;
+  font: inherit;
+  font-size: 15px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.inquiry-field textarea {
+  min-height: 210px;
+  resize: vertical;
+  line-height: 1.7;
+}
+
+.inquiry-field input:focus,
+.inquiry-field select:focus,
+.inquiry-field textarea:focus {
+  outline: none;
+  border-color: #7554ef;
+  box-shadow: 0 0 0 3px rgba(117, 84, 239, 0.12);
+}
+
+.inquiry-field [aria-invalid="true"] {
+  border-color: #e5485d;
+}
+
+.inquiry-field-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 18px;
+  color: #9692a5;
+  font-size: 12px;
+}
+
+.inquiry-error {
+  margin: 0;
+  color: #d73d52;
+  font-size: 12px;
+}
+
+.inquiry-notice {
+  margin: 0;
+  padding: 13px 15px;
+  border: 1px solid #d9d1ff;
+  border-radius: 9px;
+  background: #f7f5ff;
+  color: #5f46bd;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.inquiry-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 4px;
+}
+
+.inquiry-back-button,
+.inquiry-submit-button {
+  min-height: 48px;
+  padding: 0 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border-radius: 9px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 650;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.inquiry-back-button {
+  border: 1px solid #d9d6e4;
+  background: #fff;
+  color: #555164;
+}
+
+.inquiry-submit-button {
+  border: 1px solid #7554ef;
+  background: #7554ef;
+  color: #fff;
+}
+
+.inquiry-back-button:hover {
+  background: #f7f6fa;
+}
+
+.inquiry-submit-button:hover {
+  background: #6243da;
+}
+
+@media (max-width: 640px) {
+  .inquiry-page {
+    width: min(100% - 28px, 920px);
+    padding-top: 24px;
+  }
+
+  .inquiry-breadcrumb {
+    padding: 15px 20px;
+    font-size: 12px;
+  }
+
+  .inquiry-heading h1 {
+    font-size: 29px;
+  }
+
+  .inquiry-guide,
+  .inquiry-form {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .inquiry-guide {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .inquiry-actions {
+    flex-direction: column-reverse;
+  }
+
+  .inquiry-back-button,
+  .inquiry-submit-button {
+    width: 100%;
+  }
+}
