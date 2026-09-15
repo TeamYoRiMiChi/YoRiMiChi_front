@@ -1,0 +1,162 @@
+/* =========================
+   TABLE (공통)
+========================= */
+
+.acp-table-scroll {
+  overflow-x: auto;
+
+  border: 1px solid #e3ebf4;
+  border-radius: 12px;
+}
+
+
+.acp-table {
+  width: 100%;
+
+  border-collapse: collapse;
+}
+
+
+.acp-table thead {
+  height: 53px;
+
+  color: #536b8e;
+
+  background: #f4f8fc;
+}
+
+
+.acp-table th,
+.acp-table td {
+  padding: 0 14px;
+
+  font-size: 12px;
+
+  text-align: left;
+
+  white-space: nowrap;
+}
+
+
+.acp-table th {
+  font-weight: 700;
+}
+
+
+.acp-table td {
+  height: 82px;
+
+  border-top: 1px solid #e8eef5;
+
+  color: #1c3358;
+}
+
+
+.acp-table tbody tr:hover {
+  background: #f8fbff;
+}
+
+
+.acp-member-coupon-table {
+  min-width: 1050px;
+}
+
+
+/* =========================
+   MEMBER COUPON DATA
+========================= */
+
+.acp-id {
+  color: #1766e8;
+
+  font-weight: 700;
+}
+
+
+.acp-member-id {
+  color: #294e83;
+
+  font-weight: 700;
+}
+
+
+.acp-coupon-info {
+  display: flex;
+
+  min-width: 200px;
+
+  flex-direction: column;
+
+  gap: 5px;
+}
+
+
+.acp-coupon-info strong {
+  color: #172d52;
+
+  font-size: 12px;
+}
+
+
+.acp-coupon-info span {
+  color: #8494ad;
+
+  font-size: 10px;
+}
+
+
+/* =========================
+   MEMBER COUPON STATUS
+========================= */
+
+.acp-member-status {
+  display: inline-flex;
+
+  min-width: 78px;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 7px 11px;
+
+  border-radius: 20px;
+
+  font-size: 10px;
+  font-weight: 700;
+}
+
+
+.acp-member-status-issued {
+  color: #176ee6;
+
+  background: #e3f0ff;
+}
+
+
+.acp-member-status-used {
+  color: #098d6c;
+
+  background: #dff7ed;
+}
+
+
+.acp-member-status-expired {
+  color: #65758c;
+
+  background: #e9edf2;
+}
+
+
+/* =========================
+   EMPTY
+========================= */
+
+.acp-empty {
+  height: 180px !important;
+
+  color: #8797ae !important;
+
+  text-align: center !important;
+}
+
+

@@ -1,0 +1,103 @@
+/* =========================
+   FOOTER
+========================= */
+
+.acp-table-footer {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  padding-top: 15px;
+}
+
+
+.acp-table-footer > span {
+  color: #637896;
+
+  font-size: 12px;
+}
+
+
+.acp-table-footer strong {
+  color: #1766e8;
+}
+
+
+/* =========================
+   PAGINATION
+========================= */
+
+.acp-pagination {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+}
+
+
+.acp-pagination button {
+  display: flex;
+
+  width: 35px;
+  height: 35px;
+
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid #dfe7f1;
+  border-radius: 8px;
+
+  color: #294e83;
+
+  background: #fff;
+
+  font-size: 12px;
+
+  cursor: pointer;
+}
+
+
+.acp-pagination button:hover:not(:disabled) {
+  border-color: #2671ef;
+
+  color: #1763e8;
+}
+
+
+.acp-pagination button:disabled {
+  color: #bbc6d6;
+
+  cursor: default;
+}
+
+
+.acp-pagination .acp-page-active {
+  border-color: #1e6cf0;
+
+  color: #fff;
+
+  background: #1e6cf0;
+
+  box-shadow:
+    0 5px 12px
+    rgba(30, 108, 240, 0.22);
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 700px) {
+
+  .acp-table-footer {
+    align-items: flex-start;
+
+    gap: 18px;
+
+    flex-direction: column;
+  }
+
+}

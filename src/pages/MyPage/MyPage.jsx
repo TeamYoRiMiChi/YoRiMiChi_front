@@ -18,6 +18,7 @@ import {
   faRightFromBracket,
   faChevronRight,
   faCircleCheck,
+  faTicket,
 } from '@fortawesome/free-solid-svg-icons';
 import '../../assets/styles/MyPage.css';
 import OrderStatusSummary from '../../components/MyPage/OrderStatusSummary/OrderStatusSummary';
@@ -25,6 +26,7 @@ import OrderHistory from '../../components/MyPage/OrderHistory/OrderHistory';
 import GroupBuyParticipationStatus from '../../components/MyPage/GroupBuyParticipationStatus/GroupBuyParticipationStatus';
 import Wishlist from '../../components/MyPage/Wishlist/Wishlist';
 import MypageCart from '../../components/MyPage/MypageCart/MypageCart';
+import MyCoupons from '../../components/MyPage/MyCoupons/MyCoupons';
 import DeliveryTracking from '../../components/MyPage/DeliveryTracking/DeliveryTracking';
 import MyReview from '../../components/MyPage/MyReview/MyReview';
 import ProfileManagement from '../../components/MyPage/ProfileManagement/ProfileManagement';
@@ -57,6 +59,7 @@ const MENU_GROUPS = [
     items: [
       { key: 'wishlist', icon: faHeart, label: 'お気に入り商品' },
       { key: 'cart', icon: faCartShopping, label: 'カート' },
+      { key: 'coupons', icon: faTicket, label: 'クーポン' },
       { key: 'reviews', icon: faStar, label: 'マイレビュー' },
     ],
   },
@@ -77,6 +80,110 @@ const WISH_ITEMS = [
   { id: 13, name: '八尺瓊勾玉', price: 60500, soldOut: false },
 ];
 
+const GROUP_BUYS = [
+  {
+    id: 31,
+    title: '페스페 전권 공동구매',
+    status: '모집중',
+    statusType: 'ing',
+    current: 12,
+    target: 20,
+    myQty: 2,
+    endDate: '2026.09.05',
+  },
+  {
+    id: 32,
+    title: '虎屋羊羹',
+    status: '목표달성',
+    statusType: 'done',
+    current: 10,
+    target: 10,
+    myQty: 5,
+    endDate: '2026.08.18',
+  },
+];
+
+const ORDER_STATUSES = [
+  {
+    orderNumber: 'YM-20260827-0012',
+    shipCarrier: 'Yamato Transport',
+    trackingNumber: '1234-5678-9012',
+    deliveryType: '국제배송',
+    statuses: [
+      {
+        icon: faWarehouse,
+        label: '현지창고',
+        date: '08.25',
+        done: true,
+      },
+      {
+        icon: faPlaneUp,
+        label: '국제배송',
+        date: '08.27',
+        done: true,
+        now: true,
+      },
+      {
+        icon: faFileShield,
+        label: '통관중',
+        date: '-',
+        done: false,
+      },
+      {
+        icon: faHouseChimney,
+        label: '국내배송',
+        date: '-',
+        done: false,
+      },
+      {
+        icon: faCircleCheck,
+        label: '배송완료',
+        date: '-',
+        done: false,
+      },
+    ],
+  },
+
+  {
+    orderNumber: 'YM-20260901-0123',
+    shipCarrier: 'Takeru Transport',
+    trackingNumber: '9012-5678-1234',
+    deliveryType: '행성간배송',
+    statuses: [
+      {
+        icon: faWarehouse,
+        label: '현지창고',
+        date: '09.01',
+        done: true,
+      },
+      {
+        icon: faPlaneUp,
+        label: '행성간배송',
+        date: '09.01',
+        done: true,
+      },
+      {
+        icon: faFileShield,
+        label: '통관중',
+        date: '09.02',
+        done: false,
+        now: true,
+      },
+      {
+        icon: faHouseChimney,
+        label: '대륙간배송',
+        date: '-',
+        done: false,
+      },
+      {
+        icon: faCircleCheck,
+        label: '배송완료',
+        date: '-',
+        done: false,
+      },
+    ],
+  },
+];
 
 const MY_REVIEWS = [
   {
@@ -197,12 +304,12 @@ function MyPage() {
 
           {/* ---- 배송 조회 ---- */}
           {menu === 'shipping' && (
-            <DeliveryTracking />
+            <DeliveryTracking orderStatuses={ORDER_STATUSES} />
           )}
 
           {/* ---- 공동구매 참여 ---- */}
           {menu === 'groupbuy' && (
-            <GroupBuyParticipationStatus />
+            <GroupBuyParticipationStatus groupBuys={GROUP_BUYS} />
           )}
 
           {/* ---- 찜한 상품 ---- */}
@@ -210,6 +317,9 @@ function MyPage() {
 
           {/* ---- 장바구니 ---- */}
           {menu === 'cart' && <MypageCart />}
+
+          {/* ---- 쿠폰함 ---- */}
+          {menu === 'coupons' && <MyCoupons />}
 
           {/* ---- 내 리뷰 ---- */}
           {menu === 'reviews' && <MyReview myReviews={MY_REVIEWS} />}

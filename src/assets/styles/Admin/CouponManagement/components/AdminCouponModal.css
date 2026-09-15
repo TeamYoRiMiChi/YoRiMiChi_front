@@ -1,0 +1,414 @@
+/*
+  쿠폰 등록(AdminCouponCreateModal) / 쿠폰 발급(AdminCouponIssueModal)
+  공용 모달 스타일. acp-modal-* 클래스는 두 모달에서 함께 씁니다.
+*/
+
+
+/* =========================
+   OVERLAY
+========================= */
+
+.acp-modal-overlay {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 1000;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  background: rgba(16, 32, 60, 0.45);
+
+  backdrop-filter: blur(2px);
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
+.acp-modal {
+  width: 100%;
+  max-width: 560px;
+  max-height: 90vh;
+
+  overflow-y: auto;
+
+  border-radius: 16px;
+
+  background: #fff;
+
+  box-shadow:
+    0 20px 50px
+    rgba(16, 32, 60, 0.25);
+}
+
+
+.acp-modal-header {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 22px 24px;
+
+  border-bottom: 1px solid #e8eef5;
+}
+
+
+.acp-modal-header h3 {
+  margin: 0;
+
+  color: #10284f;
+
+  font-size: 19px;
+  font-weight: 800;
+}
+
+
+.acp-modal-header p {
+  margin: 4px 0 0;
+
+  color: #8494ad;
+
+  font-size: 12px;
+}
+
+
+.acp-modal-close {
+  display: flex;
+
+  width: 32px;
+  height: 32px;
+
+  align-items: center;
+  justify-content: center;
+
+  border: 0;
+  border-radius: 8px;
+
+  color: #7288a8;
+
+  background: transparent;
+
+  font-size: 15px;
+
+  cursor: pointer;
+}
+
+
+.acp-modal-close:hover {
+  color: #172d52;
+
+  background: #f4f7fb;
+}
+
+
+/* =========================
+   BODY / FORM
+========================= */
+
+.acp-modal-body {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 16px;
+
+  padding: 22px 24px;
+}
+
+
+.acp-modal-row {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 14px;
+}
+
+
+.acp-modal-field {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 7px;
+}
+
+
+.acp-modal-field label {
+  color: #536986;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+
+.acp-modal-field input,
+.acp-modal-field select,
+.acp-modal-field textarea {
+  padding: 0 13px;
+
+  border: 1px solid #d4dfec;
+  border-radius: 9px;
+
+  outline: 0;
+
+  color: #172d52;
+
+  background: #f9fbfe;
+
+  font-size: 13px;
+  font-family: inherit;
+
+  box-sizing: border-box;
+}
+
+
+.acp-modal-field input,
+.acp-modal-field select {
+  height: 44px;
+}
+
+
+.acp-modal-field textarea {
+  min-height: 92px;
+
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  resize: vertical;
+}
+
+
+.acp-modal-field input:focus,
+.acp-modal-field select:focus,
+.acp-modal-field textarea:focus {
+  border-color: #2772ee;
+
+  background: #fff;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(39, 114, 238, 0.08);
+}
+
+
+.acp-modal-hint {
+  color: #8494ad;
+
+  font-size: 11px;
+}
+
+
+.acp-modal-error {
+  color: #ef3651;
+
+  font-size: 11px;
+  font-weight: 600;
+}
+
+
+.acp-modal-submit-error {
+  margin: 0;
+
+  padding: 11px 14px;
+
+  border-radius: 9px;
+
+  color: #ef3651;
+
+  background: #ffe3e8;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+
+.acp-modal-success {
+  margin: 0;
+
+  padding: 11px 14px;
+
+  border-radius: 9px;
+
+  color: #098d6c;
+
+  background: #dff7ed;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+
+/* =========================
+   대상 선택 (발급 모달 전용)
+========================= */
+
+.acp-modal-target-box {
+  display: flex;
+
+  padding: 4px;
+
+  border: 1px solid #dce6f0;
+  border-radius: 11px;
+
+  background: #f4f7fb;
+}
+
+
+.acp-modal-target-option {
+  flex: 1;
+
+  height: 40px;
+
+  border: 0;
+  border-radius: 8px;
+
+  color: #637896;
+
+  background: transparent;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+
+.acp-modal-target-option.acp-modal-target-active {
+  color: #1765e8;
+
+  background: #fff;
+
+  box-shadow:
+    0 3px 8px
+    rgba(31, 78, 126, 0.1);
+}
+
+
+.acp-modal-coupon-badge {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 12px 14px;
+
+  border-radius: 10px;
+
+  background: #eaf2ff;
+
+  font-size: 12px;
+}
+
+
+.acp-modal-coupon-badge strong {
+  color: #10284f;
+
+  font-size: 13px;
+}
+
+
+.acp-modal-coupon-badge span {
+  color: #536986;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.acp-modal-footer {
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap: 10px;
+
+  padding-top: 4px;
+}
+
+
+.acp-modal-cancel {
+  height: 44px;
+
+  padding: 0 20px;
+
+  border: 1px solid #d4dfec;
+  border-radius: 9px;
+
+  color: #536986;
+
+  background: #fff;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+
+.acp-modal-cancel:hover {
+  background: #f4f7fb;
+}
+
+
+.acp-modal-submit {
+  height: 44px;
+
+  padding: 0 24px;
+
+  border: 0;
+  border-radius: 9px;
+
+  color: #fff;
+
+  background:
+    linear-gradient(
+      135deg,
+      #347cff,
+      #075ce9
+    );
+
+  box-shadow:
+    0 8px 18px
+    rgba(24, 101, 235, 0.24);
+
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+
+.acp-modal-submit:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+
+.acp-modal-submit:disabled,
+.acp-modal-cancel:disabled {
+  opacity: 0.6;
+
+  cursor: default;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 560px) {
+
+  .acp-modal-row {
+    grid-template-columns: 1fr;
+  }
+
+}

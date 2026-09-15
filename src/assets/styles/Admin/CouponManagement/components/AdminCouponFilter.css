@@ -1,0 +1,189 @@
+/* =========================
+   FILTER (쿠폰)
+========================= */
+
+.acp-filter-bar {
+  display: grid;
+
+  grid-template-columns:
+    minmax(320px, 1.8fr)
+    minmax(190px, 0.75fr)
+    minmax(170px, 0.7fr)
+    105px;
+
+  gap: 15px;
+
+  align-items: center;
+
+  margin-bottom: 18px;
+}
+
+
+/* =========================
+   FILTER (공통)
+========================= */
+
+.acp-search-box {
+  display: flex;
+
+  height: 46px;
+
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 0 16px;
+
+  border: 1px solid #d4dfec;
+  border-radius: 9px;
+
+  box-sizing: border-box;
+
+  color: #7288a8;
+
+  background: #f9fbfe;
+}
+
+
+.acp-search-box:focus-within {
+  border-color: #2772ee;
+
+  background: #fff;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(39, 114, 238, 0.08);
+}
+
+
+.acp-search-box input {
+  width: 100%;
+
+  border: 0;
+
+  outline: 0;
+
+  color: #172d52;
+
+  background: transparent;
+
+  font-size: 13px;
+}
+
+
+.acp-search-box input::placeholder {
+  color: #8798b3;
+}
+
+
+.acp-filter-item {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+}
+
+
+.acp-filter-item > span {
+  color: #536986;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+
+.acp-filter-item select {
+  width: 100%;
+  height: 46px;
+
+  padding: 0 13px;
+
+  border: 1px solid #d4dfec;
+  border-radius: 9px;
+
+  outline: 0;
+
+  color: #263d62;
+
+  background: #fff;
+
+  font-size: 12px;
+
+  cursor: pointer;
+}
+
+
+.acp-filter-item select:focus {
+  border-color: #2772ee;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(39, 114, 238, 0.08);
+}
+
+
+.acp-reset-button {
+  display: flex;
+
+  height: 46px;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  border: 0;
+  border-radius: 9px;
+
+  color: #1765e8;
+
+  background: #edf4ff;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+
+.acp-reset-button:hover {
+  background: #dfebff;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1100px) {
+
+  .acp-filter-bar {
+    grid-template-columns:
+      1fr 1fr;
+  }
+
+
+  .acp-filter-bar
+  .acp-search-box {
+    grid-column: 1 / -1;
+  }
+
+}
+
+
+@media (max-width: 700px) {
+
+  .acp-filter-bar {
+    grid-template-columns: 1fr;
+  }
+
+
+  .acp-filter-bar
+  .acp-search-box {
+    grid-column: auto;
+  }
+
+}
