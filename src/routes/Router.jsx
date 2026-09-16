@@ -17,6 +17,7 @@ import MyPage from '../pages/MyPage/MyPage';
 import ProductInfo from "../pages/Overseas/ProductInfo";
 import GroupPurchaseView from "../pages/Group_purchase/GroupPurchaseView";
 import Order from "../pages/Order/Order";
+import OrderComplete from "../pages/Order/OrderComplete";
 import AdminLayout from "../components/layout/AdminLayout";
 import AdminPage from "../pages/Admin/DashBoardManagement/AdminPage";
 import AdminProducts from "../pages/Admin/ProductManagement/AdminProducts";
@@ -70,6 +71,8 @@ function Router() {
           <Route path="/order" element={<Order />} />
           {/* 상품 상세에서 바로구매하는 경우 */}
           <Route path="/order/:productId" element={<Order />} />
+          {/* 주문 완료 */}
+          <Route path="/order/complete/:orderId" element={<OrderComplete />} />
         </Route>
 
         {/* 없는 경로는 홈으로 */}

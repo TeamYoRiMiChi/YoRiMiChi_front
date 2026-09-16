@@ -1,0 +1,396 @@
+/* 주문 완료 페이지
+   Order.css와 같은 색상 변수를 이 페이지 안에서 다시 선언합니다
+   (Order.jsx를 거치지 않고 바로 들어올 수도 있는 독립된 페이지라서). */
+.oc-page {
+    --od-brand: var(--brand, #5558e9);
+    --od-brand-dark: var(--brand-dark, #4245c8);
+    --od-brand-soft: var(--brand-soft, #f2f2ff);
+    --od-ink: #11152f;
+    --od-muted: #71768c;
+    --od-line: #e7e9f2;
+    --od-radius: 16px;
+
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 28px 24px 90px;
+
+    font-family: "Noto Sans JP", sans-serif;
+    color: var(--od-ink);
+    box-sizing: border-box;
+}
+
+.oc-page * {
+    box-sizing: border-box;
+}
+
+/* 상단 제목 + 단계 */
+.oc-page-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+
+    margin-bottom: 24px;
+}
+
+.oc-page-head h1 {
+    margin: 0;
+
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+}
+
+/* 로딩 / 에러 상태 */
+.oc-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+
+    padding: 120px 20px;
+
+    font-size: 15px;
+    color: var(--od-muted, #71768c);
+}
+
+.oc-state p {
+    margin: 0;
+}
+
+.oc-state-btn {
+    padding: 11px 24px;
+
+    border: 1px solid var(--od-brand, #5558e9);
+    border-radius: 9px;
+    color: var(--od-brand, #5558e9);
+
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.15s;
+}
+
+.oc-state-btn:hover {
+    background: var(--od-brand-soft, #f2f2ff);
+}
+
+/* 완료 안내 배너 */
+.oc-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    padding: 44px 20px;
+    margin-bottom: 24px;
+
+    border-radius: var(--od-radius, 16px);
+    background: var(--od-brand-soft, #f2f2ff);
+    text-align: center;
+}
+
+.oc-hero-icon {
+    font-size: 44px;
+    color: var(--od-brand, #5558e9);
+}
+
+.oc-hero h2 {
+    margin: 4px 0 0;
+
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+.oc-hero-number {
+    margin: 0;
+
+    font-size: 14.5px;
+    color: var(--od-muted, #71768c);
+}
+
+.oc-hero-number strong {
+    color: var(--od-ink, #11152f);
+    font-weight: 700;
+}
+
+/* 본문 2단 레이아웃 */
+.oc-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 360px;
+    align-items: start;
+    gap: 24px;
+}
+
+.oc-main {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    min-width: 0;
+}
+
+.oc-card {
+    padding: 26px 28px;
+
+    border: 1px solid var(--od-line, #e7e9f2);
+    border-radius: var(--od-radius, 16px);
+    background: #fff;
+}
+
+.oc-card h3 {
+    margin: 0 0 16px;
+
+    font-size: 16px;
+    font-weight: 800;
+}
+
+/* 배송지 */
+.oc-address {
+    font-size: 14px;
+    line-height: 1.7;
+    color: #4a4f68;
+}
+
+.oc-address p {
+    margin: 0;
+}
+
+.oc-address-name {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    font-weight: 700;
+    color: var(--od-ink, #11152f);
+}
+
+.oc-address-phone {
+    font-weight: 400;
+    color: var(--od-muted, #71768c);
+}
+
+.oc-muted {
+    margin-top: 4px !important;
+    color: var(--od-muted, #71768c) !important;
+}
+
+/* 주문 상품 목록 */
+.oc-items {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.oc-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.oc-item-thumb {
+    width: 56px;
+    height: 56px;
+    flex-shrink: 0;
+
+    border-radius: 10px;
+    overflow: hidden;
+    background: #f2f3f7;
+}
+
+.oc-item-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.oc-item-thumb-empty {
+    width: 100%;
+    height: 100%;
+}
+
+.oc-item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    flex: 1;
+    min-width: 0;
+}
+
+.oc-item-brand {
+    font-size: 12px;
+    color: var(--od-muted, #71768c);
+}
+
+.oc-item-name {
+    font-size: 14.5px;
+    font-weight: 600;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.oc-item-qty {
+    flex-shrink: 0;
+
+    font-size: 13.5px;
+    color: var(--od-muted, #71768c);
+}
+
+.oc-item-price {
+    flex-shrink: 0;
+    min-width: 84px;
+
+    font-size: 14.5px;
+    font-weight: 700;
+    text-align: right;
+}
+
+/* 결제 금액 요약 (오른쪽 패널) */
+.oc-summary {
+    padding: 28px;
+
+    border: 1px solid var(--od-line, #e7e9f2);
+    border-radius: var(--od-radius, 16px);
+    background: #fff;
+}
+
+.oc-summary-title {
+    margin: 0 0 22px;
+
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+.oc-summary-list {
+    margin: 0;
+}
+
+.oc-summary-list>div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    font-size: 14px;
+}
+
+.oc-summary-list>div+div {
+    margin-top: 12px;
+}
+
+.oc-summary-list dt {
+    color: var(--od-muted, #71768c);
+}
+
+.oc-summary-list dd {
+    margin: 0;
+    font-weight: 700;
+}
+
+.oc-summary-list dd.minus {
+    color: var(--od-brand, #5558e9);
+}
+
+.oc-summary-divider {
+    height: 1px;
+    margin: 18px 0;
+    background: #f2f3f7;
+}
+
+.oc-summary-total {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.oc-summary-total span {
+    font-size: 14.5px;
+    font-weight: 700;
+}
+
+.oc-summary-total strong {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--od-brand, #5558e9);
+    letter-spacing: -0.03em;
+}
+
+/* 하단 버튼 */
+.oc-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+
+    margin-top: 28px;
+}
+
+.oc-btn {
+    padding: 14px 30px;
+
+    border-radius: 10px;
+
+    font-size: 14.5px;
+    font-weight: 700;
+    text-decoration: none;
+    text-align: center;
+
+    transition: background 0.15s, opacity 0.15s;
+}
+
+.oc-btn-outline {
+    border: 1px solid var(--od-line, #e7e9f2);
+    color: var(--od-ink, #11152f);
+    background: #fff;
+}
+
+.oc-btn-outline:hover {
+    background: #f6f7fb;
+}
+
+.oc-btn-brand {
+    border: 0;
+    color: #fff;
+    background: var(--od-brand, #5558e9);
+}
+
+.oc-btn-brand:hover {
+    background: var(--od-brand-dark, #4245c8);
+}
+
+/* 반응형 */
+@media (max-width: 1024px) {
+    .oc-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 700px) {
+    .oc-page {
+        padding: 20px 16px 60px;
+    }
+
+    .oc-page-head h1 {
+        font-size: 24px;
+    }
+
+    .oc-hero {
+        padding: 34px 16px;
+    }
+
+    .oc-actions {
+        flex-direction: column;
+    }
+
+    .oc-btn {
+        width: 100%;
+    }
+}
