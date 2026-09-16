@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { createInquiry } from '../../api/inquiryApi';
 
 const INITIAL_FORM = {
@@ -24,6 +25,7 @@ function validate(values) {
 }
 
 function useInquiryForm() {
+  const navigate = useNavigate();
   const [values, setValues] = useState(INITIAL_FORM);
   const [errors, setErrors] = useState({});
   const [notice, setNotice] = useState('');
@@ -53,8 +55,8 @@ function useInquiryForm() {
         content: values.content.trim(),
       });
 
-      setValues(INITIAL_FORM);
-      setNotice(response.data.message ?? 'お問い合わせを受け付けました。');
+      alert(response.data.message ?? 'お問い合わせを受け付けました。');
+      navigate('/support');
     } catch (error) {
       setNotice(
         error.response?.data?.message ??
