@@ -104,6 +104,8 @@ function CartDrawer({ open, onClose, lang = 'ja' }) {
   const [isGroupBuyModalOpen, setIsGroupBuyModalOpen] = useState(false);
   const [groupBuyApplicationItems, setGroupBuyApplicationItems] = useState([]);
   const [pendingQuantities, setPendingQuantities] = useState({});
+  const [hiddenCartItemIds, setHiddenCartItemIds] = useState([]);
+  const [hiddenWishProductIds, setHiddenWishProductIds] = useState([]);
   const pendingQuantityRef = useRef({});
   const quantityUpdateTimers = useRef(new Map());
 
@@ -120,8 +122,14 @@ function CartDrawer({ open, onClose, lang = 'ja' }) {
   const wishlistIds = useSelector((s) => s.wishlist.ids);
   const [wishItems, setWishItems] = useState([]);
   const [wishLoading, setWishLoading] = useState(false);
-  const cartGroups = splitBySaleType(cartItems);
-  const wishGroups = splitBySaleType(wishItems);
+  const visibleCartItems = cartItems.filter(
+    (item) => !hiddenCartItemIds.includes(item.cartItemId),
+  );
+  const visibleWishItems = wishItems.filter(
+    (item) => !hiddenWishProductIds.includes(item.productId),
+  );
+  const cartGroups = splitBySaleType(visibleCartItems);
+  const wishGroups = splitBySaleType(visibleWishItems);
   const orderableOverseas = cartGroups.overseas.filter((item) => item.available);
   const orderableGroupBuy = cartGroups.groupBuy.filter((item) => item.available);
   const selectedCartItems = [...orderableOverseas, ...orderableGroupBuy]
@@ -162,7 +170,7 @@ function CartDrawer({ open, onClose, lang = 'ja' }) {
     return () => {
       ignore = true;
     };
-  }, [open, tab, wishlistIds.length]);
+  }, [open, tab]);
 
   /* 열 때와 열린 동안 모집 종료 여부를 포함한 최신 장바구니를 받음 */
   useEffect(() => {
@@ -179,7 +187,11 @@ function CartDrawer({ open, onClose, lang = 'ja' }) {
   /* 드로어 닫힐 때 탭 초기화 */
   useEffect(() => {
     if (!open) {
-      const timer = setTimeout(() => setTab('cart'), 300);
+      const timer = setTimeout(() => {
+        setHiddenCartItemIds([]);
+        setHiddenWishProductIds([]);
+        setTab('cart');
+      }, 300);
       return () => clearTimeout(timer);
     }
   }, [open]);
@@ -213,10 +225,16 @@ function CartDrawer({ open, onClose, lang = 'ja' }) {
   }, []);
 
   /* ===== 핸들러 ===== */
-  const handleRemoveCartItem = (cartItemId) => {
+  const handleRemoveCartItem = async (cartItemId) => {
     window.clearTimeout(quantityUpdateTimers.current.get(cartItemId));
     quantityUpdateTimers.current.delete(cartItemId);
-    dispatch(removeCartItem(cartItemId));
+    setHiddenCartItemIds((current) => [...new Set([...current, cartItemId])]);
+    try {
+      await dispatch(removeCartItem(cartItemId)).unwrap();
+    } catch (message) {
+      setHiddenCartItemIds((current) => current.filter((id) => id !== cartItemId));
+      window.alert(message || '削除に失敗しました。');
+    }
   };
 
   const handleQuantityChange = (item, nextQuantity) => {
@@ -296,9 +314,14 @@ function CartDrawer({ open, onClose, lang = 'ja' }) {
     onClose();
   };
 
-  const handleRemoveWish = (productId) => {
-    dispatch(toggleWishlist(productId));
-    setWishItems((cur) => cur.filter((it) => it.productId !== productId));
+  const handleRemoveWish = async (productId) => {
+    setHiddenWishProductIds((current) => [...new Set([...current, productId])]);
+    try {
+      await dispatch(toggleWishlist(productId)).unwrap();
+    } catch (message) {
+      setHiddenWishProductIds((current) => current.filter((id) => id !== productId));
+      window.alert(message || 'お気に入りの削除に失敗しました。');
+    }
   };
 
   const handleWishToCart = async (productId) => {
@@ -328,8 +351,8 @@ function CartDrawer({ open, onClose, lang = 'ja' }) {
             >
               <FontAwesomeIcon icon={faCartShopping} />
               {t.cartTab}
-              {cartItems.length > 0 && (
-                <span className="cart_tab_count">{cartItems.length}</span>
+              {visibleCartItems.length > 0 && (
+                <span className="cart_tab_count">{visibleCartItems.length}</span>
               )}
             </button>
 
@@ -357,7 +380,7 @@ function CartDrawer({ open, onClose, lang = 'ja' }) {
         {tab === 'cart' && (
           <>
             <div className="cart_drawer_body">
-              {cartItems.length === 0 ? (
+              {visibleCartItems.length === 0 ? (
                 <div className="cart_empty">
                   <FontAwesomeIcon icon={faCartShopping} className="cart_empty_icon" />
                   <p>{t.cartEmpty}</p>
@@ -477,7 +500,7 @@ function CartDrawer({ open, onClose, lang = 'ja' }) {
               )}
             </div>
 
-            {cartItems.length > 0 && (
+            {visibleCartItems.length > 0 && (
               <div className="cart_drawer_foot">
                 <div className="cart_total">
                   <span>{t.total}</span>
@@ -520,7 +543,7 @@ function CartDrawer({ open, onClose, lang = 'ja' }) {
                 <div className="cart_empty">
                   <p>{t.loading}</p>
                 </div>
-              ) : wishItems.length === 0 ? (
+              ) : visibleWishItems.length === 0 ? (
                 <div className="cart_empty">
                   <FontAwesomeIcon icon={faHeart} className="cart_empty_icon" />
                   <p>{t.wishEmpty}</p>
@@ -598,7 +621,7 @@ function CartDrawer({ open, onClose, lang = 'ja' }) {
               )}
             </div>
 
-            {wishItems.length > 0 && (
+            {visibleWishItems.length > 0 && (
               <div className="cart_drawer_foot">
                 <Link
                   to="/mypage"
