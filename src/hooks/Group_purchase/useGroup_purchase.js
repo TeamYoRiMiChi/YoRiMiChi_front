@@ -6,11 +6,9 @@ import { toProductView } from '../../api/productApi';
 
 const FILTER_MAP = {
     'すべて': '',
-    '進行中': 'ACTIVE',
+    '進行中': 'RECRUITING',
     '締切間近': 'CLOSING_SOON',
-    '完了': 'SUCCESS'
-
-
+    '完了': 'COMPLETED',
 };
 
 export function useGroupPurchase(fallback = []) {
