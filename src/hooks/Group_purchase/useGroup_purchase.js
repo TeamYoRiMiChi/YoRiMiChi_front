@@ -111,8 +111,8 @@ export function useGroupPurchase(fallback = []) {
                     page,
                     size: 8,
                 });
-                const pageData = res.data.data;
-                const productList = (pageData.content ?? []).map(toProductView);
+               const pageData = res.data.data;
+const productList = (pageData.content ?? []).map(toProductView);
                 console.log('pageData 전체:', pageData);
                 console.log('상품 조회 성공:', productList);
                 console.log('전체 페이지 수:', pageData.totalPages);

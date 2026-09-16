@@ -6,11 +6,9 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toggleWishlist } from '../../features/wishlist/wishlistSlice';
 // DB 상태값 → 화면 표시 문구
 const STATUS_LABELS = {
-    RECRUITING: '進行中',
+    ACTIVE: '進行中',
     CLOSING_SOON: '締切間近',
     SUCCESS: '完了',
-    FAILED: '未成立',
-    CANCELLED: '中止',
 };
 
 function Purchase_product_card({ products = [] }) {
@@ -21,7 +19,7 @@ function Purchase_product_card({ products = [] }) {
     const accessToken = useSelector((state) => state.auth.accessToken);
     const wishlistIds = useSelector((state) => state.wishlist.ids);
 
-        const handleToggleWishlist = async (event, productId) => {
+    const handleToggleWishlist = async (event, productId) => {
         event.preventDefault();
         event.stopPropagation();
 
@@ -69,9 +67,7 @@ function Purchase_product_card({ products = [] }) {
                                                 : ''
                                         }`}
                                 >
-                                    {STATUS_LABELS[product.status]
-                                        ?? product.status
-                                        ?? '進行中'}
+                                    {STATUS_LABELS[product.status] ?? '進行中'}
                                 </span>
 
                                 <button

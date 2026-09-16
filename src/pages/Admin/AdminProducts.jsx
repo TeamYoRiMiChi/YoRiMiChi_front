@@ -1,4 +1,4 @@
-//컴포넌트,훅나누기 완료 백엔드연결하시면됩니더^^
+//UI컴포넌트, 상품필터훅 분리 완료 백엔드연결하시면됩니더^^
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
