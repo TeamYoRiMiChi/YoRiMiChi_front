@@ -32,7 +32,7 @@ export const SALE_TYPE_LABEL = {
  * 가격 포맷(¥12,650)처럼 보여주기용 가공은 여기서 합니다.
  * 백엔드 필드명이 바뀌어도 이 함수만 고치면 화면은 그대로입니다.
  *
- * 두 페이지가 같은 상품 구조
+ * 두 페이지가 같은 상품 구조*/
 export function toProductView(dto) {
   const price = Number(dto.priceJpy ?? 0);
   const originalPrice = dto.originalPriceJpy != null
