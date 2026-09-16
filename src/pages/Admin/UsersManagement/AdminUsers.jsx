@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import AdminUserSummary from "../../../components/Admin/UsersManagement/AdminUserSummary";
 
 import {
   faBan,
@@ -7,11 +8,7 @@ import {
   faChevronRight,
   faMagnifyingGlass,
   faRotateRight,
-  faShieldHalved,
   faUser,
-  faUserCheck,
-  faUserGroup,
-  faUserXmark,
 } from "@fortawesome/free-solid-svg-icons";
 
 import "./AdminUsers.css";
@@ -447,119 +444,7 @@ function AdminMembers() {
       {/* =========================
           현황 카드
       ========================= */}
-
-      <section className="am-summary-grid">
-
-
-        <div className="am-summary-card">
-
-          <div className="am-summary-icon am-summary-blue">
-
-            <FontAwesomeIcon
-              icon={faUserGroup}
-            />
-
-          </div>
-
-
-          <div>
-
-            <span>
-              전체 회원
-            </span>
-
-            <strong>
-              {summary.total}
-            </strong>
-
-          </div>
-
-        </div>
-
-
-
-        <div className="am-summary-card">
-
-          <div className="am-summary-icon am-summary-green">
-
-            <FontAwesomeIcon
-              icon={faUserCheck}
-            />
-
-          </div>
-
-
-          <div>
-
-            <span>
-              정상 회원
-            </span>
-
-            <strong>
-              {summary.active}
-            </strong>
-
-          </div>
-
-        </div>
-
-
-
-        <div className="am-summary-card">
-
-          <div className="am-summary-icon am-summary-red">
-
-            <FontAwesomeIcon
-              icon={faUserXmark}
-            />
-
-          </div>
-
-
-          <div>
-
-            <span>
-              탈퇴 회원
-            </span>
-
-            <strong>
-              {summary.withdrawn}
-            </strong>
-
-          </div>
-
-        </div>
-
-
-
-        <div className="am-summary-card">
-
-          <div className="am-summary-icon am-summary-orange">
-
-            <FontAwesomeIcon
-              icon={faShieldHalved}
-            />
-
-          </div>
-
-
-          <div>
-
-            <span>
-              관리자
-            </span>
-
-            <strong>
-              {summary.admin}
-            </strong>
-
-          </div>
-
-        </div>
-
-
-      </section>
-
+      <AdminUserSummary summary={summary} />
 
 
       {/* =========================
