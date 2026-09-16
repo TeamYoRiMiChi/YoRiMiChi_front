@@ -8,3 +8,6 @@ export const getProfile = () => {
 export const updateProfile = (data) => {
   return axiosInstance.patch(ENDPOINTS.PROFILE, data);
 };
+export const withdrawMembership = () => {
+  return axiosInstance.patch(ENDPOINTS.PROFILE_WITHDRAWAL);
+};
