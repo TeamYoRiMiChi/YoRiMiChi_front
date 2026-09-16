@@ -1,0 +1,78 @@
+/* =========================
+   TAB
+========================= */
+
+.acp-tabs {
+  display: flex;
+
+  width: fit-content;
+
+  gap: 6px;
+
+  margin-bottom: 15px;
+
+  padding: 5px;
+
+  border: 1px solid #dce6f0;
+  border-radius: 11px;
+
+  background: #fff;
+}
+
+
+.acp-tabs button {
+  display: flex;
+
+  height: 40px;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  padding: 0 18px;
+
+  border: 0;
+  border-radius: 8px;
+
+  color: #637896;
+
+  background: transparent;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+
+.acp-tabs button:hover {
+  background: #f4f7fb;
+}
+
+
+.acp-tabs .acp-tab-active {
+  color: #1765e8;
+
+  background: #eaf2ff;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 700px) {
+
+  .acp-tabs {
+    width: 100%;
+
+    box-sizing: border-box;
+  }
+
+
+  .acp-tabs button {
+    flex: 1;
+  }
+
+}

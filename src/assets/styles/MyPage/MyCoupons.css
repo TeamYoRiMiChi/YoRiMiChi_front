@@ -1,0 +1,290 @@
+/* =========================
+   STATUS MESSAGE
+========================= */
+
+.mc_status {
+  margin: 0 0 16px;
+
+  padding: 12px 16px;
+
+  border-radius: 9px;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+
+.mc_status_loading {
+  color: #6b7a94;
+
+  background: #f4f6fb;
+}
+
+
+.mc_status_error {
+  color: #d5395b;
+
+  background: #fde8ec;
+}
+
+
+.mc_empty {
+  padding: 40px 0;
+
+  color: #97a3b8;
+
+  text-align: center;
+
+  font-size: 13px;
+}
+
+
+/* =========================
+   SECTION
+========================= */
+
+.mc_section {
+  margin-bottom: 28px;
+}
+
+
+.mc_section:last-child {
+  margin-bottom: 0;
+}
+
+
+.mc_section_title {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  margin: 0 0 14px;
+
+  color: #26314a;
+
+  font-size: 15px;
+  font-weight: 700;
+}
+
+
+/* =========================
+   받을 수 있는 쿠폰
+========================= */
+
+.mc_claim_list {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+
+.mc_claim_card {
+  display: flex;
+
+  align-items: center;
+
+  gap: 16px;
+
+  padding: 16px 18px;
+
+  border: 1px dashed #ffb85c;
+  border-radius: 12px;
+
+  background: #fff8ef;
+}
+
+
+.mc_claim_discount {
+  flex: 0 0 auto;
+
+  color: #e07b00;
+
+  font-size: 17px;
+  font-weight: 800;
+}
+
+
+.mc_claim_info {
+  display: flex;
+
+  flex: 1;
+
+  flex-direction: column;
+
+  gap: 4px;
+
+  min-width: 0;
+}
+
+
+.mc_claim_info strong {
+  color: #26314a;
+
+  font-size: 13px;
+}
+
+
+.mc_claim_info span {
+  color: #97a3b8;
+
+  font-size: 11px;
+}
+
+
+.mc_claim_button {
+  flex: 0 0 auto;
+
+  height: 38px;
+
+  padding: 0 18px;
+
+  border: 0;
+  border-radius: 8px;
+
+  color: #fff;
+
+  background: #ff9d2e;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+
+.mc_claim_button:hover:not(:disabled) {
+  background: #e88a1c;
+}
+
+
+.mc_claim_button:disabled {
+  opacity: 0.6;
+
+  cursor: default;
+}
+
+
+/* =========================
+   보유 쿠폰
+========================= */
+
+.mc_list {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+
+.mc_card {
+  display: flex;
+
+  align-items: center;
+
+  gap: 16px;
+
+  padding: 16px 18px;
+
+  border: 1px solid #e7ebf3;
+  border-radius: 12px;
+
+  background: #fff;
+}
+
+
+.mc_card_disabled {
+  opacity: 0.55;
+}
+
+
+.mc_card_discount {
+  flex: 0 0 auto;
+
+  color: #2f6feb;
+
+  font-size: 17px;
+  font-weight: 800;
+}
+
+
+.mc_card_info {
+  display: flex;
+
+  flex: 1;
+
+  flex-direction: column;
+
+  gap: 4px;
+
+  min-width: 0;
+}
+
+
+.mc_card_info strong {
+  color: #26314a;
+
+  font-size: 13px;
+}
+
+
+.mc_card_info span {
+  color: #97a3b8;
+
+  font-size: 11px;
+}
+
+
+.mc_card_status {
+  flex: 0 0 auto;
+
+  padding: 6px 12px;
+
+  border-radius: 20px;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+
+.mc_card_status_issued {
+  color: #1765e8;
+
+  background: #e3f0ff;
+}
+
+
+.mc_card_status_used {
+  color: #098d6c;
+
+  background: #dff7ed;
+}
+
+
+.mc_card_status_expired {
+  color: #7c8698;
+
+  background: #eef1f6;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 560px) {
+
+  .mc_claim_card,
+  .mc_card {
+    flex-wrap: wrap;
+  }
+
+  .mc_claim_button {
+    width: 100%;
+  }
+
+}

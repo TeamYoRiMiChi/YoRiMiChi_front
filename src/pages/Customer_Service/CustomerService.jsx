@@ -3,10 +3,23 @@ import supportImg from '../../assets/images/support_img.png';
 import guideCat from '../../assets/images/guideCat.png';
 import { faEnvelope, faComments, faPhone, faCircleQuestion } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import CustomerServiceCard from '../../components/CustomerService_components/CustomerServiceCard';
 
 
 function CustomerService() {
+  const accessToken = useSelector((state) => state.auth.accessToken);
+  const navigate = useNavigate();
+
+  const handleInquiryClick = (event) => {
+    if (accessToken) return;
+
+    event.preventDefault();
+    alert('ログインが必要です。ログインページへ移動します。');
+    navigate('/login', { state: { from: '/support/inquiry' } });
+  };
+
   return (
     <div className="customer_service_page">
 
@@ -51,6 +64,7 @@ function CustomerService() {
             description="24時間いつでもご利用いただけます。"
             subDescription="通常、1〜3営業日以内にご返信いたします。"
             to="/support/inquiry"
+            onClick={handleInquiryClick}
         />
         
         {/* 채팅 문의 */}

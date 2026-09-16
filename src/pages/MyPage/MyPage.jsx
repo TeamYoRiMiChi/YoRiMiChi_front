@@ -18,6 +18,7 @@ import {
   faRightFromBracket,
   faChevronRight,
   faCircleCheck,
+  faTicket,
 } from '@fortawesome/free-solid-svg-icons';
 import '../../assets/styles/MyPage.css';
 import OrderStatusSummary from '../../components/MyPage/OrderStatusSummary/OrderStatusSummary';
@@ -25,6 +26,7 @@ import OrderHistory from '../../components/MyPage/OrderHistory/OrderHistory';
 import GroupBuyParticipationStatus from '../../components/MyPage/GroupBuyParticipationStatus/GroupBuyParticipationStatus';
 import Wishlist from '../../components/MyPage/Wishlist/Wishlist';
 import MypageCart from '../../components/MyPage/MypageCart/MypageCart';
+import MyCoupons from '../../components/MyPage/MyCoupons/MyCoupons';
 import DeliveryTracking from '../../components/MyPage/DeliveryTracking/DeliveryTracking';
 import MyReview from '../../components/MyPage/MyReview/MyReview';
 import ProfileManagement from '../../components/MyPage/ProfileManagement/ProfileManagement';
@@ -57,6 +59,7 @@ const MENU_GROUPS = [
     items: [
       { key: 'wishlist', icon: faHeart, label: 'お気に入り商品' },
       { key: 'cart', icon: faCartShopping, label: 'カート' },
+      { key: 'coupons', icon: faTicket, label: 'クーポン' },
       { key: 'reviews', icon: faStar, label: 'マイレビュー' },
     ],
   },
@@ -314,6 +317,9 @@ function MyPage() {
 
           {/* ---- 장바구니 ---- */}
           {menu === 'cart' && <MypageCart />}
+
+          {/* ---- 쿠폰함 ---- */}
+          {menu === 'coupons' && <MyCoupons />}
 
           {/* ---- 내 리뷰 ---- */}
           {menu === 'reviews' && <MyReview myReviews={MY_REVIEWS} />}

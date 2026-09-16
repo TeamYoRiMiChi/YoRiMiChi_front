@@ -1,0 +1,288 @@
+/* =========================
+   TABLE (공통)
+========================= */
+
+.acp-table-scroll {
+  overflow-x: auto;
+
+  border: 1px solid #e3ebf4;
+  border-radius: 12px;
+}
+
+
+.acp-table {
+  width: 100%;
+
+  border-collapse: collapse;
+}
+
+
+.acp-table thead {
+  height: 53px;
+
+  color: #536b8e;
+
+  background: #f4f8fc;
+}
+
+
+.acp-table th,
+.acp-table td {
+  padding: 0 14px;
+
+  font-size: 12px;
+
+  text-align: left;
+
+  white-space: nowrap;
+}
+
+
+.acp-table th {
+  font-weight: 700;
+}
+
+
+.acp-table td {
+  height: 82px;
+
+  border-top: 1px solid #e8eef5;
+
+  color: #1c3358;
+}
+
+
+.acp-table tbody tr:hover {
+  background: #f8fbff;
+}
+
+
+.acp-coupon-table {
+  min-width: 1380px;
+}
+
+
+/* =========================
+   COUPON DATA
+========================= */
+
+.acp-id {
+  color: #1766e8;
+
+  font-weight: 700;
+}
+
+
+.acp-coupon-info {
+  display: flex;
+
+  min-width: 200px;
+
+  flex-direction: column;
+
+  gap: 5px;
+}
+
+
+.acp-coupon-info strong {
+  color: #172d52;
+
+  font-size: 12px;
+}
+
+
+.acp-coupon-info span {
+  color: #8494ad;
+
+  font-size: 10px;
+}
+
+
+.acp-discount {
+  color: #1766e8;
+
+  font-size: 13px;
+}
+
+
+.acp-issue-badge {
+  display: inline-flex;
+
+  min-width: 66px;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 7px 11px;
+
+  border-radius: 20px;
+
+  color: #8051c7;
+
+  background: #efe8ff;
+
+  font-size: 10px;
+  font-weight: 700;
+}
+
+
+.acp-period {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+
+.acp-period span {
+  font-size: 11px;
+}
+
+
+.acp-period i {
+  color: #9aa8bc;
+
+  font-size: 10px;
+  font-style: normal;
+}
+
+
+.acp-issued {
+  display: flex;
+
+  align-items: center;
+
+  gap: 3px;
+}
+
+
+.acp-issued strong {
+  color: #1766e8;
+
+  font-size: 13px;
+}
+
+
+.acp-issued span {
+  color: #8494ad;
+
+  font-size: 11px;
+}
+
+
+/* =========================
+   COUPON STATUS
+========================= */
+
+.acp-status {
+  display: inline-flex;
+
+  min-width: 78px;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 7px 11px;
+
+  border-radius: 20px;
+
+  font-size: 10px;
+  font-weight: 700;
+}
+
+
+.acp-status-active {
+  color: #098d6c;
+
+  background: #dff7ed;
+}
+
+
+.acp-status-expired {
+  color: #65758c;
+
+  background: #e9edf2;
+}
+
+
+/* =========================
+   관리 (발급 버튼)
+========================= */
+
+.acp-issue-button {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  height: 32px;
+
+  padding: 0 13px;
+
+  border: 1px solid #cfe0ff;
+  border-radius: 8px;
+
+  color: #1765e8;
+
+  background: #eef4ff;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+
+.acp-issue-button:hover:not(:disabled) {
+  background: #dfebff;
+}
+
+
+.acp-issue-button:disabled {
+  border-color: #e3e8ef;
+
+  color: #b3bccb;
+
+  background: #f4f6f9;
+
+  cursor: default;
+}
+
+
+/* =========================
+   EMPTY
+========================= */
+
+.acp-empty {
+  height: 180px !important;
+
+  color: #8797ae !important;
+
+  text-align: center !important;
+}
+
+
+.acp-row-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.acp-stop-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #e2e2e2;
+  background: #fff;
+  color: #555;
+  cursor: pointer;
+}
+
+.acp-stop-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}

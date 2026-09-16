@@ -10,7 +10,7 @@ const CATEGORY_OPTIONS = [
   { value: 'ETC', label: 'その他' },
 ];
 
-function InquiryForm({ values, errors, notice, onChange, onSubmit }) {
+function InquiryForm({ values, errors, notice, submitting, onChange, onSubmit }) {
   return (
     <form className="inquiry-form" onSubmit={onSubmit} noValidate>
       <div className="inquiry-field">
@@ -81,9 +81,9 @@ function InquiryForm({ values, errors, notice, onChange, onSubmit }) {
           <FontAwesomeIcon icon={faArrowLeft} />
           戻る
         </Link>
-        <button type="submit" className="inquiry-submit-button">
+        <button type="submit" className="inquiry-submit-button" disabled={submitting}>
           <FontAwesomeIcon icon={faPaperPlane} />
-          お問い合わせを送信
+          {submitting ? '送信中...' : 'お問い合わせを送信'}
         </button>
       </div>
     </form>

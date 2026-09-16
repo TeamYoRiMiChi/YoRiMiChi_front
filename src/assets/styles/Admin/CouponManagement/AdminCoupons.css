@@ -1,0 +1,194 @@
+/* =========================
+   PAGE
+========================= */
+
+.acp-page {
+  width: 100%;
+  min-height: 100%;
+
+  padding: 28px;
+
+  box-sizing: border-box;
+
+  color: #172d52;
+
+  background:
+    radial-gradient(
+      circle at 68% 0%,
+      rgba(172, 220, 255, 0.2),
+      transparent 35%
+    ),
+    linear-gradient(
+      135deg,
+      #f8fbff 0%,
+      #eef8ff 100%
+    );
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.acp-page-header {
+  display: flex;
+
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 24px;
+
+  margin-bottom: 24px;
+}
+
+
+.acp-page-header h2 {
+  margin: 0 0 6px;
+
+  color: #10284f;
+
+  font-size: 34px;
+  font-weight: 800;
+
+  letter-spacing: -1.5px;
+}
+
+
+.acp-page-header p {
+  margin: 0;
+
+  color: #5876a3;
+
+  font-size: 14px;
+}
+
+
+.acp-create-button {
+  display: flex;
+
+  min-width: 145px;
+  height: 46px;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 9px;
+
+  padding: 0 22px;
+
+  border: 0;
+  border-radius: 10px;
+
+  color: #fff;
+
+  background:
+    linear-gradient(
+      135deg,
+      #347cff,
+      #075ce9
+    );
+
+  box-shadow:
+    0 8px 18px
+    rgba(24, 101, 235, 0.24);
+
+  font-size: 14px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+
+.acp-create-button:hover {
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 11px 22px
+    rgba(24, 101, 235, 0.3);
+}
+
+
+/* =========================
+   PANEL
+========================= */
+
+.acp-panel {
+  padding: 18px;
+
+  overflow: hidden;
+
+  border: 1px solid #e0eaf4;
+  border-radius: 14px;
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.96
+    );
+
+  box-shadow:
+    0 6px 20px
+    rgba(
+      31,
+      78,
+      126,
+      0.07
+    );
+}
+
+
+/* =========================
+   STATUS MESSAGE (로딩 / 에러)
+========================= */
+
+.acp-status-message {
+  margin: 0 0 14px;
+
+  padding: 12px 16px;
+
+  border-radius: 9px;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+
+.acp-status-loading {
+  color: #536986;
+
+  background: #f4f8fc;
+}
+
+
+.acp-status-error {
+  color: #ef3651;
+
+  background: #ffe3e8;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 700px) {
+
+  .acp-page {
+    padding: 18px 14px;
+  }
+
+
+  .acp-page-header {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+
+  .acp-page-header h2 {
+    font-size: 27px;
+  }
+
+}

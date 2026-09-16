@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { createInquiry } from '../../api/inquiryApi';
 
 const INITIAL_FORM = {
   category: '',
@@ -26,6 +27,7 @@ function useInquiryForm() {
   const [values, setValues] = useState(INITIAL_FORM);
   const [errors, setErrors] = useState({});
   const [notice, setNotice] = useState('');
+  const [submitting, setSubmitting] = useState(false);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -34,20 +36,40 @@ function useInquiryForm() {
     setNotice('');
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     const nextErrors = validate(values);
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) return;
 
-    setNotice('お問い合わせ登録APIは準備中です。入力内容はまだ保存されていません。');
+    setSubmitting(true);
+    setNotice('');
+
+    try {
+      const response = await createInquiry({
+        category: values.category,
+        title: values.title.trim(),
+        content: values.content.trim(),
+      });
+
+      setValues(INITIAL_FORM);
+      setNotice(response.data.message ?? 'お問い合わせを受け付けました。');
+    } catch (error) {
+      setNotice(
+        error.response?.data?.message ??
+          'お問い合わせの送信に失敗しました。もう一度お試しください。',
+      );
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return {
     values,
     errors,
     notice,
+    submitting,
     handleChange,
     handleSubmit,
   };

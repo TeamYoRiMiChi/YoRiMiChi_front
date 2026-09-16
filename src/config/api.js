@@ -24,11 +24,37 @@ export const ENDPOINTS = {
   // 주문
   ORDERS: "/orders",
 
+  // 1:1 문의
+  INQUIRIES: "/inquiries",
+
   // 주문 내역
   ORDERHISTORY: "/orderhistory",
   ORDERDETAIL: (orderId) => `/orderhistory/${orderId}`,
 
   PROFILE: "/myprofile",
+
+  /**
+   * 관리자 - 쿠폰
+   *
+   * 백엔드에 관리자 쿠폰 패키지(컨트롤러/서비스/DTO/엔티티/레파지토리/매퍼)가
+   * 아직 구현되지 않아 임시로 정한 경로입니다.
+   * 실제 구현 시 경로가 다르면 이 파일만 고치면 됩니다.
+   */
+  ADMIN_COUPONS: "/admin/coupons",
+  ADMIN_COUPON: (couponId) => `/admin/coupons/${couponId}`,
+  ADMIN_COUPON_SUMMARY: "/admin/coupons/summary",
+  ADMIN_COUPON_ISSUE: (couponId) => `/admin/coupons/${couponId}/issue`,
+  ADMIN_COUPON_STOP: (couponId) => `/admin/coupons/${couponId}/stop`,
+  ADMIN_MEMBER_COUPONS: "/admin/member-coupons",
+
+  /**
+   * 쿠폰 (고객)
+   *
+   * 이것도 아직 백엔드에 없는 임시 경로입니다.
+   */
+  MY_COUPONS: "/coupons/me",
+  CLAIMABLE_COUPONS: "/coupons/claimable",
+  COUPON_CLAIM: (couponId) => `/coupons/${couponId}/claim`,
 };
 
 /**
