@@ -15,6 +15,9 @@ function InquiryCreate() {
           ご質問やお困りの内容をご記入ください。
           担当者が確認後、順次回答いたします。
         </p>
+        <Link to="/support/inquiries" className="inquiry-history-link">
+          お問い合わせ履歴を見る
+        </Link>
       </section>
 
       <section className="inquiry-panel">
@@ -33,6 +36,7 @@ function InquiryCreate() {
           values={form.values}
           errors={form.errors}
           notice={form.notice}
+          submitting={form.submitting}
           onChange={form.handleChange}
           onSubmit={form.handleSubmit}
         />

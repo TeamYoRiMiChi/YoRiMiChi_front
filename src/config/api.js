@@ -24,6 +24,9 @@ export const ENDPOINTS = {
   // 주문
   ORDERS: "/orders",
 
+  // 1:1 문의
+  INQUIRIES: "/inquiries",
+
   // 주문 내역
   ORDERHISTORY: "/orderhistory",
   ORDERDETAIL: (orderId) => `/orderhistory/${orderId}`,

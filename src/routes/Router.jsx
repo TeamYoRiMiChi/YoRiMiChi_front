@@ -11,6 +11,7 @@ import Overseas from '../pages/Overseas/Overseas';
 import Guide from '../pages/Guide/Guide';
 import CustomerService from '../pages/Customer_Service/CustomerService';
 import InquiryCreate from '../pages/Inquiry/InquiryCreate';
+import InquiryList from '../pages/Inquiry/InquiryList';
 import SignUp from '../pages/SignUp/SignUp';
 import MyPage from '../pages/MyPage/MyPage';
 import ProductInfo from "../pages/Overseas/ProductInfo";
@@ -64,6 +65,7 @@ function Router() {
         <Route element={<PrivateRoute />}>
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/support/inquiry" element={<InquiryCreate />} />
+          <Route path="/support/inquiries" element={<InquiryList />} />
           {/* 장바구니에서 여러 상품을 한 번에 주문하는 경우 */}
           <Route path="/order" element={<Order />} />
           {/* 상품 상세에서 바로구매하는 경우 */}

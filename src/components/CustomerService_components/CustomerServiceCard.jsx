@@ -8,6 +8,7 @@ function CustomerServiceCard({
   description,
   subDescription,
   to,
+  onClick,
 }) {
   const cardContent = (
   <>
@@ -31,6 +32,7 @@ if (to) {
   return (
     <Link
       to={to}
+      onClick={onClick}
       className="customer_service_card customer_service_card_link"
     >
       {cardContent}
