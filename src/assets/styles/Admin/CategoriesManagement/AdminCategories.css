@@ -1,0 +1,303 @@
+.ac-page {
+  width: 100%;
+  min-height: 100%;
+  padding: 28px;
+  color: #172d52;
+  background:
+    radial-gradient(
+      circle at 68% 0%,
+      rgba(172, 220, 255, 0.2),
+      transparent 35%
+    ),
+    linear-gradient(135deg, #f8fbff 0%, #eef8ff 100%);
+  box-sizing: border-box;
+}
+
+/* =========================
+   페이지 제목
+========================= */
+
+.ac-page-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.ac-page-header h2 {
+  margin: 0 0 6px;
+  color: #10284f;
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: -1.5px;
+}
+
+.ac-page-header p {
+  margin: 0;
+  color: #5876a3;
+  font-size: 14px;
+}
+
+/* 등록 버튼 */
+
+.ac-create-button {
+  display: flex;
+  min-width: 160px;
+  height: 46px;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: 10px;
+  color: #fff;
+  background: linear-gradient(135deg, #347cff, #075ce9);
+  box-shadow: 0 8px 18px rgba(24, 101, 235, 0.24);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.ac-create-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 11px 22px rgba(24, 101, 235, 0.3);
+}
+
+/* =========================
+   AdminStatusBox
+========================= */
+
+.ac-page .ap-summary-grid {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.ac-page .ap-summary-card {
+  display: flex;
+  width: 100%;
+  min-height: 105px;
+  align-items: center;
+  gap: 19px;
+  padding: 18px 22px;
+  border: 1px solid #e2ebf5;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 6px 18px rgba(31, 78, 126, 0.07);
+  box-sizing: border-box;
+}
+
+.ac-page .ap-summary-icon {
+  display: flex;
+  width: 62px;
+  height: 62px;
+  flex: 0 0 62px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 18px;
+  font-size: 26px;
+}
+
+.ac-page .ap-summary-card span {
+  display: block;
+  margin-bottom: 6px;
+  color: #243a5f;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.ac-page .ap-summary-card strong {
+  display: block;
+  font-size: 29px;
+  line-height: 1;
+}
+
+.ac-page .ap-summary-blue .ap-summary-icon {
+  color: #1567ee;
+  background: #e2efff;
+}
+
+.ac-page .ap-summary-blue strong {
+  color: #105de1;
+}
+
+.ac-page .ap-summary-green .ap-summary-icon {
+  color: #08ac7c;
+  background: #dcf8ed;
+}
+
+.ac-page .ap-summary-green strong {
+  color: #098b68;
+}
+
+.ac-page .ap-summary-orange .ap-summary-icon {
+  color: #f57b1b;
+  background: #fff0df;
+}
+
+.ac-page .ap-summary-orange strong {
+  color: #ef6b0d;
+}
+
+/* =========================
+   목록 패널
+========================= */
+
+.ac-panel {
+  padding: 18px;
+  overflow: hidden;
+  border: 1px solid #e0eaf4;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 6px 20px rgba(31, 78, 126, 0.07);
+}
+
+/* =========================
+   검색 / 필터
+========================= */
+
+.ac-filter-bar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 105px;
+  gap: 15px;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+/* 검색창 */
+
+.ac-search-box {
+  display: flex;
+  height: 46px;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px;
+  border: 1px solid #d4dfec;
+  border-radius: 9px;
+  color: #7288a8;
+  background: #f9fbfe;
+}
+
+.ac-search-box:focus-within {
+  border-color: #2772ee;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(39, 114, 238, 0.08);
+}
+
+.ac-search-box input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  color: #172d52;
+  background: transparent;
+  font-size: 13px;
+}
+
+.ac-search-box input::placeholder {
+  color: #8798b3;
+}
+
+/* 필터 */
+
+.ac-filter-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ac-filter-item > span {
+  color: #536986;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.ac-filter-item select {
+  width: 100%;
+  height: 46px;
+  padding: 0 13px;
+  border: 1px solid #d4dfec;
+  border-radius: 9px;
+  outline: 0;
+  color: #263d62;
+  background: #fff;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.ac-filter-item select:focus {
+  border-color: #2772ee;
+  box-shadow: 0 0 0 3px rgba(39, 114, 238, 0.08);
+}
+
+/* 초기화 */
+
+.ac-reset-button {
+  display: flex;
+  height: 46px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 0;
+  border-radius: 9px;
+  color: #1765e8;
+  background: #edf4ff;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.ac-reset-button:hover {
+  background: #dfebff;
+}
+
+/* =========================
+   반응형
+========================= */
+
+@media (max-width: 700px) {
+  .ac-page {
+    padding: 18px 14px;
+  }
+
+  .ac-page-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .ac-page-header h2 {
+    font-size: 27px;
+  }
+
+  .ac-create-button {
+    width: 100%;
+    min-width: 0;
+    padding: 0 14px;
+  }
+
+  .ac-page .ap-summary-grid {
+    width: 100%;
+    grid-template-columns: 1fr;
+  }
+
+  .ac-filter-bar {
+    grid-template-columns: 1fr;
+  }
+
+  .ac-search-box {
+    grid-column: auto;
+  }
+
+  .ac-reset-button {
+    width: 100%;
+  }
+
+  .ac-panel {
+    padding: 12px;
+  }
+}

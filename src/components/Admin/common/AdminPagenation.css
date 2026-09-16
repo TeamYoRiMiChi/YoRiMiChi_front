@@ -1,0 +1,70 @@
+.admin-table-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 15px;
+}
+
+.admin-table-footer > span {
+  color: #637896;
+  font-size: 12px;
+}
+
+.admin-table-footer strong {
+  color: #1766e8;
+}
+
+.admin-pagination {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.admin-pagination button {
+  display: flex;
+  width: 35px;
+  height: 35px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #dfe7f1;
+  border-radius: 8px;
+  color: #294e83;
+  background: #fff;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.admin-pagination button:hover:not(:disabled) {
+  border-color: #2671ef;
+  color: #1763e8;
+}
+
+.admin-pagination button:disabled {
+  color: #bbc6d6;
+  cursor: default;
+}
+
+.admin-pagination .admin-page-active {
+  border-color: #1e6cf0;
+  color: #fff;
+  background: #1e6cf0;
+  box-shadow: 0 5px 12px rgba(30, 108, 240, 0.22);
+}
+
+@media (max-width: 700px) {
+  .admin-table-footer {
+    align-items: flex-start;
+    gap: 18px;
+    flex-direction: column;
+  }
+
+  .admin-pagination {
+    max-width: 100%;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  .admin-pagination button {
+    flex: 0 0 35px;
+  }
+}

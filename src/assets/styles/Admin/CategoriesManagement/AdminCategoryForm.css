@@ -1,0 +1,142 @@
+/* =========================
+   등록 / 수정 폼
+========================= */
+
+.ac-form-panel {
+  margin-bottom: 20px;
+  padding: 20px;
+  border: 1px solid #dce7f3;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 6px 20px rgba(31, 78, 126, 0.07);
+}
+
+.ac-form-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.ac-form-header h3 {
+  margin: 0 0 5px;
+  color: #10284f;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.ac-form-header p {
+  margin: 0;
+  color: #7185a1;
+  font-size: 12px;
+}
+
+.ac-form-close {
+  display: flex;
+  width: 35px;
+  height: 35px;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 8px;
+  color: #66809f;
+  background: #f1f5fa;
+  cursor: pointer;
+}
+
+.ac-form-close:hover {
+  color: #ef3651;
+  background: #ffe9ed;
+}
+
+/* 폼 */
+
+.ac-category-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 16px;
+  align-items: end;
+}
+
+.ac-form-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ac-form-item label {
+  color: #526987;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.ac-form-item label b {
+  margin-left: 4px;
+  color: #ef3651;
+}
+
+.ac-form-item input,
+.ac-form-item select {
+  width: 100%;
+  height: 46px;
+  padding: 0 14px;
+  border: 1px solid #d4dfec;
+  border-radius: 9px;
+  outline: none;
+  color: #263d62;
+  background: #fff;
+  box-sizing: border-box;
+  font-size: 13px;
+}
+
+.ac-form-item input:focus,
+.ac-form-item select:focus {
+  border-color: #2772ee;
+  box-shadow: 0 0 0 3px rgba(39, 114, 238, 0.08);
+}
+
+.ac-form-actions {
+  display: flex;
+  gap: 9px;
+}
+
+.ac-cancel-button,
+.ac-save-button {
+  height: 46px;
+  padding: 0 18px;
+  border-radius: 9px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.ac-cancel-button {
+  border: 1px solid #d4dfec;
+  color: #526987;
+  background: #fff;
+}
+
+.ac-save-button {
+  border: 0;
+  color: #fff;
+  background: linear-gradient(135deg, #347cff, #075ce9);
+}
+
+/* =========================
+   반응형
+========================= */
+
+@media (max-width: 700px) {
+  .ac-category-form {
+    grid-template-columns: 1fr;
+  }
+
+  .ac-form-actions {
+    width: 100%;
+  }
+
+  .ac-cancel-button,
+  .ac-save-button {
+    flex: 1;
+  }
+}
