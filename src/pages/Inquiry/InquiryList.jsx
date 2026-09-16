@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import useMyInquiries from '../../hooks/Inquiry/useMyInquiries';
+import useInquiryEdit from '../../hooks/Inquiry/useInquiryEdit';
+import InquiryEditModal from '../../components/Inquiry/InquiryEditModal';
 import '../../assets/styles/Inquiry/Inquiry.css';
 
 const CATEGORY_LABELS = {
@@ -27,7 +29,8 @@ function formatDate(value) {
 }
 
 function InquiryList() {
-  const { inquiries, loading, error } = useMyInquiries();
+  const { inquiries, unreadAnswerIds, loading, error, refresh } = useMyInquiries({ markRead: true });
+  const edit = useInquiryEdit(refresh);
 
   return (
     <div className="inquiry-page">
@@ -64,6 +67,9 @@ function InquiryList() {
                     {CATEGORY_LABELS[inquiry.category] ?? inquiry.category}
                   </span>
                   <h2>{inquiry.title}</h2>
+                  {unreadAnswerIds.includes(inquiry.inquiryId) && (
+                    <span className="inquiry-answer-new">新しい回答!</span>
+                  )}
                 </div>
                 <span className={`inquiry-history-status ${inquiry.status?.toLowerCase()}`}>
                   {STATUS_LABELS[inquiry.status] ?? inquiry.status}
@@ -71,6 +77,11 @@ function InquiryList() {
               </div>
               <p className="inquiry-history-date">{formatDate(inquiry.createdAt)}</p>
               <p className="inquiry-history-content">{inquiry.content}</p>
+              {inquiry.status === 'WAITING' && !inquiry.answer && (
+                <button type="button" className="inquiry-edit-button" onClick={() => edit.open(inquiry)}>
+                  お問い合わせを修正
+                </button>
+              )}
               <div className="inquiry-history-answer">
                 <strong>回答</strong>
                 <p>{inquiry.answer || '担当者が確認中です。しばらくお待ちください。'}</p>
@@ -79,6 +90,7 @@ function InquiryList() {
           ))}
         </div>
       </section>
+      <InquiryEditModal edit={edit} />
     </div>
   );
 }

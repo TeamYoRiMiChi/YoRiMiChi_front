@@ -69,11 +69,16 @@ function useAdminInquiries() {
   };
   const handleSubmitAnswer = async () => {
     if (!answerText.trim()) return alert("답변 내용을 입력해주세요.");
+    const isEdit = selectedInquiry.status === 'ANSWERED' && Boolean(selectedInquiry.answer);
+    if (isEdit && answerText.trim() === selectedInquiry.answer.trim()) {
+      return alert('수정된 내용이 없습니다.');
+    }
     try {
       setAnswering(true);
       await answerInquiry(selectedInquiry.inquiryId, answerText.trim());
       await loadInquiries();
       handleCloseAnswer();
+      alert(isEdit ? '문의 답변을 수정했습니다.' : '문의에 답변했습니다.');
     } catch (error) {
       alert(error.response?.data?.message ?? "답변 저장에 실패했습니다.");
     } finally {

@@ -16,7 +16,9 @@ function AdminInquiryAnswerModal({ inquiry, answerText, answering, formatDate, o
           <p>{inquiry.content}</p>
         </div>
         <div className="ai-answer-area">
-          <label htmlFor="admin-inquiry-answer">관리자 답변</label>
+          <label htmlFor="admin-inquiry-answer">
+            {inquiry.status === 'ANSWERED' ? '관리자 답변 수정' : '관리자 답변'}
+          </label>
           <textarea id="admin-inquiry-answer" value={answerText}
             placeholder="회원에게 전달할 답변을 입력해주세요."
             onChange={(event) => onAnswerChange(event.target.value)} />
@@ -24,7 +26,7 @@ function AdminInquiryAnswerModal({ inquiry, answerText, answering, formatDate, o
         <div className="ai-modal-actions">
           <button type="button" className="ai-modal-cancel" onClick={onClose}>취소</button>
           <button type="button" className="ai-modal-save" onClick={onSubmit} disabled={answering}>
-            {answering ? "저장 중..." : "답변 저장"}
+            {answering ? "저장 중..." : inquiry.status === 'ANSWERED' ? '수정 저장' : '답변 저장'}
           </button>
         </div>
       </div>

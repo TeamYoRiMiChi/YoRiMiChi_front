@@ -10,7 +10,7 @@ const CATEGORY_OPTIONS = [
   { value: 'ETC', label: 'その他' },
 ];
 
-function InquiryForm({ values, errors, notice, submitting, onChange, onSubmit }) {
+function InquiryForm({ values, errors, notice, submitting, onChange, onSubmit, mode = 'create', onCancel }) {
   return (
     <form className="inquiry-form" onSubmit={onSubmit} noValidate>
       <div className="inquiry-field">
@@ -77,13 +77,19 @@ function InquiryForm({ values, errors, notice, submitting, onChange, onSubmit })
       {notice && <p className="inquiry-notice" role="status">{notice}</p>}
 
       <div className="inquiry-actions">
-        <Link to="/support" className="inquiry-back-button">
-          <FontAwesomeIcon icon={faArrowLeft} />
-          戻る
-        </Link>
+        {mode === 'edit' ? (
+          <button type="button" className="inquiry-back-button" onClick={onCancel} disabled={submitting}>
+            キャンセル
+          </button>
+        ) : (
+          <Link to="/support" className="inquiry-back-button">
+            <FontAwesomeIcon icon={faArrowLeft} />
+            戻る
+          </Link>
+        )}
         <button type="submit" className="inquiry-submit-button" disabled={submitting}>
           <FontAwesomeIcon icon={faPaperPlane} />
-          {submitting ? '送信中...' : 'お問い合わせを送信'}
+          {submitting ? '保存中...' : mode === 'edit' ? '修正を保存' : 'お問い合わせを送信'}
         </button>
       </div>
     </form>

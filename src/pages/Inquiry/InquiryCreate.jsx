@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
 import InquiryForm from '../../components/Inquiry/InquiryForm';
 import useInquiryForm from '../../hooks/Inquiry/useInquiryForm';
+import useMyInquiries from '../../hooks/Inquiry/useMyInquiries';
 import '../../assets/styles/Inquiry/Inquiry.css';
 
 function InquiryCreate() {
   const form = useInquiryForm();
+  const { unreadAnswerIds } = useMyInquiries({ poll: true });
 
   return (
     <div className="inquiry-page">
@@ -17,6 +19,11 @@ function InquiryCreate() {
         </p>
         <Link to="/support/inquiries" className="inquiry-history-link">
           お問い合わせ履歴を見る
+          {unreadAnswerIds.length > 0 && (
+            <span className="inquiry-answer-count" aria-label={`新しい回答が${unreadAnswerIds.length}件あります`}>
+              {unreadAnswerIds.length}!
+            </span>
+          )}
         </Link>
       </section>
 

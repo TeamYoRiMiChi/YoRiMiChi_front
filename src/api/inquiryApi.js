@@ -9,6 +9,10 @@ export const getMyInquiries = () => {
   return axiosInstance.get(`${ENDPOINTS.INQUIRIES}/my`);
 };
 
+export const updateMyInquiry = (inquiryId, request) => {
+  return axiosInstance.patch(`${ENDPOINTS.INQUIRIES}/${inquiryId}`, request);
+};
+
 export const getAdminInquiries = () => {
   return axiosInstance.get(`${ENDPOINTS.INQUIRIES}/admin`);
 };
