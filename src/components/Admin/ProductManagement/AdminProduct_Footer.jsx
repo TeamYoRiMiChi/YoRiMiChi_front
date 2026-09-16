@@ -49,29 +49,7 @@ function AdminProductTableFooter({
           선택 삭제
         </button>
 
-        <select
-          className="ap-status-select"
-          defaultValue=""
-          disabled={selectedCount === 0}
-          onChange={onStatusChange}
-        >
-          <option value="" disabled>
-            판매 상태 변경
-          </option>
-
-          <option value="ACTIVE">
-            판매 중
-          </option>
-
-          <option value="SOLD_OUT">
-            품절
-          </option>
-
-          <option value="HIDDEN">
-            판매 중지
-          </option>
-        </select>
-
+        
         <span className="ap-total-text">
           총 {totalCount}개 상품
         </span>
