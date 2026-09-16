@@ -32,7 +32,7 @@ export const ENDPOINTS = {
   ORDERDETAIL: (orderId) => `/orderhistory/${orderId}`,
 
   PROFILE: "/myprofile",
-
+  PROFILE_WITHDRAWAL: "/myprofile/withdrawal",
   /**
    * 관리자 - 쿠폰
    *

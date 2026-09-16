@@ -79,3 +79,22 @@
   accent-color: var(--mp-primary);
   cursor: pointer;
 }
+.withdraw_box .wide_bt:disabled,
+.withdraw_box .wide_bt:disabled:hover {
+  border-color: #d9d6e5;
+  background-color: #d9d6e5;
+  color: #ffffff;
+  cursor: not-allowed;
+  opacity: 0.75;
+}
+
+.withdraw_error {
+  margin: -4px 0 16px;
+  padding: 12px 14px;
+  border: 1px solid #f0c4cc;
+  border-radius: 9px;
+  background-color: #fff5f6;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #d63f5c;
+}
