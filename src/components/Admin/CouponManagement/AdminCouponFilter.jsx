@@ -45,6 +45,7 @@ function AdminCouponFilter({
           <option value="">전체</option>
           <option value="ACTIVE">사용 가능</option>
           <option value="EXPIRED">만료</option>
+          <option value="STOPPED">사용중지</option>
         </select>
       </div>
 
