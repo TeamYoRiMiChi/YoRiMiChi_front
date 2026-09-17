@@ -2,10 +2,15 @@
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import AdminProductFilter from "../../../components/Admin/ProductManagement/AdminProduct_Filter";
 import AdminProductTable from "../../../components/Admin/ProductManagement/AdminProduct_Table";
 import AdminProductTableFooter from "../../../components/Admin/ProductManagement/AdminProduct_Footer";
+import AdminStatusBox from "../../../components/Admin/common/Admin_statusBox";
+
 import useProductFilter from "../../../hooks/Admin/ProductManagement/useProductFilter";
+import { updateAdminProduct } from "../../../api/Admin/ProductManagement/adminProductApi";
+
 import {
   faBan,
   faBoxOpen,
@@ -16,7 +21,6 @@ import {
 
 } from "@fortawesome/free-solid-svg-icons";
 
-import AdminStatusBox from "../../../components/Admin/common/Admin_statusBox";
 import "./AdminProducts.css";
 
 const initialCategories = [
