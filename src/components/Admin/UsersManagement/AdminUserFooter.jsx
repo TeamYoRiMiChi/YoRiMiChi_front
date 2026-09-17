@@ -1,0 +1,171 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    faChevronLeft,
+    faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
+
+function AdminUserFooter({
+    selectedIds,
+    isAllSelected,
+    handleSelectAll,
+    handleBulkStatusChange,
+    filteredCount,
+    page,
+    totalPages,
+    setPage,
+}) {
+    return (
+        <footer className="am-table-footer">
+
+
+          <div className="am-bulk-actions">
+
+
+            <input
+              type="checkbox"
+              checked={isAllSelected}
+              onChange={
+                handleSelectAll
+              }
+            />
+
+
+            <select
+              defaultValue=""
+              disabled={
+                selectedIds.length === 0
+              }
+              onChange={
+                handleBulkStatusChange
+              }
+            >
+
+              <option
+                value=""
+                disabled
+              >
+                선택 상태 변경
+              </option>
+
+              <option value="ACTIVE">
+                정상
+              </option>
+
+              <option value="WITHDRAWN">
+                탈퇴
+              </option>
+
+            </select>
+
+
+            <span>
+
+              총{" "}
+
+              <strong>
+                {filteredCount}
+              </strong>
+
+              명의 회원
+
+            </span>
+
+
+          </div>
+
+
+
+          {/* 페이지네이션 */}
+
+          <div className="am-pagination">
+
+
+            <button
+              type="button"
+              disabled={page === 1}
+              onClick={() =>
+                setPage(
+                  (current) =>
+                    Math.max(
+                      1,
+                      current - 1
+                    )
+                )
+              }
+            >
+
+              <FontAwesomeIcon
+                icon={faChevronLeft}
+              />
+
+            </button>
+
+
+
+            {Array.from(
+              {
+                length:
+                  totalPages,
+              },
+              (_, index) =>
+                index + 1
+            ).map(
+              (pageNumber) => (
+
+                <button
+                  key={pageNumber}
+                  type="button"
+                  className={
+                    page ===
+                    pageNumber
+                      ? "am-page-active"
+                      : ""
+                  }
+                  onClick={() =>
+                    setPage(
+                      pageNumber
+                    )
+                  }
+                >
+
+                  {pageNumber}
+
+                </button>
+
+              )
+            )}
+
+
+
+            <button
+              type="button"
+              disabled={
+                page ===
+                totalPages
+              }
+              onClick={() =>
+                setPage(
+                  (current) =>
+                    Math.min(
+                      totalPages,
+                      current + 1
+                    )
+                )
+              }
+            >
+
+              <FontAwesomeIcon
+                icon={faChevronRight}
+              />
+
+            </button>
+
+
+          </div>
+
+
+        </footer>
+    );
+}
+
+export default AdminUserFooter;

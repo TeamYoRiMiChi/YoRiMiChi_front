@@ -1,15 +1,8 @@
-import { useMemo, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AdminUserSummary from "../../../components/Admin/UsersManagement/AdminUserSummary";
-
-import {
-  faBan,
-  faChevronLeft,
-  faChevronRight,
-  faMagnifyingGlass,
-  faRotateRight,
-  faUser,
-} from "@fortawesome/free-solid-svg-icons";
+import AdminUserFilters from "../../../components/Admin/UsersManagement/AdminUserFilters";
+import AdminUserTable from "../../../components/Admin/UsersManagement/AdminUserTable";
+import AdminUserFooter from "../../../components/Admin/UsersManagement/AdminUserFooter";
+import useAdminUsers from "../../../hooks/Admin/UsersManagement/useAdminUsers";
 
 import "./AdminUsers.css";
 
@@ -19,176 +12,26 @@ import "./AdminUsers.css";
    나중에 API 데이터로 교체
 ========================= */
 
-const initialMembers = [
-  {
-    memberId: 1,
-    email: "jiyun@example.com",
-    name: "안지윤",
-    phone: "010-1234-5678",
-    personalCustomsCode: "P123456789012",
-    role: "USER",
-    status: "ACTIVE",
-    withdrawnAt: null,
-  },
-  {
-    memberId: 2,
-    email: "minsu@example.com",
-    name: "김민수",
-    phone: "010-2345-6789",
-    personalCustomsCode: "P234567890123",
-    role: "USER",
-    status: "ACTIVE",
-    withdrawnAt: null,
-  },
-  {
-    memberId: 3,
-    email: "sora@example.com",
-    name: "이소라",
-    phone: "010-3456-7890",
-    personalCustomsCode: "P345678901234",
-    role: "USER",
-    status: "WITHDRAWN",
-    withdrawnAt: "2026-08-29T14:30:00",
-  },
-  {
-    memberId: 4,
-    email: "admin@yorimichi.com",
-    name: "관리자",
-    phone: "010-1111-2222",
-    personalCustomsCode: null,
-    role: "ADMIN",
-    status: "ACTIVE",
-    withdrawnAt: null,
-  },
-  {
-    memberId: 5,
-    email: "yuna@example.com",
-    name: "박유나",
-    phone: "010-4567-8901",
-    personalCustomsCode: "P456789012345",
-    role: "USER",
-    status: "ACTIVE",
-    withdrawnAt: null,
-  },
-  {
-    memberId: 6,
-    email: "junho@example.com",
-    name: "이준호",
-    phone: "010-5678-9012",
-    personalCustomsCode: "P567890123456",
-    role: "USER",
-    status: "WITHDRAWN",
-    withdrawnAt: "2026-09-03T11:20:00",
-  },
-];
-
 
 function AdminMembers() {
 
-  const [members, setMembers] =
-    useState(initialMembers);
-
-  const [keyword, setKeyword] =
-    useState("");
-
-  const [roleFilter, setRoleFilter] =
-    useState("");
-
-  const [statusFilter, setStatusFilter] =
-    useState("");
-
-  const [page, setPage] =
-    useState(1);
-
-  const [selectedIds, setSelectedIds] =
-    useState([]);
-
+  const {
+    setMembers,
+    keyword,
+    setKeyword,
+    roleFilter,
+    setRoleFilter,
+    statusFilter,
+    setStatusFilter,
+    page,
+    setPage,
+    selectedIds,
+    setSelectedIds,
+    summary,
+    filteredMembers,
+  } = useAdminUsers();
 
   const pageSize = 8;
-
-
-  /* =========================
-     회원 현황
-  ========================= */
-
-  const summary = useMemo(() => {
-
-    return {
-      total: members.length,
-
-      active: members.filter(
-        (member) =>
-          member.status === "ACTIVE"
-      ).length,
-
-      withdrawn: members.filter(
-        (member) =>
-          member.status === "WITHDRAWN"
-      ).length,
-
-      admin: members.filter(
-        (member) =>
-          member.role === "ADMIN"
-      ).length,
-    };
-
-  }, [members]);
-
-
-  /* =========================
-     검색 / 필터
-  ========================= */
-
-  const filteredMembers = useMemo(() => {
-
-    const normalizedKeyword =
-      keyword.trim().toLowerCase();
-
-
-    return members.filter((member) => {
-
-      const keywordMatches =
-        !normalizedKeyword ||
-
-        member.name
-          .toLowerCase()
-          .includes(normalizedKeyword) ||
-
-        member.email
-          .toLowerCase()
-          .includes(normalizedKeyword) ||
-
-        member.phone
-          .toLowerCase()
-          .includes(normalizedKeyword) ||
-
-        String(member.memberId)
-          .includes(normalizedKeyword);
-
-
-      const roleMatches =
-        !roleFilter ||
-        member.role === roleFilter;
-
-
-      const statusMatches =
-        !statusFilter ||
-        member.status === statusFilter;
-
-
-      return (
-        keywordMatches &&
-        roleMatches &&
-        statusMatches
-      );
-    });
-
-  }, [
-    members,
-    keyword,
-    roleFilter,
-    statusFilter,
-  ]);
 
 
   /* =========================
@@ -200,7 +43,7 @@ function AdminMembers() {
       1,
       Math.ceil(
         filteredMembers.length /
-          pageSize
+        pageSize
       )
     );
 
@@ -323,9 +166,9 @@ function AdminMembers() {
 
             withdrawnAt:
               nextStatus ===
-              "WITHDRAWN"
+                "WITHDRAWN"
                 ? new Date()
-                    .toISOString()
+                  .toISOString()
                 : null,
           };
         })
@@ -373,9 +216,9 @@ function AdminMembers() {
 
             withdrawnAt:
               nextStatus ===
-              "WITHDRAWN"
+                "WITHDRAWN"
                 ? new Date()
-                    .toISOString()
+                  .toISOString()
                 : null,
           };
         })
@@ -456,607 +299,53 @@ function AdminMembers() {
 
         {/* 검색 / 필터 */}
 
-        <div className="am-filter-bar">
-
-
-          <label className="am-search-box">
-
-            <FontAwesomeIcon
-              icon={faMagnifyingGlass}
-            />
-
-
-            <input
-              type="search"
-              value={keyword}
-              placeholder="회원명, 이메일, 전화번호 또는 회원 ID 검색"
-              onChange={(event) => {
-
-                setKeyword(
-                  event.target.value
-                );
-
-                setPage(1);
-              }}
-            />
-
-          </label>
-
-
-
-          <div className="am-filter-item">
-
-            <span>
-              권한
-            </span>
-
-
-            <select
-              value={roleFilter}
-              onChange={(event) => {
-
-                setRoleFilter(
-                  event.target.value
-                );
-
-                setPage(1);
-              }}
-            >
-
-              <option value="">
-                전체
-              </option>
-
-              <option value="USER">
-                일반 회원
-              </option>
-
-              <option value="ADMIN">
-                관리자
-              </option>
-
-            </select>
-
-          </div>
-
-
-
-          <div className="am-filter-item">
-
-            <span>
-              회원 상태
-            </span>
-
-
-            <select
-              value={statusFilter}
-              onChange={(event) => {
-
-                setStatusFilter(
-                  event.target.value
-                );
-
-                setPage(1);
-              }}
-            >
-
-              <option value="">
-                전체
-              </option>
-
-              <option value="ACTIVE">
-                정상
-              </option>
-
-              <option value="WITHDRAWN">
-                탈퇴
-              </option>
-
-            </select>
-
-          </div>
-
-
-
-          <button
-            className="am-reset-button"
-            type="button"
-            onClick={handleReset}
-          >
-
-            <FontAwesomeIcon
-              icon={faRotateRight}
-            />
-
-            초기화
-
-          </button>
-
-
-        </div>
-
-
+        <AdminUserFilters
+          keyword={keyword}
+          roleFilter={roleFilter}
+          statusFilter={statusFilter}
+          onKeywordChange={(value) => {
+            setKeyword(value);
+            setPage(1);
+          }}
+          onRoleFilterChange={(value) => {
+            setRoleFilter(value);
+            setPage(1);
+          }}
+          onStatusFilterChange={(value) => {
+            setStatusFilter(value);
+            setPage(1);
+          }}
+          onReset={handleReset}
+        />
 
         {/* =========================
             회원 테이블
         ========================= */}
 
-        <div className="am-table-scroll">
-
-          <table className="am-table">
-
-
-            <thead>
-
-              <tr>
-
-                <th className="am-checkbox-cell">
-
-                  <input
-                    type="checkbox"
-                    checked={
-                      isAllSelected
-                    }
-                    onChange={
-                      handleSelectAll
-                    }
-                  />
-
-                </th>
-
-
-                <th>
-                  회원 정보
-                </th>
-
-                <th>
-                  회원 ID
-                </th>
-
-                <th>
-                  전화번호
-                </th>
-
-                <th>
-                  개인통관고유부호
-                </th>
-
-                <th>
-                  권한
-                </th>
-
-                <th>
-                  회원 상태
-                </th>
-
-                <th>
-                  탈퇴일
-                </th>
-
-                <th>
-                  관리
-                </th>
-
-              </tr>
-
-            </thead>
-
-
-
-            <tbody>
-
-
-              {pagedMembers.map(
-                (member) => (
-
-                  <tr
-                    key={
-                      member.memberId
-                    }
-                  >
-
-
-                    <td className="am-checkbox-cell">
-
-                      <input
-                        type="checkbox"
-                        checked={
-                          selectedIds.includes(
-                            member.memberId
-                          )
-                        }
-                        onChange={() =>
-                          handleSelectItem(
-                            member.memberId
-                          )
-                        }
-                      />
-
-                    </td>
-
-
-
-                    {/* 회원 정보 */}
-
-                    <td>
-
-                      <div className="am-member-info">
-
-
-                        <div className="am-avatar">
-
-                          <FontAwesomeIcon
-                            icon={faUser}
-                          />
-
-                        </div>
-
-
-                        <div>
-
-                          <strong>
-                            {member.name}
-                          </strong>
-
-                          <span>
-                            {member.email}
-                          </span>
-
-                        </div>
-
-
-                      </div>
-
-                    </td>
-
-
-
-                    <td>
-
-                      <strong className="am-member-id">
-
-                        {member.memberId}
-
-                      </strong>
-
-                    </td>
-
-
-
-                    <td>
-
-                      <span className="am-phone">
-
-                        {member.phone}
-
-                      </span>
-
-                    </td>
-
-
-
-                    <td>
-
-                      <span className="am-customs-code">
-
-                        {member.personalCustomsCode ||
-                          "-"}
-
-                      </span>
-
-                    </td>
-
-
-
-                    {/* 권한 */}
-
-                    <td>
-
-                      <span
-                        className={
-                          member.role ===
-                          "ADMIN"
-                            ? "am-role-badge am-role-admin"
-                            : "am-role-badge am-role-user"
-                        }
-                      >
-
-                        {member.role ===
-                        "ADMIN"
-                          ? "관리자"
-                          : "일반 회원"}
-
-                      </span>
-
-                    </td>
-
-
-
-                    {/* 상태 */}
-
-                    <td>
-
-                      <span
-                        className={
-                          member.status ===
-                          "ACTIVE"
-                            ? "am-status-badge am-status-active"
-                            : "am-status-badge am-status-withdrawn"
-                        }
-                      >
-
-                        {member.status ===
-                        "ACTIVE"
-                          ? "정상"
-                          : "탈퇴"}
-
-                      </span>
-
-                    </td>
-
-
-
-                    {/* 탈퇴일 */}
-
-                    <td>
-
-                      <span className="am-date">
-
-                        {formatDate(
-                          member.withdrawnAt
-                        )}
-
-                      </span>
-
-                    </td>
-
-
-
-                    {/* 관리 */}
-
-                    <td>
-
-                      {member.status ===
-                      "ACTIVE" ? (
-
-                        <button
-                          type="button"
-                          className="am-withdraw-button"
-                          onClick={() =>
-                            handleStatusChange(
-                              member.memberId,
-                              "WITHDRAWN"
-                            )
-                          }
-                        >
-
-                          <FontAwesomeIcon
-                            icon={faBan}
-                          />
-
-                          탈퇴 처리
-
-                        </button>
-
-                      ) : (
-
-                        <button
-                          type="button"
-                          className="am-restore-button"
-                          onClick={() =>
-                            handleStatusChange(
-                              member.memberId,
-                              "ACTIVE"
-                            )
-                          }
-                        >
-
-                          <FontAwesomeIcon
-                            icon={faRotateRight}
-                          />
-
-                          복구
-
-                        </button>
-
-                      )}
-
-                    </td>
-
-
-                  </tr>
-
-                )
-              )}
-
-
-
-              {pagedMembers.length ===
-                0 && (
-
-                <tr>
-
-                  <td
-                    colSpan={9}
-                    className="am-empty"
-                  >
-
-                    조건에 맞는
-                    회원이 없습니다.
-
-                  </td>
-
-                </tr>
-
-              )}
-
-
-            </tbody>
-
-
-          </table>
-
-        </div>
-
-
+        <AdminUserTable
+          pagedMembers={pagedMembers}
+          selectedIds={selectedIds}
+          isAllSelected={isAllSelected}
+          handleSelectAll={handleSelectAll}
+          handleSelectItem={handleSelectItem}
+          handleStatusChange={handleStatusChange}
+          formatDate={formatDate}
+        />
 
         {/* =========================
             테이블 하단
         ========================= */}
 
-        <footer className="am-table-footer">
-
-
-          <div className="am-bulk-actions">
-
-
-            <input
-              type="checkbox"
-              checked={isAllSelected}
-              onChange={
-                handleSelectAll
-              }
-            />
-
-
-            <select
-              defaultValue=""
-              disabled={
-                selectedIds.length === 0
-              }
-              onChange={
-                handleBulkStatusChange
-              }
-            >
-
-              <option
-                value=""
-                disabled
-              >
-                선택 상태 변경
-              </option>
-
-              <option value="ACTIVE">
-                정상
-              </option>
-
-              <option value="WITHDRAWN">
-                탈퇴
-              </option>
-
-            </select>
-
-
-            <span>
-
-              총{" "}
-
-              <strong>
-                {
-                  filteredMembers.length
-                }
-              </strong>
-
-              명의 회원
-
-            </span>
-
-
-          </div>
-
-
-
-          {/* 페이지네이션 */}
-
-          <div className="am-pagination">
-
-
-            <button
-              type="button"
-              disabled={page === 1}
-              onClick={() =>
-                setPage(
-                  (current) =>
-                    Math.max(
-                      1,
-                      current - 1
-                    )
-                )
-              }
-            >
-
-              <FontAwesomeIcon
-                icon={faChevronLeft}
-              />
-
-            </button>
-
-
-
-            {Array.from(
-              {
-                length:
-                  totalPages,
-              },
-              (_, index) =>
-                index + 1
-            ).map(
-              (pageNumber) => (
-
-                <button
-                  key={pageNumber}
-                  type="button"
-                  className={
-                    page ===
-                    pageNumber
-                      ? "am-page-active"
-                      : ""
-                  }
-                  onClick={() =>
-                    setPage(
-                      pageNumber
-                    )
-                  }
-                >
-
-                  {pageNumber}
-
-                </button>
-
-              )
-            )}
-
-
-
-            <button
-              type="button"
-              disabled={
-                page ===
-                totalPages
-              }
-              onClick={() =>
-                setPage(
-                  (current) =>
-                    Math.min(
-                      totalPages,
-                      current + 1
-                    )
-                )
-              }
-            >
-
-              <FontAwesomeIcon
-                icon={faChevronRight}
-              />
-
-            </button>
-
-
-          </div>
-
-
-        </footer>
-
+        <AdminUserFooter
+          selectedIds={selectedIds}
+          isAllSelected={isAllSelected}
+          handleSelectAll={handleSelectAll}
+          handleBulkStatusChange={handleBulkStatusChange}
+          filteredCount={filteredMembers.length}
+          page={page}
+          totalPages={totalPages}
+          setPage={setPage}
+        />
 
       </section>
 
