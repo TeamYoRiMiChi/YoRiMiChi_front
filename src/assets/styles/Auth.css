@@ -155,6 +155,16 @@
   font-size: 13px;
 }
 
+/*
+ * .field-error / .field-success는 이 그리드 안에서 별도 grid-column을
+ * 지정받지 못하면 46px짜리 아이콘 칸에 자동 배치되어 글자가 세로로
+ * 한 글자씩 줄바꿈되는 문제가 있었습니다. 항상 전체 너비를 쓰도록 고정합니다.
+ */
+.form-group-with-icon .field-error,
+.form-group-with-icon .field-success {
+  grid-column: 1 / -1;
+}
+
 .social-divider {
   display: flex;
   align-items: center;

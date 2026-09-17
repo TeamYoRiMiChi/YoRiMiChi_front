@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { signupUser, clearAuthError } from '../../features/auth/authSlice';
 import { checkEmail } from '../../api/Auth/userApi';
+import { searchPostalCode, toPostalAddressView } from '../../api/postalApi';
 
 const INITIAL_FORM = {
   lastName: '',
@@ -11,6 +12,9 @@ const INITIAL_FORM = {
   password: '',
   passwordConfirm: '',
   phone: '',
+  postalCode: '',
+  address: '',
+  addressDetail: '',
   agreed: false,
 };
 
@@ -30,6 +34,7 @@ export function useSignUp() {
   const [form, setForm] = useState(INITIAL_FORM);
   const [errors, setErrors] = useState({});
   const [emailChecked, setEmailChecked] = useState(null); // null | true(사용가능) | false(중복)
+  const [isSearchingPostal, setIsSearchingPostal] = useState(false);
 
   const isLoading = signupStatus === 'loading';
 
@@ -54,6 +59,49 @@ export function useSignUp() {
 
     // 이메일을 바꾸면 중복확인 결과를 초기화
     if (key === 'email') setEmailChecked(null);
+  };
+
+  /* 우편번호로 주소 검색 */
+  const handleSearchPostal = async () => {
+    const zipcode = form.postalCode.trim();
+
+    if (!zipcode) {
+      setErrors((prev) => ({
+        ...prev,
+        postalCode: '郵便番号を入力してください。',
+      }));
+      return;
+    }
+
+    setIsSearchingPostal(true);
+    try {
+      const res = await searchPostalCode(zipcode);
+      const found = res.data?.data?.[0];
+
+      if (!found) {
+        setErrors((prev) => ({
+          ...prev,
+          postalCode: '該当する住所が見つかりません。',
+        }));
+        return;
+      }
+
+      const view = toPostalAddressView(found);
+      setForm((prev) => ({
+        ...prev,
+        postalCode: view.zipcode || prev.postalCode,
+        address: view.fullAddress,
+      }));
+      setErrors((prev) => ({ ...prev, postalCode: undefined, address: undefined }));
+    } catch (err) {
+      setErrors((prev) => ({
+        ...prev,
+        postalCode:
+          err.response?.data?.message ?? '郵便番号検索に失敗しました。',
+      }));
+    } finally {
+      setIsSearchingPostal(false);
+    }
   };
 
   /* 이메일 중복 확인 */
@@ -103,6 +151,9 @@ export function useSignUp() {
         password: form.password,
         name,
         phone: form.phone.trim() || null,
+        postalCode: form.postalCode.trim() || null,
+        address: form.address.trim() || null,
+        addressDetail: form.addressDetail.trim() || null,
       })
     );
 
@@ -121,6 +172,8 @@ export function useSignUp() {
     handleChange,
     handleCheckEmail,
     handleSubmit,
+    handleSearchPostal,
+    isSearchingPostal,
   };
 }
 
@@ -130,6 +183,8 @@ const FIELD_MAP = {
   'first-name': 'firstName',
   'password-confirm': 'passwordConfirm',
   'term-agreement': 'agreed',
+  'postal-code': 'postalCode',
+  'address-detail': 'addressDetail',
 };
 
 function isValidEmail(email) {
@@ -165,6 +220,23 @@ function validate(form) {
 
   if (form.phone.trim() && !/^[\d-]{9,}$/.test(form.phone.trim())) {
     errors.phone = '電話番号の形式が正しくありません。';
+  }
+
+  // 배송지는 전부 任意이지만, 하나라도 입력했다면 가입 직후
+  // 자동으로 기본 배송지로 등록되므로 최소한의 정보는 맞춰야 합니다.
+  const hasAnyAddressInput =
+    form.postalCode.trim() || form.address.trim() || form.addressDetail.trim();
+
+  if (hasAnyAddressInput) {
+    if (!form.postalCode.trim()) {
+      errors.postalCode = '郵便番号を入力してください。';
+    }
+    if (!form.address.trim()) {
+      errors.address = '住所を入力してください。';
+    }
+    if (!form.phone.trim()) {
+      errors.phone = '配送先を登録するには電話番号が必要です。';
+    }
   }
 
   if (!form.agreed) {

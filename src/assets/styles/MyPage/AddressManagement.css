@@ -100,6 +100,32 @@
   font-weight: 700;
 }
 
+.addr_default_bt {
+  padding: 4px 10px;
+
+  border: 1px solid var(--mp-border);
+  border-radius: 999px;
+  background-color: #fff;
+
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--mp-text-sub);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.addr_default_bt:hover:not(:disabled) {
+  border-color: var(--mp-primary);
+  background-color: var(--mp-primary-light);
+  color: var(--mp-primary);
+}
+
+.addr_default_bt:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .addr_receiver {
   margin: 0 0 5px;
   font-size: 13.5px;
@@ -111,4 +137,149 @@
   font-size: 14px;
   color: var(--mp-text);
   line-height: 1.6;
+}
+
+/* ===== 새 배송지 입력 카드 ===== */
+.addr_card_new {
+  border-style: dashed;
+  border-color: var(--mp-primary);
+  background-color: #faf9ff;
+}
+
+.addr_form_grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.addr_form_field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  font-size: 12.5px;
+  color: var(--mp-text-sub);
+}
+
+.addr_form_field_wide {
+  grid-column: 1 / -1;
+}
+
+.addr_input {
+  height: 42px;
+  padding: 0 14px;
+  box-sizing: border-box;
+
+  border: 1px solid var(--mp-border);
+  border-radius: 9px;
+  background-color: #fff;
+
+  font-family: inherit;
+  font-size: 13.5px;
+  color: var(--mp-text);
+}
+
+.addr_input:focus {
+  outline: none;
+  border-color: var(--mp-primary);
+}
+
+.addr_postal_row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.addr_postal_search_bt {
+  height: 36px;
+  padding: 0 14px;
+
+  border: 1px solid var(--mp-primary);
+  border-radius: 9px;
+  background-color: #fff;
+
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--mp-primary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.addr_postal_search_bt:hover:not(:disabled) {
+  background-color: var(--mp-primary-light);
+}
+
+.addr_postal_search_bt:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.addr_form_actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+
+  margin-top: 16px;
+}
+
+.addr_form_bt {
+  height: 38px;
+  padding: 0 18px;
+
+  border-radius: 9px;
+
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.addr_form_bt_ghost {
+  border: 1px solid var(--mp-border);
+  background-color: #fff;
+  color: var(--mp-text-sub);
+}
+
+.addr_form_bt_ghost:hover {
+  background-color: #f7f7fa;
+}
+
+.addr_form_bt_primary {
+  border: 1px solid var(--mp-primary);
+  background-color: var(--mp-primary);
+  color: #fff;
+}
+
+.addr_form_bt_primary:hover {
+  background-color: var(--mp-primary-dark);
+}
+
+@media (max-width: 640px) {
+  .addr_form_grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== 로딩 / 에러 / 빈 목록 ===== */
+.addr_status {
+  padding: 40px 0;
+
+  font-size: 14px;
+  text-align: center;
+  color: var(--mp-text-sub);
+}
+
+.addr_status_error {
+  color: #d0405a;
+}
+
+.addr_empty {
+  padding: 40px 0;
+  margin: 0;
+
+  font-size: 14px;
+  text-align: center;
+  color: var(--mp-text-sub);
 }

@@ -200,29 +200,6 @@ const MY_REVIEWS = [
   },
 ];
 
-const ADDRESSES = [
-  {
-    id: 51,
-    name: '家',
-    receiver: '安徳',
-    phone: '010-1234-5678',
-    zip: '111-0053',
-    addr: '東京都台東区浅草橋',
-    detail: '四丁目1-1',
-    isDefault: true,
-  },
-  {
-    id: 52,
-    name: '実家',
-    receiver: '安徳',
-    phone: '010-1234-5678',
-    zip: '163-8001',
-    addr: '東京都新宿区西新宿2-8-1',
-    detail: '15階',
-    isDefault: false,
-  },
-];
-
 function MyPage() {
   const [searchParams] = useSearchParams();
   const user = {
@@ -326,7 +303,7 @@ function MyPage() {
           {menu === 'profile' && <ProfileManagement user={user} />}
 
           {/* ---- 배송지 관리 ---- */}
-          {menu === 'address' && <AddressManagement addresses={ADDRESSES} />}
+          {menu === 'address' && <AddressManagement />}
 
           {/* ---- 회원 탈퇴 ---- */}
           {menu === 'withdraw' && <MembershipWithdrawal />}
