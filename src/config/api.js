@@ -55,6 +55,13 @@ export const ENDPOINTS = {
   MY_COUPONS: "/coupons/me",
   CLAIMABLE_COUPONS: "/coupons/claimable",
   COUPON_CLAIM: (couponId) => `/coupons/${couponId}/claim`,
+
+//관리자 상품관리
+  ADMIN_PRODUCTS: "/admin/products",
+
+
+
+
 };
 
 /**
