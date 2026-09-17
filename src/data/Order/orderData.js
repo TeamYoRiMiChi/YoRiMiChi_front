@@ -29,19 +29,3 @@ export const PAYMENT_METHODS = [
   { key: 'NAVERPAY', label: '네이버페이', icon: faN },
   { key: 'TRANSFER', label: '계좌이체', icon: faBuildingColumns },
 ];
-
-/**
- * 쿠폰 · 포인트
- *
- * COUPON / POINT 테이블이 아직 없어서 화면 확인용 임시 데이터입니다.
- * 서버가 준비되면 API 응답으로 교체하세요.
- * 지금은 화면에서만 차감되고 실제 결제 금액에는 반영되지 않습니다.
- */
-export const MOCK_COUPONS = [
-  { id: 0, name: '쿠폰을 선택해주세요', discount: 0 },
-  { id: 1, name: '10,000원 할인 쿠폰', discount: 10000 },
-  { id: 2, name: '5,000원 할인 쿠폰', discount: 5000 },
-  { id: 3, name: '첫 구매 3,000원 할인', discount: 3000 },
-];
-
-export const MOCK_AVAILABLE_POINT = 2000;

@@ -2,12 +2,32 @@ import { useState, useEffect, useMemo } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getCheckout, createOrder, toCheckoutView } from '../../api/orderApi';
+import { getMyCoupons, toMyCouponView } from '../../api/couponApi';
 import { fetchCart } from '../../features/cart/cartSlice';
-import {
-  PAYMENT_METHODS,
-  MOCK_COUPONS,
-  MOCK_AVAILABLE_POINT,
-} from '../../data/Order/orderData';
+import { PAYMENT_METHODS } from '../../data/Order/orderData';
+
+/**
+ * 쿠폰 할인 금액 계산
+ *
+ * FIXED면 정액, PERCENT면 상품 금액에 비율을 곱하고 maxDiscountAmount로 상한을 둡니다.
+ * 상품 금액(minOrderAmount 기준)에 못 미치거나 쿠폰이 없으면 0원입니다.
+ */
+function calcCouponDiscount(coupon, productAmount) {
+  if (!coupon) return 0;
+  if (productAmount < coupon.minOrderAmount) return 0;
+
+  let discount;
+  if (coupon.discountType === 'PERCENT') {
+    discount = Math.floor((productAmount * coupon.discountValue) / 100);
+    if (coupon.maxDiscountAmount > 0) {
+      discount = Math.min(discount, coupon.maxDiscountAmount);
+    }
+  } else {
+    discount = coupon.discountValue;
+  }
+
+  return Math.min(discount, productAmount);
+}
 
 const EMPTY_ADDRESS = {
   receiverName: '',
@@ -63,12 +83,35 @@ export function useOrder() {
   /* ===== 사용자 입력 ===== */
   const [deliveryMemo, setDeliveryMemo] = useState('');
   const [couponId, setCouponId] = useState(0);
-  const [pointInput, setPointInput] = useState('');
   const [paymentMethod, setPaymentMethod] = useState('CARD');
   const [agreed, setAgreed] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const availablePoint = MOCK_AVAILABLE_POINT;
+  /* ===== 보유 쿠폰 ===== */
+  const [coupons, setCoupons] = useState([]);
+
+  useEffect(() => {
+    let ignore = false;
+
+    async function loadCoupons() {
+      try {
+        const res = await getMyCoupons();
+        const mine = res.data?.data ?? [];
+        const available = (Array.isArray(mine) ? mine.map(toMyCouponView) : [])
+          .filter((c) => c.status === 'AVAILABLE');
+
+        if (!ignore) setCoupons(available);
+      } catch {
+        if (!ignore) setCoupons([]);
+      }
+    }
+
+    loadCoupons();
+
+    return () => {
+      ignore = true;
+    };
+  }, []);
 
   /* ===== 주문서 불러오기 ===== */
   useEffect(() => {
@@ -110,6 +153,20 @@ export function useOrder() {
     };
   }, [directProductId, directQuantity, cartSaleType, cartItemIds]);
 
+  /* ===== 사용 가능한 쿠폰 (상품 금액이 최소 주문 금액 이상인 것만) ===== */
+  const selectableCoupons = useMemo(() => {
+    const productAmount = checkout?.serverAmounts?.productAmount ?? 0;
+    return coupons.filter((c) => productAmount >= c.minOrderAmount);
+  }, [coupons, checkout]);
+
+  /* 상품 금액이 바뀌어 선택된 쿠폰을 더 이상 쓸 수 없게 되면 선택을 해제합니다 */
+  useEffect(() => {
+    if (couponId === 0) return;
+    if (!selectableCoupons.some((c) => c.memberCouponId === couponId)) {
+      setCouponId(0);
+    }
+  }, [selectableCoupons, couponId]);
+
   /* ===== 금액 계산 ===== */
   const amounts = useMemo(() => {
     const base = checkout?.serverAmounts ?? {
@@ -120,21 +177,15 @@ export function useOrder() {
       total: 0,
     };
 
-    const coupon = MOCK_COUPONS.find((c) => c.id === couponId);
-    const couponDiscount = coupon?.discount ?? 0;
-
-    /* 입력한 포인트는 보유 포인트와 결제 가능 금액을 넘지 못합니다 */
-    const beforePoint = Math.max(0, base.total - couponDiscount);
-    const requested = Number(pointInput) || 0;
-    const usedPoint = Math.max(0, Math.min(requested, availablePoint, beforePoint));
+    const coupon = coupons.find((c) => c.memberCouponId === couponId);
+    const couponDiscount = calcCouponDiscount(coupon, base.productAmount);
 
     return {
       ...base,
       couponDiscount,
-      usedPoint,
-      total: beforePoint - usedPoint,
+      total: Math.max(0, base.total - couponDiscount),
     };
-  }, [checkout, couponId, pointInput, availablePoint]);
+  }, [checkout, coupons, couponId]);
 
   /* ===== 배송지 핸들러 ===== */
 
@@ -176,22 +227,6 @@ export function useOrder() {
     return Object.keys(errors).length === 0;
   };
 
-  /* ===== 포인트 핸들러 ===== */
-
-  /** 숫자만 입력받고, 보유 포인트를 넘지 않게 잘라냅니다 */
-  const handlePointChange = (value) => {
-    const onlyNumber = value.replace(/[^0-9]/g, '');
-    if (onlyNumber === '') {
-      setPointInput('');
-      return;
-    }
-    setPointInput(String(Math.min(Number(onlyNumber), availablePoint)));
-  };
-
-  const handleUseAllPoint = () => {
-    setPointInput(String(availablePoint));
-  };
-
   /* ===== 주문 ===== */
 
   const handleSubmit = async () => {
@@ -225,6 +260,7 @@ export function useOrder() {
 
         customsCode: checkout?.customsCode ? null : customsInput.trim(),
         deliveryMemo,
+        memberCouponId: couponId || null,
         paymentMethod,
       });
 
@@ -235,8 +271,10 @@ export function useOrder() {
         dispatch(fetchCart());
       }
 
-      alert(`주문이 완료되었습니다.\n주문번호: ${order.orderNumber}`);
-      navigate('/mypage');
+      navigate(`/order/complete/${order.orderId}`, {
+        replace: true,
+        state: { order, isDirectPurchase },
+      });
     } catch (err) {
       alert(err.response?.data?.message ?? '주문에 실패했습니다.');
     } finally {
@@ -271,8 +309,7 @@ export function useOrder() {
     setCustomsInput,
 
     // 화면 전용 데이터
-    coupons: MOCK_COUPONS,
-    availablePoint,
+    coupons: selectableCoupons,
     paymentMethods: PAYMENT_METHODS,
 
     // 상태
@@ -280,7 +317,6 @@ export function useOrder() {
     setDeliveryMemo,
     couponId,
     setCouponId,
-    pointInput,
     paymentMethod,
     setPaymentMethod,
     agreed,
@@ -291,8 +327,6 @@ export function useOrder() {
     amounts,
 
     // 핸들러
-    handlePointChange,
-    handleUseAllPoint,
     handleSubmit,
   };
 }

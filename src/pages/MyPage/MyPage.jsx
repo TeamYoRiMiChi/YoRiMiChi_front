@@ -31,7 +31,6 @@ import DeliveryTracking from '../../components/MyPage/DeliveryTracking/DeliveryT
 import MyReview from '../../components/MyPage/MyReview/MyReview';
 import ProfileManagement from '../../components/MyPage/ProfileManagement/ProfileManagement';
 import AddressManagement from '../../components/MyPage/AddressManagement/AddressManagement';
-import PCCCManagement from '../../components/MyPage/PCCCManagement/PCCCManagement';
 import MembershipWithdrawal from '../../components/MyPage/MembershipWithdrawal/MembershipWithdrawal';
 import useMyPageSideMenus from '../../hooks/MyPage/MyPage/useMyPageSideMenus';
 
@@ -68,7 +67,6 @@ const MENU_GROUPS = [
     items: [
       { key: 'profile', icon: faUserPen, label: '会員情報修正' },
       { key: 'address', icon: faLocationDot, label: '配送先管理' },
-      { key: 'customs', icon: faIdCard, label: '個人通関固有符号' },
       { key: 'withdraw', icon: faRightFromBracket, label: '会員退会' },
     ],
   },
@@ -329,9 +327,6 @@ function MyPage() {
 
           {/* ---- 배송지 관리 ---- */}
           {menu === 'address' && <AddressManagement addresses={ADDRESSES} />}
-
-          {/* ---- 통관고유부호 ---- */}
-          {menu === 'customs' && <PCCCManagement />}
 
           {/* ---- 회원 탈퇴 ---- */}
           {menu === 'withdraw' && <MembershipWithdrawal />}

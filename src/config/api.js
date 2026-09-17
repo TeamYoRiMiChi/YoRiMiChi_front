@@ -50,11 +50,14 @@ export const ENDPOINTS = {
   /**
    * 쿠폰 (고객)
    *
-   * 이것도 아직 백엔드에 없는 임시 경로입니다.
+   * 백엔드: domain/mypage/controller/CouponController.java
    */
   MY_COUPONS: "/coupons/me",
   CLAIMABLE_COUPONS: "/coupons/claimable",
   COUPON_CLAIM: (couponId) => `/coupons/${couponId}/claim`,
+
+  // 관리자 - 카테고리
+  ADMIN_CATEGORIES: "/admin/categories"
 };
 
 /**

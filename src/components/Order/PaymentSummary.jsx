@@ -17,7 +17,6 @@ function PaymentSummary({ amounts, agreed, onAgreeChange, onSubmit, isSubmitting
     overseasShipping,
     domesticShipping,
     couponDiscount,
-    usedPoint,
     total,
   } = amounts;
 
@@ -47,12 +46,6 @@ function PaymentSummary({ amounts, agreed, onAgreeChange, onSubmit, isSubmitting
           <dt>쿠폰 할인</dt>
           <dd className="minus">
             {couponDiscount > 0 ? `-₩${couponDiscount.toLocaleString()}` : '₩0'}
-          </dd>
-        </div>
-        <div>
-          <dt>포인트 사용</dt>
-          <dd className="minus">
-            {usedPoint > 0 ? `-₩${usedPoint.toLocaleString()}` : '₩0'}
           </dd>
         </div>
       </dl>

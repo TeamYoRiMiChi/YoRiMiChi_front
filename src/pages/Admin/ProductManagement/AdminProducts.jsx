@@ -2,9 +2,9 @@
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import AdminProductFilter from "../../../components/Admin/common/AdminProduct_Filter";
-import AdminProductTable from "../../../components/Admin/common/AdminProduct_Table";
-import AdminProductTableFooter from "../../../components/Admin/common/AdminProduct_Footer";
+import AdminProductFilter from "../../../components/Admin/ProductManagement/AdminProduct_Filter";
+import AdminProductTable from "../../../components/Admin/ProductManagement/AdminProduct_Table";
+import AdminProductTableFooter from "../../../components/Admin/ProductManagement/AdminProduct_Footer";
 import useProductFilter from "../../../hooks/Admin/ProductManagement/useProductFilter";
 import {
   faBan,
@@ -154,7 +154,7 @@ function AdminProducts() {
     handleCategoryChange,
     handleStatusChange: handleFilterStatusChange,
     handleReset,
-    getDisplayedStatus,
+    
   } = useProductFilter(products, setPage);
   /*
    * 전체 상품 통계
@@ -338,6 +338,75 @@ function AdminProducts() {
     setSelectedIds([]);
   };
 
+
+  /*
+ * 상품 한 개의 수정값 변경
+ */
+  const handleProductChange = (
+    productId,
+    field,
+    value
+  ) => {
+    setProducts((current) =>
+      current.map((product) => {
+        if (product.productId !== productId) {
+          return product;
+        }
+
+        return {
+          ...product,
+          [field]: value,
+        };
+      })
+    );
+  };
+
+  /*
+   * 상품 한 개 저장
+   */
+ 
+const handleProductSave = async (productId) => {
+  const product = products.find(
+    (item) => item.productId === productId
+  );
+
+  if (!product) {
+    return;
+  }
+
+  if (
+    product.stock === "" ||
+    Number(product.stock) < 0
+  ) {
+    alert("재고는 0 이상의 숫자로 입력해 주세요.");
+    return;
+  }
+
+  const updateData = {
+    categoryId: Number(product.categoryId),
+    stock: Number(product.stock),
+    status: product.status,
+  };
+
+  console.log("저장할 상품 ID:", productId);
+  console.log("저장할 데이터:", updateData);
+
+  try {
+    // 다음 단계에서 실제 API 연결
+    // await updateAdminProduct(productId, updateData);
+
+ alert("변경값이 임시로 반영되었습니다.");
+  } catch (error) {
+    console.error("상품 수정 실패:", error);
+    alert("상품 수정에 실패했습니다.");
+  }
+};
+
+   
+
+
+
+
   return (
     <div className="ap-page">
       <header className="ap-page-header">
@@ -385,7 +454,8 @@ function AdminProducts() {
           isAllSelected={isAllSelected}
           onSelectAll={handleSelectAll}
           onSelectProduct={handleSelectProduct}
-          getDisplayedStatus={getDisplayedStatus}
+          onChange={handleProductChange}
+          onSave={handleProductSave}
         />
 
         <AdminProductTableFooter

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import OrderSteps from '../../components/Order/OrderSteps';
 import ShippingInfo from '../../components/Order/ShippingInfo';
-import CustomsInfo from '../../components/Order/CustomsInfo';
+// import CustomsInfo from '../../components/Order/CustomsInfo';
 import OrderItems from '../../components/Order/OrderItems';
 import CouponPoint from '../../components/Order/CouponPoint';
 import PaymentMethod from '../../components/Order/PaymentMethod';
@@ -14,7 +14,7 @@ function Order() {
     isDirectPurchase,
 
     address,
-    customsCode,
+    // customsCode,
     items,
     isLoading,
     loadError,
@@ -26,18 +26,16 @@ function Order() {
     toggleManualAddress,
     copyFromSavedAddress,
 
-    customsInput,
-    setCustomsInput,
+    // customsInput,
+    // setCustomsInput,
 
     coupons,
-    availablePoint,
     paymentMethods,
 
     deliveryMemo,
     setDeliveryMemo,
     couponId,
     setCouponId,
-    pointInput,
     paymentMethod,
     setPaymentMethod,
     agreed,
@@ -46,8 +44,6 @@ function Order() {
 
     amounts,
 
-    handlePointChange,
-    handleUseAllPoint,
     handleSubmit,
   } = useOrder();
 
@@ -99,11 +95,11 @@ function Order() {
             onMemoChange={setDeliveryMemo}
           />
 
-          <CustomsInfo
+          {/* <CustomsInfo
             code={customsCode}
             input={customsInput}
             onChange={setCustomsInput}
-          />
+          /> */}
 
           <OrderItems items={items} />
 
@@ -111,10 +107,6 @@ function Order() {
             coupons={coupons}
             couponId={couponId}
             onCouponChange={setCouponId}
-            availablePoint={availablePoint}
-            pointInput={pointInput}
-            onPointChange={handlePointChange}
-            onUseAllPoint={handleUseAllPoint}
             amounts={amounts}
           />
 

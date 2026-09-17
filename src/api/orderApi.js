@@ -36,6 +36,7 @@ export const getCheckout = ({ productId, quantity, saleType, cartItemIds } = {})
  * @param {Object} payload.manualAddress 직접 입력한 배송지
  * @param {string} payload.customsCode  통관고유부호 (회원 정보에 없을 때만)
  * @param {string} payload.deliveryMemo 배송 메모
+ * @param {number} payload.memberCouponId 적용할 보유 쿠폰 (없으면 null)
  * @param {string} payload.paymentMethod 결제 수단
  */
 export const createOrder = ({
@@ -47,6 +48,7 @@ export const createOrder = ({
   manualAddress,
   customsCode,
   deliveryMemo,
+  memberCouponId,
   paymentMethod,
 }) => {
   return axiosInstance.post(ENDPOINTS.ORDERS, {
@@ -64,6 +66,7 @@ export const createOrder = ({
 
     personalCustomsCode: customsCode ?? null,
     deliveryMemo: deliveryMemo ?? null,
+    memberCouponId: memberCouponId ?? null,
     paymentMethod,
   });
 };
@@ -115,6 +118,58 @@ export function toCheckoutView(dto) {
       domesticShipping: Number(dto.domesticShipping ?? 0),
       customsDuty: Number(dto.customsDuty ?? 0),
       total: Number(dto.totalAmount ?? 0),
+    },
+  };
+}
+
+/**
+ * 주문 생성/조회 응답 → 화면용 형태 (주문 완료 페이지)
+ *
+ * 쿠폰 할인 금액은 서버가 따로 내려주지 않아서
+ * (상품 금액 + 배송비 + 관세) - 최종 결제금액 으로 역산합니다.
+ */
+export function toOrderView(dto) {
+  const productAmount = Number(dto.productAmount ?? 0);
+  const shippingFee = Number(dto.shippingFee ?? 0);
+  const customsDuty = Number(dto.customsDuty ?? 0);
+  const total = Number(dto.totalAmount ?? 0);
+  const couponDiscount = Math.max(0, productAmount + shippingFee + customsDuty - total);
+
+  return {
+    orderId: dto.orderId,
+    orderNumber: dto.orderNumber,
+    orderStatus: dto.orderStatus,
+    orderType: dto.orderType,
+
+    address: {
+      receiverName: dto.receiverName ?? '',
+      receiverPhone: dto.receiverPhone ?? '',
+      postalCode: dto.postalCode ?? '',
+      address: dto.address ?? '',
+      addressDetail: dto.addressDetail ?? '',
+    },
+    customsCode: dto.personalCustomsCode ?? null,
+
+    items: (dto.items ?? []).map((it) => ({
+      orderItemId: it.orderItemId,
+      productId: it.productId,
+      brand: it.brand ?? '',
+      name: it.productName ?? '',
+      thumbnailUrl: it.thumbnailUrl ?? null,
+      priceKrw: Number(it.priceKrw ?? 0),
+      quantity: it.quantity ?? 1,
+      itemTotal: Number(it.itemTotal ?? 0),
+    })),
+
+    exchangeRate: Number(dto.appliedExchangeRate ?? 0),
+    orderedAt: dto.orderedAt ?? null,
+
+    amounts: {
+      productAmount,
+      shippingFee,
+      customsDuty,
+      couponDiscount,
+      total,
     },
   };
 }
