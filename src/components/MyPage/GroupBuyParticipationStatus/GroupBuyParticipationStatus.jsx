@@ -1,3 +1,5 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUsers } from "@fortawesome/free-solid-svg-icons";
 import "../../../assets/styles/MyPage/GroupBuyParticipationStatus.css";
 import useGroupBuyWithProgress from "../../../hooks/MyPage/GroupBuyParticipationStatus/useGroupBuyWithProgress";
 
@@ -26,6 +28,23 @@ function GroupBuyPartitionStatus() {
   ];
 
   const { groupBuyWithProgress } = useGroupBuyWithProgress(groupBuys);
+
+  if (groupBuyWithProgress.length === 0) {
+    return (
+      <div className="mp_panel">
+        <div className="mp_empty">
+          <div className="mp_empty_icon">
+            <FontAwesomeIcon icon={faUsers} />
+          </div>
+          <p className="mp_empty_title">参加中の共同購入がありません</p>
+          <p className="mp_empty_desc">
+            共同購入に参加すると、ここで進行状況を確認できます。
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="mp_panel">
       {groupBuyWithProgress.map((gb) => (

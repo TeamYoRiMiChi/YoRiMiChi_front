@@ -88,7 +88,7 @@ const orderStatuses = [
   return (
     <div className="mp_panel">
       {orderStatuses.map((order) => (
-        <div className="ship_card">
+        <div className="ship_card" key={order.orderNumber}>
           <div className="ship_head">
             <div>
               <span className="order_num">{order.orderNumber}</span>

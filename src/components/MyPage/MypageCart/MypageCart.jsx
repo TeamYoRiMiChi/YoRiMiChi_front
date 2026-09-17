@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import "../../../assets/styles/MyPage/Cart.css";
 import useMypageCart from "../../../hooks/MyPage/MyPage/useMypageCart";
 
@@ -13,9 +15,7 @@ function MypageCart() {
     if (isLoading) {
         return(
             <div className="mp_panel">
-                <ul className="line_list">
-                    <li className="line_item">カートを読み込んでいます。</li>
-                </ul>
+                <p className="mp_status mp_status_loading">読み込み中です...</p>
             </div>
         );
     }
@@ -23,9 +23,7 @@ function MypageCart() {
     if (error) {
         return (
             <div className="mp_panel">
-                <ul className="line_list">
-                    <li className="line_item">{error}</li>
-                </ul>
+                <p className="mp_status mp_status_error">{error}</p>
             </div>
         );
     }
@@ -33,9 +31,18 @@ function MypageCart() {
     if (cartItems.length === 0) {
         return (
             <div className="mp_panel">
-                <ul className="line_list">
-                    <li className="line_item">カートに商品がありません。</li>
-                </ul>
+                <div className="mp_empty">
+                    <div className="mp_empty_icon">
+                        <FontAwesomeIcon icon={faCartShopping} />
+                    </div>
+                    <p className="mp_empty_title">カートに商品がありません</p>
+                    <p className="mp_empty_desc">
+                        気になる商品をカートに入れると、ここでまとめて確認できます。
+                    </p>
+                    <Link to="/overseas" className="mp_empty_bt">
+                        商品を見てみる
+                    </Link>
+                </div>
             </div>
         );
     }

@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTicket, faGift } from "@fortawesome/free-solid-svg-icons";
+import { faTicket, faGift, faTicketSimple } from "@fortawesome/free-solid-svg-icons";
 import "../../../assets/styles/MyPage/MyCoupons.css";
 import useMyCoupons from "../../../hooks/MyPage/MyPage/useMyCoupons";
 
@@ -45,11 +45,11 @@ function MyCoupons() {
   return (
     <div className="mp_panel">
       {isLoading && (
-        <p className="mc_status mc_status_loading">読み込み中です...</p>
+        <p className="mp_status mp_status_loading">読み込み中です...</p>
       )}
 
       {!isLoading && error && (
-        <p className="mc_status mc_status_error">{error}</p>
+        <p className="mp_status mp_status_error">{error}</p>
       )}
 
       {!isLoading && !error && (
@@ -103,7 +103,15 @@ function MyCoupons() {
             </h3>
 
             {myCoupons.length === 0 ? (
-              <p className="mc_empty">保有しているクーポンがありません。</p>
+              <div className="mp_empty">
+                <div className="mp_empty_icon">
+                  <FontAwesomeIcon icon={faTicketSimple} />
+                </div>
+                <p className="mp_empty_title">保有しているクーポンがありません</p>
+                <p className="mp_empty_desc">
+                  イベントやクーポン受け取りで獲得したクーポンがここに表示されます。
+                </p>
+              </div>
             ) : (
               <div className="mc_list">
                 {myCoupons.map((coupon) => (
