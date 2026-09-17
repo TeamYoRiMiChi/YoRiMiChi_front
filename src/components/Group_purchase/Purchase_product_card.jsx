@@ -6,9 +6,27 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toggleWishlist } from '../../features/wishlist/wishlistSlice';
 // DB 상태값 → 화면 표시 문구
 const STATUS_LABELS = {
+    RECRUITING: '進行中',
     ACTIVE: '進行中',
     CLOSING_SOON: '締切間近',
     SUCCESS: '完了',
+    FAILED: '目標未達で終了',
+    CANCELLED: '募集中止',
+};
+
+const isClosedStatus = (status) => (
+    status === 'SUCCESS'
+    || status === 'FAILED'
+    || status === 'CANCELLED'
+);
+
+const STATUS_CLASS_NAMES = {
+    RECRUITING: 'product_badge_recruiting',
+    ACTIVE: 'product_badge_recruiting',
+    CLOSING_SOON: 'product_badge_closing',
+    SUCCESS: 'product_badge_success',
+    FAILED: 'product_badge_failed',
+    CANCELLED: 'product_badge_cancelled',
 };
 
 function Purchase_product_card({ products = [] }) {
@@ -53,19 +71,14 @@ function Purchase_product_card({ products = [] }) {
                 ) : (
                     products.map((product) => (
                         <Link
-                            className="products_box"
+                            className={`products_box ${isClosedStatus(product.status) ? 'product_closed' : ''}`}
                             key={product.id}
                             to={`/groupbuy/${product.id}`}
                         >
                             <div className="product_image_box">
 
                                 <span
-                                    className={`product_badge ${product.status === 'CLOSING_SOON'
-                                            ? 'product_badge_closing'
-                                            : product.status === 'SUCCESS'
-                                                ? 'product_badge_completed'
-                                                : ''
-                                        }`}
+                                    className={`product_badge ${STATUS_CLASS_NAMES[product.status] ?? 'product_badge_recruiting'}`}
                                 >
                                     {STATUS_LABELS[product.status] ?? '進行中'}
                                 </span>

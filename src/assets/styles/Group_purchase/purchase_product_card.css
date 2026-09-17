@@ -1,6 +1,4 @@
-/* ========================================
-  products list
-======================================== */
+/* products list*/
 
 .group_purchase_container .products_container {
   display: grid;
@@ -12,6 +10,23 @@
   max-width: 1440px;
 
   margin: 0 auto;
+}
+
+.group_purchase_container .empty_message {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 260px;
+  margin: 0;
+  padding: 40px 24px;
+  color: #66706a;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+  background: #f8faf8;
+  border: 1px dashed #cbd5ce;
+  border-radius: 14px;
 }
 
 
@@ -34,6 +49,27 @@
   transform: translateY(-4px);
 
   box-shadow: 0 12px 26px rgba(26, 45, 32, 0.12);
+}
+
+/* 모집이 끝난 상품은 상세 화면과 동일하게 회색으로 구분 */
+.group_purchase_container .products_box.product_closed {
+  background-color: #f4f5f4;
+  border-color: #d7dbd8;
+}
+
+.group_purchase_container .products_box.product_closed .product_image_box {
+  background-color: #e7e9e7;
+}
+
+.group_purchase_container .products_box.product_closed .product_image,
+.group_purchase_container .products_box.product_closed .product_image_placeholder {
+  filter: grayscale(1);
+  opacity: 0.55;
+}
+
+.group_purchase_container .products_box.product_closed .product_info {
+  color: #777d79;
+  opacity: 0.72;
 }
 
 
@@ -107,6 +143,7 @@
 
   border: 1px solid #a8d5b2;
   border-radius: 6px;
+  z-index: 2;
 }
 
 .group_purchase_container .product_badge.orange {
@@ -140,6 +177,7 @@
   border-radius: 50%;
 
   cursor: pointer;
+  z-index: 2;
 }
 
 
@@ -287,18 +325,39 @@
   cursor: pointer;
 }
 
-/* 마감임박: 주황색 */
-.product_badge_closing {
-    color: #ea580c !important;
-    background-color: #ffedd5 !important;
-    border: 1px solid #fdba74 !important;
+/* 진행 중: 초록색 */
+.product_badge_recruiting {
+  color: #18753a !important;
+  background-color: #eaf7ee !important;
+  border-color: #8dcc9f !important;
 }
 
-/* 완료: 빨간색 */
-.product_badge_completed {
-    color: #dc2626 !important;
-    background-color: #fee2e2 !important;
-    border: 1px solid #fca5a5 !important;
+/* 마감 임박: 노란색 */
+.product_badge_closing {
+  color: #8a6100 !important;
+  background-color: #fff6cc !important;
+  border-color: #e8c84a !important;
+}
+
+/* 모집 완료: 파란색 */
+.product_badge_success {
+  color: #1d5ea8 !important;
+  background-color: #e8f2ff !important;
+  border-color: #87b8ed !important;
+}
+
+/* 목표 미달: 빨간색 */
+.product_badge_failed {
+  color: #c62828 !important;
+  background-color: #ffebeb !important;
+  border-color: #ee9292 !important;
+}
+
+/* 모집 취소: 회색 */
+.product_badge_cancelled {
+  color: #606661 !important;
+  background-color: #f0f1f0 !important;
+  border-color: #bfc4c0 !important;
 }
 
 .group_purchase_container .heart_btn.active {

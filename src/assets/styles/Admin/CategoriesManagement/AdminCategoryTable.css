@@ -1,0 +1,249 @@
+/* =========================
+   테이블
+========================= */
+
+.ac-table-scroll {
+  overflow-x: auto;
+  border: 1px solid #e3ebf4;
+  border-radius: 12px;
+}
+
+.ac-table {
+  width: 100%;
+  min-width: 620px;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+.ac-table thead {
+  height: 53px;
+  color: #536b8e;
+  background: #f4f8fc;
+}
+
+.ac-table th,
+.ac-table td {
+  padding: 0 18px;
+  font-size: 12px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.ac-table th {
+  font-weight: 700;
+}
+
+.ac-table th:nth-child(1),
+.ac-table td:nth-child(1) {
+  width: 16%;
+}
+
+.ac-table th:nth-child(2),
+.ac-table td:nth-child(2) {
+  width: 59%;
+}
+
+.ac-table th:nth-child(3),
+.ac-table td:nth-child(3) {
+  width: 25%;
+  text-align: center;
+}
+
+.ac-table td {
+  height: 78px;
+  border-top: 1px solid #e8eef5;
+  color: #1c3358;
+}
+
+.ac-table tbody tr:hover {
+  background: #f8fbff;
+}
+
+/* ID */
+
+.ac-id {
+  color: #1766e8;
+}
+
+/* 카테고리명 */
+
+.ac-category-name {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ac-category-icon {
+  display: flex;
+  width: 38px;
+  height: 38px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+.ac-parent-icon {
+  color: #1766e8;
+  background: #e5efff;
+}
+
+.ac-child-icon {
+  color: #f57b1b;
+  background: #fff0df;
+}
+
+.ac-category-name strong {
+  color: #172d52;
+  font-size: 13px;
+}
+
+/* 구분 badge */
+
+.ac-type-badge {
+  display: inline-flex;
+  min-width: 100px;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 12px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.ac-type-parent {
+  color: #176ee6;
+  background: #e3f0ff;
+}
+
+.ac-type-child {
+  color: #ef780f;
+  background: #fff0df;
+}
+
+/* 부모 이름 */
+
+.ac-parent-name {
+  color: #607692;
+  font-size: 12px;
+}
+
+/* 하위 수 */
+
+.ac-child-count {
+  color: #1766e8;
+  font-size: 12px;
+}
+
+.ac-none {
+  color: #a2afc1;
+}
+
+/* =========================
+   수정 / 삭제 버튼
+========================= */
+
+.ac-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.ac-edit-button,
+.ac-delete-button {
+  display: flex;
+  height: 34px;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 11px;
+  border-radius: 7px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.ac-edit-button {
+  border: 1px solid #bcd4f8;
+  color: #1766e8;
+  background: #f5f9ff;
+}
+
+.ac-edit-button:hover {
+  border-color: #1766e8;
+  background: #eaf2ff;
+}
+
+.ac-delete-button {
+  border: 1px solid #f7c5ce;
+  color: #e93450;
+  background: #fff7f8;
+}
+
+.ac-delete-button:hover {
+  border-color: #ef3651;
+  background: #ffe9ed;
+}
+
+/* =========================
+   empty
+========================= */
+
+.ac-empty {
+  height: 180px !important;
+  color: #8797ae !important;
+  text-align: center !important;
+}
+
+/* =========================
+   하단
+========================= */
+
+.ac-table-footer {
+  display: flex;
+  align-items: center;
+  padding-top: 16px;
+}
+
+.ac-table-footer span {
+  color: #637896;
+  font-size: 12px;
+}
+
+.ac-table-footer strong {
+  color: #1766e8;
+}
+
+/* =========================
+   반응형
+========================= */
+
+@media (max-width: 700px) {
+  .ac-table {
+    min-width: 560px;
+  }
+
+  .ac-table th,
+  .ac-table td {
+    padding: 0 12px;
+  }
+
+  .ac-table td {
+    height: 68px;
+  }
+
+  .ac-table th:nth-child(1),
+  .ac-table td:nth-child(1) {
+    width: 90px;
+  }
+
+  .ac-table th:nth-child(2),
+  .ac-table td:nth-child(2) {
+    width: 280px;
+  }
+
+  .ac-table th:nth-child(3),
+  .ac-table td:nth-child(3) {
+    width: 190px;
+  }
+}

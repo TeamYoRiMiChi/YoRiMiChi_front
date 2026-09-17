@@ -56,11 +56,11 @@ export const ENDPOINTS = {
   CLAIMABLE_COUPONS: "/coupons/claimable",
   COUPON_CLAIM: (couponId) => `/coupons/${couponId}/claim`,
 
-//관리자 상품관리
+
   ADMIN_PRODUCTS: "/admin/products",
 
-
-
+  // 관리자 - 카테고리
+  ADMIN_CATEGORIES: "/admin/categories",
 
 };
 
