@@ -97,12 +97,12 @@ function Order() {
             onMemoChange={setDeliveryMemo}
           />
 
-          <CustomsInfo
+          {/* <CustomsInfo
             code={customsCode}
             input={customsInput}
             onChange={setCustomsInput}
             error={customsError}
-          />
+          /> */}
 
           <OrderItems items={items} />
 
