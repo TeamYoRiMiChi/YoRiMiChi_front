@@ -16,7 +16,6 @@ import "./AdminUsers.css";
 function AdminMembers() {
 
   const {
-    setMembers,
     keyword,
     setKeyword,
     roleFilter,
@@ -26,209 +25,18 @@ function AdminMembers() {
     page,
     setPage,
     selectedIds,
-    setSelectedIds,
     summary,
     filteredMembers,
+    totalPages,
+    pagedMembers,
+    isAllSelected,
+    handleSelectAll,
+    handleSelectItem,
+    handleReset,
+    handleStatusChange,
+    handleBulkStatusChange,
   } = useAdminUsers();
 
-  const pageSize = 8;
-
-
-  /* =========================
-     페이지네이션
-  ========================= */
-
-  const totalPages =
-    Math.max(
-      1,
-      Math.ceil(
-        filteredMembers.length /
-        pageSize
-      )
-    );
-
-
-  const pagedMembers =
-    filteredMembers.slice(
-      (page - 1) * pageSize,
-      page * pageSize
-    );
-
-
-  /* =========================
-     전체 선택
-  ========================= */
-
-  const visibleIds =
-    pagedMembers.map(
-      (member) =>
-        member.memberId
-    );
-
-
-  const isAllSelected =
-    visibleIds.length > 0 &&
-    visibleIds.every((id) =>
-      selectedIds.includes(id)
-    );
-
-
-  const handleSelectAll = () => {
-
-    if (isAllSelected) {
-
-      setSelectedIds((current) =>
-        current.filter(
-          (id) =>
-            !visibleIds.includes(id)
-        )
-      );
-
-      return;
-    }
-
-
-    setSelectedIds((current) => [
-
-      ...new Set([
-        ...current,
-        ...visibleIds,
-      ]),
-
-    ]);
-  };
-
-
-  const handleSelectItem =
-    (memberId) => {
-
-      setSelectedIds((current) => {
-
-        if (
-          current.includes(memberId)
-        ) {
-
-          return current.filter(
-            (id) =>
-              id !== memberId
-          );
-        }
-
-
-        return [
-          ...current,
-          memberId,
-        ];
-      });
-    };
-
-
-  /* =========================
-     필터 초기화
-  ========================= */
-
-  const handleReset = () => {
-
-    setKeyword("");
-
-    setRoleFilter("");
-
-    setStatusFilter("");
-
-    setPage(1);
-  };
-
-
-  /* =========================
-     회원 상태 변경
-  ========================= */
-
-  const handleStatusChange =
-    (memberId, nextStatus) => {
-
-      setMembers((current) =>
-
-        current.map((member) => {
-
-          if (
-            member.memberId !==
-            memberId
-          ) {
-            return member;
-          }
-
-
-          return {
-
-            ...member,
-
-            status: nextStatus,
-
-            withdrawnAt:
-              nextStatus ===
-                "WITHDRAWN"
-                ? new Date()
-                  .toISOString()
-                : null,
-          };
-        })
-      );
-    };
-
-
-  /* =========================
-     선택 회원 상태 변경
-  ========================= */
-
-  const handleBulkStatusChange =
-    (event) => {
-
-      const nextStatus =
-        event.target.value;
-
-
-      if (
-        !nextStatus ||
-        selectedIds.length === 0
-      ) {
-        return;
-      }
-
-
-      setMembers((current) =>
-
-        current.map((member) => {
-
-          if (
-            !selectedIds.includes(
-              member.memberId
-            )
-          ) {
-            return member;
-          }
-
-
-          return {
-
-            ...member,
-
-            status: nextStatus,
-
-            withdrawnAt:
-              nextStatus ===
-                "WITHDRAWN"
-                ? new Date()
-                  .toISOString()
-                : null,
-          };
-        })
-      );
-
-
-      setSelectedIds([]);
-
-      event.target.value = "";
-    };
 
 
   /* =========================
@@ -244,7 +52,7 @@ function AdminMembers() {
 
 
       return new Intl.DateTimeFormat(
-        "ko-KR",
+        "ja-Jp",
         {
           year: "numeric",
           month: "2-digit",
