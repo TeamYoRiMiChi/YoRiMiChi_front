@@ -52,7 +52,7 @@ function AdminMembers() {
 
 
       return new Intl.DateTimeFormat(
-        "ja-Jp",
+        "ja-JP",
         {
           year: "numeric",
           month: "2-digit",
