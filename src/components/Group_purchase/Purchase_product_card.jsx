@@ -21,6 +21,15 @@ const isClosedStatus = (status) => (
 );
 
 const STATUS_CLASS_NAMES = {
+
+
+
+
+
+
+
+
+     
     RECRUITING: 'product_badge_recruiting',
     ACTIVE: 'product_badge_recruiting',
     CLOSING_SOON: 'product_badge_closing',
