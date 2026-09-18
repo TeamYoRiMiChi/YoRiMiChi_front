@@ -1,6 +1,4 @@
-/* =========================
-   주문 상품
-========================= */
+/* 주문 상품*/
 .order-item-list {
     list-style: none;
     margin: 0;
@@ -67,11 +65,62 @@
 }
 
 .order-item-price {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 3px;
     flex-shrink: 0;
     padding-top: 4px;
+}
 
+.order-item-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.order-item-section>h3 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 14px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: #f3f1ff;
+    color: #5558e9;
+    font-size: 14px;
+}
+
+.order-item-section.is-group_buy>h3 {
+    background: #eef8f1;
+    color: #21843d;
+}
+
+.order-item-section>h3 span {
+    display: inline-grid;
+    min-width: 22px;
+    height: 22px;
+    padding: 0 6px;
+    border-radius: 999px;
+    background: #5558e9;
+    color: #fff;
+    font-size: 12px;
+    place-items: center;
+}
+
+.order-item-section.is-group_buy>h3 span {
+    background: #21843d;
+}
+
+.order-item-price strong {
     font-size: 17px;
     font-weight: 800;
+}
+
+.order-item-price span {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--od-muted, #71768c);
 }
 
 /* 배송비 */
@@ -104,9 +153,16 @@
     font-weight: 600;
 }
 
-/* =========================
-   반응형
-========================= */
+.order-item-shipping-note {
+    margin: 14px 0 0;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: var(--od-bg, #f6f7fb);
+    color: var(--od-muted, #71768c);
+    font-size: 12.5px;
+}
+
+/*  반응형*/
 @media (max-width: 700px) {
     .order-item-main {
         flex-wrap: wrap;

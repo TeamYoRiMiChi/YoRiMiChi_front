@@ -64,6 +64,18 @@
     border-color: var(--od-brand, #5558e9);
 }
 
+.customs-input.is-error,
+.customs-input.is-error:focus {
+    border-color: #d64550;
+    box-shadow: 0 0 0 3px rgba(214, 69, 80, 0.1);
+}
+
+.customs-error {
+    margin: -4px 0 10px;
+    font-size: 12px;
+    color: #d64550;
+}
+
 .customs-input::placeholder {
     font-weight: 400;
     letter-spacing: 0;

@@ -52,6 +52,64 @@
     color: var(--od-brand, #5558e9);
 }
 
+.pay-summary-sale-row {
+    padding: 11px 12px;
+    border-radius: 9px;
+}
+
+.pay-summary-list .pay-summary-sale-row+.pay-summary-sale-row {
+    margin-top: 8px;
+}
+
+.pay-summary-sale-row.is-overseas {
+    background: #f3f1ff;
+    color: #5558e9;
+}
+
+.pay-summary-sale-row.is-group-buy {
+    background: #eef8f1;
+    color: #21843d;
+}
+
+.pay-summary-sale-row dt {
+    color: inherit;
+}
+
+.pay-summary-sale-row dt span {
+    font-weight: 800;
+}
+
+.pay-summary-product-total {
+    margin-top: 12px !important;
+    padding: 13px 12px;
+    border: 1px solid #e2e5ee;
+    border-radius: 9px;
+    background: #fafbfc;
+}
+
+.pay-summary-product-total dt,
+.pay-summary-product-total dd {
+    color: #25293a;
+    font-weight: 800;
+}
+
+.pay-summary-shipping-row {
+    padding: 2px 4px;
+}
+
+.pay-summary-dual-price {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+}
+
+.pay-summary-dual-price span {
+    display: block;
+    font-size: 12px;
+    color: var(--od-muted, #71768c);
+}
+
 .pay-summary-divider {
     height: 1px;
     margin: 20px 0;
@@ -77,6 +135,26 @@
     font-weight: 800;
     color: var(--od-brand, #5558e9);
     letter-spacing: -0.03em;
+}
+
+.pay-summary-total>div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 3px;
+}
+
+.pay-summary-total small {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--od-muted, #71768c);
+}
+
+.pay-summary-rate {
+    margin: -12px 0 20px;
+    text-align: right;
+    font-size: 12px;
+    color: var(--od-muted, #71768c);
 }
 
 /* 동의 */
