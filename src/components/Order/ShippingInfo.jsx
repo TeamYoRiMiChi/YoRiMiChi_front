@@ -83,6 +83,7 @@ function ShippingInfo({
               <label htmlFor="receiverName">받는 분</label>
               <input
                 id="receiverName"
+                className={errors.receiverName ? 'is-error' : ''}
                 type="text"
                 value={manualAddress.receiverName}
                 onChange={(e) => onManualChange('receiverName', e.target.value)}
@@ -97,6 +98,7 @@ function ShippingInfo({
               <label htmlFor="receiverPhone">연락처</label>
               <input
                 id="receiverPhone"
+                className={errors.receiverPhone ? 'is-error' : ''}
                 type="tel"
                 value={manualAddress.receiverPhone}
                 onChange={(e) => onManualChange('receiverPhone', e.target.value)}
@@ -111,6 +113,7 @@ function ShippingInfo({
               <label htmlFor="postalCode">우편번호</label>
               <input
                 id="postalCode"
+                className={errors.postalCode ? 'is-error' : ''}
                 type="text"
                 value={manualAddress.postalCode}
                 onChange={(e) => onManualChange('postalCode', e.target.value)}
@@ -125,6 +128,7 @@ function ShippingInfo({
               <label htmlFor="address">주소</label>
               <input
                 id="address"
+                className={errors.address ? 'is-error' : ''}
                 type="text"
                 value={manualAddress.address}
                 onChange={(e) => onManualChange('address', e.target.value)}

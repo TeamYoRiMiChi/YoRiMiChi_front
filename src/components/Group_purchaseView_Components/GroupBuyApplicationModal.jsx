@@ -116,7 +116,7 @@ function GroupBuyApplicationModal({
                 キャンセル
               </button>
               <button type="button" className="confirm" onClick={onConfirm} disabled={isSubmitting || isLoading}>
-                {isSubmitting ? '申し込み中...' : `${quantity}個を申し込む`}
+                {isSubmitting ? '移動中...' : 'お支払いへ進む'}
               </button>
             </div>
           </>

@@ -14,7 +14,7 @@ import '../../assets/styles/Order/components/CustomsInfo.css';
  * @param {string}   input    입력값
  * @param {Function} onChange 입력 콜백
  */
-function CustomsInfo({ code, input, onChange }) {
+function CustomsInfo({ code, input, onChange, error }) {
 
   /* 이미 등록된 경우 */
   if (code) {
@@ -37,7 +37,7 @@ function CustomsInfo({ code, input, onChange }) {
       <div className="customs-input-row">
         <input
           type="text"
-          className="customs-input"
+          className={`customs-input ${error ? 'is-error' : ''}`}
           value={input}
           onChange={(e) => onChange(e.target.value.toUpperCase())}
           placeholder="P로 시작하는 13자리"
@@ -53,6 +53,8 @@ function CustomsInfo({ code, input, onChange }) {
           발급받기
         </a>
       </div>
+
+      {error && <p className="customs-error">{error}</p>}
 
       <p className="customs-hint">
         통관 시 반드시 필요합니다. 관세청 홈페이지에서 무료로 발급받을 수 있어요.
