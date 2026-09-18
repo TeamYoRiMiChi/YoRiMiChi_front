@@ -60,7 +60,7 @@ export function useOrder() {
   const directProductId = productId ? Number(productId) : null;
   const directQuantity = Number(searchParams.get('quantity')) || 1;
   const isDirectPurchase = Boolean(directProductId);
-  const cartSaleType = isDirectPurchase ? null : searchParams.get('saleType');
+  const cartSaleType = searchParams.get('saleType');
   const cartItemIdsKey = isDirectPurchase ? '' : (searchParams.get('cartItemIds') ?? '');
   const cartItemIds = useMemo(() => (cartItemIdsKey
         .split(',')
@@ -79,6 +79,7 @@ export function useOrder() {
 
   /* ===== 통관부호 ===== */
   const [customsInput, setCustomsInput] = useState('');
+  const [customsError, setCustomsError] = useState('');
 
   /* ===== 사용자 입력 ===== */
   const [deliveryMemo, setDeliveryMemo] = useState('');
@@ -242,9 +243,16 @@ export function useOrder() {
 
     /* 회원 정보에 통관부호가 없으면 입력값이 필요합니다 */
     if (!checkout?.customsCode && !customsInput.trim()) {
-      alert('개인통관고유부호를 입력해주세요.');
+      setCustomsError('개인통관고유부호를 입력해주세요.');
       return;
     }
+
+    if (!checkout?.customsCode && !/^P\d{12}$/.test(customsInput.trim())) {
+      setCustomsError('P로 시작하는 13자리 번호를 입력해주세요.');
+      return;
+    }
+
+    setCustomsError('');
 
     setIsSubmitting(true);
 
@@ -306,7 +314,11 @@ export function useOrder() {
 
     // 통관부호
     customsInput,
-    setCustomsInput,
+    setCustomsInput: (value) => {
+      setCustomsInput(value);
+      if (value.trim()) setCustomsError('');
+    },
+    customsError,
 
     // 화면 전용 데이터
     coupons: selectableCoupons,

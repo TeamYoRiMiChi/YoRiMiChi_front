@@ -22,6 +22,8 @@ function Sign_up() {
     handleChange,
     handleCheckEmail,
     handleSubmit,
+    handleSearchPostal,
+    isSearchingPostal,
   } = useSignUp();
 
   return (
@@ -150,6 +152,58 @@ function Sign_up() {
                 disabled={isLoading}
               />
               {errors.phone && <p className="field-error">{errors.phone}</p>}
+            </div>
+
+            {/* 배송지 (임의) */}
+            <div className="form-group">
+              <label htmlFor="postal-code">配送先住所（任意）</label>
+
+              <div className="email-row">
+                <input
+                  className="address-field"
+                  id="postal-code"
+                  type="text"
+                  placeholder="郵便番号（例）111-0053"
+                  value={form.postalCode}
+                  onChange={handleChange}
+                  disabled={isLoading}
+                />
+                <button
+                  type="button"
+                  className="email-check-btn"
+                  onClick={handleSearchPostal}
+                  disabled={isLoading || isSearchingPostal || !form.postalCode.trim()}
+                >
+                  {isSearchingPostal ? "検索中..." : "郵便番号検索"}
+                </button>
+              </div>
+              {errors.postalCode && (
+                <p className="field-error">{errors.postalCode}</p>
+              )}
+
+              <input
+                className="address-field"
+                id="address"
+                type="text"
+                placeholder="郵便番号検索を押すと自動入力されます"
+                value={form.address}
+                onChange={handleChange}
+                disabled={isLoading}
+              />
+              {errors.address && <p className="field-error">{errors.address}</p>}
+
+              <input
+                className="address-field"
+                id="address-detail"
+                type="text"
+                placeholder="建物名・部屋番号など（任意）"
+                value={form.addressDetail}
+                onChange={handleChange}
+                disabled={isLoading}
+              />
+              <p className="address-hint">
+                配送先を入力すると、会員登録と同時に基本配送先として登録されます。
+              </p>
             </div>
 
             {/* 약관 동의 */}

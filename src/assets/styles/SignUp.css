@@ -123,6 +123,34 @@
 }
 
 /* =========================
+   배송지 (회원가입, 임의)
+========================= */
+.address-field {
+  width: 100%;
+  box-sizing: border-box;
+  height: 46px;
+  border: 1px solid #d9dced;
+  border-radius: 9px;
+  outline: none;
+  color: #252b52;
+  font-size: 14px;
+  padding: 0px 16px;
+}
+.address-field::placeholder {
+  color: #a2a8bf;
+}
+.address-field:focus {
+  border-color: #5945e8;
+  box-shadow: 0px 0px 0px 3px rgba(89, 69, 232, 0.1);
+}
+
+.address-hint {
+  margin: 0;
+  color: #737995;
+  font-size: 13px;
+}
+
+/* =========================
    검증 메시지
 ========================= */
 .field-error {

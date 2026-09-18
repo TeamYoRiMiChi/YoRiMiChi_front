@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { getProfile, updateProfile } from "../../../api/MyPage/profileApi";
 
-export function useProfileManagement(fallback = {}) {
+const EMPTY_PROFILE = { email: "", name: "", phone: "" };
+
+export function useProfileManagement(fallback = EMPTY_PROFILE) {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [profile, setProfile] = useState(fallback);
@@ -29,7 +31,7 @@ export function useProfileManagement(fallback = {}) {
 
     try {
       const res = await updateProfile(updateData);
-      const updatedProfile = res.data.data ?? profile;
+      const updatedProfile = { ...EMPTY_PROFILE, ...profile, ...(res.data.data ?? {}) };
 
       setProfile(updatedProfile);
 
@@ -51,7 +53,7 @@ export function useProfileManagement(fallback = {}) {
         const res = await getProfile();
 
         // 서버 응답: { success, data: [...], message }
-        const profileData = res.data.data ?? {};
+        const profileData = { ...EMPTY_PROFILE, ...(res.data.data ?? {}) };
 
         if (!ignore) {
           setProfile(profileData);

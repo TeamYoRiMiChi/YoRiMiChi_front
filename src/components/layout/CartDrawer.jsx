@@ -32,7 +32,6 @@ const TEXT = {
     selectedCheckout: '購入する',
     applyGroupBuy: '共同購入を申し込む',
     noOrderableItems: '現在注文できる商品がありません',
-    mixedOrderNotice: '海外購入と共同購入は別々に注文してください。どちらか一方のチェックを外してください。',
     selectAll: 'すべて選択',
     addToCart: 'カートに入れる',
     viewWish: 'お気に入りをすべて見る',
@@ -58,7 +57,6 @@ const TEXT = {
     selectedCheckout: '구매하기',
     applyGroupBuy: '공동구매 신청하기',
     noOrderableItems: '현재 주문 가능한 상품이 없습니다',
-    mixedOrderNotice: '해외직구와 공동구매는 따로 주문해야 합니다. 한 종류의 체크를 해제해주세요.',
     selectAll: '전체 선택',
     addToCart: '장바구니 담기',
     viewWish: '찜 목록 전체보기',
@@ -297,20 +295,8 @@ function CartDrawer({ open, onClose, lang = 'ja' }) {
   const handleSelectedCheckout = () => {
     if (selectedCartItems.length === 0) return;
 
-    if (selectedSaleTypes.size > 1) {
-      window.alert(t.mixedOrderNotice);
-      return;
-    }
-
-    if (isOnlyGroupBuySelected) {
-      setGroupBuyApplicationItems(selectedCartItems.filter(isGroupBuyItem));
-      setIsGroupBuyModalOpen(true);
-      return;
-    }
-
-    const saleType = selectedCartItems[0].saleType;
     const cartItemIds = selectedCartItems.map((item) => item.cartItemId).join(',');
-    navigate(`/order?saleType=${saleType}&cartItemIds=${cartItemIds}`);
+    navigate(`/order?cartItemIds=${cartItemIds}`);
     onClose();
   };
 

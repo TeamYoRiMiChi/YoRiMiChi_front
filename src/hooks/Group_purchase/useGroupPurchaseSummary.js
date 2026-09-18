@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { addCartItem, fetchCart } from '../../features/cart/cartSlice';
+import { addCartItem } from '../../features/cart/cartSlice';
 import { toggleWishlist } from '../../features/wishlist/wishlistSlice';
-import { getMyGroupBuyParticipation, participateGroupBuy } from '../../api/groupBuyApi';
+import { getMyGroupBuyParticipation } from '../../api/groupBuyApi';
 
 // 공동구매 상품 요약 영역의 동작을 관리하는 Hook
 function useGroupPurchaseSummary(product, onParticipantsChange) {
@@ -23,11 +23,11 @@ function useGroupPurchaseSummary(product, onParticipantsChange) {
   // 장바구니 버튼을 누른 뒤 보여줄 임시 안내 문구를 기억합니다.
   const [cartMessage, setCartMessage] = useState('');
   const [isApplicationModalOpen, setIsApplicationModalOpen] = useState(false);
-  const [isApplicationSubmitting, setIsApplicationSubmitting] = useState(false);
+  const isApplicationSubmitting = false;
   const [isApplicationLoading, setIsApplicationLoading] = useState(false);
-  const [isApplicationComplete, setIsApplicationComplete] = useState(false);
+  const isApplicationComplete = false;
   const [applicationError, setApplicationError] = useState('');
-  const [appliedQuantity, setAppliedQuantity] = useState(null);
+  const appliedQuantity = null;
   const [currentParticipants, setCurrentParticipants] = useState(product.currentParticipants);
   const [existingApplicationQuantity, setExistingApplicationQuantity] = useState(0);
 
@@ -66,8 +66,6 @@ function useGroupPurchaseSummary(product, onParticipantsChange) {
     }
 
     setApplicationError('');
-    setIsApplicationComplete(false);
-    setAppliedQuantity(null);
     setIsApplicationModalOpen(true);
 
     setIsApplicationLoading(true);
@@ -90,25 +88,9 @@ function useGroupPurchaseSummary(product, onParticipantsChange) {
     setIsApplicationModalOpen(false);
   };
 
-  const handleConfirmApplication = async () => {
-    setIsApplicationSubmitting(true);
-    setApplicationError('');
-
-    try {
-      const response = await participateGroupBuy(product.productId, quantity);
-      setCurrentParticipants(response.data.data.currentQuantity);
-      onParticipantsChange?.(response.data.data.currentQuantity);
-      setAppliedQuantity(response.data.data.quantity);
-      setExistingApplicationQuantity(response.data.data.quantity);
-      setIsApplicationComplete(true);
-      dispatch(fetchCart());
-    } catch (error) {
-      setApplicationError(
-        error.response?.data?.message || '共同購入への申し込みに失敗しました。'
-      );
-    } finally {
-      setIsApplicationSubmitting(false);
-    }
+  const handleConfirmApplication = () => {
+    setIsApplicationModalOpen(false);
+    navigate(`/order/${product.productId}?quantity=${quantity}&saleType=GROUP_BUY`);
   };
 
   // API 연결 전까지 선택한 옵션과 수량을 안내 문구로 

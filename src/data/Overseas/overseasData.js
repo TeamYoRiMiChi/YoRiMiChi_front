@@ -86,8 +86,15 @@ export const CATEGORIES = [
   { id: 10, name: 'キッチン用品', icon: faUtensils },
 ];
 
-/* 정렬 탭 */
+/*
+ * 정렬 탭
+ *
+ * 'all'은 백엔드 ProductMapper.xml의 <choose>에서 recommend/popular/newest
+ * 어디에도 안 걸려서 <otherwise>(product_id ASC, 즉 등록순)로 빠집니다.
+ * 그래서 별도 백엔드 작업 없이 "전체보기"로 씁니다.
+ */
 export const SORT_TABS = [
+  { key: 'all', label: 'すべて' },
   { key: 'recommend', label: 'おすすめ' },
   { key: 'popular', label: '人気' },
   { key: 'newest', label: '新着' },

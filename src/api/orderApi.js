@@ -18,7 +18,7 @@ export const getCheckout = ({ productId, quantity, saleType, cartItemIds } = {})
     params: {
       ...(productId ? { productId } : {}),
       ...(productId ? { quantity: quantity ?? 1 } : {}),
-      ...(!productId && saleType ? { saleType } : {}),
+      ...(saleType ? { saleType } : {}),
       ...(!productId && cartItemIds?.length
         ? { cartItemIds: cartItemIds.join(',') }
         : {}),
@@ -54,7 +54,7 @@ export const createOrder = ({
   return axiosInstance.post(ENDPOINTS.ORDERS, {
     productId: productId ?? null,
     quantity: productId ? (quantity ?? 1) : null,
-    saleType: productId ? null : (saleType ?? null),
+    saleType: saleType ?? null,
     cartItemIds: productId ? null : (cartItemIds ?? null),
 
     addressId: addressId ?? null,
@@ -99,6 +99,7 @@ export function toCheckoutView(dto) {
 
     items: (dto.items ?? []).map((it) => ({
       productId: it.productId,
+      saleType: it.saleType ?? 'OVERSEAS',
       brand: it.brand ?? '',
       name: it.productName ?? '',
       thumbnailUrl: it.thumbnailUrl ?? null,

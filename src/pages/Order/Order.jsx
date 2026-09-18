@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import OrderSteps from '../../components/Order/OrderSteps';
 import ShippingInfo from '../../components/Order/ShippingInfo';
-// import CustomsInfo from '../../components/Order/CustomsInfo';
+import CustomsInfo from '../../components/Order/CustomsInfo';
 import OrderItems from '../../components/Order/OrderItems';
 import CouponPoint from '../../components/Order/CouponPoint';
 import PaymentMethod from '../../components/Order/PaymentMethod';
@@ -14,7 +14,8 @@ function Order() {
     isDirectPurchase,
 
     address,
-    // customsCode,
+    exchangeRate,
+    customsCode,
     items,
     isLoading,
     loadError,
@@ -26,8 +27,9 @@ function Order() {
     toggleManualAddress,
     copyFromSavedAddress,
 
-    // customsInput,
-    // setCustomsInput,
+    customsInput,
+    setCustomsInput,
+    customsError,
 
     coupons,
     paymentMethods,
@@ -95,11 +97,12 @@ function Order() {
             onMemoChange={setDeliveryMemo}
           />
 
-          {/* <CustomsInfo
+          <CustomsInfo
             code={customsCode}
             input={customsInput}
             onChange={setCustomsInput}
-          /> */}
+            error={customsError}
+          />
 
           <OrderItems items={items} />
 
@@ -120,6 +123,8 @@ function Order() {
         {/* 오른쪽: 결제 금액 */}
         <PaymentSummary
           amounts={amounts}
+          items={items}
+          exchangeRate={exchangeRate}
           agreed={agreed}
           onAgreeChange={setAgreed}
           onSubmit={handleSubmit}

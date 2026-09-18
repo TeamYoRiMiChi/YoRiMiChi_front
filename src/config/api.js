@@ -56,6 +56,22 @@ export const ENDPOINTS = {
   CLAIMABLE_COUPONS: "/coupons/claimable",
   COUPON_CLAIM: (couponId) => `/coupons/${couponId}/claim`,
 
+  /**
+   * 배송지 관리 (고객)
+   *
+   * 백엔드: domain/mypage/controller/AddressController.java
+   */
+  MY_ADDRESSES: "/addresses",
+  ADDRESS: (addressId) => `/addresses/${addressId}`,
+  ADDRESS_DEFAULT: (addressId) => `/addresses/${addressId}/default`,
+
+  /**
+   * 우편번호 검색 (zipcloud 프록시)
+   *
+   * 백엔드: domain/postal/controller/PostalCodeController.java
+   */
+  POSTAL_CODE: (zipcode) => `/postal-code/${zipcode}`,
+
 
   ADMIN_PRODUCTS: "/admin/products",
 

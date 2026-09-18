@@ -155,6 +155,12 @@
     border-color: var(--od-brand, #5558e9);
 }
 
+.shipping-field input.is-error,
+.shipping-field input.is-error:focus {
+    border-color: #d64550;
+    box-shadow: 0 0 0 3px rgba(214, 69, 80, 0.1);
+}
+
 .shipping-field input::placeholder {
     color: #b0b4c4;
 }
