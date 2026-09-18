@@ -45,7 +45,7 @@ function AdminUserFilters({
                     onChange={(event) => onStatusFilterChange(event.target.value)}>
                     <option value="">すべて</option>
                     <option value="ACTIVE">有効</option>
-                    <option value="WITHDRAWN">退会</option>
+                    <option value="INACTIVE">退会</option>
                 </select>
             </div>
 

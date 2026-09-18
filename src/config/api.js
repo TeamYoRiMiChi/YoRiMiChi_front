@@ -77,7 +77,9 @@ export const ENDPOINTS = {
 
   // 관리자 - 카테고리
   ADMIN_CATEGORIES: "/admin/categories",
-
+  
+  // 관리자(회원고나리)
+  ADMIN_MEMBERS: "/admin/members",
 };
 
 /**

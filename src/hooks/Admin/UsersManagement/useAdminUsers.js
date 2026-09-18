@@ -25,7 +25,7 @@ const initialMembers = [
     name: "이소라",
     phone: "010-3456-7890",
     role: "USER",
-    status: "WITHDRAWN",
+    status: "INACTIVE",
     withdrawnAt: "2026-08-29T14:30:00",
   },
   {
@@ -52,7 +52,7 @@ const initialMembers = [
     name: "이준호",
     phone: "010-5678-9012",
     role: "USER",
-    status: "WITHDRAWN",
+    status: "INACTIVE",
     withdrawnAt: "2026-09-03T11:20:00",
   },
 ];
@@ -69,7 +69,7 @@ function useAdminUsers() {
     return {
       total: members.length,
       active: members.filter((member) => member.status === "ACTIVE").length,
-      withdrawn: members.filter((member) => member.status === "WITHDRAWN").length,
+      withdrawn: members.filter((member) => member.status === "INACTIVE").length,
       admin: members.filter((member) => member.role === "ADMIN").length,
     };
   }, [members]);
@@ -148,7 +148,7 @@ function useAdminUsers() {
           ...member,
           status: nextStatus,
           withdrawnAt:
-            nextStatus === "WITHDRAWN"
+            nextStatus === "INACTIVE"
               ? new Date().toISOString() : null,
         };
       })
@@ -171,7 +171,7 @@ function useAdminUsers() {
           ...member,
           status: nextStatus,
           withdrawnAt:
-            nextStatus === "WITHDRAWN"
+            nextStatus === "INACTIVE"
               ? new Date().toISOString() : null,
         };
       })

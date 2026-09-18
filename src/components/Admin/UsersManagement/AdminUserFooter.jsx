@@ -51,7 +51,7 @@ function AdminUserFooter({
                 정상
               </option>
 
-              <option value="WITHDRAWN">
+              <option value="INACTIVE">
                 탈퇴
               </option>
 

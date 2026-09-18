@@ -240,7 +240,7 @@ function AdminUserTable({
                           onClick={() =>
                             handleStatusChange(
                               member.memberId,
-                              "WITHDRAWN"
+                              "INACTIVE"
                             )
                           }
                         >
