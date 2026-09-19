@@ -786,3 +786,29 @@
   cursor: not-allowed;
   box-shadow: none;
 }
+
+.ap-price .ap-stock-dropdown {
+  display: inline-block;
+  width: fit-content;
+  min-width: 0;
+}
+
+.ap-price .ap-stock-summary {
+  display: inline-flex;
+  width: fit-content;
+  min-width: 0;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  padding: 6px 10px;
+}
+
+.ap-price .ap-stock-popup {
+  width: max-content;
+  min-width: 150px;
+}
+
+.ap-price .ap-stock-popup input {
+  width: 130px;
+  box-sizing: border-box;
+}

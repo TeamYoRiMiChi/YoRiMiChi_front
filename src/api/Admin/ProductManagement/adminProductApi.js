@@ -51,3 +51,13 @@ export const createAdminProduct = (
     productData
   );
 };
+
+
+//상품삭제요
+export const deleteAdminProduct = (
+  productId
+) => {
+  return axiosInstance.delete(
+    `${ENDPOINTS.ADMIN_PRODUCTS}/${productId}`
+  );
+};

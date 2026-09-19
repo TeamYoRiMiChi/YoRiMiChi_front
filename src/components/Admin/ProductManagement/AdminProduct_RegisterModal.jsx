@@ -12,6 +12,13 @@ const initialForm = {
   stock: "",
   thumbnailUrl: "",
   status: "ACTIVE",
+
+  // 공동구매 정보
+  groupBuyTitle: "",
+  groupBuyDescription: "",
+  targetQuantity: "",
+  startDate: "",
+  endDate: "",
 };
 
 function AdminProductRegisterModal({
@@ -47,34 +54,159 @@ function AdminProductRegisterModal({
       return;
     }
 
-    if (Number(formData.priceJpy) < 0) {
-      alert("가격은 0 이상이어야 합니다.");
+    if (
+      formData.priceJpy === "" ||
+      Number(formData.priceJpy) < 0
+    ) {
+      alert(
+        "가격은 0 이상의 숫자로 입력해 주세요."
+      );
       return;
     }
 
-    if (Number(formData.stock) < 0) {
-      alert("재고는 0 이상이어야 합니다.");
+    if (
+      formData.stock === "" ||
+      Number(formData.stock) < 0
+    ) {
+      alert(
+        "재고는 0 이상의 숫자로 입력해 주세요."
+      );
       return;
     }
+
+    /*
+     * 공동구매 상품 검사
+     */
+    if (
+      formData.saleType === "GROUP_BUY"
+    ) {
+      if (
+        !formData.groupBuyTitle.trim()
+      ) {
+        alert(
+          "공동구매 제목을 입력해 주세요."
+        );
+        return;
+      }
+
+      if (
+        formData.targetQuantity === "" ||
+        Number(
+          formData.targetQuantity
+        ) < 1
+      ) {
+        alert(
+          "목표 수량은 1개 이상이어야 합니다."
+        );
+        return;
+      }
+
+      /*
+       * 판매 중인 공동구매만
+       * 모집 기간을 검사한다.
+       */
+      if (formData.status === "ACTIVE") {
+        if (!formData.startDate) {
+          alert(
+            "모집 시작일을 입력해 주세요."
+          );
+          return;
+        }
+
+        if (!formData.endDate) {
+          alert(
+            "모집 마감일을 입력해 주세요."
+          );
+          return;
+        }
+
+        if (
+          new Date(formData.endDate) <=
+          new Date(formData.startDate)
+        ) {
+          alert(
+            "모집 마감일은 시작일보다 뒤여야 합니다."
+          );
+          return;
+        }
+      }
+    }
+
+    const isGroupBuy =
+      formData.saleType === "GROUP_BUY";
+
+    const isActiveGroupBuy =
+      isGroupBuy &&
+      formData.status === "ACTIVE";
 
     const registerData = {
-      categoryId: Number(formData.categoryId),
+      categoryId: Number(
+        formData.categoryId
+      ),
+
       saleType: formData.saleType,
+
       brand: formData.brand.trim(),
-      productName: formData.productName.trim(),
+
+      productName:
+        formData.productName.trim(),
+
       productNameJp:
         formData.productNameJp.trim(),
-      priceJpy: Number(formData.priceJpy),
+
+      priceJpy: Number(
+        formData.priceJpy
+      ),
+
       originalPriceJpy:
         formData.originalPriceJpy === ""
           ? null
           : Number(
               formData.originalPriceJpy
             ),
+
       stock: Number(formData.stock),
+
       thumbnailUrl:
         formData.thumbnailUrl.trim(),
+
       status: formData.status,
+
+      /*
+       * 공동구매 상품일 때만 전송
+       */
+      groupBuyTitle:
+        isGroupBuy
+          ? formData.groupBuyTitle.trim()
+          : null,
+
+      groupBuyDescription:
+        isGroupBuy
+          ? formData
+              .groupBuyDescription
+              .trim()
+          : null,
+
+      targetQuantity:
+        isGroupBuy
+          ? Number(
+              formData.targetQuantity
+            )
+          : null,
+
+      /*
+       * 판매 중인 공동구매일 때만
+       * 모집 기간 전송
+       */
+      startDate:
+        isActiveGroupBuy
+          ? formData.startDate
+          : null,
+
+      endDate:
+        isActiveGroupBuy
+          ? formData.endDate
+          : null,
     };
 
     try {
@@ -94,6 +226,12 @@ function AdminProductRegisterModal({
     }
   };
 
+  const isGroupBuy =
+    formData.saleType === "GROUP_BUY";
+
+  const isDateDisabled =
+    formData.status !== "ACTIVE";
+
   return (
     <div
       className="ap-modal-overlay"
@@ -112,7 +250,8 @@ function AdminProductRegisterModal({
             </h3>
 
             <p>
-              판매할 상품 정보를 입력하세요.
+              판매할 상품 정보를
+              입력하세요.
             </p>
           </div>
 
@@ -121,6 +260,7 @@ function AdminProductRegisterModal({
             className="ap-modal-close"
             onClick={onClose}
             aria-label="닫기"
+            disabled={isSubmitting}
           >
             ×
           </button>
@@ -143,14 +283,22 @@ function AdminProductRegisterModal({
                   카테고리 선택
                 </option>
 
-                {categories.map((category) => (
-                  <option
-                    key={category.categoryId}
-                    value={category.categoryId}
-                  >
-                    {category.categoryName}
-                  </option>
-                ))}
+                {categories.map(
+                  (category) => (
+                    <option
+                      key={
+                        category.categoryId
+                      }
+                      value={
+                        category.categoryId
+                      }
+                    >
+                      {
+                        category.categoryName
+                      }
+                    </option>
+                  )
+                )}
               </select>
             </label>
 
@@ -271,11 +419,101 @@ function AdminProductRegisterModal({
               <input
                 type="url"
                 name="thumbnailUrl"
-                value={formData.thumbnailUrl}
+                value={
+                  formData.thumbnailUrl
+                }
                 onChange={handleChange}
                 placeholder="https://..."
               />
             </label>
+
+            {isGroupBuy && (
+              <>
+                <label className="ap-modal-full">
+                  공동구매 제목
+                  <input
+                    type="text"
+                    name="groupBuyTitle"
+                    value={
+                      formData.groupBuyTitle
+                    }
+                    onChange={handleChange}
+                    placeholder="공동구매 제목"
+                    required
+                  />
+                </label>
+
+                <label className="ap-modal-full">
+                  공동구매 설명
+                  <textarea
+                    name="groupBuyDescription"
+                    value={
+                      formData
+                        .groupBuyDescription
+                    }
+                    onChange={handleChange}
+                    placeholder="공동구매 설명"
+                  />
+                </label>
+
+                <label>
+                  목표 수량
+                  <input
+                    type="number"
+                    name="targetQuantity"
+                    value={
+                      formData.targetQuantity
+                    }
+                    onChange={handleChange}
+                    min="1"
+                    placeholder="100"
+                    required
+                  />
+                </label>
+
+                <label>
+                  모집 시작일
+                  <input
+                    type="datetime-local"
+                    name="startDate"
+                    value={
+                      formData.startDate
+                    }
+                    onChange={handleChange}
+                    disabled={
+                      isDateDisabled
+                    }
+                    required={
+                      !isDateDisabled
+                    }
+                  />
+                </label>
+
+                <label>
+                  모집 마감일
+                  <input
+                    type="datetime-local"
+                    name="endDate"
+                    value={formData.endDate}
+                    onChange={handleChange}
+                    disabled={
+                      isDateDisabled
+                    }
+                    required={
+                      !isDateDisabled
+                    }
+                  />
+                </label>
+
+                {isDateDisabled && (
+                  <p className="ap-modal-full">
+                    판매 중인 공동구매만
+                    모집 기간을 설정할 수
+                    있습니다.
+                  </p>
+                )}
+              </>
+            )}
           </div>
 
           <div className="ap-modal-actions">

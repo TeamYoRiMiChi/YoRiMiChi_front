@@ -33,44 +33,24 @@ import useProductFilter
   from "../../../hooks/Admin/ProductManagement/useProductFilter";
 
 import {
+  getAdminCategories,
+} from "../../../api/Admin/CategoriesManagement/adminCategoryApi";
+
+import {
+  createAdminProduct,
+  deleteAdminProduct,
   getAdminProducts,
   updateAdminProduct,
-  createAdminProduct,
 } from "../../../api/Admin/ProductManagement/adminProductApi";
 
 import "./AdminProducts.css";
 
-const initialCategories = [
-  {
-    categoryId: 1,
-    categoryName: "수산물",
-  },
-  {
-    categoryId: 2,
-    categoryName: "정육·육류",
-  },
-  {
-    categoryId: 3,
-    categoryName: "가공식품",
-  },
-  {
-    categoryId: 4,
-    categoryName: "과자·디저트",
-  },
-  {
-    categoryId: 5,
-    categoryName: "면류",
-  },
-  {
-    categoryId: 6,
-    categoryName: "과일",
-  },
-];
+
 
 function AdminProducts() {
   // 백엔드에서 조회한 상품
   const [products, setProducts] = useState([]);
-
+  const [categories, setCategories] = useState([]); // 백엔드에서 조회한 카테고리
   // 선택한 상품 ID
   const [selectedIds, setSelectedIds] =
     useState([]);
@@ -88,42 +68,110 @@ function AdminProducts() {
    * 관리자 상품 전체 조회
    * GET /api/admin/products
    */
-  useEffect(() => {
-    const loadProducts = async () => {
-      try {
+// 상품 조회
+
+useEffect(() => {
+  const loadProducts = async () => {
+    try {
+      const response =
+        await getAdminProducts();
+
+      const body =
+        response?.data ?? response;
+
+      const productList =
+        Array.isArray(body)
+          ? body
+          : body?.data;
+
+      console.log(
+        "상품 목록:",
+        productList
+      );
+
+      setProducts(
+        Array.isArray(productList)
+          ? productList
+          : []
+      );
+    } catch (error) {
+      console.error(
+        "관리자 상품 조회 실패:",
+        error
+      );
+
+      setProducts([]);
+    }
+  };
+
+  loadProducts();
+}, []);
+
+//카테고리조회
+useEffect(() => {
+  const loadCategories = async () => {
+    try {
+      const firstResponse =
+        await getAdminCategories({
+          page: 1,
+          size: 10,
+        });
+
+      const firstBody =
+        firstResponse?.data ?? firstResponse;
+
+      const firstPageData =
+        firstBody?.data ?? firstBody;
+
+      const allCategories = [
+        ...(firstPageData.content ?? []),
+      ];
+
+      const totalPages =
+        firstPageData.totalPages ?? 1;
+
+      for (
+        let currentPage = 2;
+        currentPage <= totalPages;
+        currentPage += 1
+      ) {
         const response =
-          await getAdminProducts();
+          await getAdminCategories({
+            page: currentPage,
+            size: 10,
+          });
 
         const body =
           response?.data ?? response;
 
-        const productList =
-          Array.isArray(body)
-            ? body
-            : body?.data;
+        const pageData =
+          body?.data ?? body;
 
-        console.log(
-          "관리자 상품 조회 결과:",
-          productList
+        allCategories.push(
+          ...(pageData.content ?? [])
         );
-
-        setProducts(
-          Array.isArray(productList)
-            ? productList
-            : []
-        );
-      } catch (error) {
-        console.error(
-          "관리자 상품 조회 실패:",
-          error
-        );
-
-        setProducts([]);
       }
-    };
 
-    loadProducts();
-  }, []);
+      console.log(
+        "전체 카테고리 목록:",
+        allCategories
+      );
+
+      setCategories(allCategories);
+    } catch (error) {
+      console.error(
+        "카테고리 조회 실패:",
+        error
+      );
+
+      setCategories([]);
+    }
+  };
+
+  loadCategories();
+}, []);
+
+
 
   /*
    * 상품 필터
@@ -298,20 +346,26 @@ function AdminProducts() {
    *
    * 현재는 프론트 화면에서만 삭제
    */
-  const handleDeleteSelected = () => {
-    if (selectedIds.length === 0) {
-      alert("삭제할 상품을 선택해 주세요.");
-      return;
-    }
+  const handleDeleteSelected = async () => {
+  if (selectedIds.length === 0) {
+    alert("삭제할 상품을 선택해 주세요.");
+    return;
+  }
 
-    const confirmed =
-      window.confirm(
-        `선택한 상품 ${selectedIds.length}개를 삭제하시겠습니까?`
-      );
+  const confirmed = window.confirm(
+    `선택한 상품 ${selectedIds.length}개를 삭제하시겠습니까?`
+  );
 
-    if (!confirmed) {
-      return;
-    }
+  if (!confirmed) {
+    return;
+  }
+
+  try {
+    await Promise.all(
+      selectedIds.map((productId) =>
+        deleteAdminProduct(productId)
+      )
+    );
 
     setProducts((current) =>
       current.filter(
@@ -323,7 +377,20 @@ function AdminProducts() {
     );
 
     setSelectedIds([]);
-  };
+
+    alert("상품이 삭제되었습니다.");
+  } catch (error) {
+    console.error(
+      "상품 삭제 실패:",
+      error
+    );
+
+    alert(
+      error?.response?.data?.message ??
+      "상품 삭제에 실패했습니다."
+    );
+  }
+};
 
   /*
    * 선택 상품 상태 변경
@@ -419,13 +486,36 @@ function AdminProducts() {
       return;
     }
 
-    const updateData = {
-      categoryId: Number(
-        product.categoryId
-      ),
-      stock: Number(product.stock),
-      status: product.status,
-    };
+ if (
+  product.priceJpy === "" ||
+  Number(product.priceJpy) < 0
+) {
+  alert(
+    "판매가는 0 이상의 숫자로 입력해 주세요."
+  );
+  return;
+}
+
+const updateData = {
+  categoryId: Number(
+    product.categoryId
+  ),
+
+  priceJpy: Number(
+    product.priceJpy
+  ),
+
+  originalPriceJpy:
+    product.originalPriceJpy === "" ||
+    product.originalPriceJpy == null
+      ? null
+      : Number(
+          product.originalPriceJpy
+        ),
+
+  stock: Number(product.stock),
+  status: product.status,
+};
 
     try {
       const response =
@@ -538,7 +628,7 @@ const handleRegisterProduct = async (
           saleType={saleType}
           categoryId={categoryId}
           status={status}
-          categories={initialCategories}
+          categories={categories}
           onKeywordChange={
             handleKeywordChange
           }
@@ -555,20 +645,15 @@ const handleRegisterProduct = async (
         />
 
         <AdminProductTable
-          products={pagedProducts}
-          categories={initialCategories}
-          selectedIds={selectedIds}
-          isAllSelected={isAllSelected}
-          onSelectAll={handleSelectAll}
-          onSelectProduct={
-            handleSelectProduct
-          }
-          onChange={
-            handleProductChange
-          }
-          onSave={handleProductSave}
-        />
-
+  products={pagedProducts}
+  categories={categories}
+  selectedIds={selectedIds}
+  isAllSelected={isAllSelected}
+  onSelectAll={handleSelectAll}
+  onSelectProduct={handleSelectProduct}
+  onChange={handleProductChange}
+  onSave={handleProductSave}
+/>
         <AdminProductTableFooter
           selectedCount={
             selectedIds.length
@@ -592,7 +677,7 @@ const handleRegisterProduct = async (
 
       {isRegisterModalOpen && (
         <AdminProductRegisterModal
-          categories={initialCategories}
+          categories={categories}
           onClose={() =>
             setIsRegisterModalOpen(false)
           }

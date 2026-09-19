@@ -1,6 +1,7 @@
 import AdminProduct_Select from "./AdminProduct_Select";
 import AdminProduct_Stock from "./AdminProduct_Stock";
-
+import AdminProduct_Price
+  from "./AdminProduct_Price";
 const saleTypeText = {
   OVERSEAS: "해외직구",
   GROUP_BUY: "공동구매",
@@ -117,35 +118,33 @@ function AdminProductTable({
                 </span>
               </td>
 
-              {/* 카테고리 변경 */}
-              <td>
-                <AdminProduct_Select
-                  className="ap-edit-select"
-                  value={product.categoryId}
-                  options={categories.map(
-                    (category) => ({
-                      value: category.categoryId,
-                      label: category.categoryName,
-                    })
-                  )}
-                  onChange={(value) =>
-                    onChange(
-                      product.productId,
-                      "categoryId",
-                      Number(value)
-                    )
-                  }
-                />
-              </td>
+              {/* 카테고리 표시 */}
+<td>
+  {(() => {
+    const category = categories.find(
+      (item) =>
+        Number(
+          item.categoryId ?? item.id
+        ) === Number(product.categoryId)
+    );
 
-              {/* 판매 가격 */}
-              <td className="ap-price">
-                ¥
-                {Number(
-                  product.priceJpy ?? 0
-                ).toLocaleString()}
-              </td>
-
+    return (
+      category?.categoryName ??
+      category?.name ??
+      "카테고리 없음"
+    );
+  })()}
+</td>
+          
+  {/* 판매 가격 변경 */}
+<td className="ap-price">
+  <AdminProduct_Price
+    productId={product.productId}
+    productName={product.productName}
+    price={product.priceJpy}
+    onChange={onChange}
+  />
+</td>
               {/* 재고 변경 */}
               <td>
                 <AdminProduct_Stock
