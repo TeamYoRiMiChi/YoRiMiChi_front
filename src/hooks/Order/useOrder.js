@@ -77,9 +77,12 @@ export function useOrder() {
   const [manualAddress, setManualAddress] = useState(EMPTY_ADDRESS);
   const [addressErrors, setAddressErrors] = useState({});
 
-  /* ===== 통관부호 ===== */
+  /* ===== 통관부호 =====
+   * 日本は通関番号不要 — 일본은 통관부호가 필요 없어 기능을 비활성화합니다.
+   * 나중에 다시 필요해질 수도 있어 삭제하지 않고 주석 처리만 해둡니다.
   const [customsInput, setCustomsInput] = useState('');
   const [customsError, setCustomsError] = useState('');
+  */
 
   /* ===== 사용자 입력 ===== */
   const [deliveryMemo, setDeliveryMemo] = useState('');
@@ -241,7 +244,7 @@ export function useOrder() {
       return;
     }
 
-    /* 회원 정보에 통관부호가 없으면 입력값이 필요합니다 */
+    /* 일본은 통관부호가 필요 없어 검증을 비활성화합니다. (나중을 위해 주석으로 보존)
     if (!checkout?.customsCode && !customsInput.trim()) {
       setCustomsError('개인통관고유부호를 입력해주세요.');
       return;
@@ -253,6 +256,7 @@ export function useOrder() {
     }
 
     setCustomsError('');
+    */
 
     setIsSubmitting(true);
 
@@ -266,7 +270,7 @@ export function useOrder() {
         addressId: useManualAddress ? null : checkout?.address?.addressId,
         manualAddress: useManualAddress ? manualAddress : null,
 
-        customsCode: checkout?.customsCode ? null : customsInput.trim(),
+        customsCode: null, // 일본은 통관부호 불필요 — 원래 로직: checkout?.customsCode ? null : customsInput.trim()
         deliveryMemo,
         memberCouponId: couponId || null,
         paymentMethod,
@@ -312,13 +316,13 @@ export function useOrder() {
     toggleManualAddress,
     copyFromSavedAddress,
 
-    // 통관부호
-    customsInput,
-    setCustomsInput: (value) => {
-      setCustomsInput(value);
-      if (value.trim()) setCustomsError('');
-    },
-    customsError,
+    // 통관부호 (일본은 불필요 — 주석 처리, 위 state 선언부와 함께 참고)
+    // customsInput,
+    // setCustomsInput: (value) => {
+    //   setCustomsInput(value);
+    //   if (value.trim()) setCustomsError('');
+    // },
+    // customsError,
 
     // 화면 전용 데이터
     coupons: selectableCoupons,

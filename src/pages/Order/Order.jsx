@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import OrderSteps from '../../components/Order/OrderSteps';
 import ShippingInfo from '../../components/Order/ShippingInfo';
-import CustomsInfo from '../../components/Order/CustomsInfo';
+// import CustomsInfo from '../../components/Order/CustomsInfo'; // 일본은 통관부호 불필요 — 주석 처리
 import OrderItems from '../../components/Order/OrderItems';
 import CouponPoint from '../../components/Order/CouponPoint';
 import PaymentMethod from '../../components/Order/PaymentMethod';
@@ -15,7 +15,7 @@ function Order() {
 
     address,
     exchangeRate,
-    customsCode,
+    // customsCode, // 일본은 통관부호 불필요 — 주석 처리
     items,
     isLoading,
     loadError,
@@ -27,9 +27,9 @@ function Order() {
     toggleManualAddress,
     copyFromSavedAddress,
 
-    customsInput,
-    setCustomsInput,
-    customsError,
+    // customsInput,
+    // setCustomsInput,
+    // customsError,
 
     coupons,
     paymentMethods,
