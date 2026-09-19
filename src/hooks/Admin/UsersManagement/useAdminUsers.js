@@ -1,69 +1,34 @@
-import { useMemo, useState } from "react";
-
-const initialMembers = [
-  {
-    memberId: 1,
-    email: "jiyun@example.com",
-    name: "안지윤",
-    phone: "010-1234-5678",
-    role: "USER",
-    status: "ACTIVE",
-    withdrawnAt: null,
-  },
-  {
-    memberId: 2,
-    email: "minsu@example.com",
-    name: "김민수",
-    phone: "010-2345-6789",
-    role: "USER",
-    status: "ACTIVE",
-    withdrawnAt: null,
-  },
-  {
-    memberId: 3,
-    email: "sora@example.com",
-    name: "이소라",
-    phone: "010-3456-7890",
-    role: "USER",
-    status: "INACTIVE",
-    withdrawnAt: "2026-08-29T14:30:00",
-  },
-  {
-    memberId: 4,
-    email: "admin@yorimichi.com",
-    name: "관리자",
-    phone: "010-1111-2222",
-    role: "ADMIN",
-    status: "ACTIVE",
-    withdrawnAt: null,
-  },
-  {
-    memberId: 5,
-    email: "yuna@example.com",
-    name: "박유나",
-    phone: "010-4567-8901",
-    role: "USER",
-    status: "ACTIVE",
-    withdrawnAt: null,
-  },
-  {
-    memberId: 6,
-    email: "junho@example.com",
-    name: "이준호",
-    phone: "010-5678-9012",
-    role: "USER",
-    status: "INACTIVE",
-    withdrawnAt: "2026-09-03T11:20:00",
-  },
-];
+import { useEffect, useMemo, useState } from "react";
+import { getAdminMembers, updateAdminMemberStatus } from "../../../api/Admin/UsersManagement/adminMemberApi";
 
 function useAdminUsers() {
-  const [members, setMembers] = useState(initialMembers);
+  const [members, setMembers] = useState([]);
   const [keyword, setKeyword] = useState("");
   const [roleFilter, setRoleFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
   const [page, setPage] = useState(1);
   const [selectedIds, setSelectedIds] = useState([]);
+
+  useEffect(() => {
+    let active = true;
+
+    getAdminMembers()
+      .then((response) => {
+        if (active) {
+          setMembers(response.data.data ?? []);
+        }
+      })
+      .catch((error) => {
+        if (active) {
+          console.error("会員一覧の取得に失敗しました。", error);
+          setMembers([]);
+        }
+      });
+
+    return () => {
+      active = false;
+    };
+  }, []);
 
   const summary = useMemo(() => {
     return {
@@ -137,47 +102,60 @@ function useAdminUsers() {
     setPage(1);
   };
 
-  const handleStatusChange = (memberId, nextStatus) => {
-    setMembers((current) =>
-      current.map((member) => {
-        if (member.memberId !== memberId) {
-          return member;
-        }
+  const handleStatusChange = async (memberId, nextStatus) => {
+    const message = nextStatus === "INACTIVE"
+      ? "この会員を退会状態に変更しますか？" : "この会員を有効に戻しますか？";
+    if (!window.confirm(message)) {
+      return;
+    }
+    try {
+      await updateAdminMemberStatus(memberId, nextStatus);
 
-        return {
-          ...member,
-          status: nextStatus,
-          withdrawnAt:
-            nextStatus === "INACTIVE"
-              ? new Date().toISOString() : null,
-        };
-      })
-    )
-  };
+      const response = await getAdminMembers();
+      setMembers(response.data.data ?? []);
+    } catch (error) {
+      console.error("会員状態の変更に失敗しました。",error);
+      window.alert(
+        error.response?.data?.message ?? "会員状態の変更に失敗しました。"
+      );
+    }
+  }
 
-  const handleBulkStatusChange = (event) => {
+  const handleBulkStatusChange = async (event) => {
     const nextStatus = event.target.value;
+    event.target.value = "";
 
     if (!nextStatus || selectedIds.length === 0) {
       return;
     }
-
-    setMembers((current) =>
-      current.map((member) => {
-        if (!selectedIds.includes(member.memberId)) {
-          return member;
-        }
-        return {
-          ...member,
-          status: nextStatus,
-          withdrawnAt:
-            nextStatus === "INACTIVE"
-              ? new Date().toISOString() : null,
-        };
-      })
+    
+    const confirmed = window.confirm(
+      `${selectedIds.length}名の会員の状態を変更しますか？`
     );
+    if (!confirmed){
+      return;
+    }
+
+    const results = await Promise.allSettled(
+      selectedIds.map((memberId) => updateAdminMemberStatus(memberId,nextStatus))
+    );
+
+    try{
+      const response = await getAdminMembers();
+      setMembers(response.data.data ?? []);
+    } catch (error) {
+      console.error("会員一覧の再取得に失敗しました。",error);
+      window.alert("更新後の会員一覧を読み込めませんでした。ページを再読み込みしてください。");
+      return;      
+    }
+    
     setSelectedIds([]);
-    event.target.value = "";
+
+    const failedCount = results.filter((result) => result.status === "rejected").length;
+
+    if(failedCount > 0) {
+      window.alert(`${failedCount}件の更新に失敗しました。`);
+    }
   };
 
   return {
