@@ -8,6 +8,7 @@ import Faq from "../pages/Faq/Faq";
 
 import GroupPurchase from "../pages/Group_purchase/Group_purchase";
 import Overseas from '../pages/Overseas/Overseas';
+import Search from '../pages/Search/Search';
 import Guide from '../pages/Guide/Guide';
 import CustomerService from '../pages/Customer_Service/CustomerService';
 import InquiryCreate from '../pages/Inquiry/InquiryCreate';
@@ -58,6 +59,7 @@ function Router() {
         <Route path="/groupbuy" element={<GroupPurchase />} />
         <Route path="/groupbuy/:productId" element={<GroupPurchaseView />} />
         <Route path="/overseas" element={<Overseas />} />
+        <Route path="/search" element={<Search />} />
         <Route path="/guide" element={<Guide />} />
         <Route path="/support" element={<CustomerService />} />
         <Route path="/overseas/:productId" element={<ProductInfo />} />

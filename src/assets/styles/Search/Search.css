@@ -1,0 +1,55 @@
+/* =========================
+   검색 결과 페이지 레이아웃
+========================= */
+.search-page {
+  --se-max: 1280px;
+  --se-brand: var(--brand, #5558e9);
+  --se-ink: #11152f;
+  --se-muted: #71768c;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 32px 24px 80px;
+
+  color: var(--se-ink);
+  box-sizing: border-box;
+}
+
+.search-page * {
+  box-sizing: border-box;
+}
+
+/* =========================
+   상품 섹션
+========================= */
+.search-products {
+  width: 100%;
+  max-width: var(--se-max);
+  min-width: 0;
+}
+
+/* =========================
+   결과 요약
+========================= */
+.search-page .products-result {
+  margin: 0 0 16px;
+
+  font-size: 13.5px;
+  color: var(--se-muted);
+}
+
+.search-page .products-result strong {
+  color: var(--se-brand);
+  font-weight: 700;
+}
+
+/* =========================
+   반응형
+========================= */
+@media (max-width: 900px) {
+  .search-page {
+    padding: 24px 16px 60px;
+  }
+}

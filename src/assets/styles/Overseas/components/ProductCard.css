@@ -85,6 +85,29 @@
     display: block;
 }
 
+/* 통합 검색 결과에서만 보여주는 해외직구/공동구매 배지 */
+.product-type-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 1;
+
+    padding: 4px 8px;
+
+    border-radius: 6px;
+    background: rgba(17, 21, 47, 0.72);
+    color: #fff;
+
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.product-type-badge.group-buy {
+    background: #6c4cff;
+}
+
 .product-brand {
     margin: 0 0 6px;
     font-size: 12px;

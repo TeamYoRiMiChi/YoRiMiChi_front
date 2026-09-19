@@ -146,9 +146,12 @@ function Header() {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    if (!keyword.trim()) return;
-    console.log(keyword);
-    // 검색 로직 (예: navigate(`/search?q=${keyword}`))
+    const trimmed = keyword.trim();
+    if (!trimmed) return;
+
+    navigate(`/search?q=${encodeURIComponent(trimmed)}`);
+    setKeyword('');
+    setSearchOpen(false);
   };
 
   const handleSearchClick = () => {

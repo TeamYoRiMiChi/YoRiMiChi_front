@@ -12,9 +12,10 @@ import '../../assets/styles/Overseas/components/ProductGrid.css';
  * @param {boolean}  isLoading    로딩 중 여부
  * @param {boolean}  isError      에러 여부
  * @param {string}   error        에러 메시지
- * @param {Array}    wishlistIds  찜한 상품 id 배열
- * @param {Function} onToggleWish 찜 토글 콜백
- * @param {Function} onReset      빈 상태에서 초기화 버튼 콜백
+ * @param {Array}    wishlistIds    찜한 상품 id 배열
+ * @param {Function} onToggleWish   찜 토글 콜백
+ * @param {Function} onReset        빈 상태에서 초기화 버튼 콜백
+ * @param {boolean}  showTypeBadge  카드에 해외직구/공동구매 배지 표시 여부 (검색 결과 전용)
  */
 function ProductGrid({
   products,
@@ -24,6 +25,7 @@ function ProductGrid({
   wishlistIds = [],
   onToggleWish,
   onReset,
+  showTypeBadge = false,
 }) {
   /* 로딩 중 — 카드 자리를 미리 잡아둬서 화면이 덜컹거리지 않게 */
   if (isLoading) {
@@ -75,6 +77,7 @@ function ProductGrid({
           product={product}
           isWished={wishlistIds.includes(product.id)}
           onToggleWish={onToggleWish}
+          showTypeBadge={showTypeBadge}
         />
       ))}
     </ul>
