@@ -11,6 +11,7 @@ import {
 import HomeReasons from '../../components/Home_components/HomeReasons';
 import HomeComparison from '../../components/Home_components/HomeComparison';
 import HomeStatistics from '../../components/Home_components/HomeStatistics';
+import HomePopularProducts from '../../components/Home_components/HomePopularProducts';
 import homeHeroBanner from '../../assets/images/home_hero_banner_v7.png';
 import '../../assets/styles/Home.css';
 
@@ -136,6 +137,9 @@ function Home() {
           </div>
         </div>
       </section>
+
+      {/* 실제 상품 미리보기 — 히어로 바로 아래에 둬서 소개 문구만 있지 않게 */}
+      {/* <HomePopularProducts /> */}
 
       {/* service features */}
       <section className="home_features">

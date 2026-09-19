@@ -1,0 +1,71 @@
+/* =========================
+   홈 — おすすめ商品
+========================= */
+.home_popular {
+    /* ProductCard.css가 기대하는 변수들을 Overseas 페이지와 똑같이 맞춰줍니다.
+       (--brand는 Header.css의 :root에 이미 전역으로 정의돼 있습니다.) */
+    --ov-brand: var(--brand, #5558e9);
+    --ov-line: #e7e9f2;
+    --ov-muted: #71768c;
+
+    background-color: #fafaff;
+}
+
+.home_popular_list {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+
+    margin: 0 0 32px;
+    padding: 0;
+    list-style: none;
+}
+
+.home_popular_more_wrap {
+    display: flex;
+    justify-content: center;
+}
+
+.home_popular_more {
+    min-width: 180px;
+    height: 48px;
+    padding: 0 24px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #6752df;
+    border-radius: 10px;
+
+    color: #6752df;
+    font-size: 14.5px;
+    font-weight: 700;
+
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.home_popular_more:hover {
+    background-color: #f0edff;
+}
+
+/* =========================
+   반응형
+========================= */
+@media (max-width: 1200px) {
+    .home_popular_list {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 900px) {
+    .home_popular_list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    .home_popular_more {
+        width: 100%;
+    }
+}
