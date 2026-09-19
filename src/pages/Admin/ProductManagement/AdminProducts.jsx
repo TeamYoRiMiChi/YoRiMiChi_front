@@ -1,29 +1,11 @@
-// React 기능
 import {
   useEffect,
   useMemo,
   useState,
 } from "react";
 
-import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-// 화면 컴포넌트
-import AdminProductFilter from "../../../components/Admin/ProductManagement/AdminProduct_Filter";
-import AdminProductTable from "../../../components/Admin/ProductManagement/AdminProduct_Table";
-import AdminProductTableFooter from "../../../components/Admin/ProductManagement/AdminProduct_Footer";
-import AdminStatusBox from "../../../components/Admin/common/Admin_statusBox";
-
-// 상품 필터 훅
-import useProductFilter from "../../../hooks/Admin/ProductManagement/useProductFilter";
-
-// 관리자 상품 API
-import {
-  getAdminProducts,
-  updateAdminProduct,
-} from "../../../api/Admin/ProductManagement/adminProductApi";
-
-// 아이콘
 import {
   faBan,
   faBoxOpen,
@@ -32,12 +14,32 @@ import {
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 
+import AdminProductFilter
+  from "../../../components/Admin/ProductManagement/AdminProduct_Filter";
+
+import AdminProductTable
+  from "../../../components/Admin/ProductManagement/AdminProduct_Table";
+
+import AdminProductTableFooter
+  from "../../../components/Admin/ProductManagement/AdminProduct_Footer";
+
+import AdminProductRegisterModal
+  from "../../../components/Admin/ProductManagement/AdminProduct_RegisterModal";
+
+import AdminStatusBox
+  from "../../../components/Admin/common/Admin_statusBox";
+
+import useProductFilter
+  from "../../../hooks/Admin/ProductManagement/useProductFilter";
+
+import {
+  getAdminProducts,
+  updateAdminProduct,
+  createAdminProduct,
+} from "../../../api/Admin/ProductManagement/adminProductApi";
+
 import "./AdminProducts.css";
 
-/*
- * 카테고리는 아직 임시 데이터 사용
- * 나중에 카테고리 조회 API로 교체
- */
 const initialCategories = [
   {
     categoryId: 1,
@@ -66,29 +68,25 @@ const initialCategories = [
 ];
 
 function AdminProducts() {
-  const navigate = useNavigate();
-
-  /*
-   * 백엔드에서 받은 상품 목록을 저장
-   *
-   * 기존 initialProducts 대신 빈 배열로 시작한다.
-   */
+  // 백엔드에서 조회한 상품
   const [products, setProducts] = useState([]);
 
-  // 선택된 상품 ID
+  // 선택한 상품 ID
   const [selectedIds, setSelectedIds] =
     useState([]);
 
   // 현재 페이지
   const [page, setPage] = useState(1);
 
-  const totalPages = 5;
+  // 상품 등록 모달 열림 여부
+  const [
+    isRegisterModalOpen,
+    setIsRegisterModalOpen,
+  ] = useState(false);
 
   /*
    * 관리자 상품 전체 조회
-   *
-   * 관리자 상품관리 화면이 처음 열릴 때
-   * GET /api/admin/products를 한 번 실행한다.
+   * GET /api/admin/products
    */
   useEffect(() => {
     const loadProducts = async () => {
@@ -96,10 +94,6 @@ function AdminProducts() {
         const response =
           await getAdminProducts();
 
-        /*
-         * Axios 설정에 따라 응답 모양이 다를 수 있어서
-         * 상품 배열을 안전하게 꺼낸다.
-         */
         const body =
           response?.data ?? response;
 
@@ -132,7 +126,7 @@ function AdminProducts() {
   }, []);
 
   /*
-   * 상품 필터 기능
+   * 상품 필터
    */
   const {
     keyword,
@@ -151,10 +145,40 @@ function AdminProducts() {
     setPage
   );
 
+  // 페이지당 상품 수
+  const pageSize = 8;
+
+  // 전체 페이지 수
+  const totalPages = Math.max(
+    1,
+    Math.ceil(
+      filteredProducts.length / pageSize
+    )
+  );
+
+  // 현재 페이지가 전체 페이지를 넘어가면 보정
+  useEffect(() => {
+    if (page > totalPages) {
+      setPage(totalPages);
+    }
+  }, [page, totalPages]);
+
+  // 현재 페이지에 표시할 상품
+  const pagedProducts = useMemo(() => {
+    const startIndex =
+      (page - 1) * pageSize;
+
+    const endIndex =
+      startIndex + pageSize;
+
+    return filteredProducts.slice(
+      startIndex,
+      endIndex
+    );
+  }, [filteredProducts, page]);
+
   /*
-   * 전체 상품 통계
-   *
-   * products가 변경될 때만 다시 계산한다.
+   * 상품 통계
    */
   const summary = useMemo(() => {
     return {
@@ -163,7 +187,7 @@ function AdminProducts() {
       active: products.filter(
         (product) =>
           product.status === "ACTIVE" &&
-          product.stock > 0
+          Number(product.stock) > 0
       ).length,
 
       soldOut: products.filter(
@@ -171,7 +195,7 @@ function AdminProducts() {
           product.status !== "HIDDEN" &&
           (
             product.status === "SOLD_OUT" ||
-            product.stock <= 0
+            Number(product.stock) <= 0
           )
       ).length,
 
@@ -182,9 +206,6 @@ function AdminProducts() {
     };
   }, [products]);
 
-  /*
-   * 상단 상품 통계 카드
-   */
   const summaryItems = [
     {
       key: "total",
@@ -216,18 +237,13 @@ function AdminProducts() {
     },
   ];
 
-  /*
-   * 현재 화면에 표시된 상품 ID
-   */
+  // 현재 페이지에 보이는 상품 ID
   const visibleIds =
-    filteredProducts.map(
+    pagedProducts.map(
       (product) => product.productId
     );
 
-  /*
-   * 현재 보이는 상품이
-   * 전부 선택됐는지 확인
-   */
+  // 현재 페이지 전체 선택 여부
   const isAllSelected =
     visibleIds.length > 0 &&
     visibleIds.every((id) =>
@@ -235,7 +251,7 @@ function AdminProducts() {
     );
 
   /*
-   * 현재 화면의 상품 전체 선택
+   * 현재 페이지 상품 전체 선택
    */
   const handleSelectAll = () => {
     if (isAllSelected) {
@@ -258,7 +274,7 @@ function AdminProducts() {
   };
 
   /*
-   * 상품 한 개 선택
+   * 상품 하나 선택
    */
   const handleSelectProduct = (
     productId
@@ -280,17 +296,18 @@ function AdminProducts() {
   /*
    * 선택 상품 삭제
    *
-   * 현재는 프론트 화면에서만 삭제된다.
-   * 실제 DB 삭제 API는 아직 연결하지 않은 상태다.
+   * 현재는 프론트 화면에서만 삭제
    */
   const handleDeleteSelected = () => {
     if (selectedIds.length === 0) {
+      alert("삭제할 상품을 선택해 주세요.");
       return;
     }
 
-    const confirmed = window.confirm(
-      `선택한 상품 ${selectedIds.length}개를 삭제하시겠습니까?`
-    );
+    const confirmed =
+      window.confirm(
+        `선택한 상품 ${selectedIds.length}개를 삭제하시겠습니까?`
+      );
 
     if (!confirmed) {
       return;
@@ -309,9 +326,9 @@ function AdminProducts() {
   };
 
   /*
-   * 선택 상품 판매 상태 변경
+   * 선택 상품 상태 변경
    *
-   * 현재는 프론트 화면에서만 변경된다.
+   * 현재는 프론트 화면에서만 변경
    */
   const handleStatusChange = (
     event
@@ -319,10 +336,13 @@ function AdminProducts() {
     const nextStatus =
       event.target.value;
 
-    if (
-      !nextStatus ||
-      selectedIds.length === 0
-    ) {
+    if (!nextStatus) {
+      return;
+    }
+
+    if (selectedIds.length === 0) {
+      alert("상품을 선택해 주세요.");
+      event.target.value = "";
       return;
     }
 
@@ -348,10 +368,7 @@ function AdminProducts() {
   };
 
   /*
-   * 상품 한 개의 입력값 변경
-   *
-   * 카테고리, 재고, 상태를 수정할 때
-   * products state를 먼저 변경한다.
+   * 상품 테이블 입력값 변경
    */
   const handleProductChange = (
     productId,
@@ -376,8 +393,7 @@ function AdminProducts() {
   };
 
   /*
-   * 상품 한 개 저장
-   *
+   * 상품 한 개 수정 저장
    * PATCH /api/admin/products/{productId}
    */
   const handleProductSave = async (
@@ -389,6 +405,7 @@ function AdminProducts() {
     );
 
     if (!product) {
+      alert("상품을 찾을 수 없습니다.");
       return;
     }
 
@@ -402,10 +419,6 @@ function AdminProducts() {
       return;
     }
 
-    /*
-     * 백엔드의 AdminProductUpdateRequest로
-     * 전달할 데이터
-     */
     const updateData = {
       categoryId: Number(
         product.categoryId
@@ -414,16 +427,6 @@ function AdminProducts() {
       status: product.status,
     };
 
-    console.log(
-      "저장할 상품 ID:",
-      productId
-    );
-
-    console.log(
-      "저장할 데이터:",
-      updateData
-    );
-
     try {
       const response =
         await updateAdminProduct(
@@ -431,10 +434,6 @@ function AdminProducts() {
           updateData
         );
 
-      /*
-       * 백엔드가 수정된 상품을 반환하면
-       * 화면의 해당 상품도 반환값으로 교체한다.
-       */
       const body =
         response?.data ?? response;
 
@@ -442,8 +441,7 @@ function AdminProducts() {
         body?.data ?? body;
 
       if (
-        updatedProduct &&
-        updatedProduct.productId
+        updatedProduct?.productId
       ) {
         setProducts((current) =>
           current.map((item) =>
@@ -464,10 +462,44 @@ function AdminProducts() {
       );
 
       alert(
+        error?.response?.data?.message ??
         "상품 수정에 실패했습니다."
       );
     }
   };
+
+  /*
+ * 상품 등록
+ * POST /api/admin/products
+ */
+const handleRegisterProduct = async (
+  registerData
+) => {
+  try {
+    const response =
+      await createAdminProduct(registerData);
+
+    const createdProduct =
+      response.data?.data ?? response.data;
+
+    setProducts((current) => [
+      createdProduct,
+      ...current,
+    ]);
+
+    setPage(1);
+    setIsRegisterModalOpen(false);
+
+    alert("상품이 등록되었습니다.");
+  } catch (error) {
+    console.error("상품 등록 실패:", error);
+
+    alert(
+      error.response?.data?.message ??
+      "상품 등록에 실패했습니다."
+    );
+  }
+};
 
   return (
     <div className="ap-page">
@@ -485,14 +517,13 @@ function AdminProducts() {
           className="ap-register-button"
           type="button"
           onClick={() =>
-            navigate(
-              "/admin/products/new"
-            )
+            setIsRegisterModalOpen(true)
           }
         >
           <FontAwesomeIcon
             icon={faPlus}
           />
+
           상품 등록
         </button>
       </header>
@@ -524,7 +555,7 @@ function AdminProducts() {
         />
 
         <AdminProductTable
-          products={filteredProducts}
+          products={pagedProducts}
           categories={initialCategories}
           selectedIds={selectedIds}
           isAllSelected={isAllSelected}
@@ -558,6 +589,18 @@ function AdminProducts() {
           onPageChange={setPage}
         />
       </section>
+
+      {isRegisterModalOpen && (
+        <AdminProductRegisterModal
+          categories={initialCategories}
+          onClose={() =>
+            setIsRegisterModalOpen(false)
+          }
+          onRegister={
+            handleRegisterProduct
+          }
+        />
+      )}
     </div>
   );
 }

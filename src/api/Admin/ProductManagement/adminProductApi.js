@@ -35,3 +35,19 @@ export const updateAdminProduct = (
     updateData
   );
 };
+
+
+/**
+ * 관리자 상품 등록
+ *
+ * POST /api/admin/products
+ * 프론트에 적은정보들 백엔드로보내기
+ */
+export const createAdminProduct = (
+  productData
+) => {
+  return axiosInstance.post(
+    ENDPOINTS.ADMIN_PRODUCTS,
+    productData
+  );
+};
