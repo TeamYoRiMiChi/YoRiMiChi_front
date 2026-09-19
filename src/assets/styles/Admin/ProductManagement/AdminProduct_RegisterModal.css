@@ -1,0 +1,256 @@
+/* 모달 뒤쪽 어두운 배경 */
+.ap-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px;
+  box-sizing: border-box;
+
+  background: rgba(15, 23, 42, 0.55);
+}
+
+/* 모달 본체 */
+.ap-modal {
+  width: 100%;
+  max-width: 720px;
+  max-height: calc(100vh - 48px);
+
+  overflow-y: auto;
+  box-sizing: border-box;
+
+  background: #ffffff;
+  border-radius: 16px;
+
+  box-shadow:
+    0 20px 50px rgba(15, 23, 42, 0.2);
+
+  animation: ap-modal-open 0.2s ease;
+}
+
+/* 모달 열림 애니메이션 */
+@keyframes ap-modal-open {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* 상단 제목 영역 */
+.ap-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  padding: 24px 28px 20px;
+
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.ap-modal-header h3 {
+  margin: 0;
+
+  color: #111827;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.ap-modal-header p {
+  margin: 7px 0 0;
+
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* 닫기 버튼 */
+.ap-modal-close {
+  width: 36px;
+  height: 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  color: #6b7280;
+  font-size: 28px;
+  line-height: 1;
+
+  background: transparent;
+  border: 0;
+  border-radius: 8px;
+
+  cursor: pointer;
+}
+
+.ap-modal-close:hover {
+  color: #111827;
+  background: #f3f4f6;
+}
+
+/* 입력 폼 */
+.ap-modal-form {
+  padding: 24px 28px 28px;
+}
+
+.ap-modal-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 20px;
+}
+
+/* 한 줄 전체 사용 */
+.ap-modal-full {
+  grid-column: 1 / -1;
+}
+
+/* 입력 항목 제목 */
+.ap-modal-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  color: #374151;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* input, select 공통 */
+.ap-modal-grid input,
+.ap-modal-grid select {
+  width: 100%;
+  height: 44px;
+
+  padding: 0 13px;
+  box-sizing: border-box;
+
+  color: #111827;
+  font-size: 14px;
+
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+
+  outline: none;
+}
+
+.ap-modal-grid input::placeholder {
+  color: #9ca3af;
+}
+
+/* 입력창 선택 시 */
+.ap-modal-grid input:focus,
+.ap-modal-grid select:focus {
+  border-color: #16a34a;
+
+  box-shadow:
+    0 0 0 3px rgba(22, 163, 74, 0.12);
+}
+
+/* 하단 버튼 영역 */
+.ap-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+
+  margin-top: 28px;
+  padding-top: 20px;
+
+  border-top: 1px solid #e5e7eb;
+}
+
+.ap-modal-actions button {
+  min-width: 96px;
+  height: 42px;
+
+  padding: 0 18px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* 취소 버튼 */
+.ap-modal-cancel {
+  color: #374151;
+
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+}
+
+.ap-modal-cancel:hover {
+  background: #f9fafb;
+}
+
+/* 등록 버튼 */
+.ap-modal-submit {
+  color: #ffffff;
+
+  background: #16a34a;
+  border: 1px solid #16a34a;
+}
+
+.ap-modal-submit:hover {
+  background: #15803d;
+  border-color: #15803d;
+}
+
+/* 비활성화 버튼 */
+.ap-modal-actions button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* 작은 화면 */
+@media (max-width: 640px) {
+  .ap-modal-overlay {
+    align-items: flex-start;
+
+    padding: 12px;
+  }
+
+  .ap-modal {
+    max-height: calc(100vh - 24px);
+
+    border-radius: 12px;
+  }
+
+  .ap-modal-header {
+    padding: 20px;
+  }
+
+  .ap-modal-form {
+    padding: 20px;
+  }
+
+  .ap-modal-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .ap-modal-full {
+    grid-column: auto;
+  }
+
+  .ap-modal-actions {
+    flex-direction: column-reverse;
+  }
+
+  .ap-modal-actions button {
+    width: 100%;
+  }
+}
