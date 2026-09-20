@@ -4,7 +4,7 @@ import GroupBuyApplicationModal from './GroupBuyApplicationModal';
 
 function GroupPurchaseSummary({ product, onParticipantsChange }) {
 
-  const isRecruitmentClosed = product.status !== 'RECRUITING'
+  const isRecruitmentClosed = !['RECRUITING', 'CLOSING_SOON'].includes(product.status)
     || product.remainingTime === '終了'
     || product.currentParticipants >= product.targetParticipants;
 

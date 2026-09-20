@@ -28,12 +28,8 @@ export function toGroupBuyDetailView(dto) {
   const discountRate = originalPrice > 0
     ? Math.max(Math.round((1 - price / originalPrice) * 100), 0)
     : 0;
-  const displayStatus = getGroupBuyDisplayStatus(
-    dto.status,
-    currentQuantity,
-    targetQuantity,
-    dto.endDate,
-  );
+  // 목록과 상세가 같은 상태를 표시하도록 서버가 계산한 값을 그대로 사용
+  const displayStatus = dto.status;
 
   return {
     badge: '共同購入',
@@ -54,31 +50,20 @@ export function toGroupBuyDetailView(dto) {
     currentParticipants: currentQuantity,
     targetParticipants: targetQuantity,
     remainingParticipants: remainingQuantity,
-    remainingTime: formatRemainingTime(dto.endDate),
+    remainingTime: formatRemainingTime(dto.remainingSeconds),
     // DB에 구성량 전용 컬럼이 생기기 전까지 한 상품을 한 세트 단위로 판매
     options: ['1セット'],
     thumbnailUrl: dto.thumbnailUrl ?? null,
   };
 }
 
-function getGroupBuyDisplayStatus(status, currentQuantity, targetQuantity, endDate) {
-  if (['SUCCESS', 'FAILED', 'CANCELLED'].includes(status)) return status;
-  if (targetQuantity > 0 && currentQuantity >= targetQuantity) return 'SUCCESS';
+function formatRemainingTime(remainingSeconds) {
+  if (remainingSeconds == null) return '確認中';
+  const seconds = Number(remainingSeconds);
+  if (!Number.isFinite(seconds)) return '確認中';
+  if (seconds <= 0) return '終了';
 
-  const remainingMs = new Date(endDate).getTime() - Date.now();
-  if (Number.isFinite(remainingMs) && remainingMs <= 0) return 'FAILED';
-  if (status === 'RECRUITING' && Number.isFinite(remainingMs) && remainingMs <= 3 * 24 * 60 * 60 * 1000) {
-    return 'CLOSING_SOON';
-  }
-
-  return status;
-}
-
-function formatRemainingTime(endDate) {
-  const remainingMs = new Date(endDate).getTime() - Date.now();
-  if (!Number.isFinite(remainingMs) || remainingMs <= 0) return '終了';
-
-  const totalHours = Math.floor(remainingMs / (1000 * 60 * 60));
+  const totalHours = Math.floor(seconds / 3600);
   const days = Math.floor(totalHours / 24);
   return `${days}日 ${totalHours % 24}時間`;
 }

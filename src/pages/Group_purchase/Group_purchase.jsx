@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'; // Redux 상태를 가져오기 위�
 import Hero_slide from '../../components/common/Hero_slide';
 import Purchase_status from '../../components/Group_purchase/Purchase_status';
 import Purchase_product_card from '../../components/Group_purchase/Purchase_product_card';
+import GroupBuyCategorySelect from '../../components/Group_purchase/GroupBuyCategorySelect';
 import { heroSlides } from '../../data/Group_purchase/Group_purchase';
 import useGroupPurchase from '../../hooks/Group_purchase/useGroup_purchase';
 function GroupPurchase() {
@@ -66,6 +67,7 @@ const handlePageChange = (nextPage) => {
                     <div className="filter_left">
                         {['すべて', '進行中', '締切間近', '完了'].map((filter) => (
                             <button
+                                type="button"
                                 key={filter}
                                 className={activeFilter === filter
                                     ? 'filter_btn active'
@@ -81,30 +83,36 @@ const handlePageChange = (nextPage) => {
 
                     <div className="filter_right">
 
-                        <select
-                            className="filter_select"
-                            value={selectedCategoryId}
-                            onChange={handleCategoryChange}
-                        >
-                            <option value="">すべてのカテゴリー</option>
+                        <label className="filter_field category_filter">
+                            <span className="filter_group_label">カテゴリー</span>
+                            <GroupBuyCategorySelect
+                                categories={categories}
+                                value={selectedCategoryId}
+                                onChange={handleCategoryChange}
+                            />
+                        </label>
 
-                            {categories.map((category) => (
-                                <option key={category.id} value={category.id}>
-                                    {category.name}
-                                </option>
-                            ))}
-                        </select>
-
-                        <select
-                            className="filter_select"
-                            name="sort"
-                            value={selectedSort}
-                            onChange={handleSortChange}
-                        >
-                            <option value="newest">新着順</option>
-                            <option value="popular">人気順</option>
-                            <option value="priceAsc">価格順</option>
-                        </select>
+                        <div className="filter_field sort_filter">
+                            <span className="filter_group_label">並び替え</span>
+                            <div className="sort_button_group" role="group" aria-label="商品の並び替え">
+                                {[
+                                    ['recommend', 'おすすめ'],
+                                    ['newest', '新着'],
+                                    ['popular', '人気'],
+                                    ['priceAsc', '価格'],
+                                ].map(([sortValue, label]) => (
+                                    <button
+                                        type="button"
+                                        key={sortValue}
+                                        className={`sort_btn ${selectedSort === sortValue ? 'active' : ''}`}
+                                        onClick={() => handleSortChange(sortValue)}
+                                        aria-pressed={selectedSort === sortValue}
+                                    >
+                                        {label}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
 
                         
 

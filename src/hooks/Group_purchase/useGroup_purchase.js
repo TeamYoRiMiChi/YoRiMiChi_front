@@ -35,13 +35,13 @@ export function useGroupPurchase(fallback = []) {
 
     };
 
-    const handleCategoryChange = (event) => {
-        setSelectedCategoryId(event.target.value);
+    const handleCategoryChange = (categoryId) => {
+        setSelectedCategoryId(categoryId);
         setPage(1); // 카테고리 변경 시 페이지를 1로 초기화
     };
 
-    const handleSortChange = (event) => {
-        setSelectedSort(event.target.value);
+    const handleSortChange = (sort) => {
+        setSelectedSort(sort);
         setPage(1); // 정렬 변경 시 페이지를 1로 초기화
     };
 
