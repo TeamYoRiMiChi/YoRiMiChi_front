@@ -1,0 +1,317 @@
+.ao-table-scroll {
+  overflow-x: auto;
+  border: 1px solid #e3ebf4;
+  border-radius: 12px;
+}
+
+.ao-table {
+  width: 100%;
+  min-width: 1450px;
+  border-collapse: collapse;
+}
+
+.ao-table thead {
+  height: 53px;
+  color: #536b8e;
+  background: #f4f8fc;
+}
+
+.ao-table th,
+.ao-table td {
+  padding: 0 14px;
+  font-size: 12px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.ao-table th {
+  font-weight: 700;
+}
+
+.ao-table td {
+  height: 78px;
+  border-top: 1px solid #e8eef5;
+  color: #1c3358;
+}
+
+.ao-table tbody tr:hover {
+  background: #f8fbff;
+}
+
+.ao-detail-button {
+  padding: 0;
+  border: 0;
+  text-align: left;
+  background: transparent;
+  cursor: pointer;
+}
+
+.ao-order-number,
+.ao-member-info,
+.ao-price-info,
+.ao-payment-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.ao-order-number strong,
+.ao-member-info strong,
+.ao-price-info strong {
+  color: #172d52;
+  font-size: 12px;
+}
+
+.ao-order-number span,
+.ao-member-info span,
+.ao-price-info span {
+  color: #8494ad;
+  font-size: 10px;
+}
+
+.ao-order-number:hover strong {
+  color: #1765e8;
+  text-decoration: underline;
+}
+
+.ao-product-info {
+  display: flex;
+  min-width: 230px;
+  align-items: center;
+  gap: 12px;
+}
+
+.ao-product-info img,
+.ao-product-image-empty {
+  display: block;
+  width: 58px;
+  height: 50px;
+  flex: 0 0 58px;
+  border-radius: 9px;
+  object-fit: cover;
+  background: #edf2f7;
+}
+
+.ao-product-info div {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ao-product-info strong {
+  display: block;
+  max-width: 190px;
+  overflow: hidden;
+  color: #172d52;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ao-product-info:hover strong {
+  color: #1765e8;
+  text-decoration: underline;
+}
+
+.ao-product-info span {
+  color: #8393ac;
+  font-size: 10px;
+}
+
+.ao-type-badge {
+  display: inline-flex;
+  min-width: 76px;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 11px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.ao-type-normal {
+  color: #176ee6;
+  background: #e3f0ff;
+}
+
+.ao-type-group_buy {
+  color: #6551d8;
+  background: #eee9ff;
+}
+
+.ao-type-mixed {
+  color: #d46700;
+  background: #fff0dc;
+}
+
+.ao-payment-info > span {
+  color: #657994;
+  font-size: 10px;
+}
+
+.ao-payment-info > strong {
+  font-size: 11px;
+}
+
+.ao-payment-info select {
+  height: 34px;
+  padding: 0 9px;
+  border: 1px solid #ef9aaa;
+  border-radius: 7px;
+  outline: 0;
+  color: #d92645;
+  background: #fff4f6;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.ao-payment-paid {
+  color: #1765e8;
+}
+
+.ao-payment-cancelled {
+  color: #ef3651;
+}
+
+.ao-payment-refunded {
+  color: #c0266d;
+}
+
+.ao-status-select {
+  min-width: 105px;
+  height: 36px;
+  padding: 0 10px;
+  border: 1px solid transparent;
+  border-radius: 18px;
+  outline: 0;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.ao-status-select:disabled {
+  opacity: 1;
+  cursor: default;
+}
+
+.ao-order-paid {
+  border-color: #b9d5ff;
+  color: #1765e8;
+  background: #e7f0ff;
+}
+
+.ao-order-preparing {
+  border-color: #ffd3a8;
+  color: #d46700;
+  background: #fff0dc;
+}
+
+.ao-order-shipping {
+  border-color: #d5ccff;
+  color: #6751d7;
+  background: #eee9ff;
+}
+
+.ao-order-delivered {
+  border-color: #bce9dd;
+  color: #078d77;
+  background: #ddf7ef;
+}
+
+.ao-order-cancelled {
+  border-color: #ffc4ce;
+  color: #ef3651;
+  background: #ffe2e7;
+}
+
+.ao-order-refunded {
+  border-color: #f4b8d5;
+  color: #c0266d;
+  background: #ffe0ef;
+}
+
+.ao-shipping-inputs {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.ao-shipping-inputs select,
+.ao-shipping-inputs input {
+  height: 38px;
+  border: 1px solid #d4dfec;
+  border-radius: 7px;
+  outline: 0;
+  color: #263d62;
+  background: #fff;
+  font-size: 11px;
+}
+
+.ao-shipping-inputs select {
+  width: 112px;
+  padding: 0 8px;
+}
+
+.ao-shipping-inputs input {
+  width: 135px;
+  padding: 0 10px;
+}
+
+.ao-shipping-inputs select:focus,
+.ao-shipping-inputs input:focus {
+  border-color: #2772ee;
+}
+
+.ao-shipping-inputs button {
+  height: 38px;
+  padding: 0 13px;
+  border: 0;
+  border-radius: 7px;
+  color: #fff;
+  background: #1765e8;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.ao-shipping-inputs button:hover {
+  background: #0f55c9;
+}
+
+.ao-shipping-text {
+  display: inline-flex;
+  min-width: 100px;
+  justify-content: center;
+  padding: 8px 12px;
+  border-radius: 7px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.ao-shipping-preparing {
+  color: #176ee6;
+  background: #e3f0ff;
+}
+
+.ao-shipping-shipping {
+  color: #6751d7;
+  background: #eee9ff;
+}
+
+.ao-shipping-delivered {
+  color: #098d6c;
+  background: #e1f7ef;
+}
+
+.ao-shipping-cancelled {
+  color: #ef3651;
+  background: #ffe5e9;
+}
+
+.ao-empty {
+  height: 200px !important;
+  color: #8797ae !important;
+  text-align: center !important;
+}
