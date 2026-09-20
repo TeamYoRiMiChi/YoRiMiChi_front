@@ -72,12 +72,21 @@ export const ENDPOINTS = {
    */
   POSTAL_CODE: (zipcode) => `/postal-code/${zipcode}`,
 
-
   ADMIN_PRODUCTS: "/admin/products",
+
+  // 관리자 - 주문
+  ADMIN_ORDERS: "/admin/orders",
+  ADMIN_ORDER_SUMMARY: "/admin/orders/summary",
+  ADMIN_ORDER_STATUS_UPDATE: (orderId) => `/admin/orders/${orderId}/status`,
+  ADMIN_ORDER_PAYMENT_STATUS_UPDATE: (orderId) =>
+    `/admin/orders/${orderId}/payment-status`,
+  ADMIN_ORDER_SHIPPING_INFO_UPDATE: (orderId) =>
+    `/admin/orders/${orderId}/shipping-info`,
+  ADMIN_ORDER_DETAIL: (orderId) => `/admin/orders/${orderId}`,
 
   // 관리자 - 카테고리
   ADMIN_CATEGORIES: "/admin/categories",
-  
+
   // 관리자(회원고나리)
   ADMIN_MEMBERS: "/admin/members",
   ADMIN_MEMBER_STATUS: (memberId) => `/admin/members/${memberId}/status`,
