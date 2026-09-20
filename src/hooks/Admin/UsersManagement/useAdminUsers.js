@@ -1,7 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
-import { getAdminMembers, updateAdminMemberStatus } from "../../../api/Admin/UsersManagement/adminMemberApi";
+import {
+  getAdminMembers,
+  updateAdminMemberStatus,
+  demoteAdminToUser,
+} from "../../../api/Admin/UsersManagement/adminMemberApi";
 
-function useAdminUsers() {
+function useAdminUsers(currentMemberId) {
   const [members, setMembers] = useState([]);
   const [keyword, setKeyword] = useState("");
   const [roleFilter, setRoleFilter] = useState("");
@@ -66,9 +70,9 @@ function useAdminUsers() {
     page * pageSize
   );
 
-  const visibleIds = pagedMembers.map(
-    (member) => member.memberId
-  );
+  const visibleIds = currentMemberId == null ? [] : pagedMembers.filter(
+    (member) => String(member.memberId) !== String(currentMemberId)
+  ).map((member) => member.memberId);
 
   const isAllSelected =
     visibleIds.length > 0 &&
@@ -88,6 +92,9 @@ function useAdminUsers() {
 
   const handleSelectItem = (memberId) => {
     setSelectedIds((current) => {
+      if (currentMemberId == null || String(memberId) === String(currentMemberId)) {
+        return current;
+      }
       if (current.includes(memberId)) {
         return current.filter((id) => id !== memberId);
       }
@@ -114,12 +121,46 @@ function useAdminUsers() {
       const response = await getAdminMembers();
       setMembers(response.data.data ?? []);
     } catch (error) {
-      console.error("会員状態の変更に失敗しました。",error);
+      console.error("会員状態の変更に失敗しました。", error);
       window.alert(
         error.response?.data?.message ?? "会員状態の変更に失敗しました。"
       );
     }
   }
+
+  const handleDemoteAdmin = async (memberId) => {
+    if (
+      currentMemberId != null &&
+      String(memberId) === String(currentMemberId)
+    ) {
+      window.alert("自分の管理者権限は変更できません。");
+      return;
+    }
+
+    if (!window.confirm("この管理者を一般会員に変更しますか？")) {
+      return;
+    }
+
+    try {
+      await demoteAdminToUser(memberId);
+    } catch (error) {
+      console.error("権限変更に失敗しました。", error);
+      window.alert(
+        error.response?.data?.message ?? "権限変更に失敗しました。"
+      );
+      return;
+    }
+
+    try {
+      const response = await getAdminMembers();
+      setMembers(response.data.data ?? []);
+    } catch (error) {
+      console.error("会員一覧の再取得に失敗しました。", error);
+      window.alert(
+        "権限は変更されましたが、一覧を読み込めませんでした。ページを再読み込みしてください。"
+      );
+    }
+  };
 
   const handleBulkStatusChange = async (event) => {
     const nextStatus = event.target.value;
@@ -128,32 +169,32 @@ function useAdminUsers() {
     if (!nextStatus || selectedIds.length === 0) {
       return;
     }
-    
+
     const confirmed = window.confirm(
       `${selectedIds.length}名の会員の状態を変更しますか？`
     );
-    if (!confirmed){
+    if (!confirmed) {
       return;
     }
 
     const results = await Promise.allSettled(
-      selectedIds.map((memberId) => updateAdminMemberStatus(memberId,nextStatus))
+      selectedIds.map((memberId) => updateAdminMemberStatus(memberId, nextStatus))
     );
 
-    try{
+    try {
       const response = await getAdminMembers();
       setMembers(response.data.data ?? []);
     } catch (error) {
-      console.error("会員一覧の再取得に失敗しました。",error);
+      console.error("会員一覧の再取得に失敗しました。", error);
       window.alert("更新後の会員一覧を読み込めませんでした。ページを再読み込みしてください。");
-      return;      
+      return;
     }
-    
+
     setSelectedIds([]);
 
     const failedCount = results.filter((result) => result.status === "rejected").length;
 
-    if(failedCount > 0) {
+    if (failedCount > 0) {
       window.alert(`${failedCount}件の更新に失敗しました。`);
     }
   };
@@ -182,6 +223,7 @@ function useAdminUsers() {
     handleReset,
     handleStatusChange,
     handleBulkStatusChange,
+    handleDemoteAdmin,
   };
 }
 

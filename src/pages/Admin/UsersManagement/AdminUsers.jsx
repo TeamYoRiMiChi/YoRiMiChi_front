@@ -5,7 +5,7 @@ import AdminUserFooter from "../../../components/Admin/UsersManagement/AdminUser
 import useAdminUsers from "../../../hooks/Admin/UsersManagement/useAdminUsers";
 
 import "./AdminUsers.css";
-
+import { useSelector } from "react-redux";
 
 /* =========================
    임시 회원 데이터
@@ -14,6 +14,8 @@ import "./AdminUsers.css";
 
 
 function AdminMembers() {
+
+  const currentMemberId = useSelector((state) => state.auth.user?.memberId);
 
   const {
     keyword,
@@ -35,7 +37,8 @@ function AdminMembers() {
     handleReset,
     handleStatusChange,
     handleBulkStatusChange,
-  } = useAdminUsers();
+    handleDemoteAdmin,
+  } = useAdminUsers(currentMemberId);
 
 
 
@@ -137,7 +140,9 @@ function AdminMembers() {
           handleSelectAll={handleSelectAll}
           handleSelectItem={handleSelectItem}
           handleStatusChange={handleStatusChange}
+          handleDemoteAdmin={handleDemoteAdmin}
           formatDate={formatDate}
+          currentMemberId={currentMemberId}
         />
 
         {/* =========================

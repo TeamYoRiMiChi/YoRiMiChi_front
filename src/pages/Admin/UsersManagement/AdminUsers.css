@@ -12,16 +12,12 @@
   color: #172d52;
 
   background:
-    radial-gradient(
-      circle at 68% 0%,
+    radial-gradient(circle at 68% 0%,
       rgba(172, 220, 255, 0.2),
-      transparent 35%
-    ),
-    linear-gradient(
-      135deg,
+      transparent 35%),
+    linear-gradient(135deg,
       #f8fbff 0%,
-      #eef8ff 100%
-    );
+      #eef8ff 100%);
 }
 
 
@@ -69,10 +65,8 @@
   display: grid;
 
   grid-template-columns:
-    repeat(
-      4,
-      minmax(180px, 1fr)
-    );
+    repeat(4,
+      minmax(180px, 1fr));
 
   gap: 16px;
 
@@ -97,21 +91,16 @@
   box-sizing: border-box;
 
   background:
-    rgba(
+    rgba(255,
       255,
       255,
-      255,
-      0.95
-    );
+      0.95);
 
   box-shadow:
-    0 6px 18px
-    rgba(
-      31,
+    0 6px 18px rgba(31,
       78,
       126,
-      0.07
-    );
+      0.07);
 }
 
 
@@ -196,21 +185,16 @@
   border-radius: 14px;
 
   background:
-    rgba(
+    rgba(255,
       255,
       255,
-      255,
-      0.96
-    );
+      0.96);
 
   box-shadow:
-    0 6px 20px
-    rgba(
-      31,
+    0 6px 20px rgba(31,
       78,
       126,
-      0.07
-    );
+      0.07);
 }
 
 
@@ -222,10 +206,7 @@
   display: grid;
 
   grid-template-columns:
-    minmax(320px, 1.8fr)
-    minmax(180px, 0.7fr)
-    minmax(190px, 0.7fr)
-    105px;
+    minmax(320px, 1.8fr) minmax(180px, 0.7fr) minmax(190px, 0.7fr) 105px;
 
   gap: 15px;
 
@@ -265,13 +246,10 @@
   background: #fff;
 
   box-shadow:
-    0 0 0 3px
-    rgba(
-      39,
+    0 0 0 3px rgba(39,
       114,
       238,
-      0.08
-    );
+      0.08);
 }
 
 
@@ -306,7 +284,7 @@
 }
 
 
-.am-filter-item > span {
+.am-filter-item>span {
   color: #536986;
 
   font-size: 12px;
@@ -341,13 +319,10 @@
   border-color: #2772ee;
 
   box-shadow:
-    0 0 0 3px
-    rgba(
-      39,
+    0 0 0 3px rgba(39,
       114,
       238,
-      0.08
-    );
+      0.08);
 }
 
 
@@ -445,6 +420,11 @@
 
 /* checkbox */
 
+.am-table input[type="checkbox"]:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
 .am-checkbox-cell {
   width: 48px;
 
@@ -502,7 +482,7 @@
 }
 
 
-.am-member-info > div:last-child {
+.am-member-info>div:last-child {
   display: flex;
 
   flex-direction: column;
@@ -583,6 +563,48 @@
   background: #f0e7ff;
 }
 
+.am-role-button {
+  border: 0;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.am-role-button:hover {
+  background: #e5d6fb;
+}
+
+.am-role-button:focus-visible {
+  outline: 2px solid #8b56d9;
+  outline-offset: 2px;
+}
+
+.am-role-popover {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 8px;
+  padding: 6px 8px;
+  border: 1px solid #dac9f5;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(65, 39, 109, 0.12);
+  color: #65469a;
+  font-size: 11px;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.am-role-popover button {
+  border: 0;
+  background: transparent;
+  color: #6e3eb2;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.am-role-popover button:hover {
+  text-decoration: underline;
+}
 
 /* =========================
    STATUS
@@ -676,6 +698,10 @@
   background: #e5f8f1;
 }
 
+.am-self-action-note {
+  color: #65758c;
+  font-size: 11px;
+}
 
 /* =========================
    EMPTY
@@ -809,13 +835,10 @@
   background: #1e6cf0;
 
   box-shadow:
-    0 5px 12px
-    rgba(
-      30,
+    0 5px 12px rgba(30,
       108,
       240,
-      0.22
-    );
+      0.22);
 }
 
 

@@ -9,3 +9,6 @@ export const updateAdminMemberStatus = (memberId, status) => {
         ENDPOINTS.ADMIN_MEMBER_STATUS(memberId), { status }
     );
 };
+export const demoteAdminToUser = (memberId) => {
+    return axiosInstance.patch(ENDPOINTS.ADMIN_MEMBER_DEMOTE(memberId));
+};

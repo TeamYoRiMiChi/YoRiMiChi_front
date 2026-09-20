@@ -1,318 +1,344 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-    faBan,
-    faRotateRight,
-    faUser,
+  faBan,
+  faRotateRight,
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
 
 function AdminUserTable({
-    pagedMembers,
-    selectedIds,
-    isAllSelected,
-    handleSelectAll,
-    handleSelectItem,
-    handleStatusChange,
-    formatDate,
+  pagedMembers,
+  selectedIds,
+  isAllSelected,
+  handleSelectAll,
+  handleSelectItem,
+  handleStatusChange,
+  handleDemoteAdmin,
+  formatDate,
+  currentMemberId,
 }) {
-    return (
-        <div className="am-table-scroll">
+  const [openRoleMemberId, setOpenRoleMemberId] = useState(null);
+  return (
+    <div className="am-table-scroll">
 
-          <table className="am-table">
+      <table className="am-table">
 
 
-            <thead>
+        <thead>
 
-              <tr>
+          <tr>
 
-                <th className="am-checkbox-cell">
+            <th className="am-checkbox-cell">
+
+              <input
+                type="checkbox"
+                checked={
+                  isAllSelected
+                }
+                onChange={
+                  handleSelectAll
+                }
+              />
+
+            </th>
+
+
+            <th>
+              회원 정보
+            </th>
+
+            <th>
+              회원 ID
+            </th>
+
+            <th>
+              전화번호
+            </th>
+
+            <th>
+              권한
+            </th>
+
+            <th>
+              회원 상태
+            </th>
+
+            <th>
+              탈퇴일
+            </th>
+
+            <th>
+              관리
+            </th>
+
+          </tr>
+
+        </thead>
+
+
+
+        <tbody>
+
+
+          {pagedMembers.map(
+            (member) => (
+
+              <tr
+                key={
+                  member.memberId
+                }
+              >
+
+
+                <td className="am-checkbox-cell">
 
                   <input
                     type="checkbox"
-                    checked={
-                      isAllSelected
+                    disabled={
+                      currentMemberId == null ||
+                      String(member.memberId) === String(currentMemberId)
                     }
-                    onChange={
-                      handleSelectAll
-                    }
+                    checked={selectedIds.includes(member.memberId)}
+                    onChange={() => handleSelectItem(member.memberId)}
                   />
 
-                </th>
+                </td>
 
 
-                <th>
-                  회원 정보
-                </th>
 
-                <th>
-                  회원 ID
-                </th>
+                {/* 회원 정보 */}
 
-                <th>
-                  전화번호
-                </th>
+                <td>
 
-                <th>
-                  권한
-                </th>
+                  <div className="am-member-info">
 
-                <th>
-                  회원 상태
-                </th>
 
-                <th>
-                  탈퇴일
-                </th>
+                    <div className="am-avatar">
 
-                <th>
-                  관리
-                </th>
+                      <FontAwesomeIcon
+                        icon={faUser}
+                      />
+
+                    </div>
+
+
+                    <div>
+
+                      <strong>
+                        {member.name}
+                      </strong>
+
+                      <span>
+                        {member.email}
+                      </span>
+
+                    </div>
+
+
+                  </div>
+
+                </td>
+
+
+
+                <td>
+
+                  <strong className="am-member-id">
+
+                    {member.memberId}
+
+                  </strong>
+
+                </td>
+
+
+
+                <td>
+
+                  <span className="am-phone">
+
+                    {member.phone}
+
+                  </span>
+
+                </td>
+
+                {/* 권한 */}
+                
+                <td>
+                  {member.role === "ADMIN" ? (
+                    <>
+                      <button
+                        type="button"
+                        className="am-role-badge am-role-admin am-role-button"
+                        onClick={() =>
+                          setOpenRoleMemberId((previousId) =>
+                            previousId === member.memberId
+                              ? null
+                              : member.memberId
+                          )
+                        }
+                      >
+                        管理者
+                      </button>
+
+                      {openRoleMemberId === member.memberId && (
+                        <span className="am-role-popover">
+                          {currentMemberId != null &&
+                            String(member.memberId) ===
+                            String(currentMemberId) ? (
+                            <span>自分の管理者権限は変更できません。</span>
+                          ) : (
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setOpenRoleMemberId(null);
+                                handleDemoteAdmin(member.memberId);
+                              }}
+                            >
+                              一般会員に変更
+                            </button>
+                          )}
+                        </span>
+                      )}
+                    </>
+                  ) : (
+                    <span className="am-role-badge am-role-user">
+                      一般会員
+                    </span>
+                  )}
+                </td>
+
+
+
+                {/* 상태 */}
+
+                <td>
+
+                  <span
+                    className={
+                      member.status ===
+                        "ACTIVE"
+                        ? "am-status-badge am-status-active"
+                        : "am-status-badge am-status-withdrawn"
+                    }
+                  >
+
+                    {member.status ===
+                      "ACTIVE"
+                      ? "정상"
+                      : "탈퇴"}
+
+                  </span>
+
+                </td>
+
+
+
+                {/* 탈퇴일 */}
+
+                <td>
+
+                  <span className="am-date">
+
+                    {formatDate(
+                      member.withdrawnAt
+                    )}
+
+                  </span>
+
+                </td>
+
+
+
+                {/* 관리 */}
+
+                <td>
+
+                  {member.memberId === currentMemberId ? (
+                    <span className="am-self-action-note">
+                      本人は変更できません
+                    </span>) : member.status === "ACTIVE" ? (
+
+                      <button
+                        type="button"
+                        className="am-withdraw-button"
+                        onClick={() =>
+                          handleStatusChange(
+                            member.memberId,
+                            "INACTIVE"
+                          )
+                        }
+                      >
+
+                        <FontAwesomeIcon
+                          icon={faBan}
+                        />
+
+                        탈퇴 처리
+
+                      </button>
+
+                    ) : (
+
+                    <button
+                      type="button"
+                      className="am-restore-button"
+                      onClick={() =>
+                        handleStatusChange(
+                          member.memberId,
+                          "ACTIVE"
+                        )
+                      }
+                    >
+
+                      <FontAwesomeIcon
+                        icon={faRotateRight}
+                      />
+
+                      복구
+
+                    </button>
+
+                  )}
+
+                </td>
+
 
               </tr>
 
-            </thead>
+            )
+          )}
 
 
 
-            <tbody>
+          {pagedMembers.length ===
+            0 && (
 
+              <tr>
 
-              {pagedMembers.map(
-                (member) => (
+                <td
+                  colSpan={8}
+                  className="am-empty"
+                >
 
-                  <tr
-                    key={
-                      member.memberId
-                    }
-                  >
+                  조건에 맞는
+                  회원이 없습니다.
 
+                </td>
 
-                    <td className="am-checkbox-cell">
+              </tr>
 
-                      <input
-                        type="checkbox"
-                        checked={
-                          selectedIds.includes(
-                            member.memberId
-                          )
-                        }
-                        onChange={() =>
-                          handleSelectItem(
-                            member.memberId
-                          )
-                        }
-                      />
+            )}
 
-                    </td>
 
+        </tbody>
 
 
-                    {/* 회원 정보 */}
+      </table>
 
-                    <td>
-
-                      <div className="am-member-info">
-
-
-                        <div className="am-avatar">
-
-                          <FontAwesomeIcon
-                            icon={faUser}
-                          />
-
-                        </div>
-
-
-                        <div>
-
-                          <strong>
-                            {member.name}
-                          </strong>
-
-                          <span>
-                            {member.email}
-                          </span>
-
-                        </div>
-
-
-                      </div>
-
-                    </td>
-
-
-
-                    <td>
-
-                      <strong className="am-member-id">
-
-                        {member.memberId}
-
-                      </strong>
-
-                    </td>
-
-
-
-                    <td>
-
-                      <span className="am-phone">
-
-                        {member.phone}
-
-                      </span>
-
-                    </td>
-
-                    {/* 권한 */}
-
-                    <td>
-
-                      <span
-                        className={
-                          member.role ===
-                          "ADMIN"
-                            ? "am-role-badge am-role-admin"
-                            : "am-role-badge am-role-user"
-                        }
-                      >
-
-                        {member.role ===
-                        "ADMIN"
-                          ? "관리자"
-                          : "일반 회원"}
-
-                      </span>
-
-                    </td>
-
-
-
-                    {/* 상태 */}
-
-                    <td>
-
-                      <span
-                        className={
-                          member.status ===
-                          "ACTIVE"
-                            ? "am-status-badge am-status-active"
-                            : "am-status-badge am-status-withdrawn"
-                        }
-                      >
-
-                        {member.status ===
-                        "ACTIVE"
-                          ? "정상"
-                          : "탈퇴"}
-
-                      </span>
-
-                    </td>
-
-
-
-                    {/* 탈퇴일 */}
-
-                    <td>
-
-                      <span className="am-date">
-
-                        {formatDate(
-                          member.withdrawnAt
-                        )}
-
-                      </span>
-
-                    </td>
-
-
-
-                    {/* 관리 */}
-
-                    <td>
-
-                      {member.status ===
-                      "ACTIVE" ? (
-
-                        <button
-                          type="button"
-                          className="am-withdraw-button"
-                          onClick={() =>
-                            handleStatusChange(
-                              member.memberId,
-                              "INACTIVE"
-                            )
-                          }
-                        >
-
-                          <FontAwesomeIcon
-                            icon={faBan}
-                          />
-
-                          탈퇴 처리
-
-                        </button>
-
-                      ) : (
-
-                        <button
-                          type="button"
-                          className="am-restore-button"
-                          onClick={() =>
-                            handleStatusChange(
-                              member.memberId,
-                              "ACTIVE"
-                            )
-                          }
-                        >
-
-                          <FontAwesomeIcon
-                            icon={faRotateRight}
-                          />
-
-                          복구
-
-                        </button>
-
-                      )}
-
-                    </td>
-
-
-                  </tr>
-
-                )
-              )}
-
-
-
-              {pagedMembers.length ===
-                0 && (
-
-                <tr>
-
-                  <td
-                    colSpan={8}
-                    className="am-empty"
-                  >
-
-                    조건에 맞는
-                    회원이 없습니다.
-
-                  </td>
-
-                </tr>
-
-              )}
-
-
-            </tbody>
-
-
-          </table>
-
-        </div>
-    );
+    </div>
+  );
 }
 
 export default AdminUserTable;

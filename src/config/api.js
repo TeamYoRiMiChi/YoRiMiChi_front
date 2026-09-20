@@ -81,6 +81,7 @@ export const ENDPOINTS = {
   // 관리자(회원고나리)
   ADMIN_MEMBERS: "/admin/members",
   ADMIN_MEMBER_STATUS: (memberId) => `/admin/members/${memberId}/status`,
+  ADMIN_MEMBER_DEMOTE: (memberId) => `/admin/members/${memberId}/demote`,
 };
 
 /**
