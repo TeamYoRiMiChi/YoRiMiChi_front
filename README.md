@@ -1,3 +1,6 @@
+백엔드: https://github.com/TeamYoRiMiChi/YoRiMiChi_back
+배포 사이트: https://yorimichi.cloud
+
 ## 프로젝트 구조
 
 ### Frontend (React + Vite)
