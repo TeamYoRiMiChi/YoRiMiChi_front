@@ -91,6 +91,12 @@ export const ENDPOINTS = {
   ADMIN_MEMBERS: "/admin/members",
   ADMIN_MEMBER_STATUS: (memberId) => `/admin/members/${memberId}/status`,
   ADMIN_MEMBER_DEMOTE: (memberId) => `/admin/members/${memberId}/demote`,
+
+  // 관리자 - 대시보드
+  ADMIN_DASHBOARD_SUMMARY: "/admin/dashboard/summary",
+  ADMIN_DASHBOARD_SALES_TREND: "/admin/dashboard/sales-trend",
+  ADMIN_DASHBOARD_ORDER_STATUS: "/admin/dashboard/order-status",
+  ADMIN_DASHBOARD_RECENT_ORDERS: "/admin/dashboard/recent-orders",
 };
 
 /**

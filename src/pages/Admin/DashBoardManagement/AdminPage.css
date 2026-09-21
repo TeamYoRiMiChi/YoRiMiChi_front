@@ -96,3 +96,20 @@
   .dashboard-card { padding: 19px 16px; }
   .dashboard-line-chart { height: 165px; }
 }
+
+.dashboard-bottom-grid-single {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.dashboard-state-card {
+  display: grid;
+  place-items: center;
+  min-height: 220px;
+  color: var(--admin-text-muted);
+  font-size: 14px;
+}
+
+.dashboard-state-card.error {
+  color: #c96757;
+  background: #fff8f6;
+}
