@@ -14,9 +14,10 @@ const orderStatusText = {
 };
 
 const paymentMethodText = {
-  CARD: "カード",
-  KAKAO_PAY: "カカオペイ",
-  BANK_TRANSFER: "銀行振込",
+  CARD: "クレジットカード",
+  TRANSFER: "銀行振込",
+  KAKAOPAY: "カカオペイ",
+  NAVERPAY: "ネイバーペイ",
 };
 
 const paymentStatusText = {
