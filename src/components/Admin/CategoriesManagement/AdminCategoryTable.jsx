@@ -7,9 +7,9 @@ function AdminCategoryTable({ categories, onEdit, onDelete }) {
       <table className="ac-table">
         <thead>
           <tr>
-            <th>카테고리 ID</th>
-            <th>카테고리명</th>
-            <th>관리</th>
+            <th>カテゴリID</th>
+            <th>カテゴリ名</th>
+            <th>管理</th>
           </tr>
         </thead>
 
@@ -38,7 +38,7 @@ function AdminCategoryTable({ categories, onEdit, onDelete }) {
                     onClick={() => onEdit(category)}
                   >
                     <FontAwesomeIcon icon={faPen} />
-                    수정
+                    編集
                   </button>
 
                   <button
@@ -47,7 +47,7 @@ function AdminCategoryTable({ categories, onEdit, onDelete }) {
                     onClick={() => onDelete(category)}
                   >
                     <FontAwesomeIcon icon={faTrash} />
-                    삭제
+                    削除
                   </button>
                 </div>
               </td>
@@ -57,7 +57,7 @@ function AdminCategoryTable({ categories, onEdit, onDelete }) {
           {categories.length === 0 && (
             <tr>
               <td colSpan={3} className="ac-empty">
-                조건에 맞는 카테고리가 없습니다.
+                条件に一致するカテゴリがありません。
               </td>
             </tr>
           )}

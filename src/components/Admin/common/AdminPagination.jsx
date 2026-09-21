@@ -32,7 +32,7 @@ function AdminPagination({
   return (
     <footer className="admin-table-footer">
       <span>
-        총 <strong>{totalCount}</strong>
+        合計 <strong>{totalCount}</strong>
         {totalLabel}
       </span>
 
@@ -41,7 +41,7 @@ function AdminPagination({
           type="button"
           disabled={safePage === 1}
           onClick={handlePreviousPage}
-          aria-label="이전 페이지"
+          aria-label="前のページ"
         >
           <FontAwesomeIcon icon={faChevronLeft} />
         </button>
@@ -61,7 +61,7 @@ function AdminPagination({
           type="button"
           disabled={safePage === safeTotalPages}
           onClick={handleNextPage}
-          aria-label="다음 페이지"
+          aria-label="次のページ"
         >
           <FontAwesomeIcon icon={faChevronRight} />
         </button>

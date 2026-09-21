@@ -74,7 +74,7 @@ function AdminCategories() {
   const summaryItems = [
     {
       key: "total",
-      label: "전체 카테고리",
+      label: "全カテゴリ",
       value: totalCount,
       icon: faList,
       color: "blue",
@@ -119,8 +119,8 @@ function AdminCategories() {
     <div className="ac-page">
       <header className="ac-page-header">
         <div>
-          <h2>카테고리 관리</h2>
-          <p>상품 카테고리를 관리하세요.</p>
+          <h2>カテゴリ管理</h2>
+          <p>商品カテゴリを管理します。</p>
         </div>
 
         <button
@@ -130,7 +130,7 @@ function AdminCategories() {
           disabled={isBusy}
         >
           <FontAwesomeIcon icon={faPlus} />
-          카테고리 등록
+          カテゴリ登録
         </button>
       </header>
 
@@ -154,7 +154,7 @@ function AdminCategories() {
             <input
               type="search"
               value={keyword}
-              placeholder="카테고리명 또는 ID 검색"
+              placeholder="カテゴリ名またはIDで検索"
               onChange={handleKeywordChange}
               disabled={isBusy}
             />
@@ -167,7 +167,7 @@ function AdminCategories() {
             disabled={isBusy}
           >
             <FontAwesomeIcon icon={faRotateRight} />
-            초기화
+            リセット
           </button>
         </div>
 
@@ -179,7 +179,7 @@ function AdminCategories() {
 
         <AdminPagination
           totalCount={totalCount}
-          totalLabel="개 카테고리"
+          totalLabel="件のカテゴリ"
           page={page}
           totalPages={totalPages}
           onPageChange={(nextPage) => {

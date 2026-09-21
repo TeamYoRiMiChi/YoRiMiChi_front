@@ -1,37 +1,37 @@
 import "../../../assets/styles/Admin/OrdersManagement/AdminOrderDetailModal.css";
 
 const orderTypeText = {
-  NORMAL: "해외직구",
-  GROUP_BUY: "공동구매",
-  MIXED: "혼합 구매",
+  NORMAL: "海外購入",
+  GROUP_BUY: "共同購入",
+  MIXED: "混合注文",
 };
 
 const orderStatusText = {
-  PAID: "결제 완료",
-  PREPARING: "상품 준비",
-  SHIPPING: "배송 중",
-  DELIVERED: "배송 완료",
-  CANCELLED: "취소",
-  REFUNDED: "환불",
+  PAID: "決済完了",
+  PREPARING: "商品準備中",
+  SHIPPING: "配送中",
+  DELIVERED: "配送完了",
+  CANCELLED: "キャンセル",
+  REFUNDED: "返金",
 };
 
 const paymentStatusText = {
-  PAID: "결제 완료",
-  CANCELLED: "결제 취소",
-  REFUNDED: "환불 완료",
+  PAID: "決済完了",
+  CANCELLED: "決済キャンセル",
+  REFUNDED: "返金完了",
 };
 
 const shippingStatusText = {
-  PREPARING: "배송 준비",
-  SHIPPING: "배송 중",
-  DELIVERED: "배송 완료",
-  CANCELLED: "배송 취소",
+  PREPARING: "発送準備中",
+  SHIPPING: "配送中",
+  DELIVERED: "配送完了",
+  CANCELLED: "配送キャンセル",
 };
 
 const paymentMethodText = {
-  CARD: "카드",
-  KAKAO_PAY: "카카오페이",
-  BANK_TRANSFER: "계좌이체",
+  CARD: "カード",
+  KAKAO_PAY: "カカオペイ",
+  BANK_TRANSFER: "銀行振込",
 };
 
 const formatAmount = (amount) => {
@@ -73,7 +73,7 @@ function AdminOrderDetailModal({ orderDetail, isLoading, onClose }) {
 
               <div className="aod-item-info">
                 <strong>{item.productName}</strong>
-                <span>수량 {item.quantity}개</span>
+                <span>数量 {item.quantity}個</span>
               </div>
 
               <div className="aod-item-price">
@@ -100,11 +100,11 @@ function AdminOrderDetailModal({ orderDetail, isLoading, onClose }) {
         className="aod-modal"
         role="dialog"
         aria-modal="true"
-        aria-label="주문 상세정보"
+        aria-label="注文詳細情報"
       >
         <header className="aod-header">
           <div>
-            <h2>주문 상세정보</h2>
+            <h2>注文詳細情報</h2>
 
             {orderDetail && <p>{orderDetail.orderNumber}</p>}
           </div>
@@ -113,20 +113,20 @@ function AdminOrderDetailModal({ orderDetail, isLoading, onClose }) {
             type="button"
             className="aod-close-button"
             onClick={onClose}
-            aria-label="닫기"
+            aria-label="閉じる"
           >
             ×
           </button>
         </header>
 
         {isLoading ? (
-          <div className="aod-loading">주문 상세정보를 불러오는 중입니다.</div>
+          <div className="aod-loading">注文詳細情報を読み込んでいます。</div>
         ) : (
           orderDetail && (
             <div className="aod-content">
               <section className="aod-summary">
                 <div>
-                  <span>주문 유형</span>
+                  <span>注文種別</span>
                   <strong>
                     {orderTypeText[orderDetail.orderType] ??
                       orderDetail.orderType}
@@ -134,7 +134,7 @@ function AdminOrderDetailModal({ orderDetail, isLoading, onClose }) {
                 </div>
 
                 <div>
-                  <span>주문 상태</span>
+                  <span>注文ステータス</span>
                   <strong>
                     {orderStatusText[orderDetail.orderStatus] ??
                       orderDetail.orderStatus}
@@ -142,48 +142,48 @@ function AdminOrderDetailModal({ orderDetail, isLoading, onClose }) {
                 </div>
 
                 <div>
-                  <span>주문 일시</span>
+                  <span>注文日時</span>
                   <strong>{formatDate(orderDetail.orderedAt)}</strong>
                 </div>
               </section>
 
               <section className="aod-section">
-                <h3>주문자 정보</h3>
+                <h3>注文者情報</h3>
 
                 <dl className="aod-info-grid">
                   <div>
-                    <dt>이름</dt>
+                    <dt>氏名</dt>
                     <dd>{orderDetail.memberName}</dd>
                   </div>
 
                   <div>
-                    <dt>이메일</dt>
+                    <dt>メールアドレス</dt>
                     <dd>{orderDetail.memberEmail}</dd>
                   </div>
 
                   <div>
-                    <dt>전화번호</dt>
+                    <dt>電話番号</dt>
                     <dd>{orderDetail.memberPhone}</dd>
                   </div>
                 </dl>
               </section>
 
               <section className="aod-section">
-                <h3>배송지 정보</h3>
+                <h3>配送先情報</h3>
 
                 <dl className="aod-info-grid">
                   <div>
-                    <dt>수령인</dt>
+                    <dt>受取人</dt>
                     <dd>{orderDetail.receiverName}</dd>
                   </div>
 
                   <div>
-                    <dt>연락처</dt>
+                    <dt>連絡先</dt>
                     <dd>{orderDetail.receiverPhone}</dd>
                   </div>
 
                   <div className="aod-info-wide">
-                    <dt>주소</dt>
+                    <dt>住所</dt>
                     <dd>
                       ({orderDetail.postalCode}) {orderDetail.address}
                       {orderDetail.addressDetail
@@ -194,15 +194,15 @@ function AdminOrderDetailModal({ orderDetail, isLoading, onClose }) {
                 </dl>
               </section>
 
-              {renderItems("해외직구 상품", overseasItems)}
-              {renderItems("공동구매 상품", groupBuyItems)}
+              {renderItems("海外購入商品", overseasItems)}
+              {renderItems("共同購入商品", groupBuyItems)}
 
               <section className="aod-section">
-                <h3>결제 정보</h3>
+                <h3>決済情報</h3>
 
                 <dl className="aod-info-grid">
                   <div>
-                    <dt>결제 수단</dt>
+                    <dt>決済方法</dt>
                     <dd>
                       {paymentMethodText[orderDetail.paymentMethod] ??
                         orderDetail.paymentMethod}
@@ -210,7 +210,7 @@ function AdminOrderDetailModal({ orderDetail, isLoading, onClose }) {
                   </div>
 
                   <div>
-                    <dt>결제 상태</dt>
+                    <dt>決済ステータス</dt>
                     <dd>
                       {paymentStatusText[orderDetail.paymentStatus] ??
                         orderDetail.paymentStatus}
@@ -218,23 +218,23 @@ function AdminOrderDetailModal({ orderDetail, isLoading, onClose }) {
                   </div>
 
                   <div>
-                    <dt>결제 일시</dt>
+                    <dt>決済日時</dt>
                     <dd>{formatDate(orderDetail.paidAt)}</dd>
                   </div>
 
                   <div>
-                    <dt>취소 일시</dt>
+                    <dt>キャンセル日時</dt>
                     <dd>{formatDate(orderDetail.cancelledAt)}</dd>
                   </div>
                 </dl>
               </section>
 
               <section className="aod-section">
-                <h3>배송 정보</h3>
+                <h3>配送情報</h3>
 
                 <dl className="aod-info-grid">
                   <div>
-                    <dt>배송 상태</dt>
+                    <dt>配送ステータス</dt>
                     <dd>
                       {shippingStatusText[orderDetail.shippingStatus] ??
                         orderDetail.shippingStatus}
@@ -242,53 +242,53 @@ function AdminOrderDetailModal({ orderDetail, isLoading, onClose }) {
                   </div>
 
                   <div>
-                    <dt>택배사</dt>
+                    <dt>配送会社</dt>
                     <dd>{orderDetail.carrier ?? "-"}</dd>
                   </div>
 
                   <div>
-                    <dt>운송장 번호</dt>
+                    <dt>送り状番号</dt>
                     <dd>{orderDetail.trackingNumber ?? "-"}</dd>
                   </div>
 
                   <div>
-                    <dt>발송 일시</dt>
+                    <dt>発送日時</dt>
                     <dd>{formatDate(orderDetail.shippedAt)}</dd>
                   </div>
 
                   <div>
-                    <dt>배송 완료 일시</dt>
+                    <dt>配送完了日時</dt>
                     <dd>{formatDate(orderDetail.deliveredAt)}</dd>
                   </div>
                 </dl>
               </section>
 
               <section className="aod-section aod-amount-section">
-                <h3>결제 금액</h3>
+                <h3>決済金額</h3>
 
                 <dl>
                   <div>
-                    <dt>상품 금액</dt>
+                    <dt>商品金額</dt>
                     <dd>{formatAmount(orderDetail.productAmount)}</dd>
                   </div>
 
                   <div>
-                    <dt>배송비</dt>
+                    <dt>配送料</dt>
                     <dd>{formatAmount(orderDetail.shippingFee)}</dd>
                   </div>
 
                   <div>
-                    <dt>관세</dt>
+                    <dt>関税</dt>
                     <dd>{formatAmount(orderDetail.customsDuty)}</dd>
                   </div>
 
                   <div>
-                    <dt>할인 금액</dt>
+                    <dt>割引金額</dt>
                     <dd>-{formatAmount(orderDetail.discountAmount)}</dd>
                   </div>
 
                   <div className="aod-total-amount">
-                    <dt>최종 결제금액</dt>
+                    <dt>最終決済金額</dt>
                     <dd>{formatAmount(orderDetail.totalAmount)}</dd>
                   </div>
                 </dl>

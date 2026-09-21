@@ -18,7 +18,7 @@ function AdminCategoryForm({
     <section className="ac-form-panel">
       <div className="ac-form-header">
         <div>
-          <h3>{editingId !== null ? "카테고리 수정" : "카테고리 등록"}</h3>
+          <h3>{editingId !== null ? "カテゴリ編集" : "カテゴリ登録"}</h3>
         </div>
 
         <button
@@ -26,7 +26,7 @@ function AdminCategoryForm({
           className="ac-form-close"
           onClick={onClose}
           disabled={isSaving}
-          aria-label="폼 닫기"
+          aria-label="フォームを閉じる"
         >
           <FontAwesomeIcon icon={faXmark} />
         </button>
@@ -35,7 +35,7 @@ function AdminCategoryForm({
       <form className="ac-category-form" onSubmit={onSubmit}>
         <div className="ac-form-item">
           <label>
-            카테고리명
+            カテゴリ名
             <b>*</b>
           </label>
 
@@ -43,7 +43,7 @@ function AdminCategoryForm({
             type="text"
             value={categoryName}
             maxLength={100}
-            placeholder="카테고리명을 입력해주세요."
+            placeholder="カテゴリ名を入力してください。"
             disabled={isSaving}
             onChange={(event) => onNameChange(event.target.value)}
           />
@@ -56,11 +56,11 @@ function AdminCategoryForm({
             onClick={onClose}
             disabled={isSaving}
           >
-            취소
+            キャンセル
           </button>
 
           <button type="submit" className="ac-save-button" disabled={isSaving}>
-            {editingId !== null ? "수정 저장" : "등록"}
+            {editingId !== null ? "変更を保存" : "登録"}
           </button>
         </div>
       </form>
