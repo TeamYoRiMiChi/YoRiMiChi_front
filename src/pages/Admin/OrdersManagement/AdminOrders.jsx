@@ -75,49 +75,49 @@ function AdminOrders() {
   const summaryItems = [
     {
       key: "total",
-      label: "전체 주문",
+      label: "全注文",
       value: summary.totalCount,
       icon: faClipboardList,
       color: "blue",
     },
     {
       key: "paid",
-      label: "결제 완료",
+      label: "決済完了",
       value: summary.paidCount,
       icon: faCreditCard,
       color: "cyan",
     },
     {
       key: "preparing",
-      label: "상품 준비",
+      label: "商品準備中",
       value: summary.preparingCount,
       icon: faClipboardList,
       color: "orange",
     },
     {
       key: "shipping",
-      label: "배송 중",
+      label: "配送中",
       value: summary.shippingCount,
       icon: faTruckFast,
       color: "purple",
     },
     {
       key: "delivered",
-      label: "배송 완료",
+      label: "配送完了",
       value: summary.deliveredCount,
       icon: faTruckFast,
       color: "green",
     },
     {
       key: "cancelled",
-      label: "취소",
+      label: "キャンセル",
       value: summary.cancelledCount,
       icon: faRotateLeft,
       color: "red",
     },
     {
       key: "refunded",
-      label: "환불",
+      label: "返金",
       value: summary.refundedCount,
       icon: faCreditCard,
       color: "pink",
@@ -128,8 +128,8 @@ function AdminOrders() {
     <div className="ao-page">
       <header className="ao-page-header">
         <div>
-          <h2>주문 관리</h2>
-          <p>주문·결제·배송 상태를 관리하세요.</p>
+          <h2>注文管理</h2>
+          <p>注文・決済・配送状況を管理します。</p>
         </div>
       </header>
 
@@ -143,58 +143,58 @@ function AdminOrders() {
             <input
               type="search"
               value={keyword}
-              placeholder="주문번호 또는 이메일 검색"
+              placeholder="注文番号またはメールアドレスで検索"
               onChange={handleKeywordChange}
               disabled={isBusy}
             />
           </label>
 
           <div className="ao-filter-item">
-            <span>주문 유형</span>
+            <span>注文種別</span>
 
             <select
               value={orderType}
               onChange={handleOrderTypeChange}
               disabled={isBusy}
             >
-              <option value="">전체</option>
-              <option value="NORMAL">해외직구</option>
-              <option value="GROUP_BUY">공동구매</option>
-              <option value="MIXED">혼합 구매</option>
+              <option value="">すべて</option>
+              <option value="NORMAL">海外購入</option>
+              <option value="GROUP_BUY">共同購入</option>
+              <option value="MIXED">混合注文</option>
             </select>
           </div>
 
           <div className="ao-filter-item">
-            <span>주문 상태</span>
+            <span>注文ステータス</span>
 
             <select
               value={orderStatus}
               onChange={handleOrderStatusChange}
               disabled={isBusy}
             >
-              <option value="">전체</option>
-              <option value="PAID">결제 완료</option>
-              <option value="PREPARING">상품 준비</option>
-              <option value="SHIPPING">배송 중</option>
-              <option value="DELIVERED">배송 완료</option>
-              <option value="CANCELLED">취소</option>
-              <option value="REFUNDED">환불</option>
+              <option value="">すべて</option>
+              <option value="PAID">決済完了</option>
+              <option value="PREPARING">商品準備中</option>
+              <option value="SHIPPING">配送中</option>
+              <option value="DELIVERED">配送完了</option>
+              <option value="CANCELLED">キャンセル</option>
+              <option value="REFUNDED">返金</option>
             </select>
           </div>
 
           <div className="ao-filter-item">
-            <span>배송 상태</span>
+            <span>配送ステータス</span>
 
             <select
               value={shippingStatus}
               onChange={handleShippingStatusChange}
               disabled={isBusy}
             >
-              <option value="">전체</option>
-              <option value="PREPARING">배송 준비</option>
-              <option value="SHIPPING">배송 중</option>
-              <option value="DELIVERED">배송 완료</option>
-              <option value="CANCELLED">배송 취소</option>
+              <option value="">すべて</option>
+              <option value="PREPARING">発送準備中</option>
+              <option value="SHIPPING">配送中</option>
+              <option value="DELIVERED">配送完了</option>
+              <option value="CANCELLED">配送キャンセル</option>
             </select>
           </div>
 
@@ -205,7 +205,7 @@ function AdminOrders() {
             disabled={isBusy}
           >
             <FontAwesomeIcon icon={faRotateRight} />
-            초기화
+            リセット
           </button>
         </div>
 
@@ -219,7 +219,7 @@ function AdminOrders() {
 
         <AdminPagination
           totalCount={totalCount}
-          totalLabel="개 주문"
+          totalLabel="件の注文"
           page={page}
           totalPages={totalPages}
           onPageChange={(nextPage) => {

@@ -20,7 +20,7 @@ function useAdminOrderDetail() {
       setIsOrderDetailOpen(false);
 
       alert(
-        err.response?.data?.message ?? "주문 상세정보를 불러오지 못했습니다.",
+        err.response?.data?.message ?? "注文詳細情報の取得に失敗しました。",
       );
     } finally {
       setIsOrderDetailLoading(false);

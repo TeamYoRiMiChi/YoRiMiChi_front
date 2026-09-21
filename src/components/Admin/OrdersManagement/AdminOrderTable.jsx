@@ -1,35 +1,35 @@
 const orderTypeText = {
-  NORMAL: "해외직구",
-  GROUP_BUY: "공동구매",
-  MIXED: "혼합 구매",
+  NORMAL: "海外購入",
+  GROUP_BUY: "共同購入",
+  MIXED: "混合注文",
 };
 
 const orderStatusText = {
-  PAID: "결제 완료",
-  PREPARING: "상품 준비",
-  SHIPPING: "배송 중",
-  DELIVERED: "배송 완료",
-  CANCELLED: "취소",
-  REFUNDED: "환불",
+  PAID: "決済完了",
+  PREPARING: "商品準備中",
+  SHIPPING: "配送中",
+  DELIVERED: "配送完了",
+  CANCELLED: "キャンセル",
+  REFUNDED: "返金",
 };
 
 const paymentMethodText = {
-  CARD: "카드",
-  KAKAO_PAY: "카카오페이",
-  BANK_TRANSFER: "계좌이체",
+  CARD: "カード",
+  KAKAO_PAY: "カカオペイ",
+  BANK_TRANSFER: "銀行振込",
 };
 
 const paymentStatusText = {
-  PAID: "결제 완료",
-  CANCELLED: "결제 취소",
-  REFUNDED: "환불 완료",
+  PAID: "決済完了",
+  CANCELLED: "決済キャンセル",
+  REFUNDED: "返金完了",
 };
 
 const shippingStatusText = {
-  PREPARING: "배송 준비",
-  SHIPPING: "배송 중",
-  DELIVERED: "배송 완료",
-  CANCELLED: "배송 취소",
+  PREPARING: "発送準備中",
+  SHIPPING: "配送中",
+  DELIVERED: "配送完了",
+  CANCELLED: "配送キャンセル",
 };
 
 const nextOrderStatus = {
@@ -63,14 +63,14 @@ function AdminOrderTable({
       <table className="ao-table">
         <thead>
           <tr>
-            <th>주문번호</th>
-            <th>주문자</th>
-            <th>상품</th>
-            <th>주문 유형</th>
-            <th>결제금액</th>
-            <th>결제정보</th>
-            <th>주문상태</th>
-            <th>배송정보</th>
+            <th>注文番号</th>
+            <th>注文者</th>
+            <th>商品</th>
+            <th>注文種別</th>
+            <th>決済金額</th>
+            <th>決済情報</th>
+            <th>注文ステータス</th>
+            <th>配送情報</th>
           </tr>
         </thead>
 
@@ -96,7 +96,7 @@ function AdminOrderTable({
 
             const productText =
               extraItemCount > 0
-                ? `${shortenedProductName} 외 ${extraItemCount}건`
+                ? `${shortenedProductName}　他${extraItemCount}件`
                 : shortenedProductName;
 
             const orderTypeClass = order.orderType?.toLowerCase() ?? "";
@@ -117,7 +117,7 @@ function AdminOrderTable({
                     onClick={() => onOpenDetail(order.orderId)}
                   >
                     <strong>{order.orderNumber}</strong>
-                    <span>주문 ID {order.orderId}</span>
+                    <span>注文ID {order.orderId}</span>
                   </button>
                 </td>
 
@@ -147,7 +147,7 @@ function AdminOrderTable({
                     <div>
                       <strong title={productText}>{productText}</strong>
 
-                      <span>{order.firstItemQuantity}개</span>
+                      <span>{order.firstItemQuantity}個</span>
                     </div>
                   </button>
                 </td>
@@ -166,7 +166,7 @@ function AdminOrderTable({
 
                     {Number(order.discountAmount) > 0 && (
                       <span>
-                        할인 ¥
+                        割引 ¥
                         {Number(order.discountAmount).toLocaleString("ja-JP")}
                       </span>
                     )}
@@ -190,8 +190,8 @@ function AdminOrderTable({
                           )
                         }
                       >
-                        <option value="CANCELLED">결제 취소</option>
-                        <option value="REFUNDED">환불 완료</option>
+                        <option value="CANCELLED">決済キャンセル</option>
+                        <option value="REFUNDED">返金完了</option>
                       </select>
                     ) : (
                       <strong className={`ao-payment-${paymentStatusClass}`}>
@@ -232,7 +232,7 @@ function AdminOrderTable({
                       }
                     >
                       <select name="carrier" defaultValue={order.carrier ?? ""}>
-                        <option value="">택배사 선택</option>
+                        <option value="">配送会社を選択</option>
 
                         {carriers.map((carrier) => (
                           <option key={carrier} value={carrier}>
@@ -245,10 +245,10 @@ function AdminOrderTable({
                         type="text"
                         name="trackingNumber"
                         defaultValue={order.trackingNumber ?? ""}
-                        placeholder="운송장 번호"
+                        placeholder="送り状番号"
                       />
 
-                      <button type="submit">완료</button>
+                      <button type="submit">完了</button>
                     </form>
                   ) : (
                     <span
@@ -266,7 +266,7 @@ function AdminOrderTable({
           {orders.length === 0 && (
             <tr>
               <td className="ao-empty" colSpan={8}>
-                조건에 맞는 주문이 없습니다.
+                条件に一致する注文がありません。
               </td>
             </tr>
           )}
