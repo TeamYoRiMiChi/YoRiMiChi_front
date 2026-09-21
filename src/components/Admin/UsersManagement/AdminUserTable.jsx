@@ -167,7 +167,7 @@ function AdminUserTable({
                 
                 <td>
                   {member.role === "ADMIN" ? (
-                    <>
+                    <span className="am-role-control">
                       <button
                         type="button"
                         className="am-role-badge am-role-admin am-role-button"
@@ -201,7 +201,7 @@ function AdminUserTable({
                           )}
                         </span>
                       )}
-                    </>
+                    </span>
                   ) : (
                     <span className="am-role-badge am-role-user">
                       一般会員
