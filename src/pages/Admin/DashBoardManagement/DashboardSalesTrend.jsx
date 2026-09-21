@@ -1,11 +1,34 @@
+import { useEffect, useRef, useState } from 'react';
+
+const CHART_HEIGHT = 220;
+
 export default function DashboardSalesTrend({ salesTrend }) {
+  const chartRef = useRef(null);
+  const [chartWidth, setChartWidth] = useState(700);
   const dailySales = salesTrend?.dailySales ?? [];
   const revenues = dailySales.map((day) => Number(day.revenue ?? 0));
   const maxRevenue = Math.max(1, ...revenues);
 
+  useEffect(() => {
+    const chart = chartRef.current;
+
+    if (!chart) return undefined;
+
+    const updateChartWidth = () => {
+      setChartWidth(Math.max(chart.getBoundingClientRect().width, 1));
+    };
+
+    updateChartWidth();
+
+    const resizeObserver = new ResizeObserver(updateChartWidth);
+    resizeObserver.observe(chart);
+
+    return () => resizeObserver.disconnect();
+  }, []);
+
   const points = dailySales.map((day, index) => ({
     date: day.salesDate,
-    x: (index * 700) / Math.max(dailySales.length - 1, 1),
+    x: (index * chartWidth) / Math.max(dailySales.length - 1, 1),
     y: 180 - (Number(day.revenue ?? 0) / maxRevenue) * 140,
   }));
 
@@ -14,7 +37,7 @@ export default function DashboardSalesTrend({ salesTrend }) {
     .join(' ');
 
   const fillPath = points.length
-    ? `${linePath} L ${points.at(-1).x} 220 L ${points[0].x} 220 Z`
+    ? `${linePath} L ${points.at(-1).x} ${CHART_HEIGHT} L ${points[0].x} ${CHART_HEIGHT} Z`
     : '';
 
   return (
@@ -38,7 +61,8 @@ export default function DashboardSalesTrend({ salesTrend }) {
         </div>
 
         <svg
-          viewBox="0 0 700 220"
+          ref={chartRef}
+          viewBox={`0 0 ${chartWidth} ${CHART_HEIGHT}`}
           preserveAspectRatio="none"
           role="img"
           aria-label="直近7日間の売上推移"
