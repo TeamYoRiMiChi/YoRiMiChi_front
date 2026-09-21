@@ -96,6 +96,7 @@ const handlePageChange = (nextPage) => {
                             <span className="filter_group_label">並び替え</span>
                             <div className="sort_button_group" role="group" aria-label="商品の並び替え">
                                 {[
+                                    ['all', 'すべて'],
                                     ['recommend', 'おすすめ'],
                                     ['newest', '新着'],
                                     ['popular', '人気'],

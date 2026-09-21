@@ -18,7 +18,7 @@ export function useGroupPurchase(fallback = []) {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [selectedCategoryId, setSelectedCategoryId] = useState('');
-    const [selectedSort, setSelectedSort] = useState('newest');
+    const [selectedSort, setSelectedSort] = useState('all');
     const [products, setProducts] = useState([]);
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(0);
@@ -42,6 +42,10 @@ export function useGroupPurchase(fallback = []) {
 
     const handleSortChange = (sort) => {
         setSelectedSort(sort);
+        if (sort === 'all') {
+            setActiveFilter('すべて');
+            setSelectedCategoryId('');
+        }
         setPage(1); // 정렬 변경 시 페이지를 1로 초기화
     };
 
