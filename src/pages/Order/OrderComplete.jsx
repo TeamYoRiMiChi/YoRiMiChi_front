@@ -130,7 +130,7 @@ function OrderComplete() {
                     <span className="oc-item-name">{it.name}</span>
                   </div>
                   <div className="oc-item-qty">{it.quantity}개</div>
-                  <div className="oc-item-price">₩{it.itemTotal.toLocaleString()}</div>
+                  <div className="oc-item-price">¥{it.itemTotal.toLocaleString()}</div>
                 </li>
               ))}
             </ul>
@@ -144,20 +144,20 @@ function OrderComplete() {
           <dl className="oc-summary-list">
             <div>
               <dt>상품 금액</dt>
-              <dd>₩{amounts.productAmount.toLocaleString()}</dd>
+              <dd>¥{amounts.productAmount.toLocaleString()}</dd>
             </div>
             <div>
               <dt>배송비</dt>
-              <dd>₩{amounts.shippingFee.toLocaleString()}</dd>
+              <dd>¥{amounts.shippingFee.toLocaleString()}</dd>
             </div>
             <div>
               <dt>관세</dt>
-              <dd>₩{amounts.customsDuty.toLocaleString()}</dd>
+              <dd>¥{amounts.customsDuty.toLocaleString()}</dd>
             </div>
             {amounts.couponDiscount > 0 && (
               <div>
                 <dt>쿠폰 할인</dt>
-                <dd className="minus">-₩{amounts.couponDiscount.toLocaleString()}</dd>
+                <dd className="minus">-¥{amounts.couponDiscount.toLocaleString()}</dd>
               </div>
             )}
           </dl>
@@ -166,7 +166,7 @@ function OrderComplete() {
 
           <div className="oc-summary-total">
             <span>총 결제금액</span>
-            <strong>₩{amounts.total.toLocaleString()}</strong>
+            <strong>¥{amounts.total.toLocaleString()}</strong>
           </div>
         </aside>
       </div>

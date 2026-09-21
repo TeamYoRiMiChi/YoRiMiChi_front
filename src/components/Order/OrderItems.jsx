@@ -46,7 +46,6 @@ function OrderItems({ items }) {
 
               <div className="order-item-price">
                 <strong>¥{(item.priceJpy * item.quantity).toLocaleString()}</strong>
-                <span>₩{Math.round(item.priceKrw * item.quantity).toLocaleString()}</span>
               </div>
             </div>
 

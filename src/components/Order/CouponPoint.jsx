@@ -34,8 +34,8 @@ function CouponPoint({ coupons, couponId, onCouponChange, amounts }) {
 
         <strong className="cp-discount">
           {amounts.couponDiscount > 0
-            ? `-₩${amounts.couponDiscount.toLocaleString()}`
-            : '₩0'}
+            ? `-¥${amounts.couponDiscount.toLocaleString()}`
+            : '¥0'}
         </strong>
       </div>
     </OrderSection>

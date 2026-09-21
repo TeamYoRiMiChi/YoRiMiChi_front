@@ -28,10 +28,6 @@ function PaymentSummary({
     couponDiscount,
     total,
   } = amounts;
-  const productAmountJpy = items.reduce(
-    (sum, item) => sum + (item.priceJpy * item.quantity),
-    0,
-  );
   const saleAmounts = {
     overseas: items
       .filter((item) => item.saleType !== 'GROUP_BUY')
@@ -40,7 +36,6 @@ function PaymentSummary({
       .filter((item) => item.saleType === 'GROUP_BUY')
       .reduce((sum, item) => sum + (item.priceJpy * item.quantity), 0),
   };
-  const totalJpy = exchangeRate > 0 ? Math.round(total / exchangeRate) : 0;
 
   return (
     <aside className="pay-summary">
@@ -61,18 +56,15 @@ function PaymentSummary({
         )}
         <div className="pay-summary-product-total">
           <dt>상품 금액 합계</dt>
-          <dd className="pay-summary-dual-price">
-            <strong>¥{productAmountJpy.toLocaleString()}</strong>
-            <span>₩{Math.round(productAmount).toLocaleString()}</span>
-          </dd>
+          <dd><strong>¥{Math.round(productAmount).toLocaleString()}</strong></dd>
         </div>
         <div className="pay-summary-shipping-row">
           <dt>해외 배송비</dt>
-          <dd>₩{overseasShipping.toLocaleString()}</dd>
+          <dd>¥{overseasShipping.toLocaleString()}</dd>
         </div>
         <div className="pay-summary-shipping-row">
           <dt>국내 배송비</dt>
-          <dd>₩{domesticShipping.toLocaleString()}</dd>
+          <dd>¥{domesticShipping.toLocaleString()}</dd>
         </div>
       </dl>
 
@@ -82,7 +74,7 @@ function PaymentSummary({
         <div>
           <dt>쿠폰 할인</dt>
           <dd className="minus">
-            {couponDiscount > 0 ? `-₩${couponDiscount.toLocaleString()}` : '₩0'}
+            {couponDiscount > 0 ? `-¥${couponDiscount.toLocaleString()}` : '¥0'}
           </dd>
         </div>
       </dl>
@@ -92,14 +84,9 @@ function PaymentSummary({
       <div className="pay-summary-total">
         <span>총 결제금액</span>
         <div>
-          <strong>{totalJpy > 0 ? `¥${totalJpy.toLocaleString()}` : '¥0'}</strong>
-          <small>₩{Math.round(total).toLocaleString()}</small>
+          <strong>¥{Math.round(total).toLocaleString()}</strong>
         </div>
       </div>
-
-      {exchangeRate > 0 && (
-        <p className="pay-summary-rate">적용 환율: ¥1 = ₩{exchangeRate.toLocaleString()}</p>
-      )}
 
       <label className="pay-summary-agree">
         <input
@@ -118,7 +105,7 @@ function PaymentSummary({
       >
         {isSubmitting
           ? '결제 중...'
-          : `¥${totalJpy.toLocaleString()} 결제하기 (₩${Math.round(total).toLocaleString()})`}
+          : `¥${Math.round(total).toLocaleString()} 결제하기`}
       </button>
 
       <p className="pay-summary-note">
