@@ -48,10 +48,10 @@ function useAdminUsers(currentMemberId) {
 
     return members.filter((member) => {
       const keywordMatches = !normalizedKeyword ||
-        member.name.toLowerCase().includes(normalizedKeyword) ||
-        member.email.toLowerCase().includes(normalizedKeyword) ||
-        member.phone.toLowerCase().includes(normalizedKeyword) ||
-        String(member.memberId).includes(normalizedKeyword);
+        String(member.name ?? "").toLowerCase().includes(normalizedKeyword) ||
+        String(member.email ?? "").toLowerCase().includes(normalizedKeyword) ||
+        String(member.phone ?? "").toLowerCase().includes(normalizedKeyword) ||
+        String(member.memberId ?? "").toLowerCase().includes(normalizedKeyword);
       const roleMatches = !roleFilter || member.role === roleFilter;
       const statusMatches = !statusFilter || member.status === statusFilter;
 
