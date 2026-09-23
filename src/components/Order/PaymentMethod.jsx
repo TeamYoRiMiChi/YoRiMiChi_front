@@ -12,8 +12,8 @@ import '../../assets/styles/Order/components/PaymentMethod.css';
  */
 function PaymentMethod({ methods, selected, onSelect }) {
   return (
-    <OrderSection icon={faWallet} title="결제 수단" align="center">
-      <ul className="pay-method-list" role="radiogroup" aria-label="결제 수단">
+    <OrderSection icon={faWallet} title="決済手段" align="center">
+      <ul className="pay-method-list" role="radiogroup" aria-label="決済手段">
         {methods.map((m) => {
           const isActive = selected === m.key;
 
