@@ -28,6 +28,7 @@ import AdminCategories from "../pages/Admin/CategoriesManagement/AdminCategories
 import AdminGroupBuy from "../pages/Admin/GroupBuyManagement/AdminGroupBuy";
 import AdminInquiries from "../pages/Admin/InquiriesManagement/AdminInquiries";
 import AdminCoupons from "../pages/Admin/CouponManagement/AdminCoupons";
+import AuthCallback from "../pages/AuthCallback/AuthCallback";
 
 function Router() {
   return (
@@ -43,6 +44,7 @@ function Router() {
           <Route path="groupbuy" element={<AdminGroupBuy />} />
           <Route path="inquiries" element={<AdminInquiries />} />
           <Route path="coupons" element={<AdminCoupons />} />
+          <Route path="/auth/callback" element={<AuthCallback />} />
         </Route>
       </Route>
 
