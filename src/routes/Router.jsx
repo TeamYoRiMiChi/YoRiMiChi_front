@@ -44,7 +44,6 @@ function Router() {
           <Route path="groupbuy" element={<AdminGroupBuy />} />
           <Route path="inquiries" element={<AdminInquiries />} />
           <Route path="coupons" element={<AdminCoupons />} />
-          <Route path="/auth/callback" element={<AuthCallback />} />
         </Route>
       </Route>
 
@@ -54,6 +53,7 @@ function Router() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/auth/callback" element={<AuthCallback />} />
         {/* 헤더 링크가 /join이라 같은 화면으로 연결 */}
         <Route path="/join" element={<Navigate to="/signup" replace />} />
 
