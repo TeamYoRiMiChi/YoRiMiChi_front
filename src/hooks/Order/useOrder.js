@@ -222,10 +222,10 @@ export function useOrder() {
     if (!useManualAddress) return true;
 
     const errors = {};
-    if (!manualAddress.receiverName.trim()) errors.receiverName = '받는 분을 입력해주세요.';
-    if (!manualAddress.receiverPhone.trim()) errors.receiverPhone = '연락처를 입력해주세요.';
-    if (!manualAddress.postalCode.trim()) errors.postalCode = '우편번호를 입력해주세요.';
-    if (!manualAddress.address.trim()) errors.address = '주소를 입력해주세요.';
+    if (!manualAddress.receiverName.trim()) errors.receiverName = 'お届け先名を入力してください。';
+    if (!manualAddress.receiverPhone.trim()) errors.receiverPhone = '連絡先を入力してください。';
+    if (!manualAddress.postalCode.trim()) errors.postalCode = '郵便番号を入力してください。';
+    if (!manualAddress.address.trim()) errors.address = '住所を入力してください。';
 
     setAddressErrors(errors);
     return Object.keys(errors).length === 0;
@@ -235,23 +235,23 @@ export function useOrder() {
 
   const handleSubmit = async () => {
     if (!agreed) {
-      alert('주문 내용 확인 및 결제 동의가 필요합니다.');
+      alert('注文内容の確認と決済への同意が必要です。');
       return;
     }
 
     if (!validateAddress()) {
-      alert('배송지 정보를 확인해주세요.');
+      alert('配送先情報を確認してください。');
       return;
     }
 
     /* 일본은 통관부호가 필요 없어 검증을 비활성화합니다. (나중을 위해 주석으로 보존)
     if (!checkout?.customsCode && !customsInput.trim()) {
-      setCustomsError('개인통관고유부호를 입력해주세요.');
+      setCustomsError('個人通関固有符号を入力してください。');
       return;
     }
 
     if (!checkout?.customsCode && !/^P\d{12}$/.test(customsInput.trim())) {
-      setCustomsError('P로 시작하는 13자리 번호를 입력해주세요.');
+      setCustomsError('Pで始まる13桁の番号を入力してください。');
       return;
     }
 
@@ -288,7 +288,7 @@ export function useOrder() {
         state: { order, isDirectPurchase },
       });
     } catch (err) {
-      alert(err.response?.data?.message ?? '주문에 실패했습니다.');
+      alert(err.response?.data?.message ?? '注文に失敗しました。');
     } finally {
       setIsSubmitting(false);
     }

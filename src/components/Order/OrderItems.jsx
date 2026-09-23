@@ -11,18 +11,18 @@ function OrderItems({ items }) {
   const sections = [
     {
       key: 'OVERSEAS',
-      title: '해외구매 상품',
+      title: '海外購入商品',
       items: items.filter((item) => item.saleType !== 'GROUP_BUY'),
     },
     {
       key: 'GROUP_BUY',
-      title: '공동구매 상품',
+      title: '共同購入商品',
       items: items.filter((item) => item.saleType === 'GROUP_BUY'),
     },
   ].filter((section) => section.items.length > 0);
 
   return (
-    <OrderSection icon={faBoxOpen} title="주문 상품">
+    <OrderSection icon={faBoxOpen} title="注文商品">
       <div className="order-item-sections">
         {sections.map((section) => (
           <section className={`order-item-section is-${section.key.toLowerCase()}`} key={section.key}>
@@ -41,7 +41,7 @@ function OrderItems({ items }) {
 
               <div className="order-item-info">
                 <p className="order-item-name">{item.name}</p>
-                <p className="order-item-qty">수량 {item.quantity}개</p>
+                <p className="order-item-qty">数量 {item.quantity}個</p>
               </div>
 
               <div className="order-item-price">
@@ -50,7 +50,7 @@ function OrderItems({ items }) {
             </div>
 
             {item.saleType !== 'GROUP_BUY' && (
-              <p className="order-item-shipping-note">배송비는 해외구매 주문당 한 번만 부과됩니다.</p>
+              <p className="order-item-shipping-note">送料は海外購入の注文ごとに一度だけ課金されます。</p>
             )}
           </li>
               ))}

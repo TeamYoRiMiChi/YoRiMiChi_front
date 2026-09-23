@@ -53,7 +53,7 @@ function Order() {
   if (isLoading) {
     return (
       <div className="order-page">
-        <div className="order-state">읽어오는 중...</div>
+        <div className="order-state">読み込み中...</div>
       </div>
     );
   }
@@ -63,9 +63,9 @@ function Order() {
     return (
       <div className="order-page">
         <div className="order-state">
-          <p>{loadError ?? '주문할 상품이 없습니다.'}</p>
+          <p>{loadError ?? '注文する商品がありません。'}</p>
           <Link to="/overseas" className="order-state-btn">
-            상품 보러 가기
+            商品を見に行く
           </Link>
         </div>
       </div>
@@ -76,8 +76,8 @@ function Order() {
     <div className="order-page">
       <div className="order-page-head">
         <div className="order-page-title">
-          <h1>주문 / 결제</h1>
-          {isDirectPurchase && <span className="order-badge">바로구매</span>}
+          <h1>注文 / 決済</h1>
+          {isDirectPurchase && <span className="order-badge">今すぐ購入</span>}
         </div>
         <OrderSteps current="order" showCart={!isDirectPurchase} />
       </div>

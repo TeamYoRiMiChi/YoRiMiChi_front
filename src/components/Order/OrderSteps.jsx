@@ -14,13 +14,13 @@ import '../../assets/styles/Order/components/OrderSteps.css';
  */
 function OrderSteps({ current = 'order', showCart = true }) {
   const steps = [
-    ...(showCart ? [{ key: 'cart', label: '장바구니', to: '/cart' }] : []),
-    { key: 'order', label: '주문 / 결제', to: null },
-    { key: 'done', label: '주문완료', to: null },
+    ...(showCart ? [{ key: 'cart', label: 'カート', to: '/cart' }] : []),
+    { key: 'order', label: '注文 / 決済', to: null },
+    { key: 'done', label: '注文完了', to: null },
   ];
 
   return (
-    <nav className="order-steps" aria-label="주문 진행 단계">
+    <nav className="order-steps" aria-label="注文進行ステップ">
       {steps.map((step, i) => {
         const isActive = step.key === current;
 

@@ -58,7 +58,7 @@ function OrderComplete() {
   if (isLoading) {
     return (
       <div className="oc-page">
-        <div className="oc-state">읽어오는 중...</div>
+        <div className="oc-state">読み込み中...</div>
       </div>
     );
   }
@@ -68,9 +68,9 @@ function OrderComplete() {
     return (
       <div className="oc-page">
         <div className="oc-state">
-          <p>{loadError ?? '주문 정보를 찾을 수 없습니다.'}</p>
+          <p>{loadError ?? '注文情報が見つかりません。'}</p>
           <Link to="/mypage" className="oc-state-btn">
-            마이페이지로 가기
+            マイページへ
           </Link>
         </div>
       </div>
@@ -82,15 +82,15 @@ function OrderComplete() {
   return (
     <div className="oc-page">
       <div className="oc-page-head">
-        <h1>주문 완료</h1>
+        <h1>注文完了</h1>
         <OrderSteps current="done" showCart={!isDirectPurchase} />
       </div>
 
       <div className="oc-hero">
         <FontAwesomeIcon icon={faCircleCheck} className="oc-hero-icon" />
-        <h2>주문이 완료되었습니다.</h2>
+        <h2>ご注文が完了しました。</h2>
         <p className="oc-hero-number">
-          주문번호 <strong>{order.orderNumber}</strong>
+          注文番号 <strong>{order.orderNumber}</strong>
         </p>
       </div>
 
@@ -98,7 +98,7 @@ function OrderComplete() {
         {/* 왼쪽: 배송지 · 상품 */}
         <div className="oc-main">
           <section className="oc-card">
-            <h3>배송지</h3>
+            <h3>配送先</h3>
             <div className="oc-address">
               <p className="oc-address-name">
                 {order.address.receiverName}
@@ -108,13 +108,13 @@ function OrderComplete() {
                 ({order.address.postalCode}) {order.address.address} {order.address.addressDetail}
               </p>
               {order.customsCode && (
-                <p className="oc-muted">개인통관고유부호 {order.customsCode}</p>
+                <p className="oc-muted">個人通関固有符号 {order.customsCode}</p>
               )}
             </div>
           </section>
 
           <section className="oc-card">
-            <h3>주문 상품</h3>
+            <h3>注文商品</h3>
             <ul className="oc-items">
               {order.items.map((it) => (
                 <li key={it.orderItemId} className="oc-item">
@@ -129,7 +129,7 @@ function OrderComplete() {
                     <span className="oc-item-brand">{it.brand}</span>
                     <span className="oc-item-name">{it.name}</span>
                   </div>
-                  <div className="oc-item-qty">{it.quantity}개</div>
+                  <div className="oc-item-qty">{it.quantity}個</div>
                   <div className="oc-item-price">¥{it.itemTotal.toLocaleString()}</div>
                 </li>
               ))}
@@ -139,24 +139,24 @@ function OrderComplete() {
 
         {/* 오른쪽: 결제 금액 */}
         <aside className="oc-summary">
-          <h3 className="oc-summary-title">결제 금액</h3>
+          <h3 className="oc-summary-title">決済金額</h3>
 
           <dl className="oc-summary-list">
             <div>
-              <dt>상품 금액</dt>
+              <dt>商品金額</dt>
               <dd>¥{amounts.productAmount.toLocaleString()}</dd>
             </div>
             <div>
-              <dt>배송비</dt>
+              <dt>配送料</dt>
               <dd>¥{amounts.shippingFee.toLocaleString()}</dd>
             </div>
             <div>
-              <dt>관세</dt>
+              <dt>関税</dt>
               <dd>¥{amounts.customsDuty.toLocaleString()}</dd>
             </div>
             {amounts.couponDiscount > 0 && (
               <div>
-                <dt>쿠폰 할인</dt>
+                <dt>クーポン割引</dt>
                 <dd className="minus">-¥{amounts.couponDiscount.toLocaleString()}</dd>
               </div>
             )}
@@ -165,7 +165,7 @@ function OrderComplete() {
           <div className="oc-summary-divider" />
 
           <div className="oc-summary-total">
-            <span>총 결제금액</span>
+            <span>合計決済金額</span>
             <strong>¥{amounts.total.toLocaleString()}</strong>
           </div>
         </aside>
@@ -173,10 +173,10 @@ function OrderComplete() {
 
       <div className="oc-actions">
         <Link to="/mypage" className="oc-btn oc-btn-outline">
-          주문 내역 보기
+          注文履歴を見る
         </Link>
         <Link to="/overseas" className="oc-btn oc-btn-brand">
-          쇼핑 계속하기
+          買い物を続ける
         </Link>
       </div>
     </div>

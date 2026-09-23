@@ -19,12 +19,12 @@ function CustomsInfo({ code, input, onChange, error }) {
   /* 이미 등록된 경우 */
   if (code) {
     return (
-      <OrderSection icon={faShieldHalved} title="개인통관고유부호" align="center">
+      <OrderSection icon={faShieldHalved} title="個人通関固有符号" align="center">
         <div className="customs-row">
           <strong className="customs-code">{code}</strong>
           <span className="customs-verified">
             <FontAwesomeIcon icon={faCircleCheck} />
-            확인 완료
+            確認完了
           </span>
         </div>
       </OrderSection>
@@ -33,14 +33,14 @@ function CustomsInfo({ code, input, onChange, error }) {
 
   /* 미등록 — 직접 입력 */
   return (
-    <OrderSection icon={faShieldHalved} title="개인통관고유부호">
+    <OrderSection icon={faShieldHalved} title="個人通関固有符号">
       <div className="customs-input-row">
         <input
           type="text"
           className={`customs-input ${error ? 'is-error' : ''}`}
           value={input}
           onChange={(e) => onChange(e.target.value.toUpperCase())}
-          placeholder="P로 시작하는 13자리"
+          placeholder="Pで始まる13桁"
           maxLength={13}
         />
 
@@ -50,15 +50,15 @@ function CustomsInfo({ code, input, onChange, error }) {
           target="_blank"
           rel="noreferrer"
         >
-          발급받기
+          発給を受ける
         </a>
       </div>
 
       {error && <p className="customs-error">{error}</p>}
 
       <p className="customs-hint">
-        통관 시 반드시 필요합니다. 관세청 홈페이지에서 무료로 발급받을 수 있어요.
-        입력하신 번호는 회원 정보에 저장되어 다음 주문부터는 자동으로 입력됩니다.
+        通関時に必ず必要です。関税庁のホームページから無料で発給を受けられます。
+        入力された番号は会員情報に保存され、次回の注文から自動で入力されます。
       </p>
     </OrderSection>
   );

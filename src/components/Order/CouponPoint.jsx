@@ -12,9 +12,9 @@ import '../../assets/styles/Order/components/CouponPoint.css';
  */
 function CouponPoint({ coupons, couponId, onCouponChange, amounts }) {
   return (
-    <OrderSection icon={faTicket} title="쿠폰">
+    <OrderSection icon={faTicket} title="クーポン">
       <div className="cp-row">
-        <label htmlFor="coupon-select">쿠폰 할인</label>
+        <label htmlFor="coupon-select">クーポン割引</label>
 
         <select
           id="coupon-select"
@@ -23,7 +23,7 @@ function CouponPoint({ coupons, couponId, onCouponChange, amounts }) {
           onChange={(e) => onCouponChange(Number(e.target.value))}
         >
           <option value={0}>
-            {coupons.length > 0 ? '쿠폰을 선택해주세요' : '사용 가능한 쿠폰이 없습니다'}
+            {coupons.length > 0 ? 'クーポンを選択してください' : '利用可能なクーポンがありません'}
           </option>
           {coupons.map((c) => (
             <option key={c.memberCouponId} value={c.memberCouponId}>
