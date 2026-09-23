@@ -12,7 +12,7 @@ function AdminCouponTabs({ activeTab, onTabChange }) {
         onClick={() => onTabChange("COUPON")}
       >
         <FontAwesomeIcon icon={faTicket} />
-        쿠폰 관리
+        クーポン管理
       </button>
 
       <button
@@ -23,7 +23,7 @@ function AdminCouponTabs({ activeTab, onTabChange }) {
         onClick={() => onTabChange("MEMBER_COUPON")}
       >
         <FontAwesomeIcon icon={faUsers} />
-        회원 발급 내역
+        会員発行履歴
       </button>
     </div>
   );

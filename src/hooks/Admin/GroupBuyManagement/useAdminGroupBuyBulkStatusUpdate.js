@@ -34,7 +34,7 @@ function useAdminGroupBuyBulkStatusUpdate({
 
       if (failedCount > 0) {
         alert(
-          `${selectedIds.length}건 중 ${failedCount}건은 상태 변경에 실패했습니다.`,
+          `${selectedIds.length}件中${failedCount}件はステータス変更に失敗しました。`,
         );
       }
 

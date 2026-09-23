@@ -5,7 +5,7 @@ function AdminInquiryAnswerModal({ inquiry, answerText, answering, formatDate, o
     <div className="ai-modal-backdrop">
       <div className="ai-modal">
         <div className="ai-modal-header">
-          <div><span>문의 #{inquiry.inquiryId}</span><h3>{inquiry.title}</h3></div>
+          <div><span>お問い合わせ #{inquiry.inquiryId}</span><h3>{inquiry.title}</h3></div>
           <button type="button" onClick={onClose}>×</button>
         </div>
         <div className="ai-modal-question">
@@ -17,16 +17,16 @@ function AdminInquiryAnswerModal({ inquiry, answerText, answering, formatDate, o
         </div>
         <div className="ai-answer-area">
           <label htmlFor="admin-inquiry-answer">
-            {inquiry.status === 'ANSWERED' ? '관리자 답변 수정' : '관리자 답변'}
+            {inquiry.status === 'ANSWERED' ? '管理者回答の修正' : '管理者回答'}
           </label>
           <textarea id="admin-inquiry-answer" value={answerText}
-            placeholder="회원에게 전달할 답변을 입력해주세요."
+            placeholder="会員に送る回答を入力してください。"
             onChange={(event) => onAnswerChange(event.target.value)} />
         </div>
         <div className="ai-modal-actions">
-          <button type="button" className="ai-modal-cancel" onClick={onClose}>취소</button>
+          <button type="button" className="ai-modal-cancel" onClick={onClose}>キャンセル</button>
           <button type="button" className="ai-modal-save" onClick={onSubmit} disabled={answering}>
-            {answering ? "저장 중..." : inquiry.status === 'ANSWERED' ? '수정 저장' : '답변 저장'}
+            {answering ? "保存中..." : inquiry.status === 'ANSWERED' ? '修正を保存' : '回答を保存'}
           </button>
         </div>
       </div>

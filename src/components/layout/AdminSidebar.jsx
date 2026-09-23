@@ -24,27 +24,27 @@ import './AdminSidebar.css';
 const NAV_GROUPS = [
   {
     title: null,
-    items: [{ to: '/admin', label: '대시보드', icon: faHouse, end: true }],
+    items: [{ to: '/admin', label: 'ダッシュボード', icon: faHouse, end: true }],
   },
   {
-    title: '운영 관리',
+    title: '運営管理',
     items: [
-      { to: '/admin/products', label: '상품 관리', icon: faBoxOpen },
-      { to: '/admin/orders', label: '주문 관리', icon: faClipboardList },
-      { to: '/admin/groupbuy', label: '공동구매 관리', icon: faUserGroup },
-      { to: '/admin/categories', label: '카테고리 관리', icon: faFolder },
+      { to: '/admin/products', label: '商品管理', icon: faBoxOpen },
+      { to: '/admin/orders', label: '注文管理', icon: faClipboardList },
+      { to: '/admin/groupbuy', label: '共同購入管理', icon: faUserGroup },
+      { to: '/admin/categories', label: 'カテゴリ管理', icon: faFolder },
     ],
   },
   {
-    title: '고객 관리',
+    title: '顧客管理',
     items: [
-      { to: '/admin/users', label: '회원 관리', icon: faUser },
-      { to: '/admin/inquiries', label: '문의 답변', icon: faCommentDots },
+      { to: '/admin/users', label: '会員管理', icon: faUser },
+      { to: '/admin/inquiries', label: 'お問い合わせ管理', icon: faCommentDots },
     ],
   },
   {
-    title: '프로모션',
-    items: [{ to: '/admin/coupons', label: '쿠폰관리', icon: faTicket }],
+    title: 'プロモーション',
+    items: [{ to: '/admin/coupons', label: 'クーポン管理', icon: faTicket }],
   },
 ];
 
@@ -91,7 +91,7 @@ const AdminSidebar = () => {
 
       <div className="admin-sidebar-footer">
         <FontAwesomeIcon icon={faLeaf} className="admin-sidebar-footer-icon" />
-        <p>좋은상품이<br />좋은 일상을 만듭니다.</p>
+        <p>よい商品が<br />よい日常をつくります。</p>
       </div>
     </aside>
   );

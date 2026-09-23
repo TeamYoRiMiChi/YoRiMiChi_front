@@ -20,7 +20,7 @@ function useAdminGroupBuyDelete({
     }
 
     const confirmed = window.confirm(
-      `"${groupBuy.title}" 공동구매를 삭제하시겠어요?`,
+      `「${groupBuy.title}」の共同購入を削除しますか?`,
     );
 
     if (!confirmed) {
@@ -33,7 +33,7 @@ function useAdminGroupBuyDelete({
     try {
       const response = await deleteAdminGroupBuy(groupBuy.groupBuyId);
 
-      alert(response.data.message ?? "공동구매를 삭제했습니다.");
+      alert(response.data.message ?? "共同購入を削除しました。");
 
       removeFromSelection(groupBuy.groupBuyId);
 
@@ -45,7 +45,7 @@ function useAdminGroupBuyDelete({
 
       await refetchSummary();
     } catch (err) {
-      alert(err.response?.data?.message ?? "공동구매 삭제에 실패했습니다.");
+      alert(err.response?.data?.message ?? "共同購入の削除に失敗しました。");
     } finally {
       deletingRef.current = false;
       setIsDeleting(false);

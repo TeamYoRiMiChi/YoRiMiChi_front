@@ -15,7 +15,7 @@ function AdminProduct_Stock({
       {/* 화살표를 누르면 아래에 뜨는 입력창 */}
       <div className="ap-stock-popup">
         <label htmlFor={`stock-${productId}`}>
-          재고 수량
+          在庫数
         </label>
 
         <input
@@ -23,7 +23,7 @@ function AdminProduct_Stock({
           type="number"
           min="0"
           value={stock}
-          aria-label={`${productName} 재고 입력`}
+          aria-label={`${productName} の在庫数を入力`}
           onChange={(event) =>
             onChange(
               productId,
@@ -35,7 +35,7 @@ function AdminProduct_Stock({
           }
         />
 
-        <p>수정하기 버튼으로 저장</p>
+        <p>保存ボタンを押すと反映されます</p>
       </div>
     </details>
   );

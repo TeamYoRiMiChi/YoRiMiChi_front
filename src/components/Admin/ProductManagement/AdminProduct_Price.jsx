@@ -21,7 +21,7 @@ function AdminProduct_Price({
 
       <div className="ap-stock-popup">
         <label htmlFor={`price-${productId}`}>
-          판매 가격
+          販売価格
         </label>
 
         <input
@@ -30,7 +30,7 @@ function AdminProduct_Price({
           min="0"
           step="1"
           value={price ?? ""}
-          aria-label={`${productName} 판매 가격 입력`}
+          aria-label={`${productName} の販売価格を入力`}
           onChange={(event) =>
             onChange(
               productId,
@@ -42,7 +42,7 @@ function AdminProduct_Price({
           }
         />
 
-        <p>수정하기 버튼으로 저장</p>
+        <p>保存ボタンを押すと反映されます</p>
       </div>
     </details>
   );

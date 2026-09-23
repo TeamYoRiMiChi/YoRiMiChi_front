@@ -35,17 +35,17 @@ import "./AdminGroupBuy.css";
 
 // 목록 헤더에서 클릭으로 정렬 방향을 바꿀 수 있는 컬럼들
 const SORTABLE_COLUMNS = [
-  { key: "PRODUCT_NAME", label: "공동구매 정보" },
-  { key: "GROUP_BUY_ID", label: "공동구매 ID" },
-  { key: "CREATOR_NAME", label: "등록자" },
-  { key: "START_DATE", label: "모집 기간" },
+  { key: "PRODUCT_NAME", label: "共同購入情報" },
+  { key: "GROUP_BUY_ID", label: "共同購入ID" },
+  { key: "CREATOR_NAME", label: "登録者" },
+  { key: "START_DATE", label: "募集期間" },
 ];
 
 const statusText = {
-  RECRUITING: "모집 중",
-  SUCCESS: "공동구매 성공",
-  FAILED: "모집 실패",
-  CANCELLED: "취소",
+  RECRUITING: "募集中",
+  SUCCESS: "共同購入成立",
+  FAILED: "募集失敗",
+  CANCELLED: "キャンセル",
 };
 
 function formatDate(dateValue) {
@@ -53,7 +53,7 @@ function formatDate(dateValue) {
     return "-";
   }
 
-  return new Intl.DateTimeFormat("ko-KR", {
+  return new Intl.DateTimeFormat("ja-JP", {
     year: "numeric",
     month: "2-digit",
     day: "2-digit",
@@ -136,28 +136,28 @@ function AdminGroupBuy() {
   const summaryItems = [
     {
       key: "total",
-      label: "전체 공동구매",
+      label: "全共同購入",
       value: summary.total,
       icon: faUsers,
       color: "blue",
     },
     {
       key: "recruiting",
-      label: "모집 중",
+      label: "募集中",
       value: summary.recruiting,
       icon: faBullhorn,
       color: "green",
     },
     {
       key: "success",
-      label: "공동구매 성공",
+      label: "共同購入成立",
       value: summary.success,
       icon: faCheckCircle,
       color: "orange",
     },
     {
       key: "finished",
-      label: "종료·취소",
+      label: "終了・キャンセル",
       value: summary.finished,
       icon: faClock,
       color: "red",
@@ -182,8 +182,8 @@ function AdminGroupBuy() {
     <div className="agb-page">
       <header className="agb-page-header">
         <div>
-          <h2>공동구매 관리</h2>
-          <p>공동구매 모집 현황과 참여 상태를 관리하세요.</p>
+          <h2>共同購入管理</h2>
+          <p>共同購入の募集状況と参加状況を管理してください。</p>
         </div>
 
         <button
@@ -193,7 +193,7 @@ function AdminGroupBuy() {
           disabled={isCreating}
         >
           <FontAwesomeIcon icon={faPlus} />
-          공동구매 등록
+          共同購入登録
         </button>
       </header>
 
@@ -217,39 +217,39 @@ function AdminGroupBuy() {
               type="search"
               value={keyword}
               onChange={handleKeywordChange}
-              placeholder="공동구매명, 상품명 또는 등록자 검색"
+              placeholder="共同購入名、商品名または登録者で検索"
               disabled={isBusy}
             />
           </label>
 
           <div className="agb-filter-item">
-            <span>진행 상태</span>
+            <span>進行状況</span>
 
             <select
               value={status}
               onChange={handleStatusChange}
               disabled={isBusy}
             >
-              <option value="">전체</option>
-              <option value="RECRUITING">모집 중</option>
-              <option value="SUCCESS">공동구매 성공</option>
-              <option value="FAILED">모집 실패</option>
-              <option value="CANCELLED">취소</option>
+              <option value="">すべて</option>
+              <option value="RECRUITING">募集中</option>
+              <option value="SUCCESS">共同購入成立</option>
+              <option value="FAILED">募集失敗</option>
+              <option value="CANCELLED">キャンセル</option>
             </select>
           </div>
 
           <div className="agb-filter-item">
-            <span>달성률</span>
+            <span>達成率</span>
 
             <select
               value={progress}
               onChange={handleProgressChange}
               disabled={isBusy}
             >
-              <option value="">전체</option>
-              <option value="UNDER_50">50% 미만</option>
-              <option value="OVER_50">50% 이상</option>
-              <option value="COMPLETE">100% 달성</option>
+              <option value="">すべて</option>
+              <option value="UNDER_50">50%未満</option>
+              <option value="OVER_50">50%以上</option>
+              <option value="COMPLETE">100%達成</option>
             </select>
           </div>
 
@@ -260,7 +260,7 @@ function AdminGroupBuy() {
             disabled={isBusy}
           >
             <FontAwesomeIcon icon={faRotateRight} />
-            초기화
+            リセット
           </button>
         </div>
 
@@ -273,7 +273,7 @@ function AdminGroupBuy() {
                     type="checkbox"
                     checked={isAllSelected}
                     onChange={handleSelectAll}
-                    aria-label="전체 공동구매 선택"
+                    aria-label="全共同購入を選択"
                   />
                 </th>
 
@@ -298,10 +298,10 @@ function AdminGroupBuy() {
                     </button>
                   </th>
                 ))}
-                <th>수량·달성률</th>
-                <th>참여자</th>
-                <th>진행 상태</th>
-                <th>관리</th>
+                <th>数量・達成率</th>
+                <th>参加者</th>
+                <th>進行状況</th>
+                <th>管理</th>
               </tr>
             </thead>
 
@@ -309,7 +309,7 @@ function AdminGroupBuy() {
               {isLoading && (
                 <tr>
                   <td className="agb-empty" colSpan={9}>
-                    불러오는 중입니다...
+                    読み込み中です...
                   </td>
                 </tr>
               )}
@@ -352,7 +352,7 @@ function AdminGroupBuy() {
                           onChange={() =>
                             handleSelectItem(groupBuy.groupBuyId)
                           }
-                          aria-label={`${groupBuy.title} 선택`}
+                          aria-label={`${groupBuy.title}を選択`}
                         />
                       </td>
 
@@ -404,7 +404,7 @@ function AdminGroupBuy() {
 
                       <td>
                         <strong className="agb-count">
-                          {groupBuy.participantCount ?? 0}명
+                          {groupBuy.participantCount ?? 0}名
                         </strong>
                       </td>
 
@@ -422,7 +422,7 @@ function AdminGroupBuy() {
                           className="agb-delete-button"
                           onClick={() => handleDelete(groupBuy)}
                           disabled={isDeleting}
-                          aria-label={`${groupBuy.title} 삭제`}
+                          aria-label={`${groupBuy.title}を削除`}
                         >
                           <FontAwesomeIcon icon={faTrash} />
                         </button>
@@ -434,7 +434,7 @@ function AdminGroupBuy() {
               {!isLoading && !error && groupBuys.length === 0 && (
                 <tr>
                   <td className="agb-empty" colSpan={9}>
-                    조건에 맞는 공동구매가 없습니다.
+                    条件に合う共同購入がありません。
                   </td>
                 </tr>
               )}
@@ -448,7 +448,7 @@ function AdminGroupBuy() {
               type="checkbox"
               checked={isAllSelected}
               onChange={handleSelectAll}
-              aria-label="전체 공동구매 선택"
+              aria-label="全共同購入を選択"
               disabled={isBusy}
             />
 
@@ -458,15 +458,15 @@ function AdminGroupBuy() {
               onChange={handleBulkStatusChange}
             >
               <option value="" disabled>
-                선택 상태 변경
+                選択項目のステータス変更
               </option>
-              <option value="RECRUITING">모집 중</option>
-              <option value="SUCCESS">공동구매 성공</option>
-              <option value="FAILED">모집 실패</option>
-              <option value="CANCELLED">취소</option>
+              <option value="RECRUITING">募集中</option>
+              <option value="SUCCESS">共同購入成立</option>
+              <option value="FAILED">募集失敗</option>
+              <option value="CANCELLED">キャンセル</option>
             </select>
 
-            <span>총 {totalCount}개 공동구매</span>
+            <span>合計 {totalCount}件の共同購入</span>
           </div>
 
           <div className="agb-pagination">
@@ -474,7 +474,7 @@ function AdminGroupBuy() {
               type="button"
               disabled={page === 1 || isBusy}
               onClick={() => handlePageChange(Math.max(1, page - 1))}
-              aria-label="이전 페이지"
+              aria-label="前のページ"
             >
               <FontAwesomeIcon icon={faChevronLeft} />
             </button>
@@ -497,7 +497,7 @@ function AdminGroupBuy() {
               type="button"
               disabled={page === totalPages || isBusy}
               onClick={() => handlePageChange(Math.min(totalPages, page + 1))}
-              aria-label="다음 페이지"
+              aria-label="次のページ"
             >
               <FontAwesomeIcon icon={faChevronRight} />
             </button>

@@ -3,10 +3,10 @@ import { useEffect, useState } from "react";
 import "../../../pages/Admin/GroupBuyManagement/AdminGroupBuy.css";
 
 const statusText = {
-  RECRUITING: "모집 중",
-  SUCCESS: "공동구매 성공",
-  FAILED: "모집 실패",
-  CANCELLED: "취소",
+  RECRUITING: "募集中",
+  SUCCESS: "共同購入成立",
+  FAILED: "募集失敗",
+  CANCELLED: "キャンセル",
 };
 
 function formatDateTime(dateValue) {
@@ -14,7 +14,7 @@ function formatDateTime(dateValue) {
     return "-";
   }
 
-  return new Intl.DateTimeFormat("ko-KR", {
+  return new Intl.DateTimeFormat("ja-JP", {
     year: "numeric",
     month: "2-digit",
     day: "2-digit",
@@ -95,12 +95,12 @@ function AdminGroupBuyDetailModal({
     const targetQuantity = Number(form.targetQuantity);
 
     if (!form.title.trim()) {
-      alert("제목을 입력해 주세요.");
+      alert("タイトルを入力してください。");
       return;
     }
 
     if (!Number.isFinite(targetQuantity) || targetQuantity < 1) {
-      alert("목표 수량을 올바르게 입력해 주세요.");
+      alert("目標数量を正しく入力してください。");
       return;
     }
 
@@ -138,11 +138,11 @@ function AdminGroupBuyDetailModal({
         className="agb-modal"
         role="dialog"
         aria-modal="true"
-        aria-label="공동구매 상세 정보"
+        aria-label="共同購入詳細情報"
       >
         <header className="agb-modal-header">
           <div>
-            <h2>공동구매 상세 정보</h2>
+            <h2>共同購入詳細情報</h2>
             {detail && <p>{detail.title}</p>}
           </div>
 
@@ -150,7 +150,7 @@ function AdminGroupBuyDetailModal({
             type="button"
             className="agb-modal-close-button"
             onClick={onClose}
-            aria-label="닫기"
+            aria-label="閉じる"
           >
             ×
           </button>
@@ -158,7 +158,7 @@ function AdminGroupBuyDetailModal({
 
         {isLoading || !detail || !form ? (
           <div className="agb-modal-loading">
-            {isLoading ? "불러오는 중입니다..." : "상세 정보가 없습니다."}
+            {isLoading ? "読み込み中です..." : "詳細情報がありません。"}
           </div>
         ) : (
           <div className="agb-modal-content">
@@ -183,26 +183,26 @@ function AdminGroupBuyDetailModal({
             </section>
 
             <section className="agb-modal-section">
-              <h3>등록자 정보</h3>
+              <h3>登録者情報</h3>
 
               <dl className="agb-modal-info-grid">
                 <div>
-                  <dt>이름</dt>
+                  <dt>名前</dt>
                   <dd>{detail.creatorName ?? "-"}</dd>
                 </div>
 
                 <div>
-                  <dt>이메일</dt>
+                  <dt>メール</dt>
                   <dd>{detail.creatorEmail ?? "-"}</dd>
                 </div>
 
                 <div>
-                  <dt>참여자 수</dt>
-                  <dd>{detail.participantCount ?? 0}명</dd>
+                  <dt>参加者数</dt>
+                  <dd>{detail.participantCount ?? 0}名</dd>
                 </div>
 
                 <div>
-                  <dt>달성률</dt>
+                  <dt>達成率</dt>
                   <dd>
                     {detail.currentQuantity} / {detail.targetQuantity} (
                     {progressRate}%)
@@ -213,7 +213,7 @@ function AdminGroupBuyDetailModal({
 
             <section className="agb-modal-section">
               <div className="agb-modal-section-header">
-                <h3>모집 정보</h3>
+                <h3>募集情報</h3>
 
                 {!isEditing && (
                   <button
@@ -221,7 +221,7 @@ function AdminGroupBuyDetailModal({
                     className="agb-modal-edit-button"
                     onClick={() => setIsEditing(true)}
                   >
-                    수정
+                    編集
                   </button>
                 )}
               </div>
@@ -229,7 +229,7 @@ function AdminGroupBuyDetailModal({
               {isEditing ? (
                 <div className="agb-modal-form">
                   <label>
-                    <span>제목</span>
+                    <span>タイトル</span>
                     <input
                       type="text"
                       value={form.title}
@@ -238,7 +238,7 @@ function AdminGroupBuyDetailModal({
                   </label>
 
                   <label>
-                    <span>설명</span>
+                    <span>説明</span>
                     <textarea
                       rows={3}
                       value={form.description}
@@ -247,7 +247,7 @@ function AdminGroupBuyDetailModal({
                   </label>
 
                   <label>
-                    <span>목표 수량</span>
+                    <span>目標数量</span>
                     <input
                       type="number"
                       min={1}
@@ -258,7 +258,7 @@ function AdminGroupBuyDetailModal({
 
                   <div className="agb-modal-form-row">
                     <label>
-                      <span>시작일시</span>
+                      <span>開始日時</span>
                       <input
                         type="datetime-local"
                         value={form.startDate}
@@ -267,7 +267,7 @@ function AdminGroupBuyDetailModal({
                     </label>
 
                     <label>
-                      <span>종료일시</span>
+                      <span>終了日時</span>
                       <input
                         type="datetime-local"
                         value={form.endDate}
@@ -283,7 +283,7 @@ function AdminGroupBuyDetailModal({
                       disabled={isSaving}
                       onClick={() => setIsEditing(false)}
                     >
-                      취소
+                      キャンセル
                     </button>
 
                     <button
@@ -292,34 +292,34 @@ function AdminGroupBuyDetailModal({
                       disabled={isSaving}
                       onClick={handleSave}
                     >
-                      {isSaving ? "저장 중..." : "저장"}
+                      {isSaving ? "保存中..." : "保存"}
                     </button>
                   </div>
                 </div>
               ) : (
                 <dl className="agb-modal-info-grid">
                   <div className="agb-modal-info-wide">
-                    <dt>설명</dt>
+                    <dt>説明</dt>
                     <dd>{detail.description || "-"}</dd>
                   </div>
 
                   <div>
-                    <dt>시작일시</dt>
+                    <dt>開始日時</dt>
                     <dd>{formatDateTime(detail.startDate)}</dd>
                   </div>
 
                   <div>
-                    <dt>종료일시</dt>
+                    <dt>終了日時</dt>
                     <dd>{formatDateTime(detail.endDate)}</dd>
                   </div>
 
                   <div>
-                    <dt>등록일</dt>
+                    <dt>登録日</dt>
                     <dd>{formatDateTime(detail.createdAt)}</dd>
                   </div>
 
                   <div>
-                    <dt>수정일</dt>
+                    <dt>更新日</dt>
                     <dd>{formatDateTime(detail.updatedAt)}</dd>
                   </div>
                 </dl>
@@ -327,7 +327,7 @@ function AdminGroupBuyDetailModal({
             </section>
 
             <section className="agb-modal-section">
-              <h3>진행 상태 변경</h3>
+              <h3>進行状況の変更</h3>
 
               <div className="agb-modal-status-row">
                 <select
@@ -335,10 +335,10 @@ function AdminGroupBuyDetailModal({
                   onChange={(event) => setStatusDraft(event.target.value)}
                   disabled={isSaving}
                 >
-                  <option value="RECRUITING">모집 중</option>
-                  <option value="SUCCESS">공동구매 성공</option>
-                  <option value="FAILED">모집 실패</option>
-                  <option value="CANCELLED">취소</option>
+                  <option value="RECRUITING">募集中</option>
+                  <option value="SUCCESS">共同購入成立</option>
+                  <option value="FAILED">募集失敗</option>
+                  <option value="CANCELLED">キャンセル</option>
                 </select>
 
                 <button
@@ -347,7 +347,7 @@ function AdminGroupBuyDetailModal({
                   disabled={isSaving || statusDraft === detail.status}
                   onClick={handleStatusChange}
                 >
-                  변경
+                  変更
                 </button>
               </div>
             </section>

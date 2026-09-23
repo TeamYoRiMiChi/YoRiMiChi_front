@@ -53,7 +53,7 @@ function useAdminGroupBuys() {
       setTotalPages(1);
 
       setError(
-        err.response?.data?.message ?? "공동구매 목록을 불러오지 못했습니다.",
+        err.response?.data?.message ?? "共同購入一覧を取得できませんでした。",
       );
     } finally {
       setIsLoading(false);

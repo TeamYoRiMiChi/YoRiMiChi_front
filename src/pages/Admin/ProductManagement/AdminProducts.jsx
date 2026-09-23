@@ -257,28 +257,28 @@ useEffect(() => {
   const summaryItems = [
     {
       key: "total",
-      label: "전체 상품",
+      label: "全商品",
       value: summary.total,
       icon: faBoxOpen,
       color: "blue",
     },
     {
       key: "active",
-      label: "판매 중",
+      label: "販売中",
       value: summary.active,
       icon: faCartShopping,
       color: "green",
     },
     {
       key: "soldOut",
-      label: "품절",
+      label: "在庫切れ",
       value: summary.soldOut,
       icon: faBan,
       color: "red",
     },
     {
       key: "hidden",
-      label: "판매 중지",
+      label: "販売停止",
       value: summary.hidden,
       icon: faCirclePause,
       color: "gray",
@@ -348,12 +348,12 @@ useEffect(() => {
    */
   const handleDeleteSelected = async () => {
   if (selectedIds.length === 0) {
-    alert("삭제할 상품을 선택해 주세요.");
+    alert("削除する商品を選択してください。");
     return;
   }
 
   const confirmed = window.confirm(
-    `선택한 상품 ${selectedIds.length}개를 삭제하시겠습니까?`
+    `選択した商品${selectedIds.length}件を削除しますか？`
   );
 
   if (!confirmed) {
@@ -378,7 +378,7 @@ useEffect(() => {
 
     setSelectedIds([]);
 
-    alert("상품이 삭제되었습니다.");
+    alert("商品を削除しました。");
   } catch (error) {
     console.error(
       "상품 삭제 실패:",
@@ -387,7 +387,7 @@ useEffect(() => {
 
     alert(
       error?.response?.data?.message ??
-      "상품 삭제에 실패했습니다."
+      "商品の削除に失敗しました。"
     );
   }
 };
@@ -408,7 +408,7 @@ useEffect(() => {
     }
 
     if (selectedIds.length === 0) {
-      alert("상품을 선택해 주세요.");
+      alert("商品を選択してください。");
       event.target.value = "";
       return;
     }
@@ -472,7 +472,7 @@ useEffect(() => {
     );
 
     if (!product) {
-      alert("상품을 찾을 수 없습니다.");
+      alert("商品が見つかりません。");
       return;
     }
 
@@ -481,7 +481,7 @@ useEffect(() => {
       Number(product.stock) < 0
     ) {
       alert(
-        "재고는 0 이상의 숫자로 입력해 주세요."
+        "在庫は0以上の数値を入力してください。"
       );
       return;
     }
@@ -491,7 +491,7 @@ useEffect(() => {
   Number(product.priceJpy) < 0
 ) {
   alert(
-    "판매가는 0 이상의 숫자로 입력해 주세요."
+    "販売価格は0以上の数値を入力してください。"
   );
   return;
 }
@@ -543,7 +543,7 @@ const updateData = {
       }
 
       alert(
-        "상품 정보가 저장되었습니다."
+        "商品情報を保存しました。"
       );
     } catch (error) {
       console.error(
@@ -553,7 +553,7 @@ const updateData = {
 
       alert(
         error?.response?.data?.message ??
-        "상품 수정에 실패했습니다."
+        "商品の更新に失敗しました。"
       );
     }
   };
@@ -580,13 +580,13 @@ const handleRegisterProduct = async (
     setPage(1);
     setIsRegisterModalOpen(false);
 
-    alert("상품이 등록되었습니다.");
+    alert("商品を登録しました。");
   } catch (error) {
     console.error("상품 등록 실패:", error);
 
     alert(
       error.response?.data?.message ??
-      "상품 등록에 실패했습니다."
+      "商品登録に失敗しました。"
     );
   }
 };
@@ -595,11 +595,11 @@ const handleRegisterProduct = async (
     <div className="ap-page">
       <header className="ap-page-header">
         <div>
-          <h2>상품 관리</h2>
+          <h2>商品管理</h2>
 
           <p>
-            등록된 상품과 재고 상태를
-            관리하세요.
+            登録済みの商品と在庫状況を
+            管理します。
           </p>
         </div>
 
@@ -614,7 +614,7 @@ const handleRegisterProduct = async (
             icon={faPlus}
           />
 
-          상품 등록
+          商品登録
         </button>
       </header>
 

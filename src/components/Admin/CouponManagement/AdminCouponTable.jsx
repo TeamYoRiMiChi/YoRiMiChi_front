@@ -11,16 +11,16 @@ function AdminCouponTable({ coupons, onIssueClick, onStopClick }) {
       <table className="acp-table acp-coupon-table">
         <thead>
           <tr>
-            <th>쿠폰 ID</th>
-            <th>쿠폰 정보</th>
-            <th>할인</th>
-            <th>최소 주문금액</th>
-            <th>최대 할인금액</th>
-            <th>발급 방식</th>
-            <th>사용 기간</th>
-            <th>발급 현황</th>
-            <th>상태</th>
-            <th>관리</th>
+            <th>クーポンID</th>
+            <th>クーポン情報</th>
+            <th>割引</th>
+            <th>最低注文金額</th>
+            <th>最大割引金額</th>
+            <th>発行方式</th>
+            <th>利用期間</th>
+            <th>発行状況</th>
+            <th>ステータス</th>
+            <th>管理</th>
           </tr>
         </thead>
 
@@ -44,13 +44,13 @@ function AdminCouponTable({ coupons, onIssueClick, onStopClick }) {
                 <strong className="acp-discount">
                   {coupon.discountType === "PERCENT"
                     ? `${coupon.discountValue}%`
-                    : `${formatMoney(coupon.discountValue)}원`}
+                    : `${formatMoney(coupon.discountValue)}円`}
                 </strong>
               </td>
 
-              <td>{formatMoney(coupon.minOrderAmount)}원</td>
+              <td>{formatMoney(coupon.minOrderAmount)}円</td>
 
-              <td>{formatMoney(coupon.maxDiscountAmount)}원</td>
+              <td>{formatMoney(coupon.maxDiscountAmount)}円</td>
 
               <td>
                 <span className="acp-issue-badge">
@@ -70,7 +70,7 @@ function AdminCouponTable({ coupons, onIssueClick, onStopClick }) {
                 <div className="acp-issued">
                   <strong>{coupon.issuedCount}</strong>
                   <span>
-                    / {coupon.usageLimit == null ? "무제한" : coupon.usageLimit}
+                    / {coupon.usageLimit == null ? "無制限" : coupon.usageLimit}
                   </span>
                 </div>
               </td>
@@ -86,10 +86,10 @@ function AdminCouponTable({ coupons, onIssueClick, onStopClick }) {
                   }
                 >
                   {coupon.status === "ACTIVE"
-                    ? "사용 가능"
+                    ? "利用可能"
                     : coupon.status === "STOPPED"
-                      ? "중지"
-                      : "만료"}
+                      ? "停止中"
+                      : "期限切れ"}
                 </span>
               </td>
 
@@ -102,7 +102,7 @@ function AdminCouponTable({ coupons, onIssueClick, onStopClick }) {
                     onClick={() => onIssueClick(coupon)}
                   >
                     <FontAwesomeIcon icon={faPaperPlane} />
-                    발급
+                    発行
                   </button>
 
                   <button
@@ -112,7 +112,7 @@ function AdminCouponTable({ coupons, onIssueClick, onStopClick }) {
                     onClick={() => onStopClick(coupon)}
                   >
                     <FontAwesomeIcon icon={faBan} />
-                    중지
+                    停止
                   </button>
                 </div>
               </td>
@@ -122,7 +122,7 @@ function AdminCouponTable({ coupons, onIssueClick, onStopClick }) {
           {coupons.length === 0 && (
             <tr>
               <td colSpan={10} className="acp-empty">
-                조건에 맞는 쿠폰이 없습니다.
+                条件に合うクーポンがありません。
               </td>
             </tr>
           )}

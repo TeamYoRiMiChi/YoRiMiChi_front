@@ -3,22 +3,22 @@ import AdminProduct_Stock from "./AdminProduct_Stock";
 import AdminProduct_Price
   from "./AdminProduct_Price";
 const saleTypeText = {
-  OVERSEAS: "해외직구",
-  GROUP_BUY: "공동구매",
+  OVERSEAS: "海外直購",
+  GROUP_BUY: "共同購入",
 };
 
 const statusOptions = [
   {
     value: "ACTIVE",
-    label: "판매 중",
+    label: "販売中",
   },
   {
     value: "SOLD_OUT",
-    label: "품절",
+    label: "在庫切れ",
   },
   {
     value: "HIDDEN",
-    label: "판매 중지",
+    label: "販売停止",
   },
 ];
 
@@ -42,17 +42,17 @@ function AdminProductTable({
                 type="checkbox"
                 checked={isAllSelected}
                 onChange={onSelectAll}
-                aria-label="전체 상품 선택"
+                aria-label="全商品選択"
               />
             </th>
 
-            <th>상품 정보</th>
-            <th>상품 ID</th>
-            <th>판매 유형</th>
-            <th>카테고리</th>
-            <th>판매가(¥)</th>
-            <th>재고</th>
-            <th>판매 상태</th>
+            <th>商品情報</th>
+            <th>商品ID</th>
+            <th>販売種別</th>
+            <th>カテゴリ</th>
+            <th>販売価格(¥)</th>
+            <th>在庫</th>
+            <th>販売ステータス</th>
           </tr>
         </thead>
 
@@ -69,7 +69,7 @@ function AdminProductTable({
                   onChange={() =>
                     onSelectProduct(product.productId)
                   }
-                  aria-label={`${product.productName} 선택`}
+                  aria-label={`${product.productName} を選択`}
                 />
               </td>
 
@@ -77,7 +77,7 @@ function AdminProductTable({
               <td>
                 <div className="ap-product-info">
                   <img
-                    src={product.thumbnailUrl}
+                    src={product.thumbnailUrl || undefined}
                     alt={product.productName}
                   />
 
@@ -131,11 +131,11 @@ function AdminProductTable({
     return (
       category?.categoryName ??
       category?.name ??
-      "카테고리 없음"
+      "カテゴリなし"
     );
   })()}
 </td>
-          
+
   {/* 판매 가격 변경 */}
 <td className="ap-price">
   <AdminProduct_Price
@@ -178,7 +178,7 @@ function AdminProductTable({
                       onSave(product.productId)
                     }
                   >
-                    수정하기
+                    保存
                   </button>
                 </div>
               </td>
@@ -191,7 +191,7 @@ function AdminProductTable({
                 className="ap-empty-result"
                 colSpan={8}
               >
-                조건에 맞는 상품이 없습니다.
+                条件に合う商品がありません。
               </td>
             </tr>
           )}

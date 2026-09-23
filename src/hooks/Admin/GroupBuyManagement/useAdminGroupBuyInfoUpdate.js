@@ -12,14 +12,14 @@ function useAdminGroupBuyInfoUpdate({ reopenDetail, refetchGroupBuys }) {
     try {
       const response = await updateAdminGroupBuy(groupBuyId, updateData);
 
-      alert(response.data.message ?? "공동구매 정보를 수정했습니다.");
+      alert(response.data.message ?? "共同購入情報を修正しました。");
 
       await reopenDetail(groupBuyId);
       await refetchGroupBuys();
 
       return true;
     } catch (err) {
-      alert(err.response?.data?.message ?? "공동구매 정보 수정에 실패했습니다.");
+      alert(err.response?.data?.message ?? "共同購入情報の修正に失敗しました。");
 
       return false;
     } finally {

@@ -19,7 +19,7 @@ function useAdminGroupBuyDetail() {
       setIsDetailOpen(false);
 
       alert(
-        err.response?.data?.message ?? "공동구매 상세 정보를 불러오지 못했습니다.",
+        err.response?.data?.message ?? "共同購入の詳細情報を取得できませんでした。",
       );
     } finally {
       setIsDetailLoading(false);

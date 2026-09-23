@@ -79,7 +79,7 @@ function AdminCoupons() {
 
   const handleStopCoupon = async (coupon) => {
     const confirmed = window.confirm(
-      `"${coupon.couponName}" 쿠폰을 중지할까요?\n중지하면 신규 발급은 막히지만, 이미 발급된 내역은 그대로 유지됩니다.`
+      `「${coupon.couponName}」クーポンを停止しますか？\n停止すると新規発行はできなくなりますが、すでに発行された分はそのまま利用できます。`
     );
 
     if (!confirmed) {
@@ -92,7 +92,7 @@ function AdminCoupons() {
       refetchSummary();
     } catch (err) {
       window.alert(
-        err.response?.data?.message ?? "쿠폰 중지에 실패했습니다. 다시 시도해주세요."
+        err.response?.data?.message ?? "クーポンの停止に失敗しました。もう一度お試しください。"
       );
     }
   };
@@ -107,11 +107,11 @@ function AdminCoupons() {
 
       <header className="acp-page-header">
         <div>
-          <h2>쿠폰 관리</h2>
+          <h2>クーポン管理</h2>
 
           <p>
-            쿠폰 정보와 회원별
-            쿠폰 발급 내역을 관리하세요.
+            クーポン情報と会員別の
+            クーポン発行履歴を管理します。
           </p>
         </div>
 
@@ -122,7 +122,7 @@ function AdminCoupons() {
             onClick={() => setIsCreateModalOpen(true)}
           >
             <FontAwesomeIcon icon={faPlus} />
-            쿠폰 등록
+            クーポン登録
           </button>
         )}
       </header>
@@ -163,7 +163,7 @@ function AdminCoupons() {
 
           {isCouponLoading && (
             <p className="acp-status-message acp-status-loading">
-              쿠폰 목록을 불러오는 중입니다...
+              クーポン一覧を読み込んでいます...
             </p>
           )}
 
@@ -181,7 +181,7 @@ function AdminCoupons() {
 
           <AdminCouponPagination
             totalCount={couponTotalCount}
-            totalLabel="개 쿠폰"
+            totalLabel="件のクーポン"
             page={couponPage}
             totalPages={couponTotalPages}
             onPageChange={handleCouponPageChange}
@@ -206,7 +206,7 @@ function AdminCoupons() {
 
           {isMemberCouponLoading && (
             <p className="acp-status-message acp-status-loading">
-              발급 내역을 불러오는 중입니다...
+              発行履歴を読み込んでいます...
             </p>
           )}
 
@@ -220,7 +220,7 @@ function AdminCoupons() {
 
           <AdminCouponPagination
             totalCount={memberCouponTotalCount}
-            totalLabel="건의 발급 내역"
+            totalLabel="件の発行履歴"
             page={memberCouponPage}
             totalPages={memberCouponTotalPages}
             onPageChange={handleMemberCouponPageChange}

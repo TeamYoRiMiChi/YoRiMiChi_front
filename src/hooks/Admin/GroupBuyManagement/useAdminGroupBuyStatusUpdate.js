@@ -16,13 +16,13 @@ function useAdminGroupBuyStatusUpdate({
     try {
       const response = await updateAdminGroupBuyStatus(groupBuyId, nextStatus);
 
-      alert(response.data.message ?? "공동구매 상태를 변경했습니다.");
+      alert(response.data.message ?? "共同購入のステータスを変更しました。");
 
       await reopenDetail(groupBuyId);
       await refetchGroupBuys();
       await refetchSummary();
     } catch (err) {
-      alert(err.response?.data?.message ?? "공동구매 상태 변경에 실패했습니다.");
+      alert(err.response?.data?.message ?? "共同購入のステータス変更に失敗しました。");
     } finally {
       setIsStatusSaving(false);
     }

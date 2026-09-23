@@ -52,27 +52,27 @@ function AdminGroupBuyCreateForm({ products = [], isSaving, onSubmit, onClose })
     event.preventDefault();
 
     if (!selectedProduct) {
-      alert("공동구매를 진행할 상품을 선택해 주세요.");
+      alert("共同購入を行う商品を選択してください。");
       return;
     }
 
     if (!formData.title.trim()) {
-      alert("공동구매 제목을 입력해 주세요.");
+      alert("共同購入タイトルを入力してください。");
       return;
     }
 
     if (formData.targetQuantity === "" || Number(formData.targetQuantity) < 1) {
-      alert("목표 수량은 1개 이상이어야 합니다.");
+      alert("目標数量は1個以上にしてください。");
       return;
     }
 
     if (!formData.startDate || !formData.endDate) {
-      alert("모집 기간을 입력해 주세요.");
+      alert("募集期間を入力してください。");
       return;
     }
 
     if (new Date(formData.endDate) <= new Date(formData.startDate)) {
-      alert("모집 마감일은 시작일보다 뒤여야 합니다.");
+      alert("募集終了日は開始日より後にしてください。");
       return;
     }
 
@@ -95,8 +95,8 @@ function AdminGroupBuyCreateForm({ products = [], isSaving, onSubmit, onClose })
     <section className="agb-form-panel">
       <div className="agb-form-header">
         <div>
-          <h3>공동구매 등록</h3>
-          <p>이미 등록된 공동구매 상품을 골라 새 모집 라운드를 엽니다.</p>
+          <h3>共同購入登録</h3>
+          <p>すでに登録されている共同購入商品を選んで新しい募集ラウンドを開始します。</p>
         </div>
 
         <button
@@ -104,7 +104,7 @@ function AdminGroupBuyCreateForm({ products = [], isSaving, onSubmit, onClose })
           className="agb-form-close"
           onClick={onClose}
           disabled={isSaving}
-          aria-label="폼 닫기"
+          aria-label="フォームを閉じる"
         >
           <FontAwesomeIcon icon={faXmark} />
         </button>
@@ -112,7 +112,7 @@ function AdminGroupBuyCreateForm({ products = [], isSaving, onSubmit, onClose })
 
       <form className="agb-create-form" onSubmit={handleSubmit}>
         <div className="agb-form-product-picker">
-          <span className="agb-form-picker-label">상품</span>
+          <span className="agb-form-picker-label">商品</span>
 
           {selectedProduct ? (
             <div className="agb-form-selected-product">
@@ -136,7 +136,7 @@ function AdminGroupBuyCreateForm({ products = [], isSaving, onSubmit, onClose })
                 }}
                 disabled={isSaving}
               >
-                변경
+                変更
               </button>
             </div>
           ) : (
@@ -152,7 +152,7 @@ function AdminGroupBuyCreateForm({ products = [], isSaving, onSubmit, onClose })
                     setIsPickerOpen(true);
                   }}
                   onFocus={() => setIsPickerOpen(true)}
-                  placeholder="상품명, 일본어 상품명 또는 브랜드로 검색"
+                  placeholder="商品名、日本語商品名またはブランドで検索"
                   disabled={isSaving}
                 />
               </label>
@@ -161,7 +161,7 @@ function AdminGroupBuyCreateForm({ products = [], isSaving, onSubmit, onClose })
                 <ul className="agb-form-picker-list">
                   {filteredProducts.length === 0 && (
                     <li className="agb-form-picker-empty">
-                      판매유형이 "공동구매"인 상품이 없습니다.
+                      販売種別が「共同購入」の商品がありません。
                     </li>
                   )}
 
@@ -193,32 +193,32 @@ function AdminGroupBuyCreateForm({ products = [], isSaving, onSubmit, onClose })
 
         <div className="agb-form-grid">
           <label className="agb-form-full">
-            <span>공동구매 제목</span>
+            <span>共同購入タイトル</span>
             <input
               type="text"
               name="title"
               value={formData.title}
               onChange={handleChange}
-              placeholder="공동구매 제목"
+              placeholder="共同購入タイトル"
               disabled={isSaving}
               required
             />
           </label>
 
           <label className="agb-form-full">
-            <span>공동구매 설명</span>
+            <span>共同購入の説明</span>
             <textarea
               name="description"
               rows={3}
               value={formData.description}
               onChange={handleChange}
-              placeholder="공동구매 설명"
+              placeholder="共同購入の説明"
               disabled={isSaving}
             />
           </label>
 
           <label>
-            <span>목표 수량</span>
+            <span>目標数量</span>
             <input
               type="number"
               name="targetQuantity"
@@ -232,7 +232,7 @@ function AdminGroupBuyCreateForm({ products = [], isSaving, onSubmit, onClose })
           </label>
 
           <label>
-            <span>모집 시작일</span>
+            <span>募集開始日</span>
             <input
               type="datetime-local"
               name="startDate"
@@ -244,7 +244,7 @@ function AdminGroupBuyCreateForm({ products = [], isSaving, onSubmit, onClose })
           </label>
 
           <label>
-            <span>모집 마감일</span>
+            <span>募集終了日</span>
             <input
               type="datetime-local"
               name="endDate"
@@ -263,11 +263,11 @@ function AdminGroupBuyCreateForm({ products = [], isSaving, onSubmit, onClose })
             onClick={onClose}
             disabled={isSaving}
           >
-            취소
+            キャンセル
           </button>
 
           <button type="submit" className="agb-form-save-button" disabled={isSaving}>
-            {isSaving ? "등록 중..." : "등록"}
+            {isSaving ? "登録中..." : "登録"}
           </button>
         </div>
       </form>

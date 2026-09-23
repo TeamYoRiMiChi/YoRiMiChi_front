@@ -29,7 +29,7 @@ function AdminCouponPagination({
   return (
     <footer className="acp-table-footer">
       <span>
-        총 <strong>{totalCount}</strong>
+        合計 <strong>{totalCount}</strong>
         {totalLabel}
       </span>
 

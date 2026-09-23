@@ -13,14 +13,14 @@ function useAdminGroupBuyCreate({ refetchGroupBuys, refetchSummary }) {
     try {
       const response = await createGroupBuy(registerData);
 
-      alert(response.data.message ?? "공동구매가 등록되었습니다.");
+      alert(response.data.message ?? "共同購入を登録しました。");
 
       await refetchGroupBuys();
       await refetchSummary();
 
       return true;
     } catch (err) {
-      alert(err.response?.data?.message ?? "공동구매 등록에 실패했습니다.");
+      alert(err.response?.data?.message ?? "共同購入の登録に失敗しました。");
 
       return false;
     } finally {

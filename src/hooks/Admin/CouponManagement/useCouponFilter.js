@@ -50,7 +50,7 @@ function useCouponFilter() {
       setCouponTotalPages(page.totalPages ?? 1);
     } catch (err) {
       setError(
-        err.response?.data?.message ?? "쿠폰 목록을 불러오지 못했습니다."
+        err.response?.data?.message ?? "クーポン一覧を取得できませんでした。"
       );
       setPagedCoupons([]);
       setTotalCount(0);
