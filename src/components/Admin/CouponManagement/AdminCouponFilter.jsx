@@ -23,29 +23,29 @@ function AdminCouponFilter({
         <input
           type="search"
           value={couponKeyword}
-          placeholder="쿠폰명, 쿠폰 코드 또는 쿠폰 ID 검색"
+          placeholder="クーポン名、クーポンコードまたはクーポンIDで検索"
           onChange={onKeywordChange}
         />
       </label>
 
       <div className="acp-filter-item">
-        <span>할인 방식</span>
+        <span>割引方式</span>
 
         <select value={discountType} onChange={onDiscountTypeChange}>
-          <option value="">전체</option>
-          <option value="PERCENT">정률 할인</option>
-          <option value="FIXED">정액 할인</option>
+          <option value="">すべて</option>
+          <option value="PERCENT">定率割引</option>
+          <option value="FIXED">定額割引</option>
         </select>
       </div>
 
       <div className="acp-filter-item">
-        <span>상태</span>
+        <span>ステータス</span>
 
         <select value={couponStatus} onChange={onStatusChange}>
-          <option value="">전체</option>
-          <option value="ACTIVE">사용 가능</option>
-          <option value="EXPIRED">만료</option>
-          <option value="STOPPED">사용중지</option>
+          <option value="">すべて</option>
+          <option value="ACTIVE">利用可能</option>
+          <option value="EXPIRED">期限切れ</option>
+          <option value="STOPPED">利用停止</option>
         </select>
       </div>
 
@@ -55,7 +55,7 @@ function AdminCouponFilter({
         onClick={onReset}
       >
         <FontAwesomeIcon icon={faRotateRight} />
-        초기화
+        リセット
       </button>
     </div>
   );

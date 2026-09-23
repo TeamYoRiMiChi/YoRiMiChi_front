@@ -44,15 +44,15 @@ function AdminUserFooter({
                 value=""
                 disabled
               >
-                선택 상태 변경
+                選択した会員の状態を変更
               </option>
 
               <option value="ACTIVE">
-                정상
+                有効
               </option>
 
               <option value="INACTIVE">
-                탈퇴
+                退会
               </option>
 
             </select>
@@ -60,13 +60,13 @@ function AdminUserFooter({
 
             <span>
 
-              총{" "}
+              該当会員{" "}
 
               <strong>
                 {filteredCount}
               </strong>
 
-              명의 회원
+              名
 
             </span>
 

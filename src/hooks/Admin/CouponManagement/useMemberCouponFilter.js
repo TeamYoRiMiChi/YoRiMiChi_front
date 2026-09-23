@@ -50,7 +50,7 @@ function useMemberCouponFilter() {
       setMemberCouponTotalPages(page.totalPages ?? 1);
     } catch (err) {
       setError(
-        err.response?.data?.message ?? "발급 내역을 불러오지 못했습니다."
+        err.response?.data?.message ?? "発行履歴を取得できませんでした。"
       );
       setPagedMemberCoupons([]);
       setMemberCouponTotalCount(0);

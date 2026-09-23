@@ -40,7 +40,7 @@ function AdminCouponIssueModal({ coupon, onClose, onIssued }) {
     const emails = parseEmails(emailText);
 
     if (target === "SELECTED" && emails.length === 0) {
-      setError("발급할 회원의 이메일을 한 명 이상 입력해주세요.");
+      setError("発行する会員のメールアドレスを1件以上入力してください。");
       return;
     }
 
@@ -57,7 +57,7 @@ function AdminCouponIssueModal({ coupon, onClose, onIssued }) {
       onIssued();
     } catch (err) {
       setSubmitError(
-        err.response?.data?.message ?? "쿠폰 발급에 실패했습니다. 다시 시도해주세요."
+        err.response?.data?.message ?? "クーポンの発行に失敗しました。もう一度お試しください。"
       );
     } finally {
       setIsSubmitting(false);
@@ -75,15 +75,15 @@ function AdminCouponIssueModal({ coupon, onClose, onIssued }) {
       >
         <div className="acp-modal-header">
           <div>
-            <h3 id="acp-issue-modal-title">쿠폰 발급</h3>
-            <p>회원에게 이 쿠폰을 지급합니다.</p>
+            <h3 id="acp-issue-modal-title">クーポン発行</h3>
+            <p>会員にこのクーポンを付与します。</p>
           </div>
 
           <button
             type="button"
             className="acp-modal-close"
             onClick={onClose}
-            aria-label="닫기"
+            aria-label="閉じる"
           >
             <FontAwesomeIcon icon={faXmark} />
           </button>
@@ -96,7 +96,7 @@ function AdminCouponIssueModal({ coupon, onClose, onIssued }) {
           </div>
 
           <div className="acp-modal-field">
-            <label>발급 대상</label>
+            <label>発行対象</label>
 
             <div className="acp-modal-target-box">
               <button
@@ -106,7 +106,7 @@ function AdminCouponIssueModal({ coupon, onClose, onIssued }) {
                 }`}
                 onClick={() => setTarget("SELECTED")}
               >
-                선택한 회원
+                選択した会員
               </button>
 
               <button
@@ -116,14 +116,14 @@ function AdminCouponIssueModal({ coupon, onClose, onIssued }) {
                 }`}
                 onClick={() => setTarget("ALL")}
               >
-                전체 회원
+                全会員
               </button>
             </div>
           </div>
 
           {target === "SELECTED" && (
             <div className="acp-modal-field">
-              <label htmlFor="emails">회원 이메일</label>
+              <label htmlFor="emails">会員メールアドレス</label>
 
               <textarea
                 id="emails"
@@ -132,11 +132,11 @@ function AdminCouponIssueModal({ coupon, onClose, onIssued }) {
                   setEmailText(event.target.value);
                   setError(null);
                 }}
-                placeholder={"예)\njiyun@example.com\nminsu@example.com"}
+                placeholder={"例)\njiyun@example.com\nminsu@example.com"}
               />
 
               <span className="acp-modal-hint">
-                쉼표 또는 줄바꿈으로 여러 명을 구분해서 입력하세요.
+                カンマまたは改行で複数人を区切って入力してください。
               </span>
 
               {error && <span className="acp-modal-error">{error}</span>}
@@ -145,7 +145,7 @@ function AdminCouponIssueModal({ coupon, onClose, onIssued }) {
 
           {target === "ALL" && (
             <p className="acp-modal-hint">
-              현재 활동 중인 전체 회원에게 이 쿠폰이 발급됩니다.
+              現在アクティブな全会員にこのクーポンが発行されます。
             </p>
           )}
 
@@ -160,7 +160,7 @@ function AdminCouponIssueModal({ coupon, onClose, onIssued }) {
               onClick={onClose}
               disabled={isSubmitting}
             >
-              취소
+              キャンセル
             </button>
 
             <button
@@ -168,7 +168,7 @@ function AdminCouponIssueModal({ coupon, onClose, onIssued }) {
               className="acp-modal-submit"
               disabled={isSubmitting}
             >
-              {isSubmitting ? "발급 중..." : "발급"}
+              {isSubmitting ? "発行中..." : "発行"}
             </button>
           </div>
         </form>

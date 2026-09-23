@@ -25,31 +25,31 @@ function AdminProductFilter({
           type="search"
           value={keyword}
           onChange={onKeywordChange}
-          placeholder="상품명 또는 브랜드로 검색하세요."
+          placeholder="商品名またはブランドで検索してください。"
         />
       </label>
 
       <div className="ap-filter-item">
-        <span>판매 유형</span>
+        <span>販売種別</span>
 
         <select
           value={saleType}
           onChange={onSaleTypeChange}
         >
-          <option value="">전체</option>
-          <option value="OVERSEAS">해외직구</option>
-          <option value="GROUP_BUY">공동구매</option>
+          <option value="">すべて</option>
+          <option value="OVERSEAS">海外直購</option>
+          <option value="GROUP_BUY">共同購入</option>
         </select>
       </div>
 
       <div className="ap-filter-item">
-        <span>카테고리</span>
+        <span>カテゴリ</span>
 
         <select
           value={categoryId}
           onChange={onCategoryChange}
         >
-          <option value="">전체</option>
+          <option value="">すべて</option>
 
           {categories.map((category) => (
             <option
@@ -63,16 +63,16 @@ function AdminProductFilter({
       </div>
 
       <div className="ap-filter-item">
-        <span>판매 상태</span>
+        <span>販売ステータス</span>
 
         <select
           value={status}
           onChange={onStatusChange}
         >
-          <option value="">전체</option>
-          <option value="ACTIVE">판매 중</option>
-          <option value="SOLD_OUT">품절</option>
-          <option value="HIDDEN">판매 중지</option>
+          <option value="">すべて</option>
+          <option value="ACTIVE">販売中</option>
+          <option value="SOLD_OUT">在庫切れ</option>
+          <option value="HIDDEN">販売停止</option>
         </select>
       </div>
 
@@ -82,7 +82,7 @@ function AdminProductFilter({
         onClick={onReset}
       >
         <FontAwesomeIcon icon={faRotateRight} />
-        초기화
+        リセット
       </button>
     </div>
   );

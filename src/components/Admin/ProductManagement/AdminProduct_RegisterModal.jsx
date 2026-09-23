@@ -45,12 +45,12 @@ function AdminProductRegisterModal({
     event.preventDefault();
 
     if (!formData.categoryId) {
-      alert("카테고리를 선택해 주세요.");
+      alert("カテゴリを選択してください。");
       return;
     }
 
     if (!formData.productName.trim()) {
-      alert("상품명을 입력해 주세요.");
+      alert("商品名を入力してください。");
       return;
     }
 
@@ -59,7 +59,7 @@ function AdminProductRegisterModal({
       Number(formData.priceJpy) < 0
     ) {
       alert(
-        "가격은 0 이상의 숫자로 입력해 주세요."
+        "価格は0以上の数値を入力してください。"
       );
       return;
     }
@@ -69,7 +69,7 @@ function AdminProductRegisterModal({
       Number(formData.stock) < 0
     ) {
       alert(
-        "재고는 0 이상의 숫자로 입력해 주세요."
+        "在庫は0以上の数値を入力してください。"
       );
       return;
     }
@@ -84,7 +84,7 @@ function AdminProductRegisterModal({
         !formData.groupBuyTitle.trim()
       ) {
         alert(
-          "공동구매 제목을 입력해 주세요."
+          "共同購入タイトルを入力してください。"
         );
         return;
       }
@@ -96,7 +96,7 @@ function AdminProductRegisterModal({
         ) < 1
       ) {
         alert(
-          "목표 수량은 1개 이상이어야 합니다."
+          "目標数量は1個以上にしてください。"
         );
         return;
       }
@@ -108,14 +108,14 @@ function AdminProductRegisterModal({
       if (formData.status === "ACTIVE") {
         if (!formData.startDate) {
           alert(
-            "모집 시작일을 입력해 주세요."
+            "募集開始日を入力してください。"
           );
           return;
         }
 
         if (!formData.endDate) {
           alert(
-            "모집 마감일을 입력해 주세요."
+            "募集締切日を入力してください。"
           );
           return;
         }
@@ -125,7 +125,7 @@ function AdminProductRegisterModal({
           new Date(formData.startDate)
         ) {
           alert(
-            "모집 마감일은 시작일보다 뒤여야 합니다."
+            "募集締切日は開始日より後にしてください。"
           );
           return;
         }
@@ -246,12 +246,12 @@ function AdminProductRegisterModal({
         <div className="ap-modal-header">
           <div>
             <h3 id="product-register-title">
-              상품 등록
+              商品登録
             </h3>
 
             <p>
-              판매할 상품 정보를
-              입력하세요.
+              販売する商品情報を
+              入力してください。
             </p>
           </div>
 
@@ -259,7 +259,7 @@ function AdminProductRegisterModal({
             type="button"
             className="ap-modal-close"
             onClick={onClose}
-            aria-label="닫기"
+            aria-label="閉じる"
             disabled={isSubmitting}
           >
             ×
@@ -272,7 +272,7 @@ function AdminProductRegisterModal({
         >
           <div className="ap-modal-grid">
             <label>
-              카테고리
+              カテゴリ
               <select
                 name="categoryId"
                 value={formData.categoryId}
@@ -280,7 +280,7 @@ function AdminProductRegisterModal({
                 required
               >
                 <option value="">
-                  카테고리 선택
+                  カテゴリを選択
                 </option>
 
                 {categories.map(
@@ -303,68 +303,68 @@ function AdminProductRegisterModal({
             </label>
 
             <label>
-              판매 유형
+              販売種別
               <select
                 name="saleType"
                 value={formData.saleType}
                 onChange={handleChange}
               >
                 <option value="OVERSEAS">
-                  해외직구
+                  海外直購
                 </option>
 
                 <option value="GROUP_BUY">
-                  공동구매
+                  共同購入
                 </option>
               </select>
             </label>
 
             <label>
-              브랜드
+              ブランド
               <input
                 type="text"
                 name="brand"
                 value={formData.brand}
                 onChange={handleChange}
-                placeholder="브랜드명"
+                placeholder="ブランド名"
               />
             </label>
 
             <label>
-              판매 상태
+              販売ステータス
               <select
                 name="status"
                 value={formData.status}
                 onChange={handleChange}
               >
                 <option value="ACTIVE">
-                  판매 중
+                  販売中
                 </option>
 
                 <option value="SOLD_OUT">
-                  품절
+                  在庫切れ
                 </option>
 
                 <option value="HIDDEN">
-                  판매 중지
+                  販売停止
                 </option>
               </select>
             </label>
 
             <label className="ap-modal-full">
-              상품명
+              商品名
               <input
                 type="text"
                 name="productName"
                 value={formData.productName}
                 onChange={handleChange}
-                placeholder="상품명을 입력하세요."
+                placeholder="商品名を入力してください。"
                 required
               />
             </label>
 
             <label className="ap-modal-full">
-              일본어 상품명
+              日本語の商品名
               <input
                 type="text"
                 name="productNameJp"
@@ -375,7 +375,7 @@ function AdminProductRegisterModal({
             </label>
 
             <label>
-              판매가격
+              販売価格
               <input
                 type="number"
                 name="priceJpy"
@@ -388,7 +388,7 @@ function AdminProductRegisterModal({
             </label>
 
             <label>
-              원래 가격
+              元の価格
               <input
                 type="number"
                 name="originalPriceJpy"
@@ -402,7 +402,7 @@ function AdminProductRegisterModal({
             </label>
 
             <label>
-              재고
+              在庫
               <input
                 type="number"
                 name="stock"
@@ -415,7 +415,7 @@ function AdminProductRegisterModal({
             </label>
 
             <label className="ap-modal-full">
-              이미지 URL
+              画像URL
               <input
                 type="url"
                 name="thumbnailUrl"
@@ -430,7 +430,7 @@ function AdminProductRegisterModal({
             {isGroupBuy && (
               <>
                 <label className="ap-modal-full">
-                  공동구매 제목
+                  共同購入タイトル
                   <input
                     type="text"
                     name="groupBuyTitle"
@@ -438,13 +438,13 @@ function AdminProductRegisterModal({
                       formData.groupBuyTitle
                     }
                     onChange={handleChange}
-                    placeholder="공동구매 제목"
+                    placeholder="共同購入タイトル"
                     required
                   />
                 </label>
 
                 <label className="ap-modal-full">
-                  공동구매 설명
+                  共同購入の説明
                   <textarea
                     name="groupBuyDescription"
                     value={
@@ -452,12 +452,12 @@ function AdminProductRegisterModal({
                         .groupBuyDescription
                     }
                     onChange={handleChange}
-                    placeholder="공동구매 설명"
+                    placeholder="共同購入の説明"
                   />
                 </label>
 
                 <label>
-                  목표 수량
+                  目標数量
                   <input
                     type="number"
                     name="targetQuantity"
@@ -472,7 +472,7 @@ function AdminProductRegisterModal({
                 </label>
 
                 <label>
-                  모집 시작일
+                  募集開始日
                   <input
                     type="datetime-local"
                     name="startDate"
@@ -490,7 +490,7 @@ function AdminProductRegisterModal({
                 </label>
 
                 <label>
-                  모집 마감일
+                  募集締切日
                   <input
                     type="datetime-local"
                     name="endDate"
@@ -507,9 +507,8 @@ function AdminProductRegisterModal({
 
                 {isDateDisabled && (
                   <p className="ap-modal-full">
-                    판매 중인 공동구매만
-                    모집 기간을 설정할 수
-                    있습니다.
+                    販売中の共同購入のみ
+                    募集期間を設定できます。
                   </p>
                 )}
               </>
@@ -523,7 +522,7 @@ function AdminProductRegisterModal({
               onClick={onClose}
               disabled={isSubmitting}
             >
-              취소
+              キャンセル
             </button>
 
             <button
@@ -532,8 +531,8 @@ function AdminProductRegisterModal({
               disabled={isSubmitting}
             >
               {isSubmitting
-                ? "등록 중..."
-                : "상품 등록"}
+                ? "登録中..."
+                : "商品登録"}
             </button>
           </div>
         </form>

@@ -36,7 +36,7 @@ function AdminProductTableFooter({
           type="checkbox"
           checked={isAllSelected}
           onChange={onSelectAll}
-          aria-label="전체 상품 선택"
+          aria-label="全商品選択"
         />
 
         <button
@@ -46,12 +46,12 @@ function AdminProductTableFooter({
           onClick={onDelete}
         >
           <FontAwesomeIcon icon={faTrashCan} />
-          선택 삭제
+          選択削除
         </button>
 
-        
+
         <span className="ap-total-text">
-          총 {totalCount}개 상품
+          合計 {totalCount}件の商品
         </span>
       </div>
 
@@ -60,7 +60,7 @@ function AdminProductTableFooter({
           type="button"
           disabled={page === 1}
           onClick={handlePreviousPage}
-          aria-label="이전 페이지"
+          aria-label="前のページ"
         >
           <FontAwesomeIcon icon={faChevronLeft} />
         </button>
@@ -84,7 +84,7 @@ function AdminProductTableFooter({
           type="button"
           disabled={page === totalPages}
           onClick={handleNextPage}
-          aria-label="다음 페이지"
+          aria-label="次のページ"
         >
           <FontAwesomeIcon icon={faChevronRight} />
         </button>

@@ -18,7 +18,7 @@ function AdminCouponSummary({ summary }) {
         </div>
 
         <div>
-          <span>전체 쿠폰</span>
+          <span>全クーポン</span>
           <strong>{summary.totalCoupons}</strong>
         </div>
       </div>
@@ -29,7 +29,7 @@ function AdminCouponSummary({ summary }) {
         </div>
 
         <div>
-          <span>사용 가능 쿠폰</span>
+          <span>利用可能なクーポン</span>
           <strong>{summary.activeCoupons}</strong>
         </div>
       </div>
@@ -40,7 +40,7 @@ function AdminCouponSummary({ summary }) {
         </div>
 
         <div>
-          <span>만료 쿠폰</span>
+          <span>期限切れクーポン</span>
           <strong>{summary.expiredCoupons}</strong>
         </div>
       </div>
@@ -51,7 +51,7 @@ function AdminCouponSummary({ summary }) {
         </div>
 
         <div>
-          <span>중지 쿠폰</span>
+          <span>停止中クーポン</span>
           <strong>{summary.stoppedCoupons}</strong>
         </div>
       </div>
@@ -62,7 +62,7 @@ function AdminCouponSummary({ summary }) {
         </div>
 
         <div>
-          <span>회원 발급 쿠폰</span>
+          <span>会員発行クーポン</span>
           <strong>{summary.issuedMemberCoupons}</strong>
         </div>
       </div>

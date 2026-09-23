@@ -3,7 +3,7 @@ export function formatDate(dateValue) {
     return "-";
   }
 
-  return new Intl.DateTimeFormat("ko-KR", {
+  return new Intl.DateTimeFormat("ja-JP", {
     year: "numeric",
     month: "2-digit",
     day: "2-digit",
@@ -11,5 +11,5 @@ export function formatDate(dateValue) {
 }
 
 export function formatMoney(value) {
-  return Number(value || 0).toLocaleString("ko-KR");
+  return Number(value || 0).toLocaleString("ja-JP");
 }

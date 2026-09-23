@@ -29,11 +29,11 @@ import AdminInquiryAnswerModal from "../../../components/Admin/Inquiries/AdminIn
 
 
 const categoryText = {
-  ORDER: "주문",
-  DELIVERY: "배송",
-  PRODUCT: "상품",
-  GROUP_BUY: "공동구매",
-  ETC: "기타",
+  ORDER: "注文・決済",
+  DELIVERY: "配送",
+  PRODUCT: "商品",
+  GROUP_BUY: "共同購入",
+  ETC: "その他",
 };
 
 
@@ -42,7 +42,7 @@ function formatDate(dateValue) {
     return "-";
   }
 
-  return new Intl.DateTimeFormat("ko-KR", {
+  return new Intl.DateTimeFormat("ja-JP", {
     year: "numeric",
     month: "2-digit",
     day: "2-digit",
@@ -69,12 +69,12 @@ function AdminInquiries() {
         <div>
 
           <h2>
-            문의답변 관리
+            お問い合わせ管理
           </h2>
 
           <p>
-            회원 문의를 확인하고
-            답변 상태를 관리하세요.
+            会員のお問い合わせを確認し
+            回答状況を管理してください。
           </p>
 
         </div>
@@ -100,7 +100,7 @@ function AdminInquiries() {
           <div>
 
             <span>
-              전체 문의
+              全お問い合わせ
             </span>
 
             <strong>
@@ -126,7 +126,7 @@ function AdminInquiries() {
           <div>
 
             <span>
-              답변 대기
+              回答待ち
             </span>
 
             <strong>
@@ -152,7 +152,7 @@ function AdminInquiries() {
           <div>
 
             <span>
-              답변 완료
+              回答完了
             </span>
 
             <strong>
@@ -184,7 +184,7 @@ function AdminInquiries() {
             <input
               type="search"
               value={keyword}
-              placeholder="문의 제목, 회원명, 이메일 또는 문의 ID 검색"
+              placeholder="お問い合わせタイトル、会員名、メールまたはお問い合わせIDで検索"
               onChange={(event) => {
 
                 setKeyword(
@@ -202,7 +202,7 @@ function AdminInquiries() {
           <div className="ai-filter-item">
 
             <span>
-              문의 유형
+              お問い合わせ種別
             </span>
 
 
@@ -219,27 +219,27 @@ function AdminInquiries() {
             >
 
               <option value="">
-                전체
+                すべて
               </option>
 
               <option value="ORDER">
-                주문
+                注文・決済
               </option>
 
               <option value="DELIVERY">
-                배송
+                配送
               </option>
 
               <option value="PRODUCT">
-                상품
+                商品
               </option>
 
               <option value="GROUP_BUY">
-                공동구매
+                共同購入
               </option>
 
               <option value="ETC">
-                기타
+                その他
               </option>
 
             </select>
@@ -251,7 +251,7 @@ function AdminInquiries() {
           <div className="ai-filter-item">
 
             <span>
-              답변 상태
+              回答状況
             </span>
 
 
@@ -268,15 +268,15 @@ function AdminInquiries() {
             >
 
               <option value="">
-                전체
+                すべて
               </option>
 
               <option value="WAITING">
-                답변 대기
+                回答待ち
               </option>
 
               <option value="ANSWERED">
-                답변 완료
+                回答完了
               </option>
 
             </select>
@@ -295,7 +295,7 @@ function AdminInquiries() {
               icon={faRotateRight}
             />
 
-            초기화
+            リセット
 
           </button>
 
@@ -303,7 +303,7 @@ function AdminInquiries() {
 
 
 
-        {loading && <p className="ai-state-message">문의 목록을 불러오는 중입니다.</p>}
+        {loading && <p className="ai-state-message">お問い合わせ一覧を読み込み中です。</p>}
         {loadError && <p className="ai-state-message ai-state-error">{loadError}</p>}
 
         {!loading && !loadError && <div className="ai-table-scroll">
@@ -316,35 +316,35 @@ function AdminInquiries() {
               <tr>
 
                 <th>
-                  문의 ID
+                  お問い合わせID
                 </th>
 
                 <th>
-                  문의 정보
+                  お問い合わせ情報
                 </th>
 
                 <th>
-                  회원
+                  会員
                 </th>
 
                 <th>
-                  문의 유형
+                  お問い合わせ種別
                 </th>
 
                 <th>
-                  문의일
+                  お問い合わせ日
                 </th>
 
                 <th>
-                  답변 상태
+                  回答状況
                 </th>
 
                 <th>
-                  답변일
+                  回答日
                 </th>
 
                 <th>
-                  관리
+                  管理
                 </th>
 
               </tr>
@@ -456,8 +456,8 @@ function AdminInquiries() {
 
                         {item.status ===
                         "ANSWERED"
-                          ? "답변 완료"
-                          : "답변 대기"}
+                          ? "回答完了"
+                          : "回答待ち"}
 
                       </span>
 
@@ -507,8 +507,8 @@ function AdminInquiries() {
 
                         {item.status ===
                         "ANSWERED"
-                          ? "답변 수정"
-                          : "답변 작성"}
+                          ? "回答修正"
+                          : "回答する"}
 
                       </button>
 
@@ -532,8 +532,8 @@ function AdminInquiries() {
                     className="ai-empty"
                   >
 
-                    조건에 맞는
-                    문의가 없습니다.
+                    条件に合う
+                    お問い合わせがありません。
 
                   </td>
 
@@ -556,7 +556,7 @@ function AdminInquiries() {
 
           <span>
 
-            총{" "}
+            合計{" "}
 
             <strong>
               {
@@ -564,7 +564,7 @@ function AdminInquiries() {
               }
             </strong>
 
-            건의 문의
+            件のお問い合わせ
 
           </span>
 
@@ -587,6 +587,7 @@ function AdminInquiries() {
                     )
                 )
               }
+              aria-label="前のページ"
             >
 
               <FontAwesomeIcon
@@ -647,6 +648,7 @@ function AdminInquiries() {
                     )
                 )
               }
+              aria-label="次のページ"
             >
 
               <FontAwesomeIcon
@@ -682,4 +684,3 @@ function AdminInquiries() {
 
 
 export default AdminInquiries;
-

@@ -27,7 +27,7 @@ function useAdminInquiries() {
         if (active) setInquiries(response.data.data ?? []);
       })
       .catch((error) => {
-        if (active) setLoadError(error.response?.data?.message ?? "문의 목록을 불러오지 못했습니다.");
+        if (active) setLoadError(error.response?.data?.message ?? "お問い合わせ一覧を取得できませんでした。");
       })
       .finally(() => {
         if (active) setLoading(false);
@@ -68,19 +68,19 @@ function useAdminInquiries() {
     setSelectedInquiry(null); setAnswerText("");
   };
   const handleSubmitAnswer = async () => {
-    if (!answerText.trim()) return alert("답변 내용을 입력해주세요.");
+    if (!answerText.trim()) return alert("回答内容を入力してください。");
     const isEdit = selectedInquiry.status === 'ANSWERED' && Boolean(selectedInquiry.answer);
     if (isEdit && answerText.trim() === selectedInquiry.answer.trim()) {
-      return alert('수정된 내용이 없습니다.');
+      return alert('変更内容がありません。');
     }
     try {
       setAnswering(true);
       await answerInquiry(selectedInquiry.inquiryId, answerText.trim());
       await loadInquiries();
       handleCloseAnswer();
-      alert(isEdit ? '문의 답변을 수정했습니다.' : '문의에 답변했습니다.');
+      alert(isEdit ? 'お問い合わせの回答を修正しました。' : 'お問い合わせに回答しました。');
     } catch (error) {
-      alert(error.response?.data?.message ?? "답변 저장에 실패했습니다.");
+      alert(error.response?.data?.message ?? "回答の保存に失敗しました。");
     } finally {
       setAnswering(false);
     }

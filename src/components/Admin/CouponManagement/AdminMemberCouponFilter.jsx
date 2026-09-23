@@ -21,19 +21,19 @@ function AdminMemberCouponFilter({
         <input
           type="search"
           value={memberCouponKeyword}
-          placeholder="회원 ID, 쿠폰명, 쿠폰 코드 또는 발급 ID 검색"
+          placeholder="会員ID、クーポン名、クーポンコードまたは発行IDで検索"
           onChange={onKeywordChange}
         />
       </label>
 
       <div className="acp-filter-item">
-        <span>상태</span>
+        <span>ステータス</span>
 
         <select value={memberCouponStatus} onChange={onStatusChange}>
-          <option value="">전체</option>
-          <option value="AVAILABLE">사용 가능</option>
-          <option value="USED">사용 완료</option>
-          <option value="EXPIRED">만료</option>
+          <option value="">すべて</option>
+          <option value="AVAILABLE">利用可能</option>
+          <option value="USED">利用済み</option>
+          <option value="EXPIRED">期限切れ</option>
         </select>
       </div>
 
@@ -43,7 +43,7 @@ function AdminMemberCouponFilter({
         onClick={onReset}
       >
         <FontAwesomeIcon icon={faRotateRight} />
-        초기화
+        リセット
       </button>
     </div>
   );

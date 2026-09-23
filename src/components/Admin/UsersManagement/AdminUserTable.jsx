@@ -44,31 +44,31 @@ function AdminUserTable({
 
 
             <th>
-              회원 정보
+              会員情報
             </th>
 
             <th>
-              회원 ID
+              会員ID
             </th>
 
             <th>
-              전화번호
+              電話番号
             </th>
 
             <th>
-              권한
+              権限
             </th>
 
             <th>
-              회원 상태
+              会員状態
             </th>
 
             <th>
-              탈퇴일
+              退会日
             </th>
 
             <th>
-              관리
+              管理
             </th>
 
           </tr>
@@ -226,8 +226,8 @@ function AdminUserTable({
 
                     {member.status ===
                       "ACTIVE"
-                      ? "정상"
-                      : "탈퇴"}
+                      ? "有効"
+                      : "退会"}
 
                   </span>
 
@@ -275,7 +275,7 @@ function AdminUserTable({
                           icon={faBan}
                         />
 
-                        탈퇴 처리
+                        退会処理
 
                       </button>
 
@@ -296,7 +296,7 @@ function AdminUserTable({
                         icon={faRotateRight}
                       />
 
-                      복구
+                      復元
 
                     </button>
 
@@ -322,8 +322,7 @@ function AdminUserTable({
                   className="am-empty"
                 >
 
-                  조건에 맞는
-                  회원이 없습니다.
+                  条件に一致する会員がいません。
 
                 </td>
 

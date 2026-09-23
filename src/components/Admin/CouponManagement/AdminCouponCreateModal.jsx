@@ -25,34 +25,34 @@ function validate(form) {
   const errors = {};
 
   if (!form.couponCode.trim()) {
-    errors.couponCode = "쿠폰 코드를 입력해주세요.";
+    errors.couponCode = "クーポンコードを入力してください。";
   }
 
   if (!form.couponName.trim()) {
-    errors.couponName = "쿠폰명을 입력해주세요.";
+    errors.couponName = "クーポン名を入力してください。";
   }
 
   if (!form.discountValue || Number(form.discountValue) <= 0) {
-    errors.discountValue = "0보다 큰 값을 입력해주세요.";
+    errors.discountValue = "0より大きい値を入力してください。";
   }
 
   if (
     form.discountType === "PERCENT" &&
     Number(form.discountValue) > 100
   ) {
-    errors.discountValue = "정률 할인은 100 이하로 입력해주세요.";
+    errors.discountValue = "定率割引は100以下で入力してください。";
   }
 
   if (!form.usageLimit || Number(form.usageLimit) <= 0) {
-    errors.usageLimit = "0보다 큰 값을 입력해주세요.";
+    errors.usageLimit = "0より大きい値を入力してください。";
   }
 
   if (!form.validFrom) {
-    errors.validFrom = "시작일을 선택해주세요.";
+    errors.validFrom = "開始日を選択してください。";
   }
 
   if (!form.validTo) {
-    errors.validTo = "종료일을 선택해주세요.";
+    errors.validTo = "終了日を選択してください。";
   }
 
   if (
@@ -60,7 +60,7 @@ function validate(form) {
     form.validTo &&
     form.validFrom > form.validTo
   ) {
-    errors.validTo = "종료일은 시작일 이후여야 합니다.";
+    errors.validTo = "終了日は開始日より後にしてください。";
   }
 
   return errors;
@@ -115,7 +115,7 @@ function AdminCouponCreateModal({ onClose, onCreated }) {
       onCreated();
     } catch (err) {
       setSubmitError(
-        err.response?.data?.message ?? "쿠폰 등록에 실패했습니다. 다시 시도해주세요."
+        err.response?.data?.message ?? "クーポンの登録に失敗しました。もう一度お試しください。"
       );
     } finally {
       setIsSubmitting(false);
@@ -132,13 +132,13 @@ function AdminCouponCreateModal({ onClose, onCreated }) {
         onClick={(event) => event.stopPropagation()}
       >
         <div className="acp-modal-header">
-          <h3 id="acp-create-modal-title">쿠폰 등록</h3>
+          <h3 id="acp-create-modal-title">クーポン登録</h3>
 
           <button
             type="button"
             className="acp-modal-close"
             onClick={onClose}
-            aria-label="닫기"
+            aria-label="閉じる"
           >
             <FontAwesomeIcon icon={faXmark} />
           </button>
@@ -147,7 +147,7 @@ function AdminCouponCreateModal({ onClose, onCreated }) {
         <form className="acp-modal-body" onSubmit={handleSubmit}>
           <div className="acp-modal-row">
             <div className="acp-modal-field">
-              <label htmlFor="couponCode">쿠폰 코드</label>
+              <label htmlFor="couponCode">クーポンコード</label>
 
               <input
                 id="couponCode"
@@ -155,7 +155,7 @@ function AdminCouponCreateModal({ onClose, onCreated }) {
                 type="text"
                 value={form.couponCode}
                 onChange={handleChange}
-                placeholder="예) WELCOME10"
+                placeholder="例) WELCOME10"
               />
 
               {errors.couponCode && (
@@ -164,7 +164,7 @@ function AdminCouponCreateModal({ onClose, onCreated }) {
             </div>
 
             <div className="acp-modal-field">
-              <label htmlFor="couponName">쿠폰명</label>
+              <label htmlFor="couponName">クーポン名</label>
 
               <input
                 id="couponName"
@@ -172,7 +172,7 @@ function AdminCouponCreateModal({ onClose, onCreated }) {
                 type="text"
                 value={form.couponName}
                 onChange={handleChange}
-                placeholder="예) 신규회원 10% 할인"
+                placeholder="例) 新規会員10%割引"
               />
 
               {errors.couponName && (
@@ -183,7 +183,7 @@ function AdminCouponCreateModal({ onClose, onCreated }) {
 
           <div className="acp-modal-row">
             <div className="acp-modal-field">
-              <label htmlFor="discountType">할인 방식</label>
+              <label htmlFor="discountType">割引方式</label>
 
               <select
                 id="discountType"
@@ -191,14 +191,14 @@ function AdminCouponCreateModal({ onClose, onCreated }) {
                 value={form.discountType}
                 onChange={handleChange}
               >
-                <option value="PERCENT">정률 할인 (%)</option>
-                <option value="FIXED">정액 할인 (원)</option>
+                <option value="PERCENT">定率割引 (%)</option>
+                <option value="FIXED">定額割引 (円)</option>
               </select>
             </div>
 
             <div className="acp-modal-field">
               <label htmlFor="discountValue">
-                할인 {form.discountType === "PERCENT" ? "율 (%)" : "금액 (원)"}
+                割引{form.discountType === "PERCENT" ? "率 (%)" : "金額 (円)"}
               </label>
 
               <input
@@ -220,7 +220,7 @@ function AdminCouponCreateModal({ onClose, onCreated }) {
 
           <div className="acp-modal-row">
             <div className="acp-modal-field">
-              <label htmlFor="minOrderAmount">최소 주문금액 (원)</label>
+              <label htmlFor="minOrderAmount">最低注文金額 (円)</label>
 
               <input
                 id="minOrderAmount"
@@ -233,7 +233,7 @@ function AdminCouponCreateModal({ onClose, onCreated }) {
             </div>
 
             <div className="acp-modal-field">
-              <label htmlFor="maxDiscountAmount">최대 할인금액 (원)</label>
+              <label htmlFor="maxDiscountAmount">最大割引金額 (円)</label>
 
               <input
                 id="maxDiscountAmount"
@@ -248,7 +248,7 @@ function AdminCouponCreateModal({ onClose, onCreated }) {
 
           <div className="acp-modal-row">
             <div className="acp-modal-field">
-              <label htmlFor="issueType">발급 방식</label>
+              <label htmlFor="issueType">発行方式</label>
 
               <select
                 id="issueType"
@@ -256,13 +256,13 @@ function AdminCouponCreateModal({ onClose, onCreated }) {
                 value={form.issueType}
                 onChange={handleChange}
               >
-                <option value="ALL">전체 발급형 (누구나 발급 가능)</option>
-                <option value="TARGET">대상 지정형 (관리자가 지정 발급)</option>
+                <option value="ALL">全体発行型 (誰でも取得可能)</option>
+                <option value="TARGET">対象指定型 (管理者が指定して発行)</option>
               </select>
             </div>
 
             <div className="acp-modal-field">
-              <label htmlFor="usageLimit">발급 한도</label>
+              <label htmlFor="usageLimit">発行上限</label>
 
               <input
                 id="usageLimit"
@@ -281,7 +281,7 @@ function AdminCouponCreateModal({ onClose, onCreated }) {
 
           <div className="acp-modal-row">
             <div className="acp-modal-field">
-              <label htmlFor="validFrom">시작일</label>
+              <label htmlFor="validFrom">開始日</label>
 
               <input
                 id="validFrom"
@@ -297,7 +297,7 @@ function AdminCouponCreateModal({ onClose, onCreated }) {
             </div>
 
             <div className="acp-modal-field">
-              <label htmlFor="validTo">종료일</label>
+              <label htmlFor="validTo">終了日</label>
 
               <input
                 id="validTo"
@@ -324,7 +324,7 @@ function AdminCouponCreateModal({ onClose, onCreated }) {
               onClick={onClose}
               disabled={isSubmitting}
             >
-              취소
+              キャンセル
             </button>
 
             <button
@@ -332,7 +332,7 @@ function AdminCouponCreateModal({ onClose, onCreated }) {
               className="acp-modal-submit"
               disabled={isSubmitting}
             >
-              {isSubmitting ? "등록 중..." : "등록"}
+              {isSubmitting ? "登録中..." : "登録"}
             </button>
           </div>
         </form>

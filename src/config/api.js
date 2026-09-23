@@ -84,6 +84,12 @@ export const ENDPOINTS = {
     `/admin/orders/${orderId}/shipping-info`,
   ADMIN_ORDER_DETAIL: (orderId) => `/admin/orders/${orderId}`,
 
+  // 관리자 - 공동구매
+  ADMIN_GROUP_BUYS: "/admin/group-buys",
+  ADMIN_GROUP_BUY_DETAIL: (groupBuyId) => `/admin/group-buys/${groupBuyId}`,
+  ADMIN_GROUP_BUY_STATUS_UPDATE: (groupBuyId) =>
+    `/admin/group-buys/${groupBuyId}/status`,
+
   // 관리자 - 카테고리
   ADMIN_CATEGORIES: "/admin/categories",
 

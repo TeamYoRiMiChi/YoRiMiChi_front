@@ -8,14 +8,14 @@ function AdminMemberCouponTable({ memberCoupons }) {
       <table className="acp-table acp-member-coupon-table">
         <thead>
           <tr>
-            <th>발급 ID</th>
-            <th>회원 ID</th>
-            <th>쿠폰 정보</th>
-            <th>쿠폰 ID</th>
-            <th>주문 ID</th>
-            <th>발급일</th>
-            <th>사용일</th>
-            <th>상태</th>
+            <th>発行ID</th>
+            <th>会員ID</th>
+            <th>クーポン情報</th>
+            <th>クーポンID</th>
+            <th>注文ID</th>
+            <th>発行日</th>
+            <th>利用日</th>
+            <th>ステータス</th>
           </tr>
         </thead>
 
@@ -58,10 +58,10 @@ function AdminMemberCouponTable({ memberCoupons }) {
                   className={`acp-member-status acp-member-status-${memberCoupon.status.toLowerCase()}`}
                 >
                   {memberCoupon.status === "AVAILABLE"
-                    ? "사용 가능"
+                    ? "利用可能"
                     : memberCoupon.status === "USED"
-                      ? "사용 완료"
-                      : "만료"}
+                      ? "利用済み"
+                      : "期限切れ"}
                 </span>
               </td>
             </tr>
@@ -70,7 +70,7 @@ function AdminMemberCouponTable({ memberCoupons }) {
           {memberCoupons.length === 0 && (
             <tr>
               <td colSpan={8} className="acp-empty">
-                조건에 맞는 발급 내역이 없습니다.
+                条件に合う発行履歴がありません。
               </td>
             </tr>
           )}
