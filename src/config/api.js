@@ -30,6 +30,7 @@ export const ENDPOINTS = {
   // 주문 내역
   ORDERHISTORY: "/orderhistory",
   ORDERDETAIL: (orderId) => `/orderhistory/${orderId}`,
+  ORDERCANCEL: (orderId) => `/orderhistory/${orderId}/cancel`,
 
   PROFILE: "/myprofile",
   PROFILE_WITHDRAWAL: "/myprofile/withdrawal",

@@ -12,19 +12,34 @@
   font-weight: 700;
 }
 
+.badge_paid {
+  background-color: #e8f4ff;
+  color: #1d6fb8;
+}
+
+.badge_preparing {
+  background-color: #fff4dc;
+  color: #b46b00;
+}
+
 .badge_shipping {
   background-color: var(--mp-primary-light);
   color: var(--mp-primary);
 }
 
-.badge_done {
-  background-color: #eef1f5;
-  color: #6b7280;
-}
-
-.badge_ing {
+.badge_delivered {
   background-color: #e6f7f0;
   color: #0f8f66;
+}
+
+.badge_cancelled {
+  background-color: #fff0f0;
+  color: #d14343;
+}
+
+.badge_refunded {
+  background-color: #f2efff;
+  color: #6554c0;
 }
 
 .mini_bt {
@@ -61,6 +76,18 @@
 
 .mini_bt_line:hover:not(:disabled) {
   background-color: #f7f4ff;
+}
+
+.mini_bt_cancel {
+  border-color: #d14343;
+  background-color: #fff;
+  color: #d14343;
+}
+
+.mini_bt_cancel:hover:not(:disabled) {
+  border-color: #b93636;
+  background-color: #fff0f0;
+  color: #b93636;
 }
 
 .order_card {
@@ -107,9 +134,12 @@
 }
 
 .order_thumb {
+  display: block;
   width: 62px;
   height: 62px;
   flex-shrink: 0;
+  object-fit: cover;
+  border: 1px solid #eceaf2;
   border-radius: 10px;
   background: linear-gradient(135deg, #f2f1f7, #e9e8f0);
 }
@@ -162,5 +192,13 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 14px;
+  }
+
+  .order_btns {
+    width: 100%;
+  }
+
+  .order_btns .mini_bt {
+    flex: 1;
   }
 }

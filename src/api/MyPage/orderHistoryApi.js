@@ -6,3 +6,7 @@ export const getOrders = ({ page = 1, size = 5 } = {}) => {
     params: { page, size },
   });
 };
+
+export const cancelOrder = (orderId) => {
+  return axiosInstance.patch(ENDPOINTS.ORDERCANCEL(orderId));
+};

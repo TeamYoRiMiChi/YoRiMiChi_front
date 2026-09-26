@@ -1,71 +1,191 @@
-import '../../../assets/styles/MyPage/OrderDetailModal.css';
-import { useOrderDetail } from '../../../hooks/MyPage/OrderHistory/useOrderDetail';
+import "../../../assets/styles/MyPage/OrderDetailModal.css";
+import { useOrderDetail } from "../../../hooks/MyPage/OrderHistory/useOrderDetail";
 
-function OrderDetailModal({ orderId, onClose }) {
+const orderTypeText = {
+  NORMAL: "海外購入",
+  GROUP_BUY: "共同購入",
+  MIXED: "混合注文",
+};
+
+const orderStatusText = {
+  PAID: "決済完了",
+  PREPARING: "商品準備中",
+  SHIPPING: "配送中",
+  DELIVERED: "配送完了",
+  CANCELLED: "キャンセル",
+  REFUNDED: "返金完了",
+};
+
+const paymentStatusText = {
+  PAID: "決済完了",
+  CANCELLED: "決済キャンセル",
+  REFUNDED: "返金完了",
+};
+
+const shippingStatusText = {
+  PREPARING: "発送準備中",
+  SHIPPING: "配送中",
+  DELIVERED: "配送完了",
+  CANCELLED: "配送キャンセル",
+};
+
+const paymentMethodText = {
+  CARD: "クレジットカード",
+  TRANSFER: "銀行振込",
+  KAKAOPAY: "カカオペイ",
+  NAVERPAY: "ネイバーペイ",
+};
+
+const cancellableOrderStatuses = ["PAID", "PREPARING", "SHIPPING", "DELIVERED"];
+
+const formatAmount = (amount) => {
+  return `¥${Number(amount ?? 0).toLocaleString("ja-JP")}`;
+};
+
+const formatDate = (date) => {
+  if (!date) {
+    return "-";
+  }
+
+  return new Date(date).toLocaleString("ja-JP");
+};
+
+function OrderDetailModal({
+  orderId,
+  onClose,
+  onCancel,
+  isCancelling = false,
+}) {
   const { detail, isLoading, error } = useOrderDetail(orderId);
 
+  const items = detail?.items ?? [];
+
+  const overseasItems = items.filter((item) => item.saleType === "OVERSEAS");
+
+  const groupBuyItems = items.filter((item) => item.saleType === "GROUP_BUY");
+
+  const canCancel =
+    detail && cancellableOrderStatuses.includes(detail.orderStatus);
+
+  const handleCancel = async () => {
+    if (!onCancel) {
+      return;
+    }
+
+    const cancelled = await onCancel(orderId);
+
+    if (cancelled) {
+      onClose();
+    }
+  };
+
+  const renderItems = (title, orderItems) => {
+    if (orderItems.length === 0) {
+      return null;
+    }
+
+    return (
+      <section className="order_detail_section">
+        <h3>{title}</h3>
+
+        <ul className="order_detail_items">
+          {orderItems.map((item) => (
+            <li className="order_detail_item" key={item.orderItemId}>
+              {item.thumbnailUrl ? (
+                <img
+                  className="order_detail_thumb"
+                  src={item.thumbnailUrl}
+                  alt={item.productName}
+                />
+              ) : (
+                <div className="order_detail_thumb" aria-hidden="true" />
+              )}
+
+              <div className="order_detail_item_info">
+                <h4>{item.productName}</h4>
+                <p>単価：{formatAmount(item.priceJpy)}</p>
+                <p>数量：{item.quantity}個</p>
+              </div>
+
+              <strong className="order_detail_item_total">
+                {formatAmount(item.itemTotal)}
+              </strong>
+            </li>
+          ))}
+        </ul>
+      </section>
+    );
+  };
+
   return (
-    <div className="modal_overlay" onClick={onClose}>
+    <div
+      className="modal_overlay"
+      onMouseDown={(event) => {
+        if (event.target === event.currentTarget) {
+          onClose();
+        }
+      }}
+    >
       <div
         className="order_modal"
         role="dialog"
         aria-modal="true"
         aria-labelledby="order_detail_title"
-        onClick={(e) => e.stopPropagation()}
       >
         <div className="modal_header">
-          <h2 id="order_detail_title">注文詳細</h2>
+          <div>
+            <h2 id="order_detail_title">注文詳細</h2>
+            {detail && <p>{detail.orderNumber}</p>}
+          </div>
+
+          <button
+            type="button"
+            className="order_detail_header_close"
+            onClick={onClose}
+            aria-label="閉じる"
+          >
+            ×
+          </button>
         </div>
 
         <div className="modal_body">
-          {detail && (
+          {isLoading && (
+            <p className="order_detail_status">注文詳細を読み込んでいます。</p>
+          )}
+
+          {!isLoading && error && (
+            <p className="order_detail_status order_detail_status_error">
+              {error}
+            </p>
+          )}
+
+          {!isLoading && !error && detail && (
             <>
               {/* 주문 기본 정보 */}
-              <section className="order_detail_section">
-                <h3>注文情報</h3>
+              <section className="order_detail_summary">
+                <div>
+                  <span>注文種別</span>
+                  <strong>
+                    {orderTypeText[detail.orderType] ?? detail.orderType}
+                  </strong>
+                </div>
 
-                <dl className="order_detail_info">
-                  <div>
-                    <dt>注文ID</dt>
-                    <dd>{detail.orderId}</dd>
-                  </div>
-                  <div>
-                    <dt>注文番号</dt>
-                    <dd>{detail.orderNumber}</dd>
-                  </div>
-                  <div>
-                    <dt>注文日時</dt>
-                    <dd>{detail.orderedAt}</dd>
-                  </div>
-                  <div>
-                    <dt>注文状況</dt>
-                    <dd>{detail.orderStatus}</dd>
-                  </div>
-                </dl>
+                <div>
+                  <span>注文ステータス</span>
+                  <strong>
+                    {orderStatusText[detail.orderStatus] ?? detail.orderStatus}
+                  </strong>
+                </div>
+
+                <div>
+                  <span>注文日時</span>
+                  <strong>{formatDate(detail.orderedAt)}</strong>
+                </div>
               </section>
 
               {/* 주문 상품 */}
-              <section className="order_detail_section">
-                <h3>注文商品</h3>
-
-                <ul className="order_detail_items">
-                  {detail.items.map((item) => (
-                    <li className="order_detail_item" key={item.orderItemId}>
-                      <div className="order_detail_thumb" aria-hidden="true" />
-
-                      <div className="order_detail_item_info">
-                        <h4>{item.productName}</h4>
-                        <p>単価：{Number(item.priceJpy).toLocaleString()}￥</p>
-                        <p>数量：{item.quantity}</p>
-                      </div>
-
-                      <strong className="order_detail_item_total">
-                        {Number(item.itemTotal).toLocaleString()}￥
-                      </strong>
-                    </li>
-                  ))}
-                </ul>
-              </section>
+              {renderItems("海外購入商品", overseasItems)}
+              {renderItems("共同購入商品", groupBuyItems)}
 
               {/* 주문 시 지정한 수령인과 주소 */}
               <section className="order_detail_section">
@@ -76,24 +196,23 @@ function OrderDetailModal({ orderId, onClose }) {
                     <dt>お名前</dt>
                     <dd>{detail.receiverName}</dd>
                   </div>
+
                   <div>
                     <dt>電話番号</dt>
                     <dd>{detail.receiverPhone}</dd>
                   </div>
+
                   <div>
                     <dt>郵便番号</dt>
                     <dd>{detail.postalCode}</dd>
                   </div>
+
                   <div>
                     <dt>住所</dt>
                     <dd>
                       {detail.address}
-                      {detail.addressDetail ? ` ${detail.addressDetail}` : ''}
+                      {detail.addressDetail ? ` ${detail.addressDetail}` : ""}
                     </dd>
-                  </div>
-                  <div>
-                    <dt>個人通関固有符号</dt>
-                    <dd>{detail.personalCustomsCode ?? '未登録'}</dd>
                   </div>
                 </dl>
               </section>
@@ -104,43 +223,32 @@ function OrderDetailModal({ orderId, onClose }) {
 
                 <dl className="order_detail_info">
                   <div>
-                    <dt>商品合計</dt>
-                    <dd>{Number(detail.productAmount).toLocaleString()}￥</dd>
-                  </div>
-                  <div>
-                    <dt>送料</dt>
-                    <dd>{Number(detail.shippingFee).toLocaleString()}￥</dd>
-                  </div>
-                  <div>
-                    <dt>関税</dt>
-                    <dd>{Number(detail.customsDuty).toLocaleString()}￥</dd>
-                  </div>
-                  <div className="order_detail_payment_total">
-                    <dt>お支払い合計</dt>
+                    <dt>決済方法</dt>
                     <dd>
-                      <strong>
-                        {Number(detail.totalAmount).toLocaleString()}￥
-                      </strong>
+                      {paymentMethodText[detail.paymentMethod] ??
+                        detail.paymentMethod ??
+                        "-"}
                     </dd>
                   </div>
-                  {detail.payment ? (
-                    <>
-                      <div>
-                        <dt>お支払い方法</dt>
-                        <dd>{detail.payment.paymentMethod}</dd>
-                      </div>
 
-                      <div>
-                        <dt>お支払い状況</dt>
-                        <dd>{detail.payment.paymentStatus}</dd>
-                      </div>
-                    </>
-                  ) : (
-                    <div>
-                      <dt>決済情報</dt>
-                      <dd>決済情報がありません。</dd>
-                    </div>
-                  )}
+                  <div>
+                    <dt>決済ステータス</dt>
+                    <dd>
+                      {paymentStatusText[detail.paymentStatus] ??
+                        detail.paymentStatus ??
+                        "-"}
+                    </dd>
+                  </div>
+
+                  <div>
+                    <dt>決済日時</dt>
+                    <dd>{formatDate(detail.paidAt)}</dd>
+                  </div>
+
+                  <div>
+                    <dt>キャンセル日時</dt>
+                    <dd>{formatDate(detail.cancelledAt)}</dd>
+                  </div>
                 </dl>
               </section>
 
@@ -149,29 +257,65 @@ function OrderDetailModal({ orderId, onClose }) {
                 <h3>配送情報</h3>
 
                 <dl className="order_detail_info">
-                  {detail.shipping ? (
-                    <>
-                      <div>
-                        <dt>配送状況</dt>
-                        <dd>{detail.shipping.shippingStatus}</dd>
-                      </div>
+                  <div>
+                    <dt>配送ステータス</dt>
+                    <dd>
+                      {shippingStatusText[detail.shippingStatus] ??
+                        detail.shippingStatus ??
+                        "-"}
+                    </dd>
+                  </div>
 
-                      <div>
-                        <dt>配送会社</dt>
-                        <dd>{detail.shipping.carrier ?? '未定'}</dd>
-                      </div>
+                  <div>
+                    <dt>配送会社</dt>
+                    <dd>{detail.carrier ?? "-"}</dd>
+                  </div>
 
-                      <div>
-                        <dt>追跡番号</dt>
-                        <dd>{detail.shipping.trackingNumber ?? '未発行'}</dd>
-                      </div>
-                    </>
-                  ) : (
-                    <div>
-                      <dt>配送情報</dt>
-                      <dd>配送情報がありません。</dd>
-                    </div>
-                  )}
+                  <div>
+                    <dt>送り状番号</dt>
+                    <dd>{detail.trackingNumber ?? "-"}</dd>
+                  </div>
+
+                  <div>
+                    <dt>発送日時</dt>
+                    <dd>{formatDate(detail.shippedAt)}</dd>
+                  </div>
+
+                  <div>
+                    <dt>配送完了日時</dt>
+                    <dd>{formatDate(detail.deliveredAt)}</dd>
+                  </div>
+                </dl>
+              </section>
+
+              <section className="order_detail_section order_detail_amount">
+                <h3>決済金額</h3>
+
+                <dl>
+                  <div>
+                    <dt>商品金額</dt>
+                    <dd>{formatAmount(detail.productAmount)}</dd>
+                  </div>
+
+                  <div>
+                    <dt>送料</dt>
+                    <dd>{formatAmount(detail.shippingFee)}</dd>
+                  </div>
+
+                  <div>
+                    <dt>関税</dt>
+                    <dd>{formatAmount(detail.customsDuty)}</dd>
+                  </div>
+
+                  <div>
+                    <dt>割引金額</dt>
+                    <dd>-{formatAmount(detail.discountAmount)}</dd>
+                  </div>
+
+                  <div className="order_detail_payment_total">
+                    <dt>お支払い合計</dt>
+                    <dd>{formatAmount(detail.totalAmount)}</dd>
+                  </div>
                 </dl>
               </section>
             </>
@@ -179,6 +323,17 @@ function OrderDetailModal({ orderId, onClose }) {
         </div>
 
         <div className="modal_footer">
+          {canCancel && onCancel && (
+            <button
+              type="button"
+              className="order_detail_cancel_btn"
+              onClick={handleCancel}
+              disabled={isCancelling}
+            >
+              {isCancelling ? "キャンセル中..." : "注文キャンセル"}
+            </button>
+          )}
+
           <button
             type="button"
             className="order_detail_close_btn"
