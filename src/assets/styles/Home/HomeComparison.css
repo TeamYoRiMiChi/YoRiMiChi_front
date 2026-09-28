@@ -1,10 +1,20 @@
+/* 이 섹션은 더 이상 자체 <section>을 갖지 않습니다.
+   Home.jsx의 .home_compare_stats 안에서 HomeStatistics와 나란히(2열) 배치되므로
+   배경색·전체폭(margin-calc) 처리는 부모(.home_compare_stats)가 담당합니다.
+   (라벨 스타일은 공용 .home_section_eyebrow로 옮겼습니다 — HomePromo.css 참고) */
+
+/* 옆 칸(통계)과 세로 높이를 맞춥니다. 부모 그리드가 align-items:stretch라
+   이 칸도 같은 높이로 늘어나고, flex:1을 준 카드 목록이 그 늘어난 만큼 채웁니다. */
 .home_comparison {
-    background-color: #fafaff;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 /* comparison */
 .home_comparison_list {
     position: relative;
+    flex: 1;
 
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -31,6 +41,28 @@
 
 .home_comparison_card_group {
     border-color: #ffd8e1;
+}
+
+/* badge pill */
+.home_comparison_badge {
+    display: inline-block;
+    margin-bottom: 18px;
+    padding: 5px 12px;
+
+    border-radius: 20px;
+
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.home_comparison_badge_overseas {
+    background-color: #eeeaff;
+    color: #5a3fc8;
+}
+
+.home_comparison_badge_group {
+    background-color: #fff0f4;
+    color: #e45f83;
 }
 
 .home_comparison_icon {
@@ -114,15 +146,14 @@
     align-items: center;
     justify-content: center;
 
-    border: 1px solid #e5e1f1;
     border-radius: 50%;
-    background-color: #ffffff;
+    background-color: #17172f;
 
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 800;
-    color: #312e45;
+    color: #ffffff;
 
-    box-shadow: 0 6px 18px rgba(38, 31, 78, 0.1);
+    box-shadow: 0 6px 18px rgba(38, 31, 78, 0.18);
 
     transform: translate(-50%, -50%);
 }

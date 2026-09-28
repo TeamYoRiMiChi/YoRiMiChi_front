@@ -1,0 +1,358 @@
+/* =========================
+   홈 — 메인 프로모 배너 (기존 .home_hero 대체)
+   기존 히어로 이미지(home_hero_banner_v7)와 해외직구/공동구매 실제 배너
+   이미지 에셋을 배경으로 쓰는 이미지 중심 배너입니다.
+========================= */
+.home_promo {
+    background-color: #fafaff;
+    padding: 32px 0 8px;
+
+    /* 다른 홈 섹션들과 폭을 맞춥니다 (1600px) — mall 컨셉 목업과 동일한 폭 */
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+}
+
+.home_promo .home_inner {
+    max-width: 1600px;
+    padding: 0 40px;
+}
+
+.home_promo_grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+}
+
+.home_promo_main {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+
+    min-height: 360px;
+    border-radius: 20px;
+
+    background-size: cover;
+    background-position: center;
+
+    display: flex;
+    align-items: flex-end;
+}
+
+.home_promo_main::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+
+    background: linear-gradient(
+        90deg,
+        rgba(10, 8, 25, 0.74) 0%,
+        rgba(10, 8, 25, 0.42) 48%,
+        rgba(10, 8, 25, 0.08) 100%
+    );
+}
+
+.home_promo_main_cap {
+    max-width: 520px;
+    padding: 40px 44px;
+    color: #ffffff;
+}
+
+.home_promo_tag {
+    display: inline-block;
+    margin-bottom: 16px;
+    padding: 5px 13px;
+
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.16);
+
+    font-size: 11.5px;
+    font-weight: 700;
+}
+
+.home_promo_title {
+    margin-bottom: 12px;
+
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1.34;
+    letter-spacing: -0.5px;
+}
+
+.home_promo_desc {
+    margin-bottom: 22px;
+    font-size: 14px;
+    opacity: 0.88;
+}
+
+.home_promo_buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.home_promo_btn {
+    min-width: 160px;
+    height: 48px;
+    padding: 0 20px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.home_promo_btn_primary {
+    background-color: #ffffff;
+    color: #5742cc;
+}
+
+.home_promo_btn_primary:hover {
+    background-color: #f0edff;
+}
+
+.home_promo_btn_outline {
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    color: #ffffff;
+}
+
+.home_promo_btn_outline:hover {
+    background-color: rgba(255, 255, 255, 0.14);
+}
+
+.home_promo_btn:focus-visible {
+    outline: 3px solid rgba(255, 255, 255, 0.55);
+    outline-offset: 2px;
+}
+
+.home_promo_side {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.home_promo_card {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+
+    flex: 1;
+    min-height: 172px;
+    border-radius: 20px;
+
+    background-size: cover;
+    background-position: center;
+
+    display: flex;
+    align-items: flex-end;
+}
+
+.home_promo_card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+
+    background: linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.6) 0%,
+        rgba(0, 0, 0, 0.05) 65%
+    );
+}
+
+.home_promo_card_cap {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 18px 20px;
+    color: #ffffff;
+}
+
+.home_promo_card_small {
+    font-size: 11px;
+    font-weight: 700;
+    opacity: 0.9;
+}
+
+.home_promo_card_big {
+    font-size: 15px;
+    font-weight: 800;
+    line-height: 1.4;
+}
+
+.home_promo_card:focus-visible {
+    outline: 3px solid rgba(255, 255, 255, 0.55);
+    outline-offset: -3px;
+}
+
+/* =========================
+   무료배송 / 첫가입 쿠폰 스트립 배너 (신규 섹션)
+========================= */
+.home_promo_strip_inner {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 8px 40px 40px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.home_strip_card {
+    min-height: 92px;
+    padding: 22px 26px;
+    border-radius: 16px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+}
+
+.home_strip_card_shipping {
+    background-color: #f5f2ff;
+}
+
+.home_strip_card_coupon {
+    background-color: #fff5f7;
+}
+
+.home_strip_title {
+    font-size: 15.5px;
+    font-weight: 800;
+    color: #17172f;
+}
+
+.home_strip_card_shipping .home_strip_title {
+    color: #5a3fc8;
+}
+
+.home_strip_card_coupon .home_strip_title {
+    color: #ef5f7c;
+}
+
+.home_strip_desc {
+    font-size: 12.5px;
+    color: #71768c;
+}
+
+/* =========================
+   비교(VS) + 통계 섹션 — 한 행에 나란히 배치
+========================= */
+.home_compare_stats {
+    background-color: #fafaff;
+    padding: 64px 0;
+
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+}
+
+.home_compare_stats .home_inner {
+    max-width: 1600px;
+    padding: 0 40px;
+}
+
+.home_compare_stats_grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: stretch;
+}
+
+/* 비교/통계 두 칸의 머리글(라벨+제목)을 똑같은 구조로 맞춰서 카드 시작 높이가
+   어긋나지 않게 합니다. 좁은 칸 안에서는 가운데 정렬보다 왼쪽 정렬이 자연스러워
+   이 섹션에서만 오버라이드합니다. */
+.home_section_eyebrow {
+    display: block;
+    margin-bottom: 8px;
+
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    color: #6752df;
+}
+
+.home_compare_stats .home_section_title,
+.home_compare_stats .home_section_eyebrow {
+    text-align: left;
+}
+
+/* tablet */
+@media (max-width: 1100px) {
+    .home_promo_grid {
+        grid-template-columns: 1fr;
+    }
+
+    .home_promo_side {
+        flex-direction: row;
+    }
+
+    .home_compare_stats_grid {
+        grid-template-columns: 1fr;
+        gap: 56px;
+    }
+}
+
+/* mobile */
+@media (max-width: 768px) {
+    .home_promo_main {
+        min-height: 320px;
+    }
+
+    .home_promo_main_cap {
+        max-width: none;
+        padding: 28px 24px;
+    }
+
+    .home_promo_title {
+        font-size: 26px;
+    }
+
+    .home_promo_buttons {
+        flex-direction: column;
+    }
+
+    .home_promo_btn {
+        width: 100%;
+    }
+
+    .home_promo_side {
+        flex-direction: column;
+    }
+
+    .home_promo_strip_inner {
+        grid-template-columns: 1fr;
+        padding: 20px 20px 40px;
+    }
+
+    .home_compare_stats {
+        padding: 48px 0;
+    }
+
+    .home_compare_stats .home_inner {
+        padding: 0 20px;
+    }
+}
+
+/* smaller mobile */
+@media (max-width: 480px) {
+    .home_promo_main_cap {
+        padding: 24px 18px;
+    }
+
+    .home_promo_title {
+        font-size: 22px;
+    }
+
+    .home_promo_desc {
+        font-size: 13px;
+    }
+}

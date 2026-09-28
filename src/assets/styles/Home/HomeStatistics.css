@@ -1,10 +1,22 @@
+/* 이 섹션은 더 이상 자체 <section>을 갖지 않습니다.
+   Home.jsx의 .home_compare_stats 안에서 HomeComparison과 나란히(2열) 배치되므로
+   배경색·전체폭(margin-calc) 처리는 부모(.home_compare_stats)가 담당합니다.
+   (라벨 스타일은 공용 .home_section_eyebrow로 — HomePromo.css 참고) */
+
+/* 옆 칸(비교)과 세로 높이를 맞춥니다. 부모 그리드가 align-items:stretch라
+   이 칸도 같은 높이로 늘어나고, flex:1을 준 목록 박스가 그 늘어난 만큼 채웁니다.
+   grid-auto-rows를 min-max로 둬서 남는 높이를 행끼리 고르게 나눠 가집니다. */
 .home_statistics {
-    background-color: #fafaff;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .home_statistic_list {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: minmax(130px, 1fr);
+    flex: 1;
 
     border: 1px solid #e8e5f3;
     border-radius: 18px;
@@ -25,10 +37,17 @@
     gap: 14px;
 
     border-right: 1px solid #ebe9f3;
+    border-bottom: 1px solid #ebe9f3;
+}
+
+.home_statistic_item:nth-child(2n) {
+    border-right: none;
 }
 
 .home_statistic_item:last-child {
+    grid-column: 1 / -1;
     border-right: none;
+    border-bottom: none;
 }
 
 .home_statistic_icon {
@@ -89,28 +108,9 @@
     color: #77738c;
     white-space: nowrap;
 }
-/* tablet */
-@media (max-width: 1100px) {
-    .home_statistic_list {
-        grid-template-columns: repeat(2, 1fr);
-    }
 
-    .home_statistic_item {
-        border-right: 1px solid #ebe9f3;
-        border-bottom: 1px solid #ebe9f3;
-    }
-
-    .home_statistic_item:nth-child(2n) {
-        border-right: none;
-    }
-
-    .home_statistic_item:last-child {
-        grid-column: 1 / -1;
-        border-right: none;
-        border-bottom: none;
-    }
-}
-/* mobile */
+/* mobile — .home_compare_stats_grid가 1열로 쌓이면서 이 섹션이 다시 전체 폭을
+   쓰게 되므로, 세로로 쌓인 1열 리스트로 바꿔줍니다 */
 @media (max-width: 768px) {
     .home_statistic_list {
         grid-template-columns: 1fr;
@@ -131,6 +131,7 @@
         border-bottom: none;
     }
 }
+
 /* smaller mobile */
 @media (max-width: 480px) {
     .home_statistic_item {

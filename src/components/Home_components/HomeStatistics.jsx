@@ -48,35 +48,34 @@ const STATISTICS = [
 
 function HomeStatistics() {
     return (
-        <section className="home_statistics">
-            <div className="home_inner">
-                <h2 className="home_section_title">
-                    数字で見るYoRiMiChi
-                </h2>
+        <div className="home_statistics">
+            <span className="home_section_eyebrow">BY THE NUMBERS</span>
+            <h2 className="home_section_title">
+                数字で見るYoRiMiChi
+            </h2>
 
-                <div className="home_statistic_list">
-                    {STATISTICS.map((statistic) => (
-                    <article className="home_statistic_item" key={statistic.id}>
-                        <div
-                        className={`home_statistic_icon home_statistic_icon_${statistic.color}`}
-                        >
-                            <FontAwesomeIcon icon={statistic.icon} />
-                        </div>
+            <div className="home_statistic_list">
+                {STATISTICS.map((statistic) => (
+                <article className="home_statistic_item" key={statistic.id}>
+                    <div
+                    className={`home_statistic_icon home_statistic_icon_${statistic.color}`}
+                    >
+                        <FontAwesomeIcon icon={statistic.icon} />
+                    </div>
 
-                        <div className="home_statistic_content">
-                            <strong className="home_statistic_value">
-                                {statistic.value}
-                            </strong>
+                    <div className="home_statistic_content">
+                        <strong className="home_statistic_value">
+                            {statistic.value}
+                        </strong>
 
-                        <p className="home_statistic_label">
-                            {statistic.label}
-                        </p>
-                        </div>
-                    </article>
-                    ))}
-                </div>
+                    <p className="home_statistic_label">
+                        {statistic.label}
+                    </p>
+                    </div>
+                </article>
+                ))}
             </div>
-      </section>
+        </div>
     );
 }
 

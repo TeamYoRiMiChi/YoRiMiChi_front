@@ -2,28 +2,30 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlane } from '@fortawesome/free-solid-svg-icons';
-import { getOverseasProducts } from '../../api/Overseas/overseasProductApi';
+import { faHandshake } from '@fortawesome/free-solid-svg-icons';
+import { getGroupBuyProducts } from '../../api/Group_purchase/groupBuyProductApi';
 import { toProductView } from '../../api/productApi';
 import { toggleWishlist } from '../../features/wishlist/wishlistSlice';
 import ProductCard from '../Overseas/ProductCard';
 import '../../assets/styles/Overseas/components/ProductGrid.css';
 import '../../assets/styles/Home/HomePopularProducts.css';
 
-/* 화면 전체 폭을 쓰는 단독 섹션이라 한 줄에 5개씩, 10개(2줄)까지 보여줍니다. 더 보고 싶으면 /overseas로 */
+/* 화면 전체 폭을 쓰는 단독 섹션이라 한 줄에 5개씩, 10개(2줄)까지 보여줍니다. 더 보고 싶으면 /groupbuy로 */
 const DISPLAY_COUNT = 10;
 
 /**
- * 홈 화면 — 海外直購 おすすめ商品(추천 상품) 미리보기
+ * 홈 화면 — 共同購入 おすすめ商品(추천 상품) 미리보기
  *
- * 해외직구 목록의 recommend 정렬(ProductMapper.xml findAll)을 그대로 가져와
- * 10개만 보여줍니다. 공동구매 추천상품(HomeGroupBuyProducts)과 나란히 두는
- * 한 칸이라, 정렬 탭·페이지네이션 없이 딱 목록만 둬서 담백하게 유지합니다.
+ * 공동구매 목록의 recommend 정렬(getGroupBuyProducts 기본값)을 그대로 가져와
+ * 10개만 보여줍니다. 카드는 공동구매 전용 Purchase_product_card 대신
+ * 海外直購 칸과 같은 ProductCard를 재사용합니다 — toProductView가
+ * saleType에 따라 isGroupBuyOnly를 채워주므로 상세 링크도 자동으로
+ * /groupbuy/:id로 잡히고, 두 칸의 카드 모양이 통일됩니다.
  *
  * 통신 실패나 상품이 하나도 없으면 칸 자체를 숨깁니다.
  * 홈 화면에 에러 박스나 빈 상태 문구를 두고 싶지 않아서입니다.
  */
-function HomePopularProducts() {
+function HomeGroupBuyProducts() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -39,7 +41,7 @@ function HomePopularProducts() {
 
     async function load() {
       try {
-        const res = await getOverseasProducts({
+        const res = await getGroupBuyProducts({
           sort: 'recommend',
           page: 1,
           size: DISPLAY_COUNT,
@@ -62,7 +64,7 @@ function HomePopularProducts() {
     };
   }, []);
 
-  /* 찜 토글 — 비로그인이면 로그인 안내 (Overseas 페이지와 동일한 규칙) */
+  /* 찜 토글 — 비로그인이면 로그인 안내 (Overseas 칸과 동일한 규칙) */
   const handleToggleWish = (productId) => {
     if (!accessToken) {
       alert('ログインが必要です。ログインページへ移動します。');
@@ -79,20 +81,20 @@ function HomePopularProducts() {
   }
 
   return (
-    <section className="home_product_section home_product_section_overseas">
+    <section className="home_product_section home_product_section_groupbuy">
       <div className="home_inner">
         <div className="home_section_head">
           <div className="home_section_head_left">
-            <span className="home_section_chip home_section_chip_overseas">
-              <FontAwesomeIcon icon={faPlane} />
+            <span className="home_section_chip home_section_chip_groupbuy">
+              <FontAwesomeIcon icon={faHandshake} />
             </span>
             <div>
-              <h2 className="home_section_title_new">海外直購 おすすめ商品</h2>
-              <p className="home_section_sub">いつでも自由に1点から購入</p>
+              <h2 className="home_section_title_new">共同購入 おすすめ商品</h2>
+              <p className="home_section_sub">参加者が集まるほどお得に</p>
             </div>
           </div>
 
-          <Link to="/overseas" className="home_section_more">
+          <Link to="/groupbuy" className="home_section_more">
             もっと見る ›
           </Link>
         </div>
@@ -121,4 +123,4 @@ function HomePopularProducts() {
   );
 }
 
-export default HomePopularProducts;
+export default HomeGroupBuyProducts;

@@ -35,8 +35,8 @@ const COMPARISON_ITEMS = [
 
 function HomeComparison() {
     return(
-        <section className="home_comparison">
-            <div className="home_inner">
+        <div className="home_comparison">
+            <span className="home_section_eyebrow">HOW IT WORKS</span>
             <h2 className="home_section_title">
                 海外購入と共同購入
             </h2>
@@ -47,6 +47,12 @@ function HomeComparison() {
                     className={`home_comparison_card home_comparison_card_${item.type}`}
                     key={item.id}
                 >
+                    <span
+                    className={`home_comparison_badge home_comparison_badge_${item.type}`}
+                    >
+                    {item.title}
+                    </span>
+
                     <div
                     className={`home_comparison_icon home_comparison_icon_${item.type}`}
                     >
@@ -78,8 +84,7 @@ function HomeComparison() {
 
                 <span className="home_comparison_vs">VS</span>
             </div>
-            </div>
-        </section>
+        </div>
     );
 }
 

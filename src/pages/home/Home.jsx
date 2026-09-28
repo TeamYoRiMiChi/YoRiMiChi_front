@@ -5,41 +5,17 @@ import {
   faUsers,
   faShieldHalved,
   faHeadset,
-  faTruckFast,
-  faPlane,
 } from '@fortawesome/free-solid-svg-icons';
 import HomeReasons from '../../components/Home_components/HomeReasons';
 import HomeComparison from '../../components/Home_components/HomeComparison';
 import HomeStatistics from '../../components/Home_components/HomeStatistics';
+import HomePopularProducts from '../../components/Home_components/HomePopularProducts';
+import HomeGroupBuyProducts from '../../components/Home_components/HomeGroupBuyProducts';
 import homeHeroBanner from '../../assets/images/home_hero_banner_v7.png';
+import overseasPromoBanner from '../../assets/images/Overseas_banner.png';
+import groupbuyPromoBanner from '../../assets/images/purchase_hero_v2.png';
 import '../../assets/styles/Home.css';
-
-const HERO_BENEFITS = [
-  {
-    id: 1,
-    icon: faPlane,
-    label: '日本現地購入',
-    path: '/mypage',
-  },
-  {
-    id: 2,
-    icon: faShieldHalved,
-    label: '安心の検品',
-    path: '/mypage',
-  },
-  {
-    id: 3,
-    icon: faTruckFast,
-    label: 'スピード配送',
-    path: '/mypage',
-  },
-  {
-    id: 4,
-    icon: faHeadset,
-    label: '24時間サポート',
-    path: '/support',
-  },
-];
+import '../../assets/styles/Home/HomePromo.css';
 
 const FEATURES = [
   {
@@ -75,72 +51,102 @@ const FEATURES = [
 function Home() {
   return (
     <div className="home">
-      {/* 1. main banner */}
-      <section className="home_hero">
-        <div className="home_hero_inner">
-          {/* left banner text */}
-          <div className="home_hero_content">
-            <h1 className="home_hero_title">
-              日本のいいものを、
-              <br />
-              <strong>もっと手軽に、もっとお得に</strong>
-            </h1>
+      {/* 1. main promo banner — 기존 .home_hero를 대체합니다.
+          기존 히어로 이미지(home_hero_banner_v7)를 메인 배너 배경으로 그대로 쓰고,
+          해외직구·공동구매 각각 실제 배너 이미지 에셋을 작은 카드 배경으로 씁니다.
+          카피(2,000포인트/3인 무료배송)는 예시 문구이니 실제 진행 중인 이벤트가 있으면 교체해 주세요. */}
+      <section className="home_promo">
+        <div className="home_inner">
+          <div className="home_promo_grid">
+            <div
+              className="home_promo_main"
+              style={{ backgroundImage: `url(${homeHeroBanner})` }}
+            >
+              <div className="home_promo_main_cap">
+                <span className="home_promo_tag">MONTHLY BEST</span>
 
-            <p className="home_hero_description">
-              日本の商品を海外購入でもっと手軽に。
-              <br />
-              共同購入なら、みんなでお得に購入できます。
-              <br />
-              YoRiMiChiが新しいショッピング体験をお届けします。
-            </p>
+                <h1 className="home_promo_title">
+                  日本のいいものを、
+                  <br />
+                  もっと手軽に、もっとお得に
+                </h1>
 
-            <div className="home_hero_buttons">
-              <Link
-                to="/overseas"
-                className="home_hero_button home_hero_button_primary"
-                >
-                  海外購入を始める
-                </Link>
+                <p className="home_promo_desc">
+                  海外購入・共同購入 人気商品を今すぐチェック
+                </p>
 
-                <Link
-                  to="/groupbuy"
-                  className="home_hero_button home_hero_button_outline"
-                >
-                  共同購入に参加する
-                </Link>
+                <div className="home_promo_buttons">
+                  <Link
+                    to="/overseas"
+                    className="home_promo_btn home_promo_btn_primary"
+                  >
+                    海外購入を始める
+                  </Link>
+
+                  <Link
+                    to="/groupbuy"
+                    className="home_promo_btn home_promo_btn_outline"
+                  >
+                    共同購入に参加する
+                  </Link>
+                </div>
+              </div>
             </div>
 
-            <nav 
-              className="home_hero_benefits"
-              aria-label="サービスメニュー"
-            >
-              {HERO_BENEFITS.map((benefit) => (
-                <Link
-                  to={benefit.path}
-                  className="home_hero_benefit"
-                  key={benefit.id}
-                >
-                  <FontAwesomeIcon icon={benefit.icon} />
-                  <span>{benefit.label}</span>
-                </Link>
-              ))}
-            </nav>
-          </div>
+            <div className="home_promo_side">
+              <Link
+                to="/overseas"
+                className="home_promo_card home_promo_card_overseas"
+                style={{ backgroundImage: `url(${overseasPromoBanner})` }}
+              >
+                <div className="home_promo_card_cap">
+                  <span className="home_promo_card_small">海外直購 特典</span>
+                  <span className="home_promo_card_big">
+                    新規会員 2,000ポイント進呈
+                  </span>
+                </div>
+              </Link>
 
-          {/* banner image area */}
-          <div className="home_hero_visual">
-            <img
-              src={homeHeroBanner}
-              alt="YoRiMiChiの海外購入と共同購入サービス"
-            />
+              <Link
+                to="/groupbuy"
+                className="home_promo_card home_promo_card_groupbuy"
+                style={{ backgroundImage: `url(${groupbuyPromoBanner})` }}
+              >
+                <div className="home_promo_card_cap">
+                  <span className="home_promo_card_small">共同購入イベント</span>
+                  <span className="home_promo_card_big">
+                    3人集めて送料無料
+                  </span>
+                </div>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 실제 상품 미리보기 — 히어로 바로 아래에 둬서 소개 문구만 있지 않게 */}
-      {/* <HomePopularProducts /> */}
+      {/* 실제 상품 미리보기 — 히어로 바로 아래에 둬서 소개 문구만 있지 않게.
+          海外直購·共同購入 추천상품을 각각 화면 전체 폭 섹션으로 두고,
+          그 사이에 무료배송/쿠폰 스트립 배너를 끼워 넣습니다 (mall 컨셉 목업과 동일한 순서) */}
+      <HomePopularProducts />
 
-      {/* service features */}
+      {/* 무료배송 / 첫가입 쿠폰 스트립 배너 — 신규 섹션. 문구는 예시이니 실제 이벤트로 교체해 주세요 */}
+      <section className="home_promo_strip">
+        <div className="home_promo_strip_inner">
+          <div className="home_strip_card home_strip_card_shipping">
+            <p className="home_strip_title">🚚 送料無料イベント</p>
+            <p className="home_strip_desc">5,000円以上のご注文で送料無料</p>
+          </div>
+
+          <div className="home_strip_card home_strip_card_coupon">
+            <p className="home_strip_title">🎟️ 初回限定クーポン</p>
+            <p className="home_strip_desc">会員登録するだけで3,000円クーポン</p>
+          </div>
+        </div>
+      </section>
+
+      <HomeGroupBuyProducts />
+
+      {/* service features — 잠정적으로 화면에서 제외. 코드는 필요 시 재사용할 수 있도록 남겨둡니다
       <section className="home_features">
         <div className="home_inner">
           <h2 className="home_section_title">YoRiMiChiの特徴</h2>
@@ -168,15 +174,22 @@ function Home() {
           </div>
         </div>
       </section>
+      */}
 
-      {/* home comparison */}
-      <HomeComparison />
-
-      {/* why choose us */}
+      {/* why choose us — 잠정적으로 화면에서 제외. 코드는 필요 시 재사용할 수 있도록 남겨둡니다
       <HomeReasons />
+      */}
 
-      {/* service stats */}
-      <HomeStatistics />
+      {/* home comparison + service stats — 세로로 두 섹션이 쌓이면 스크롤이 길어 보인다는
+          피드백에 따라 한 섹션 안에서 2열로 나란히 배치합니다. 화면이 좁아지면 다시 위아래로 쌓입니다 */}
+      <section className="home_compare_stats">
+        <div className="home_inner">
+          <div className="home_compare_stats_grid">
+            <HomeComparison />
+            <HomeStatistics />
+          </div>
+        </div>
+      </section>
 
     </div>
   );
