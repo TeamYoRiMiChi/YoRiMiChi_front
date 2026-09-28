@@ -196,6 +196,48 @@
   font-size: 14px;
 }
 
+.confirmation-resend-btn {
+  width: 100%;
+}
+
+.signup-success {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 12px 14px;
+  border: 1px solid #a7dfbf;
+  border-radius: 8px;
+  background: #eefaf3;
+  color: #167442;
+  font-size: 13.5px;
+}
+
+.signup-complete {
+  display: grid;
+  justify-items: center;
+  gap: 18px;
+  padding-block: 48px;
+  text-align: center;
+}
+
+.signup-complete-icon {
+  color: #2aa865;
+  font-size: 56px;
+}
+
+.signup-complete h2,
+.signup-complete .form-description {
+  margin: 0;
+}
+
+.signup-login-link {
+  display: grid;
+  place-items: center;
+  max-width: 360px;
+  text-decoration: none;
+}
+
 .signup-form input:disabled {
   background: #f5f5f7;
   cursor: not-allowed;

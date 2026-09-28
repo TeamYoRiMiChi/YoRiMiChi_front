@@ -1,5 +1,6 @@
 import "../../../assets/styles/MyPage/ProfileManagement.css";
 import useProfileManagement from "../../../hooks/MyPage/ProfileManagement/useProfileManagement";
+import JapaneseMobileFields from "../../Auth/JapaneseMobileFields";
 
 function ProfileManagement() {
   // const user = {
@@ -41,21 +42,13 @@ function ProfileManagement() {
 
         <div className="form_row">
           <label>携帯電話番号</label>
-          <div className="form_inline">
-            <input
-              type="tel"
-              value={profile.phone}
-              onChange={(e) =>
-                setProfile((prev) => ({
-                  ...prev,
-                  phone: e.target.value,
-                }))
-              }
-              pattern="[0-9]{2,3}-[0-9]{4}-[0-9]{4}"
-              title="電話番号の形式が正しくありません。"
-              required
-            />
-          </div>
+          <JapaneseMobileFields
+            idPrefix="profile-phone"
+            value={profile.phone}
+            onChange={(phone) =>
+              setProfile((prev) => ({ ...prev, phone }))
+            }
+          />
         </div>
 
         <button type="submit" className="wide_bt">

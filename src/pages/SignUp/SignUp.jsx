@@ -3,11 +3,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEnvelope,
   faLock,
-  faPhone,
+  faCircleCheck,
   faCircleExclamation,
 } from "@fortawesome/free-solid-svg-icons";
 import SocialAuthButtons from "../../components/Auth/SocialAuthButtons";
 import AuthLayout from "../../components/Auth/AuthLayout";
+import JapaneseMobileFields from "../../components/Auth/JapaneseMobileFields";
 import { useSignUp } from "../../hooks/Auth/useSignUp";
 import "../../assets/styles/SignUp.css";
 
@@ -17,16 +18,39 @@ function Sign_up() {
     errors,
     isLoading,
     isConfirmationRequired,
+    isConfirmed,
     signupError,
+    confirmationMessage,
     confirmationCode,
     setConfirmationCode,
     handleChange,
+    handlePhoneChange,
     handleSubmit,
     handleConfirm,
     handleResendCode,
     handleSearchPostal,
     isSearchingPostal,
+    resendRemainingSeconds,
   } = useSignUp();
+
+  if (isConfirmed) {
+    return (
+      <div className="signup-page">
+        <AuthLayout description={<>YoRiMiChiへの会員登録が完了しました。</>}>
+          <section className="signup-content signup-complete" role="status">
+            <FontAwesomeIcon className="signup-complete-icon" icon={faCircleCheck} />
+            <h2>会員登録が完了しました</h2>
+            <p className="form-description">
+              ご登録いただいたメールアドレスとパスワードでログインできます。
+            </p>
+            <Link className="signup-submit signup-login-link" to="/login">
+              ログイン画面へ
+            </Link>
+          </section>
+        </AuthLayout>
+      </div>
+    );
+  }
 
   if (isConfirmationRequired) {
     return (
@@ -64,16 +88,25 @@ function Sign_up() {
                 </p>
               )}
 
+              {confirmationMessage && (
+                <p className="signup-success" role="status">
+                  <FontAwesomeIcon icon={faCircleCheck} />
+                  {confirmationMessage}
+                </p>
+              )}
+
               <button className="signup-submit" type="submit" disabled={isLoading}>
                 {isLoading ? '確認中...' : 'メールアドレスを確認'}
               </button>
               <button
-                className="email-check-btn"
+                className="email-check-btn confirmation-resend-btn"
                 type="button"
                 onClick={handleResendCode}
-                disabled={isLoading}
+                disabled={isLoading || resendRemainingSeconds > 0}
               >
-                確認コードを再送信
+                {resendRemainingSeconds > 0
+                  ? `再送信まで ${formatCountdown(resendRemainingSeconds)}`
+                  : '確認コードを再送信'}
               </button>
             </form>
           </section>
@@ -180,15 +213,12 @@ function Sign_up() {
             </div>
 
             {/* 전화번호 */}
-            <div className="form-group-with-icon">
-              <label htmlFor="phone">電話番号</label>
-              <FontAwesomeIcon icon={faPhone} />
-              <input
-                id="phone"
-                type="tel"
-                placeholder="例）080-1234-5678"
+            <div className="form-group">
+              <label htmlFor="phone-prefix">携帯電話番号</label>
+              <JapaneseMobileFields
+                idPrefix="phone"
                 value={form.phone}
-                onChange={handleChange}
+                onChange={handlePhoneChange}
                 disabled={isLoading}
               />
               {errors.phone && <p className="field-error">{errors.phone}</p>}
@@ -285,6 +315,12 @@ function Sign_up() {
       </AuthLayout>
     </div>
   );
+}
+
+function formatCountdown(seconds) {
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+  return `${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
 }
 
 export default Sign_up;

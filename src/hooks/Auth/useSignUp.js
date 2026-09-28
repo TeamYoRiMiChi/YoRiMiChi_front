@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import {
   clearAuthError,
   confirmSignup,
+  resetSignupFlow,
   resendSignupCode,
   signupUser,
 } from '../../features/auth/authSlice';
@@ -23,6 +23,9 @@ const INITIAL_FORM = {
   agreed: false,
 };
 
+const RESEND_COOLDOWN_SECONDS = 120;
+const RESEND_AVAILABLE_AT_KEY = 'yorimichi_signup_resend_available_at';
+
 /**
  * 회원가입 폼 로직
  *
@@ -32,7 +35,6 @@ const INITIAL_FORM = {
  */
 export function useSignUp() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const { signupStatus, signupError } = useSelector((s) => s.auth);
 
@@ -44,14 +46,41 @@ export function useSignUp() {
   const [errors, setErrors] = useState({});
   const [confirmationCode, setConfirmationCode] = useState('');
   const [isSearchingPostal, setIsSearchingPostal] = useState(false);
+  const [confirmationMessage, setConfirmationMessage] = useState(null);
+  const [resendRemainingSeconds, setResendRemainingSeconds] = useState(
+    getInitialResendRemainingSeconds,
+  );
 
   const isLoading = signupStatus === 'loading';
 
   useEffect(() => {
     return () => {
       dispatch(clearAuthError());
+      dispatch(resetSignupFlow());
     };
   }, [dispatch]);
+
+  useEffect(() => {
+    if (resendRemainingSeconds <= 0) return undefined;
+
+    const timerId = window.setInterval(() => {
+      const availableAt = Number(
+        sessionStorage.getItem(RESEND_AVAILABLE_AT_KEY) ?? 0,
+      );
+      const remaining = Math.max(
+        0,
+        Math.ceil((availableAt - Date.now()) / 1000),
+      );
+
+      setResendRemainingSeconds(remaining);
+
+      if (remaining === 0) {
+        sessionStorage.removeItem(RESEND_AVAILABLE_AT_KEY);
+      }
+    }, 1000);
+
+    return () => window.clearInterval(timerId);
+  }, [resendRemainingSeconds]);
 
   /* 입력값 변경 */
   const handleChange = (e) => {
@@ -66,6 +95,11 @@ export function useSignUp() {
     // 입력을 고치면 해당 필드의 에러는 지웁니다
     setErrors((prev) => ({ ...prev, [key]: undefined }));
 
+  };
+
+  const handlePhoneChange = (phone) => {
+    setForm((prev) => ({ ...prev, phone }));
+    setErrors((prev) => ({ ...prev, phone: undefined }));
   };
 
   /* 우편번호로 주소 검색 */
@@ -123,7 +157,7 @@ export function useSignUp() {
     // 서버는 name 하나만 받으므로 성+이름을 합칩니다
     const name = `${form.lastName.trim()} ${form.firstName.trim()}`.trim();
 
-    await dispatch(
+    const result = await dispatch(
       signupUser({
         email: form.email.trim(),
         password: form.password,
@@ -134,6 +168,11 @@ export function useSignUp() {
         addressDetail: form.addressDetail.trim() || null,
       })
     );
+
+    if (signupUser.fulfilled.match(result)) {
+      startResendCooldown(setResendRemainingSeconds);
+      setConfirmationMessage(null);
+    }
 
   };
 
@@ -147,15 +186,18 @@ export function useSignUp() {
     }));
 
     if (confirmSignup.fulfilled.match(result)) {
-      alert('メールアドレスの確認が完了しました。ログインしてください。');
-      navigate('/login', { replace: true });
+      sessionStorage.removeItem(RESEND_AVAILABLE_AT_KEY);
+      setResendRemainingSeconds(0);
     }
   };
 
   const handleResendCode = async () => {
+    if (resendRemainingSeconds > 0) return;
+
     const result = await dispatch(resendSignupCode(form.email.trim()));
     if (resendSignupCode.fulfilled.match(result)) {
-      alert('確認コードを再送信しました。');
+      startResendCooldown(setResendRemainingSeconds);
+      setConfirmationMessage('確認コードを再送信しました。');
     }
   };
 
@@ -166,16 +208,35 @@ export function useSignUp() {
     isConfirmationRequired:
       signupStatus === 'confirmationRequired' ||
       Boolean(pendingProfile && !pendingProfile.confirmed),
+    isConfirmed: signupStatus === 'confirmed',
     signupError,
+    confirmationMessage,
     confirmationCode,
-    setConfirmationCode,
+    setConfirmationCode: (value) => {
+      setConfirmationCode(value.replace(/\D/g, '').slice(0, 6));
+    },
+    resendRemainingSeconds,
     handleChange,
+    handlePhoneChange,
     handleSubmit,
     handleConfirm,
     handleResendCode,
     handleSearchPostal,
     isSearchingPostal,
   };
+}
+
+function getInitialResendRemainingSeconds() {
+  const availableAt = Number(
+    sessionStorage.getItem(RESEND_AVAILABLE_AT_KEY) ?? 0,
+  );
+  return Math.max(0, Math.ceil((availableAt - Date.now()) / 1000));
+}
+
+function startResendCooldown(setRemainingSeconds) {
+  const availableAt = Date.now() + RESEND_COOLDOWN_SECONDS * 1000;
+  sessionStorage.setItem(RESEND_AVAILABLE_AT_KEY, String(availableAt));
+  setRemainingSeconds(RESEND_COOLDOWN_SECONDS);
 }
 
 /* input id → form key 매핑 */
@@ -228,8 +289,8 @@ function validate(form) {
 
   if (!form.phone.trim()) {
     errors.phone = '電話番号を入力してください。';
-  } else if (!/^\d{2,3}-\d{4}-\d{4}$/.test(form.phone.trim())) {
-    errors.phone = '電話番号の形式が正しくありません。';
+  } else if (!/^(070|080|090)-\d{4}-\d{4}$/.test(form.phone.trim())) {
+    errors.phone = '070・080・090から始まる携帯電話番号を入力してください。';
   }
 
   // 배송지는 전부 任意이지만, 하나라도 입력했다면 가입 직후

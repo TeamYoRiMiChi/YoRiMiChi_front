@@ -188,6 +188,11 @@ const authSlice = createSlice({
       state.error = null;
       state.signupError = null;
     },
+    resetSignupFlow: (state) => {
+      state.signupStatus = 'idle';
+      state.signupError = null;
+      state.pendingEmail = null;
+    },
   },
   extraReducers: (builder) => {
     const applyAuthentication = (state, action) => {
@@ -287,5 +292,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { clearAuthentication, clearAuthError } = authSlice.actions;
+export const { clearAuthentication, clearAuthError, resetSignupFlow } = authSlice.actions;
 export default authSlice.reducer;

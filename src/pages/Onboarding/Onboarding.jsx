@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleExclamation, faPhone, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faCircleExclamation, faUser } from '@fortawesome/free-solid-svg-icons';
 import AuthLayout from '../../components/Auth/AuthLayout';
+import JapaneseMobileFields from '../../components/Auth/JapaneseMobileFields';
 import { onboardUser } from '../../features/auth/authSlice';
 import '../../assets/styles/SignUp.css';
 
@@ -32,8 +33,8 @@ function Onboarding() {
       setValidationError('お名前を入力してください。');
       return;
     }
-    if (!/^\d{2,3}-\d{4}-\d{4}$/.test(phone.trim())) {
-      setValidationError('電話番号はハイフンを含めて入力してください。');
+    if (!/^(070|080|090)-\d{4}-\d{4}$/.test(phone.trim())) {
+      setValidationError('070・080・090から始まる携帯電話番号を入力してください。');
       return;
     }
 
@@ -73,17 +74,13 @@ function Onboarding() {
               />
             </div>
 
-            <div className="form-group-with-icon">
-              <label htmlFor="onboarding-phone">電話番号</label>
-              <FontAwesomeIcon icon={faPhone} />
-              <input
-                id="onboarding-phone"
-                type="tel"
-                placeholder="例）080-1234-5678"
+            <div className="form-group">
+              <label htmlFor="onboarding-phone-prefix">携帯電話番号</label>
+              <JapaneseMobileFields
+                idPrefix="onboarding-phone"
                 value={phone}
-                onChange={(event) => setPhone(event.target.value)}
+                onChange={setPhone}
                 disabled={isLoading}
-                required
               />
             </div>
 

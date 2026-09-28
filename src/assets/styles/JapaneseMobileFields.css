@@ -1,0 +1,58 @@
+.japanese-mobile-fields {
+  display: grid;
+  grid-template-columns: minmax(82px, 0.75fr) auto minmax(92px, 1fr) auto minmax(92px, 1fr);
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.japanese-mobile-fields select,
+.japanese-mobile-fields input {
+  width: 100%;
+  height: 46px;
+  box-sizing: border-box;
+  border: 1px solid #d9dced;
+  border-radius: 9px;
+  outline: none;
+  background: #fff;
+  color: #252b52;
+  font-family: inherit;
+  font-size: 14px;
+  text-align: center;
+}
+
+.japanese-mobile-fields select {
+  padding: 0 10px;
+}
+
+.japanese-mobile-fields input {
+  padding: 0 12px;
+}
+
+.japanese-mobile-fields select:focus,
+.japanese-mobile-fields input:focus {
+  border-color: #5945e8;
+  box-shadow: 0 0 0 3px rgba(89, 69, 232, 0.1);
+}
+
+.japanese-mobile-fields select:disabled,
+.japanese-mobile-fields input:disabled {
+  background: #f5f5f7;
+  cursor: not-allowed;
+}
+
+.japanese-mobile-fields > span {
+  color: #737995;
+  font-weight: 700;
+}
+
+@media (max-width: 480px) {
+  .japanese-mobile-fields {
+    grid-template-columns: minmax(72px, 0.8fr) auto minmax(72px, 1fr) auto minmax(72px, 1fr);
+    gap: 6px;
+  }
+
+  .japanese-mobile-fields input {
+    padding: 0 6px;
+  }
+}
