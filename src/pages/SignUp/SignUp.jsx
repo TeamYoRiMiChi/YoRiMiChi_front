@@ -286,8 +286,8 @@ function Sign_up() {
                 disabled={isLoading}
               />
               <label htmlFor="term-agreement">
-                <a href="#terms">利用規約</a>および
-                <a href="#privacy">プライバシーポリシー</a>に同意します。
+                <Link to="/terms" target="_blank" rel="noreferrer">利用規約</Link>および
+                <Link to="/privacy" target="_blank" rel="noreferrer">プライバシーポリシー</Link>に同意します。
               </label>
             </div>
             {errors.agreed && <p className="field-error">{errors.agreed}</p>}

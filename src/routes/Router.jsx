@@ -31,6 +31,8 @@ import AdminCoupons from "../pages/Admin/CouponManagement/AdminCoupons";
 import AuthCallback from "../pages/AuthCallback/AuthCallback";
 import Onboarding from "../pages/Onboarding/Onboarding";
 import ForgotPassword from "../pages/ForgotPassword/ForgotPassword";
+import PrivacyPolicy from "../pages/Legal/PrivacyPolicy";
+import TermsOfService from "../pages/Legal/TermsOfService";
 
 function Router() {
   return (
@@ -58,6 +60,8 @@ function Router() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/auth/callback" element={<AuthCallback />} />
         <Route path="/onboarding" element={<Onboarding />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
+        <Route path="/terms" element={<TermsOfService />} />
         {/* 헤더 링크가 /join이라 같은 화면으로 연결 */}
         <Route path="/join" element={<Navigate to="/signup" replace />} />
 
