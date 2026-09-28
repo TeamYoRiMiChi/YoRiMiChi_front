@@ -1,7 +1,9 @@
 import {
+  confirmResetPassword,
   confirmSignUp,
   fetchAuthSession,
   fetchUserAttributes,
+  resetPassword,
   resendSignUpCode,
   signIn,
   signInWithRedirect,
@@ -44,6 +46,18 @@ export async function confirmEmail(email, confirmationCode) {
 
 export function resendEmailCode(email) {
   return resendSignUpCode({ username: email });
+}
+
+export function requestPasswordReset(email) {
+  return resetPassword({ username: email });
+}
+
+export function completePasswordReset(email, confirmationCode, newPassword) {
+  return confirmResetPassword({
+    username: email,
+    confirmationCode,
+    newPassword,
+  });
 }
 
 export async function loginWithEmail(email, password) {
@@ -111,6 +125,7 @@ export function toAuthenticationMessage(error, fallback) {
     UsernameExistsException: 'すでに登録されているメールアドレスです。',
     UserNotFoundException: 'メールアドレスまたはパスワードが正しくありません。',
     InvalidPasswordException: 'パスワードの条件を確認してください。',
+    InvalidParameterException: '入力内容を確認してください。',
     LimitExceededException: '試行回数が多すぎます。しばらくしてからお試しください。',
   };
 
