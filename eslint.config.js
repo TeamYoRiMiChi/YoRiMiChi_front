@@ -17,5 +17,11 @@ export default defineConfig([
       globals: globals.browser,
       parserOptions: { ecmaFeatures: { jsx: true } },
     },
+    rules: {
+      // Existing data-loading hooks intentionally update request state from effects.
+      'react-hooks/set-state-in-effect': 'off',
+      // Shared navigation constants are exported beside their components.
+      'react-refresh/only-export-components': 'off',
+    },
   },
 ])

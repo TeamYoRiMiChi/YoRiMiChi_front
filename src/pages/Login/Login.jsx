@@ -79,7 +79,7 @@ function Login() {
                 ログイン状態を保持する
               </label>
 
-              <a href="#forgot-password">パスワードをお忘れですか?</a>
+              <Link to="/forgot-password">パスワードをお忘れですか?</Link>
             </div>
 
             <button className="login-submit" type="submit" disabled={isLoading}>

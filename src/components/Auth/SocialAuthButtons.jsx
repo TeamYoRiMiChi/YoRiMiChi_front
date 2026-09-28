@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { signInWithRedirect } from 'aws-amplify/auth';
+import { loginWithGoogle } from '../../services/authentication';
 import GoogleIcon from "../../assets/images/google_social_btn.png";
 import LineIcon from "../../assets/images/line_social_btn.png";
 
@@ -10,9 +10,7 @@ function SocialAuthButtons({ googleText, lineText }) {
     try {
       setIsRedirecting(true);
 
-      await signInWithRedirect({
-        provider: 'Google',
-      });
+      await loginWithGoogle();
     } catch (error) {
       console.error("Failed to start Google sign-in.", error);
       setIsRedirecting(false);

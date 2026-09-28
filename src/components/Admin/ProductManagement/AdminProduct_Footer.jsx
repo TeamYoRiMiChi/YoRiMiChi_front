@@ -13,7 +13,6 @@ function AdminProductTableFooter({
   totalPages,
   onSelectAll,
   onDelete,
-  onStatusChange,
   onPageChange,
 }) {
   const pageNumbers = Array.from(

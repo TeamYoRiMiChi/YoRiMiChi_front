@@ -9,8 +9,14 @@ import { useSelector } from 'react-redux';
  * 로그인에 성공하면 그 경로로 다시 돌려보냅니다.
  */
 function PrivateRoute() {
-  const accessToken = useSelector((state) => state.auth.accessToken);
+  const { accessToken, initialized, requiresOnboarding } = useSelector(
+    (state) => state.auth,
+  );
   const location = useLocation();
+
+  if (!initialized) {
+    return null;
+  }
 
   if (!accessToken) {
     return (
@@ -20,6 +26,10 @@ function PrivateRoute() {
         state={{ from: location.pathname + location.search }}
       />
     );
+  }
+
+  if (requiresOnboarding) {
+    return <Navigate to="/onboarding" replace />;
   }
 
   return <Outlet />;

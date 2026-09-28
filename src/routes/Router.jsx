@@ -29,6 +29,8 @@ import AdminGroupBuy from "../pages/Admin/GroupBuyManagement/AdminGroupBuy";
 import AdminInquiries from "../pages/Admin/InquiriesManagement/AdminInquiries";
 import AdminCoupons from "../pages/Admin/CouponManagement/AdminCoupons";
 import AuthCallback from "../pages/AuthCallback/AuthCallback";
+import Onboarding from "../pages/Onboarding/Onboarding";
+import ForgotPassword from "../pages/ForgotPassword/ForgotPassword";
 
 function Router() {
   return (
@@ -53,7 +55,9 @@ function Router() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/auth/callback" element={<AuthCallback />} />
+        <Route path="/onboarding" element={<Onboarding />} />
         {/* 헤더 링크가 /join이라 같은 화면으로 연결 */}
         <Route path="/join" element={<Navigate to="/signup" replace />} />
 

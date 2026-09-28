@@ -10,15 +10,9 @@ function ProfileManagement() {
   // };
 
   const {
-    newPassword,
-    setNewPassword,
-    confirmPassword,
-    setConfirmPassword,
     handleSubmit,
     profile,
     setProfile,
-    isLoading,
-    error,
   } = useProfileManagement();
 
   return (
@@ -62,31 +56,6 @@ function ProfileManagement() {
               required
             />
           </div>
-        </div>
-
-        <div className="form_divider" />
-
-        <div className="form_row">
-          <label>新しいパスワード</label>
-          <input
-            type="password"
-            placeholder="英字・数字を含む8文字以上"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-            pattern="(?=.*[A-Za-z])(?=.*[0-9]).{8,100}"
-            title="英字と数字を含めて8文字以上で入力してください。"
-          />
-        </div>
-
-        <div className="form_row">
-          <label>新しいパスワードの確認</label>
-          <input
-            type="password"
-            placeholder="もう一度入力してください"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required={newPassword.trim().length > 0}
-          />
         </div>
 
         <button type="submit" className="wide_bt">

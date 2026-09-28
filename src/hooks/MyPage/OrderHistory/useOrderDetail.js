@@ -40,7 +40,6 @@ export function useOrderDetail(orderId) {
     return () => {
       ignore = true;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orderId]);
 
   return { detail, isLoading, error };

@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { logout } from '../../features/auth/authSlice';
+import { logoutUser } from '../../features/auth/authSlice';
 import { useTheme } from '../../hooks/useTheme';
 import './Header.css';
 import CartDrawer from './CartDrawer';
@@ -139,8 +139,8 @@ function Header() {
     return () => document.removeEventListener('keydown', handleEsc);
   }, [searchOpen]);
 
-  const handleLogout = () => {
-    dispatch(logout());
+  const handleLogout = async () => {
+    await dispatch(logoutUser());
     navigate('/', { replace: true });
   };
 

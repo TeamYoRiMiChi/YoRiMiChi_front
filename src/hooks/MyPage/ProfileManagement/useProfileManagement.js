@@ -4,8 +4,6 @@ import { getProfile, updateProfile } from "../../../api/MyPage/profileApi";
 const EMPTY_PROFILE = { email: "", name: "", phone: "" };
 
 export function useProfileManagement(fallback = EMPTY_PROFILE) {
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [profile, setProfile] = useState(fallback);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -13,30 +11,16 @@ export function useProfileManagement(fallback = EMPTY_PROFILE) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const hasNewPassword = newPassword.trim().length > 0;
-
-    if (hasNewPassword && newPassword !== confirmPassword) {
-      alert("비밀번호가 일치하지 않습니다.");
-      return;
-    }
-
     const updateData = {
       name: profile.name?.trim() ?? "",
       phone: profile.phone?.trim() ?? "",
     };
-
-    if (hasNewPassword) {
-      updateData.newPassword = newPassword;
-    }
 
     try {
       const res = await updateProfile(updateData);
       const updatedProfile = { ...EMPTY_PROFILE, ...profile, ...(res.data.data ?? {}) };
 
       setProfile(updatedProfile);
-
-      setNewPassword("");
-      setConfirmPassword("");
 
       setError(null);
       alert("会員情報の修正に成功しました。");
@@ -80,10 +64,6 @@ export function useProfileManagement(fallback = EMPTY_PROFILE) {
   }, []);
 
   return {
-    newPassword,
-    setNewPassword,
-    confirmPassword,
-    setConfirmPassword,
     handleSubmit,
     profile,
     setProfile,

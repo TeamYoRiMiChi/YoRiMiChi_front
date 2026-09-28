@@ -10,9 +10,14 @@ import { useSelector } from 'react-redux';
  * TODO: user.role 필드명/값은 백엔드 응답에 맞춰 확인 필요
  */
 const AdminRoute = () => {
-  const accessToken = useSelector((state) => state.auth.accessToken);
-  const user = useSelector((state) => state.auth.user);
+  const { accessToken, initialized, requiresOnboarding, user } = useSelector(
+    (state) => state.auth,
+  );
   const location = useLocation();
+
+  if (!initialized) {
+    return null;
+  }
 
   if (!accessToken) {
     return (
@@ -22,6 +27,10 @@ const AdminRoute = () => {
         state={{ from: location.pathname + location.search }}
       />
     );
+  }
+
+  if (requiresOnboarding) {
+    return <Navigate to="/onboarding" replace />;
   }
 
   if (user?.role !== 'ADMIN') {

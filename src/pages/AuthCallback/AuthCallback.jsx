@@ -1,30 +1,37 @@
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { fetchAuthSession } from 'aws-amplify/auth';
 import { Hub } from 'aws-amplify/utils';
 import 'aws-amplify/auth/enable-oauth-listener';
+import { completeOAuthAuthentication } from '../../features/auth/authSlice';
 
 function AuthCallback() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [error, setError] = useState(null);
 
   useEffect(() => {
     let active = true;
+    let completed = false;
 
     const completeSignIn = async () => {
+      if (completed) return;
+
       try {
-        const session = await fetchAuthSession();
-        const accessToken = session.tokens?.accessToken;
+        const authentication = await dispatch(
+          completeOAuthAuthentication(),
+        ).unwrap();
 
-        if (!accessToken) {
-          return;
-        }
-
+        if (!active || !authentication.accessToken) return;
+        completed = true;
+        navigate(
+          authentication.requiresOnboarding ? '/onboarding' : '/',
+          { replace: true },
+        );
+      } catch (reason) {
         if (active) {
-          navigate('/', { replace: true });
+          setError(reason ?? 'Googleログインに失敗しました。');
         }
-      } catch {
-        // The OAuth listener may still be exchanging the authorization code
       }
     };
 
@@ -33,21 +40,19 @@ function AuthCallback() {
         void completeSignIn();
       }
 
-      if (
-        payload.event === 'signInWithRedirect_failure' &&
-        active
-      ) {
+      if (payload.event === 'signInWithRedirect_failure' && active) {
         setError('Googleログインに失敗しました。');
       }
     });
 
+    // The OAuth listener may have completed before this component subscribed.
     void completeSignIn();
 
     return () => {
       active = false;
       unsubscribe();
     };
-  }, [navigate]);
+  }, [dispatch, navigate]);
 
   if (error) {
     return (

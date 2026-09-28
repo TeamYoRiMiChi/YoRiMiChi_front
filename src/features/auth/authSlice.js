@@ -1,117 +1,188 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import * as userApi from '../../api/Auth/userApi';
+import {
+  clearPendingProfile,
+  confirmEmail,
+  getAuthenticatedAttributes,
+  getAuthenticationSession,
+  getPendingProfile,
+  loginWithEmail,
+  logoutFromCognito,
+  registerWithEmail,
+  resendEmailCode,
+  toAuthenticationMessage,
+} from '../../services/authentication';
 
-const STORAGE_KEY = 'yorimichi_auth';
-
-/**
- * 새로고침해도 로그인이 풀리지 않도록 localStorage에서 복구합니다.
- *
- * 참고: XSS에 노출될 수 있어 실무에서는 refreshToken을 HttpOnly 쿠키에 두는 편이
- * 더 안전합니다. 지금은 구현 단순화를 위해 localStorage를 씁니다.
- */
-function loadFromStorage() {
-  try {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (!saved) return { accessToken: null, refreshToken: null, user: null };
-    return JSON.parse(saved);
-  } catch {
-    return { accessToken: null, refreshToken: null, user: null };
-  }
+function isMemberMissing(error) {
+  return error.response?.status === 404 && error.response?.data?.code === 'U001';
 }
 
-function saveToStorage(payload) {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
-  } catch {
-    // 저장 실패해도 로그인 자체는 동작하므로 무시
-  }
-}
+async function loadAuthenticatedMember({ createPendingMember = false } = {}) {
+  const session = await getAuthenticationSession();
 
-function clearStorage() {
-  try {
-    localStorage.removeItem(STORAGE_KEY);
-  } catch {
-    // 무시
+  if (!session.accessToken) {
+    return { accessToken: null, user: null, requiresOnboarding: false, attributes: {} };
   }
-}
 
-/* ============================================
-   로그인
-============================================ */
-export const loginUser = createAsyncThunk(
-  'auth/loginUser',
-  async (credentials, { rejectWithValue }) => {
-    try {
-      const res = await userApi.login(credentials);
-      return res.data.data; // { accessToken, refreshToken, user }
-    } catch (err) {
-      return rejectWithValue(
-        err.response?.data?.message ?? 'ログインに失敗しました。'
-      );
+  try {
+    const response = await userApi.getMyInfo();
+    return {
+      accessToken: session.accessToken,
+      user: response.data.data,
+      requiresOnboarding: false,
+      attributes: {},
+    };
+  } catch (error) {
+    if (!isMemberMissing(error)) throw error;
+
+    const attributes = await getAuthenticatedAttributes();
+    const email = attributes.email ?? session.claims.email;
+    const pendingProfile = createPendingMember ? getPendingProfile(email) : null;
+
+    if (pendingProfile) {
+      const response = await userApi.onboard({
+        name: pendingProfile.name,
+        phone: pendingProfile.phone,
+      });
+      clearPendingProfile();
+
+      return {
+        accessToken: session.accessToken,
+        user: response.data.data,
+        requiresOnboarding: false,
+        attributes,
+      };
     }
+
+    return {
+      accessToken: session.accessToken,
+      user: null,
+      requiresOnboarding: true,
+      attributes,
+    };
   }
+}
+
+export const initializeAuthentication = createAsyncThunk(
+  'auth/initializeAuthentication',
+  async (_, { rejectWithValue }) => {
+    try {
+      return await loadAuthenticatedMember();
+    } catch (error) {
+      return rejectWithValue(toAuthenticationMessage(error, null));
+    }
+  },
 );
 
-/* ============================================
-   회원가입
-============================================ */
+export const loginUser = createAsyncThunk(
+  'auth/loginUser',
+  async ({ email, password }, { rejectWithValue }) => {
+    try {
+      await loginWithEmail(email, password);
+      return await loadAuthenticatedMember({ createPendingMember: true });
+    } catch (error) {
+      return rejectWithValue(
+        toAuthenticationMessage(error, 'ログインに失敗しました。'),
+      );
+    }
+  },
+);
+
+export const completeOAuthAuthentication = createAsyncThunk(
+  'auth/completeOAuthAuthentication',
+  async (_, { rejectWithValue }) => {
+    try {
+      return await loadAuthenticatedMember();
+    } catch (error) {
+      return rejectWithValue(
+        toAuthenticationMessage(error, 'Googleログインに失敗しました。'),
+      );
+    }
+  },
+);
+
 export const signupUser = createAsyncThunk(
   'auth/signupUser',
   async (form, { rejectWithValue }) => {
     try {
-      const res = await userApi.signup(form);
-      return res.data.data; // 가입된 회원 정보
-    } catch (err) {
+      const result = await registerWithEmail(form);
+      return { email: form.email, nextStep: result.nextStep };
+    } catch (error) {
       return rejectWithValue(
-        err.response?.data?.message ?? '会員登録に失敗しました。'
+        toAuthenticationMessage(error, '会員登録に失敗しました。'),
       );
     }
-  }
+  },
 );
 
-/* ============================================
-   내 정보 조회 (토큰 유효성 확인 겸용)
-============================================ */
-export const fetchMyInfo = createAsyncThunk(
-  'auth/fetchMyInfo',
-  async (_, { rejectWithValue }) => {
+export const confirmSignup = createAsyncThunk(
+  'auth/confirmSignup',
+  async ({ email, confirmationCode }, { rejectWithValue }) => {
     try {
-      const res = await userApi.getMyInfo();
-      return res.data.data;
-    } catch (err) {
-      return rejectWithValue(err.response?.data?.message ?? null);
+      return await confirmEmail(email, confirmationCode);
+    } catch (error) {
+      return rejectWithValue(
+        toAuthenticationMessage(error, 'メールアドレスの確認に失敗しました。'),
+      );
     }
-  }
+  },
 );
 
-const saved = loadFromStorage();
+export const resendSignupCode = createAsyncThunk(
+  'auth/resendSignupCode',
+  async (email, { rejectWithValue }) => {
+    try {
+      await resendEmailCode(email);
+      return email;
+    } catch (error) {
+      return rejectWithValue(
+        toAuthenticationMessage(error, '確認コードの再送信に失敗しました。'),
+      );
+    }
+  },
+);
+
+export const onboardUser = createAsyncThunk(
+  'auth/onboardUser',
+  async (profile, { rejectWithValue }) => {
+    try {
+      const session = await getAuthenticationSession();
+      const response = await userApi.onboard(profile);
+      clearPendingProfile();
+      return { accessToken: session.accessToken, user: response.data.data };
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message ?? '会員情報の登録に失敗しました。',
+      );
+    }
+  },
+);
+
+export const logoutUser = createAsyncThunk('auth/logoutUser', async () => {
+  await logoutFromCognito();
+});
 
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
-    accessToken: saved.accessToken,
-    refreshToken: saved.refreshToken,
-    user: saved.user,
-    status: 'idle',      // idle | loading | succeeded | failed
+    accessToken: null,
+    user: null,
+    attributes: {},
+    initialized: false,
+    requiresOnboarding: false,
+    status: 'idle',
     error: null,
     signupStatus: 'idle',
     signupError: null,
+    pendingEmail: null,
   },
   reducers: {
-    setCredentials: (state, action) => {
-      const { accessToken, refreshToken, user } = action.payload;
-      state.accessToken = accessToken;
-      state.refreshToken = refreshToken ?? null;
-      state.user = user;
-      saveToStorage({ accessToken, refreshToken: refreshToken ?? null, user });
-    },
-    logout: (state) => {
+    clearAuthentication: (state) => {
       state.accessToken = null;
-      state.refreshToken = null;
       state.user = null;
+      state.attributes = {};
+      state.requiresOnboarding = false;
       state.status = 'idle';
-      state.error = null;
-      clearStorage();
     },
     clearAuthError: (state) => {
       state.error = null;
@@ -119,55 +190,102 @@ const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    const applyAuthentication = (state, action) => {
+      state.accessToken = action.payload.accessToken;
+      state.user = action.payload.user;
+      state.attributes = action.payload.attributes ?? {};
+      state.requiresOnboarding = action.payload.requiresOnboarding ?? false;
+      state.status = 'succeeded';
+      state.error = null;
+      state.initialized = true;
+    };
+
     builder
-      /* 로그인 */
+      .addCase(initializeAuthentication.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(initializeAuthentication.fulfilled, applyAuthentication)
+      .addCase(initializeAuthentication.rejected, (state) => {
+        state.initialized = true;
+        state.status = 'idle';
+        state.accessToken = null;
+        state.user = null;
+      })
       .addCase(loginUser.pending, (state) => {
         state.status = 'loading';
         state.error = null;
       })
-      .addCase(loginUser.fulfilled, (state, action) => {
-        const { accessToken, refreshToken, user } = action.payload;
-        state.status = 'succeeded';
-        state.accessToken = accessToken;
-        state.refreshToken = refreshToken ?? null;
-        state.user = user;
-        saveToStorage({ accessToken, refreshToken: refreshToken ?? null, user });
-      })
+      .addCase(loginUser.fulfilled, applyAuthentication)
       .addCase(loginUser.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.payload;
       })
-
-      /* 회원가입 */
+      .addCase(completeOAuthAuthentication.pending, (state) => {
+        state.status = 'loading';
+        state.error = null;
+      })
+      .addCase(completeOAuthAuthentication.fulfilled, applyAuthentication)
+      .addCase(completeOAuthAuthentication.rejected, (state, action) => {
+        state.initialized = true;
+        state.status = 'failed';
+        state.error = action.payload;
+      })
       .addCase(signupUser.pending, (state) => {
         state.signupStatus = 'loading';
         state.signupError = null;
       })
-      .addCase(signupUser.fulfilled, (state) => {
-        state.signupStatus = 'succeeded';
+      .addCase(signupUser.fulfilled, (state, action) => {
+        state.signupStatus = 'confirmationRequired';
+        state.pendingEmail = action.payload.email;
       })
       .addCase(signupUser.rejected, (state, action) => {
         state.signupStatus = 'failed';
         state.signupError = action.payload;
       })
-
-      /* 내 정보 — 실패하면 토큰이 만료된 것이므로 로그아웃 처리 */
-      .addCase(fetchMyInfo.fulfilled, (state, action) => {
-        state.user = action.payload;
-        saveToStorage({
-          accessToken: state.accessToken,
-          refreshToken: state.refreshToken,
-          user: action.payload,
-        });
+      .addCase(confirmSignup.pending, (state) => {
+        state.signupStatus = 'loading';
+        state.signupError = null;
       })
-      .addCase(fetchMyInfo.rejected, (state) => {
+      .addCase(confirmSignup.fulfilled, (state) => {
+        state.signupStatus = 'confirmed';
+      })
+      .addCase(confirmSignup.rejected, (state, action) => {
+        state.signupStatus = 'confirmationRequired';
+        state.signupError = action.payload;
+      })
+      .addCase(resendSignupCode.rejected, (state, action) => {
+        state.signupError = action.payload;
+      })
+      .addCase(onboardUser.pending, (state) => {
+        state.status = 'loading';
+        state.error = null;
+      })
+      .addCase(onboardUser.fulfilled, (state, action) => {
+        state.accessToken = action.payload.accessToken;
+        state.user = action.payload.user;
+        state.requiresOnboarding = false;
+        state.status = 'succeeded';
+      })
+      .addCase(onboardUser.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload;
+      })
+      .addCase(logoutUser.fulfilled, (state) => {
         state.accessToken = null;
-        state.refreshToken = null;
         state.user = null;
-        clearStorage();
+        state.attributes = {};
+        state.requiresOnboarding = false;
+        state.status = 'idle';
+      })
+      .addCase(logoutUser.rejected, (state) => {
+        state.accessToken = null;
+        state.user = null;
+        state.attributes = {};
+        state.requiresOnboarding = false;
+        state.status = 'idle';
       });
   },
 });
 
-export const { setCredentials, logout, clearAuthError } = authSlice.actions;
+export const { clearAuthentication, clearAuthError } = authSlice.actions;
 export default authSlice.reducer;
