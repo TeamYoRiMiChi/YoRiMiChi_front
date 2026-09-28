@@ -543,6 +543,7 @@
 }
 
 .footer_cs_email {
+  margin: 12px 0 0;
   font-size: 16px;
   line-height: 1.4;
   overflow-wrap: anywhere;

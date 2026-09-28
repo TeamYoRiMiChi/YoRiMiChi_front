@@ -14,6 +14,8 @@ const QUICK_LINKS = [
 
 const BIZ_INFO = [
   { label: '運営者', value: 'YoRiMiChi運営チーム' },
+  { label: '事業者登録番号', value: '123-45-67890' },
+  { label: '代表電話', value: '1588-0000' },
   { label: '個人情報保護責任者', value: 'YoRiMiChi運営チーム' },
   { label: 'メールアドレス', value: 'gusals0908@gmail.com' },
   { label: 'ホスティング提供', value: 'Amazon Web Services' },
@@ -99,11 +101,16 @@ const Footer = () => {
           {/* カスタマーセンター */}
           <div className="footer_col footer_cs">
             <h4 className="footer_col_title">カスタマーセンター</h4>
-            <p className="footer_cs_tel footer_cs_email">
-              <a href="mailto:gusals0908@gmail.com">gusals0908@gmail.com</a>
-            </p>
+            <p className="footer_cs_tel">1588-0000</p>
             <p className="footer_cs_time">
-              お問い合わせはメールで受け付けています。
+              平日 10:00 - 18:00
+              <br />
+              昼休み 12:30 - 13:30
+              <br />
+              土日・祝日休み
+            </p>
+            <p className="footer_cs_email">
+              <a href="mailto:gusals0908@gmail.com">gusals0908@gmail.com</a>
             </p>
           </div>
         </div>
