@@ -1,26 +1,22 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram, faLine, faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { useTheme } from '../../hooks/useTheme';
 import './Footer.css';
 
 const QUICK_LINKS = [
-  { label: 'お知らせ', href: '#' },
-  { label: 'よくある質問', href: '/faq' },
-  { label: '配送・交換・返品', href: '#' },
-  { label: '利用規約', href: '/guide' },
-  { label: 'プライバシーポリシー', href: '#' },
+  { label: 'よくある質問', to: '/faq' },
+  { label: 'ご利用案内', to: '/guide' },
+  { label: '利用規約', to: '/terms' },
+  { label: 'プライバシーポリシー', to: '/privacy' },
 ];
 
 const BIZ_INFO = [
-  { label: '商号', value: '株式会社よりみち' },
-  { label: '代表者', value: 'よりみち' },
-  { label: '事業者登録番号', value: '123-45-67890' },
-  { label: '通信販売業申告', value: '第 2026-テジョン儒城-0000号' },
-  { label: '個人情報保護責任者', value: 'よりみち' },
-  { label: '所在地', value: '大田広域市 儒城区 大学路99, 3階（弓洞）' },
-  { label: 'メールアドレス', value: 'help@yorimichi.co.kr' },
-  { label: 'ホスティング提供', value: '株式会社よりみち' },
+  { label: '運営者', value: 'YoRiMiChi運営チーム' },
+  { label: '個人情報保護責任者', value: 'YoRiMiChi運営チーム' },
+  { label: 'メールアドレス', value: 'gusals0908@gmail.com' },
+  { label: 'ホスティング提供', value: 'Amazon Web Services' },
 ];
 
 const ChevronIcon = ({ className }) => (
@@ -94,7 +90,7 @@ const Footer = () => {
             <ul>
               {QUICK_LINKS.map((link) => (
                 <li key={link.label}>
-                  <a href={link.href}>{link.label}</a>
+                  <Link to={link.to}>{link.label}</Link>
                 </li>
               ))}
             </ul>
@@ -103,13 +99,11 @@ const Footer = () => {
           {/* カスタマーセンター */}
           <div className="footer_col footer_cs">
             <h4 className="footer_col_title">カスタマーセンター</h4>
-            <p className="footer_cs_tel">1588-0000</p>
+            <p className="footer_cs_tel footer_cs_email">
+              <a href="mailto:gusals0908@gmail.com">gusals0908@gmail.com</a>
+            </p>
             <p className="footer_cs_time">
-              平日 10:00 - 18:00
-              <br />
-              昼休み 12:30 - 13:30
-              <br />
-              土日・祝日休み
+              お問い合わせはメールで受け付けています。
             </p>
           </div>
         </div>
@@ -142,7 +136,7 @@ const Footer = () => {
 
         {/* 著作権 */}
         <div className="footer_bottom">
-          <p className="footer_copy">&copy; 2026 YoRiMiChi Inc. All rights reserved.</p>
+          <p className="footer_copy">&copy; 2026 YoRiMiChi. All rights reserved.</p>
         </div>
       </div>
     </footer>

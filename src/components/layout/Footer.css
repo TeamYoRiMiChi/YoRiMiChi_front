@@ -541,3 +541,19 @@
     transition: none;
   }
 }
+
+.footer_cs_email {
+  font-size: 16px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.footer_cs_email a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.footer_cs_email a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
