@@ -5,7 +5,6 @@ import {
   faLock,
   faPhone,
   faCircleExclamation,
-  faCircleCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import SocialAuthButtons from "../../components/Auth/SocialAuthButtons";
 import AuthLayout from "../../components/Auth/AuthLayout";
@@ -16,15 +15,72 @@ function Sign_up() {
   const {
     form,
     errors,
-    emailChecked,
     isLoading,
+    isConfirmationRequired,
     signupError,
+    confirmationCode,
+    setConfirmationCode,
     handleChange,
-    handleCheckEmail,
     handleSubmit,
+    handleConfirm,
+    handleResendCode,
     handleSearchPostal,
     isSearchingPostal,
   } = useSignUp();
+
+  if (isConfirmationRequired) {
+    return (
+      <div className="signup-page">
+        <AuthLayout
+          description={<>メールに届いた確認コードを入力してください。</>}
+        >
+          <section className="signup-content">
+            <h2>メールアドレス確認</h2>
+            <p className="form-description">
+              {form.email} に確認コードを送信しました。
+            </p>
+
+            <form className="signup-form" onSubmit={handleConfirm}>
+              <div className="form-group-with-icon">
+                <label htmlFor="confirmation-code">確認コード</label>
+                <FontAwesomeIcon icon={faEnvelope} />
+                <input
+                  id="confirmation-code"
+                  type="text"
+                  inputMode="numeric"
+                  autoComplete="one-time-code"
+                  placeholder="6桁の確認コード"
+                  value={confirmationCode}
+                  onChange={(event) => setConfirmationCode(event.target.value)}
+                  disabled={isLoading}
+                  required
+                />
+              </div>
+
+              {signupError && (
+                <p className="signup-error" role="alert">
+                  <FontAwesomeIcon icon={faCircleExclamation} />
+                  {signupError}
+                </p>
+              )}
+
+              <button className="signup-submit" type="submit" disabled={isLoading}>
+                {isLoading ? '確認中...' : 'メールアドレスを確認'}
+              </button>
+              <button
+                className="email-check-btn"
+                type="button"
+                onClick={handleResendCode}
+                disabled={isLoading}
+              >
+                確認コードを再送信
+              </button>
+            </form>
+          </section>
+        </AuthLayout>
+      </div>
+    );
+  }
 
   return (
     <div className="signup-page">
@@ -74,32 +130,16 @@ function Sign_up() {
             <div className="form-group-with-icon">
               <label htmlFor="email">メールアドレス</label>
               <FontAwesomeIcon icon={faEnvelope} />
-              <div className="email-row">
-                <input
-                  id="email"
-                  type="email"
-                  autoComplete="email"
-                  placeholder="メールアドレスを入力してください"
-                  value={form.email}
-                  onChange={handleChange}
-                  disabled={isLoading}
-                />
-                <button
-                  type="button"
-                  className="email-check-btn"
-                  onClick={handleCheckEmail}
-                  disabled={isLoading || !form.email.trim()}
-                >
-                  重複確認
-                </button>
-              </div>
+              <input
+                id="email"
+                type="email"
+                autoComplete="email"
+                placeholder="メールアドレスを入力してください"
+                value={form.email}
+                onChange={handleChange}
+                disabled={isLoading}
+              />
               {errors.email && <p className="field-error">{errors.email}</p>}
-              {emailChecked === true && !errors.email && (
-                <p className="field-success">
-                  <FontAwesomeIcon icon={faCircleCheck} />
-                  使用できるメールアドレスです。
-                </p>
-              )}
             </div>
 
             {/* 비밀번호 */}
@@ -116,7 +156,7 @@ function Sign_up() {
                 disabled={isLoading}
               />
               <p className="password-hint">
-                8文字以上で、英字・数字・記号を含めてください。
+                8文字以上で、英大文字・英小文字・数字・記号を含めてください。
               </p>
               {errors.password && <p className="field-error">{errors.password}</p>}
             </div>
@@ -141,7 +181,7 @@ function Sign_up() {
 
             {/* 전화번호 */}
             <div className="form-group-with-icon">
-              <label htmlFor="phone">電話番号（任意）</label>
+              <label htmlFor="phone">電話番号</label>
               <FontAwesomeIcon icon={faPhone} />
               <input
                 id="phone"
@@ -202,7 +242,7 @@ function Sign_up() {
                 disabled={isLoading}
               />
               <p className="address-hint">
-                配送先を入力すると、会員登録と同時に基本配送先として登録されます。
+                会員登録後、マイページから配送先として登録できます。
               </p>
             </div>
 

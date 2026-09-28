@@ -1,9 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { signupUser, clearAuthError } from '../../features/auth/authSlice';
-import { checkEmail } from '../../api/Auth/userApi';
+import {
+  clearAuthError,
+  confirmSignup,
+  resendSignupCode,
+  signupUser,
+} from '../../features/auth/authSlice';
 import { searchPostalCode, toPostalAddressView } from '../../api/postalApi';
+import { getPendingProfile } from '../../services/authentication';
 
 const INITIAL_FORM = {
   lastName: '',
@@ -31,9 +36,13 @@ export function useSignUp() {
 
   const { signupStatus, signupError } = useSelector((s) => s.auth);
 
-  const [form, setForm] = useState(INITIAL_FORM);
+  const pendingProfile = getPendingProfile();
+  const [form, setForm] = useState(() => ({
+    ...INITIAL_FORM,
+    email: pendingProfile?.email ?? '',
+  }));
   const [errors, setErrors] = useState({});
-  const [emailChecked, setEmailChecked] = useState(null); // null | true(사용가능) | false(중복)
+  const [confirmationCode, setConfirmationCode] = useState('');
   const [isSearchingPostal, setIsSearchingPostal] = useState(false);
 
   const isLoading = signupStatus === 'loading';
@@ -57,8 +66,6 @@ export function useSignUp() {
     // 입력을 고치면 해당 필드의 에러는 지웁니다
     setErrors((prev) => ({ ...prev, [key]: undefined }));
 
-    // 이메일을 바꾸면 중복확인 결과를 초기화
-    if (key === 'email') setEmailChecked(null);
   };
 
   /* 우편번호로 주소 검색 */
@@ -104,35 +111,6 @@ export function useSignUp() {
     }
   };
 
-  /* 이메일 중복 확인 */
-  const handleCheckEmail = async () => {
-    const email = form.email.trim();
-
-    if (!isValidEmail(email)) {
-      setErrors((prev) => ({
-        ...prev,
-        email: 'メールアドレスの形式が正しくありません。',
-      }));
-      return;
-    }
-
-    try {
-      const res = await checkEmail(email);
-      const duplicated = res.data.data.duplicated;
-
-      setEmailChecked(!duplicated);
-      setErrors((prev) => ({
-        ...prev,
-        email: duplicated ? '既に使用されているメールアドレスです。' : undefined,
-      }));
-    } catch {
-      setErrors((prev) => ({
-        ...prev,
-        email: '確認に失敗しました。しばらくしてからお試しください。',
-      }));
-    }
-  };
-
   /* 제출 */
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -145,7 +123,7 @@ export function useSignUp() {
     // 서버는 name 하나만 받으므로 성+이름을 합칩니다
     const name = `${form.lastName.trim()} ${form.firstName.trim()}`.trim();
 
-    const result = await dispatch(
+    await dispatch(
       signupUser({
         email: form.email.trim(),
         password: form.password,
@@ -157,21 +135,44 @@ export function useSignUp() {
       })
     );
 
-    if (signupUser.fulfilled.match(result)) {
-      alert('会員登録が完了しました。ログインしてください。');
+  };
+
+  const handleConfirm = async (e) => {
+    e.preventDefault();
+    if (!confirmationCode.trim()) return;
+
+    const result = await dispatch(confirmSignup({
+      email: form.email.trim(),
+      confirmationCode: confirmationCode.trim(),
+    }));
+
+    if (confirmSignup.fulfilled.match(result)) {
+      alert('メールアドレスの確認が完了しました。ログインしてください。');
       navigate('/login', { replace: true });
+    }
+  };
+
+  const handleResendCode = async () => {
+    const result = await dispatch(resendSignupCode(form.email.trim()));
+    if (resendSignupCode.fulfilled.match(result)) {
+      alert('確認コードを再送信しました。');
     }
   };
 
   return {
     form,
     errors,
-    emailChecked,
     isLoading,
+    isConfirmationRequired:
+      signupStatus === 'confirmationRequired' ||
+      Boolean(pendingProfile && !pendingProfile.confirmed),
     signupError,
+    confirmationCode,
+    setConfirmationCode,
     handleChange,
-    handleCheckEmail,
     handleSubmit,
+    handleConfirm,
+    handleResendCode,
     handleSearchPostal,
     isSearchingPostal,
   };
@@ -212,13 +213,22 @@ function validate(form) {
     errors.password = 'パスワードを入力してください。';
   } else if (form.password.length < 8) {
     errors.password = 'パスワードは8文字以上で入力してください。';
+  } else if (
+    !/[a-z]/.test(form.password) ||
+    !/[A-Z]/.test(form.password) ||
+    !/\d/.test(form.password) ||
+    !/[^A-Za-z0-9]/.test(form.password)
+  ) {
+    errors.password = '英大文字・英小文字・数字・記号を含めてください。';
   }
 
   if (form.password !== form.passwordConfirm) {
     errors.passwordConfirm = 'パスワードが一致しません。';
   }
 
-  if (form.phone.trim() && !/^[\d-]{9,}$/.test(form.phone.trim())) {
+  if (!form.phone.trim()) {
+    errors.phone = '電話番号を入力してください。';
+  } else if (!/^\d{2,3}-\d{4}-\d{4}$/.test(form.phone.trim())) {
     errors.phone = '電話番号の形式が正しくありません。';
   }
 

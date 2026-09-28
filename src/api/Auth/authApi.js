@@ -6,4 +6,4 @@
  *
  * 새로 작성하는 코드는 '../userApi'를 직접 import하세요.
  */
-export { signup, login, getUser, getMyInfo, checkEmail } from '../userApi';
+export { getMyInfo, onboard } from './userApi';

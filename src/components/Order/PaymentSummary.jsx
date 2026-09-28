@@ -14,7 +14,6 @@ import '../../assets/styles/Order/components/PaymentSummary.css';
 function PaymentSummary({
   amounts,
   items,
-  exchangeRate,
   agreed,
   onAgreeChange,
   onSubmit,

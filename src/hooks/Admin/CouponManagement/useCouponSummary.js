@@ -28,7 +28,7 @@ function useCouponSummary() {
         stoppedCoupons: data.stoppedCoupons ?? 0,
         issuedMemberCoupons: data.issuedMemberCoupons ?? 0,
       });
-    } catch (err) {
+    } catch {
       setSummary(EMPTY_SUMMARY);
     } finally {
       setIsLoading(false);

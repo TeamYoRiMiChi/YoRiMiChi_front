@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { withdrawMembership } from "../../../api/MyPage/profileApi";
-import { logout } from "../../../features/auth/authSlice";
+import { logoutUser } from "../../../features/auth/authSlice";
 
 function useMembershipWithdrawal() {
     const dispatch = useDispatch();
@@ -35,7 +35,7 @@ function useMembershipWithdrawal() {
 
             await withdrawMembership();
 
-            dispatch(logout());
+            await dispatch(logoutUser());
 
             window.alert("退会処理が完了しました。");
 

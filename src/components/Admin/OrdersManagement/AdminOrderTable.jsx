@@ -97,7 +97,7 @@ function AdminOrderTable({
 
             const productText =
               extraItemCount > 0
-                ? `${shortenedProductName}　他${extraItemCount}件`
+                ? `${shortenedProductName}\u3000他${extraItemCount}件`
                 : shortenedProductName;
 
             const orderTypeClass = order.orderType?.toLowerCase() ?? "";

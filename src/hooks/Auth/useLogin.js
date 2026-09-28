@@ -14,7 +14,7 @@ export function useLogin() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { accessToken, status, error } = useSelector((s) => s.auth);
+  const { accessToken, requiresOnboarding, status, error } = useSelector((s) => s.auth);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -30,11 +30,13 @@ export function useLogin() {
 
   /* 이미 로그인 상태면 접근할 이유가 없으므로 되돌려보냄 */
   useEffect(() => {
-    if (accessToken) {
+    if (accessToken && requiresOnboarding) {
+      navigate('/onboarding', { replace: true });
+    } else if (accessToken) {
       const redirectTo = location.state?.from ?? '/';
       navigate(redirectTo, { replace: true });
     }
-  }, [accessToken, navigate, location.state]);
+  }, [accessToken, requiresOnboarding, navigate, location.state]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,6 +47,10 @@ export function useLogin() {
     const result = await dispatch(loginUser({ email: email.trim(), password }));
 
     if (loginUser.fulfilled.match(result)) {
+      if (result.payload.requiresOnboarding) {
+        navigate('/onboarding', { replace: true });
+        return;
+      }
       const redirectTo = location.state?.from ?? '/';
       navigate(redirectTo, { replace: true });
     }

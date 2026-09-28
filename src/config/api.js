@@ -6,7 +6,6 @@
 export const ENDPOINTS = {
   // 회원
   USERS: "/users",
-  LOGIN: "/users/login",
 
   // 상품
   PRODUCTS: "/products",

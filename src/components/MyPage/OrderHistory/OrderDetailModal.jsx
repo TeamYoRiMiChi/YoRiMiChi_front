@@ -2,7 +2,7 @@ import '../../../assets/styles/MyPage/OrderDetailModal.css';
 import { useOrderDetail } from '../../../hooks/MyPage/OrderHistory/useOrderDetail';
 
 function OrderDetailModal({ orderId, onClose }) {
-  const { detail, isLoading, error } = useOrderDetail(orderId);
+  const { detail } = useOrderDetail(orderId);
 
   return (
     <div className="modal_overlay" onClick={onClose}>

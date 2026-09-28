@@ -1,6 +1,10 @@
 import axios from 'axios';
 import { store } from '../app/store';
-import { logout } from '../features/auth/authSlice';
+import { clearAuthentication } from '../features/auth/authSlice';
+import {
+  getAuthenticationSession,
+  logoutFromCognito,
+} from '../services/authentication';
 
 /**
  * API 서버 주소
@@ -32,12 +36,17 @@ const axiosInstance = axios.create({
 
 /**
  * 요청 인터셉터
- * Redux에 저장된 accessToken을 Authorization 헤더에 자동으로 붙입니다.
+ * Amplify가 관리하는 최신 Cognito Access Token을 자동으로 붙입니다.
+ * fetchAuthSession은 만료된 토큰을 refresh token으로 갱신할 수 있습니다.
  */
-axiosInstance.interceptors.request.use((config) => {
-  const token = store.getState().auth.accessToken;
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+axiosInstance.interceptors.request.use(async (config) => {
+  try {
+    const { accessToken } = await getAuthenticationSession();
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
+    }
+  } catch {
+    // Public API requests are allowed to continue without a token.
   }
   return config;
 });
@@ -49,16 +58,13 @@ axiosInstance.interceptors.request.use((config) => {
  */
 axiosInstance.interceptors.response.use(
   (response) => response,
-  (error) => {
+  async (error) => {
     const status = error.response?.status;
-    const url = error.config?.url ?? '';
 
-    // 로그인 요청 자체의 401은 "비밀번호 틀림"이므로 로그아웃 처리하지 않습니다.
-    const isLoginRequest = url.includes('/users/login');
-
-    if (status === 401 && !isLoginRequest) {
+    if (status === 401) {
       const hadToken = Boolean(store.getState().auth.accessToken);
-      store.dispatch(logout());
+      await logoutFromCognito().catch(() => undefined);
+      store.dispatch(clearAuthentication());
 
       // 로그인 상태였다가 튕긴 경우에만 이동 (원래 비로그인이면 그대로 둠)
       if (hadToken && !window.location.pathname.startsWith('/login')) {
