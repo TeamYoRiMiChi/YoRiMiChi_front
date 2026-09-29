@@ -18,7 +18,11 @@ export async function registerWithEmail({ email, password, name, phone }) {
     username: email,
     password,
     options: {
-      userAttributes: { email },
+      userAttributes: {
+        email,
+        name: name.trim(),
+        phone_number: toCognitoPhoneNumber(phone),
+      },
     },
   });
 
@@ -111,8 +115,22 @@ export function clearPendingProfile() {
 }
 
 export function logoutFromCognito() {
-  clearPendingProfile();
   return signOut();
+}
+
+export function toCognitoPhoneNumber(phone) {
+  const digits = (phone ?? '').replace(/\D/g, '');
+  return /^0(70|80|90)\d{8}$/.test(digits)
+    ? `+81${digits.slice(1)}`
+    : phone;
+}
+
+export function toJapaneseMobileNumber(phone) {
+  const digits = (phone ?? '').replace(/\D/g, '');
+  const domestic = digits.startsWith('81') ? `0${digits.slice(2)}` : digits;
+  return /^0(70|80|90)\d{8}$/.test(domestic)
+    ? `${domestic.slice(0, 3)}-${domestic.slice(3, 7)}-${domestic.slice(7)}`
+    : '';
 }
 
 export function toAuthenticationMessage(error, fallback) {

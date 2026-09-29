@@ -6,6 +6,7 @@ import { faCircleExclamation, faUser } from '@fortawesome/free-solid-svg-icons';
 import AuthLayout from '../../components/Auth/AuthLayout';
 import JapaneseMobileFields from '../../components/Auth/JapaneseMobileFields';
 import { onboardUser } from '../../features/auth/authSlice';
+import { toJapaneseMobileNumber } from '../../services/authentication';
 import '../../assets/styles/SignUp.css';
 
 function Onboarding() {
@@ -15,7 +16,9 @@ function Onboarding() {
     (state) => state.auth,
   );
   const [name, setName] = useState(attributes.name ?? '');
-  const [phone, setPhone] = useState('');
+  const [phone, setPhone] = useState(
+    toJapaneseMobileNumber(attributes.phone_number),
+  );
   const [validationError, setValidationError] = useState(null);
 
   useEffect(() => {
@@ -57,7 +60,7 @@ function Onboarding() {
         <section className="signup-content">
           <h2>会員情報登録</h2>
           <p className="form-description">
-            Google認証は完了しました。あと少しで登録完了です。
+            認証は完了しました。未入力の会員情報を登録してください。
           </p>
 
           <form className="signup-form" onSubmit={handleSubmit}>

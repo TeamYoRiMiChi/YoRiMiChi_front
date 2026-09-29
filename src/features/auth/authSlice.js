@@ -10,6 +10,7 @@ import {
   logoutFromCognito,
   registerWithEmail,
   resendEmailCode,
+  toJapaneseMobileNumber,
   toAuthenticationMessage,
 } from '../../services/authentication';
 
@@ -38,11 +39,15 @@ async function loadAuthenticatedMember({ createPendingMember = false } = {}) {
     const attributes = await getAuthenticatedAttributes();
     const email = attributes.email ?? session.claims.email;
     const pendingProfile = createPendingMember ? getPendingProfile(email) : null;
+    const recoveredProfile = pendingProfile ?? {
+      name: attributes.name?.trim(),
+      phone: toJapaneseMobileNumber(attributes.phone_number),
+    };
 
-    if (pendingProfile) {
+    if (recoveredProfile.name && recoveredProfile.phone) {
       const response = await userApi.onboard({
-        name: pendingProfile.name,
-        phone: pendingProfile.phone,
+        name: recoveredProfile.name,
+        phone: recoveredProfile.phone,
       });
       clearPendingProfile();
 
