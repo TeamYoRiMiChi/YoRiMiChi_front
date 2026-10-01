@@ -10,10 +10,30 @@ import {
   signOut,
   signUp,
 } from 'aws-amplify/auth';
+import { isLocalAuthentication } from '../config/authMode';
+import { resolveApiBaseUrl } from '../config/apiBaseUrl';
+
+const LOCAL_TOKEN_KEY = 'yorimichi_local_access_token';
+
+async function localRequest(path, body) {
+  const response = await fetch(`${resolveApiBaseUrl()}/users/${path}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+  const result = await response.json();
+  if (!response.ok) throw new Error(result.message ?? 'リクエストに失敗しました。');
+  return result.data;
+}
 
 const PENDING_PROFILE_KEY = 'yorimichi_pending_profile';
 
-export async function registerWithEmail({ email, password, name, phone }) {
+export async function registerWithEmail(form) {
+  const { email, password, name, phone } = form;
+  if (isLocalAuthentication()) {
+    await localRequest('signup', form);
+    return { isSignUpComplete: true, nextStep: { signUpStep: 'DONE' } };
+  }
   const result = await signUp({
     username: email,
     password,
@@ -35,6 +55,7 @@ export async function registerWithEmail({ email, password, name, phone }) {
 }
 
 export async function confirmEmail(email, confirmationCode) {
+  if (isLocalAuthentication()) throw new Error('メール確認は不要です。ログインしてください。');
   const result = await confirmSignUp({ username: email, confirmationCode });
   const pendingProfile = getPendingProfile(email);
 
@@ -49,14 +70,17 @@ export async function confirmEmail(email, confirmationCode) {
 }
 
 export function resendEmailCode(email) {
+  if (isLocalAuthentication()) throw new Error('メール確認は不要です。');
   return resendSignUpCode({ username: email });
 }
 
 export function requestPasswordReset(email) {
+  if (isLocalAuthentication()) throw new Error('ローカル環境ではメールによるパスワード再設定は利用できません。');
   return resetPassword({ username: email });
 }
 
 export function completePasswordReset(email, confirmationCode, newPassword) {
+  if (isLocalAuthentication()) throw new Error('ローカル環境ではメールによるパスワード再設定は利用できません。');
   return confirmResetPassword({
     username: email,
     confirmationCode,
@@ -65,6 +89,20 @@ export function completePasswordReset(email, confirmationCode, newPassword) {
 }
 
 export async function loginWithEmail(email, password) {
+  if (isLocalAuthentication()) {
+    const result = await localRequest('login', { email, password });
+    sessionStorage.setItem(LOCAL_TOKEN_KEY, result.accessToken);
+    return { isSignedIn: true, nextStep: { signInStep: 'DONE' } };
+  }
+  // A previous member API failure can leave a valid Cognito session behind.
+  const session = await fetchAuthSession();
+  if (session.tokens?.accessToken) {
+    const currentEmail = session.tokens.idToken?.payload?.email;
+    if (currentEmail?.toLowerCase() === email.trim().toLowerCase()) {
+      return { isSignedIn: true, nextStep: { signInStep: 'DONE' } };
+    }
+    await signOut();
+  }
   const result = await signIn({ username: email, password });
 
   if (!result.isSignedIn || result.nextStep.signInStep !== 'DONE') {
@@ -77,10 +115,14 @@ export async function loginWithEmail(email, password) {
 }
 
 export function loginWithGoogle() {
+  if (isLocalAuthentication()) throw new Error('ローカル環境ではメールアドレスでログインしてください。');
   return signInWithRedirect({ provider: 'Google' });
 }
 
 export async function getAuthenticationSession() {
+  if (isLocalAuthentication()) {
+    return { accessToken: sessionStorage.getItem(LOCAL_TOKEN_KEY), idToken: null, claims: {} };
+  }
   const session = await fetchAuthSession();
   const accessToken = session.tokens?.accessToken?.toString() ?? null;
   const idToken = session.tokens?.idToken;
@@ -93,6 +135,7 @@ export async function getAuthenticationSession() {
 }
 
 export async function getAuthenticatedAttributes() {
+  if (isLocalAuthentication()) return {};
   try {
     return await fetchUserAttributes();
   } catch {
@@ -101,6 +144,7 @@ export async function getAuthenticatedAttributes() {
 }
 
 export function getPendingProfile(email) {
+  if (isLocalAuthentication()) return null;
   try {
     const saved = JSON.parse(sessionStorage.getItem(PENDING_PROFILE_KEY));
     if (!saved) return null;
@@ -115,6 +159,10 @@ export function clearPendingProfile() {
 }
 
 export function logoutFromCognito() {
+  if (isLocalAuthentication()) {
+    sessionStorage.removeItem(LOCAL_TOKEN_KEY);
+    return Promise.resolve();
+  }
   return signOut();
 }
 
@@ -147,5 +195,5 @@ export function toAuthenticationMessage(error, fallback) {
     LimitExceededException: '試行回数が多すぎます。しばらくしてからお試しください。',
   };
 
-  return messages[error?.name] ?? error?.message ?? fallback;
+  return error?.response?.data?.message ?? messages[error?.name] ?? error?.message ?? fallback;
 }

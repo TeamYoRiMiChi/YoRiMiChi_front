@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { isLocalAuthentication } from '../../config/authMode';
 import { loginWithGoogle } from '../../services/authentication';
 import GoogleIcon from "../../assets/images/google_social_btn.png";
 import LineIcon from "../../assets/images/line_social_btn.png";
 
 function SocialAuthButtons({ googleText, lineText }) {
   const [isRedirecting, setIsRedirecting] = useState(false);
+  if (isLocalAuthentication()) return null;
 
   const handleGoogleSignIn = async () => {
     try {

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { resolveApiBaseUrl } from '../config/apiBaseUrl';
 import { store } from '../app/store';
 import { clearAuthentication } from '../features/auth/authSlice';
 import {
@@ -18,18 +19,8 @@ import {
  *
  * 배포 환경에서는 .env의 VITE_API_BASE_URL이 우선합니다.
  */
-const API_PORT = import.meta.env.VITE_API_PORT ?? '9000';
-
-function resolveBaseUrl() {
-  const fromEnv = import.meta.env.VITE_API_BASE_URL;
-  if (fromEnv) return fromEnv;
-
-  const { protocol, hostname } = window.location;
-  return `${protocol}//${hostname}:${API_PORT}/api`;
-}
-
 const axiosInstance = axios.create({
-  baseURL: resolveBaseUrl(),
+  baseURL: resolveApiBaseUrl(),
   withCredentials: true,
   timeout: 10000,
 });

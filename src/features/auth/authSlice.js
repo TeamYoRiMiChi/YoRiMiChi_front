@@ -245,7 +245,7 @@ const authSlice = createSlice({
         state.signupError = null;
       })
       .addCase(signupUser.fulfilled, (state, action) => {
-        state.signupStatus = 'confirmationRequired';
+        state.signupStatus = action.payload.nextStep?.signUpStep === 'DONE' ? 'confirmed' : 'confirmationRequired';
         state.pendingEmail = action.payload.email;
       })
       .addCase(signupUser.rejected, (state, action) => {

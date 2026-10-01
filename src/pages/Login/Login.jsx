@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { isLocalAuthentication } from '../../config/authMode';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock, faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
 import AuthLayout from "../../components/Auth/AuthLayout";
@@ -79,7 +80,7 @@ function Login() {
                 ログイン状態を保持する
               </label>
 
-              <Link to="/forgot-password">パスワードをお忘れですか?</Link>
+              {!isLocalAuthentication() && <Link to="/forgot-password">パスワードをお忘れですか?</Link>}
             </div>
 
             <button className="login-submit" type="submit" disabled={isLoading}>
