@@ -2,6 +2,7 @@ import AdminProduct_Select from "./AdminProduct_Select";
 import AdminProduct_Stock from "./AdminProduct_Stock";
 import AdminProduct_Price
   from "./AdminProduct_Price";
+import "../../../assets/styles/Admin/ProductManagement/AdminProduct_Image.css";
 const saleTypeText = {
   OVERSEAS: "海外直購",
   GROUP_BUY: "共同購入",
@@ -31,6 +32,7 @@ function AdminProductTable({
   onSelectProduct,
   onChange,
   onSave,
+  onOpenImages,
 }) {
   return (
     <div className="ap-table-scroll">
@@ -76,10 +78,24 @@ function AdminProductTable({
               {/* 상품 정보 */}
               <td>
                 <div className="ap-product-info">
-                  <img
-                    src={product.thumbnailUrl || undefined}
-                    alt={product.productName}
-                  />
+                  {/* 클릭하면 이미지 관리 모달이 열립니다 */}
+                  <button
+                    type="button"
+                    className="ap-product-image-button"
+                    onClick={() => onOpenImages(product)}
+                    aria-label={`${product.productName} の画像を管理`}
+                  >
+                    {product.thumbnailUrl ? (
+                      <img
+                        src={product.thumbnailUrl}
+                        alt={product.productName}
+                      />
+                    ) : (
+                      <span className="ap-product-image-empty">
+                        画像なし
+                      </span>
+                    )}
+                  </button>
 
                   <div>
                     <strong>

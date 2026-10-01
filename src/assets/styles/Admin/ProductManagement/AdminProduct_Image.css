@@ -1,0 +1,247 @@
+/* ===== 상품 이미지 선택(등록 모달) · 이미지 관리 모달 공통 ===== */
+
+.ap-image-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ap-image-picker-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ap-image-picker-title {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+
+  color: #374151;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.ap-image-picker-title small {
+  color: #9ca3af;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* 이미지 선택·추가 버튼 */
+.ap-image-add-button {
+  height: 36px;
+  padding: 0 16px;
+
+  color: #1d4ed8;
+  font-size: 13px;
+  font-weight: 600;
+
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 8px;
+
+  cursor: pointer;
+}
+
+.ap-image-add-button:hover:not(:disabled) {
+  background: #dbeafe;
+}
+
+.ap-image-add-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* 안내 문구 */
+.ap-image-empty {
+  margin: 0;
+  padding: 22px 16px;
+
+  color: #6b7280;
+  font-size: 13px;
+  line-height: 1.6;
+  text-align: center;
+
+  background: #f9fafb;
+  border: 1px dashed #d1d5db;
+  border-radius: 10px;
+}
+
+.ap-image-error {
+  margin: 0;
+  padding: 10px 12px;
+
+  color: #b91c1c;
+  font-size: 13px;
+
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+}
+
+/* 이미지 카드 목록 */
+.ap-image-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 12px;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.ap-image-item {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+}
+
+.ap-image-item img,
+.ap-image-loading {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+
+  object-fit: cover;
+  background: #f3f4f6;
+}
+
+/* 대표 이미지 표시 */
+.ap-image-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+
+  padding: 3px 9px;
+
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+
+  background: #16a34a;
+  border-radius: 999px;
+}
+
+.ap-image-item-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  padding: 8px;
+}
+
+.ap-image-item-actions button {
+  height: 30px;
+
+  color: #374151;
+  font-size: 12px;
+  font-weight: 600;
+
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+
+  cursor: pointer;
+}
+
+.ap-image-item-actions button:hover:not(:disabled) {
+  background: #f3f4f6;
+}
+
+.ap-image-item-actions .ap-image-danger {
+  color: #b91c1c;
+  border-color: #fecaca;
+}
+
+.ap-image-item-actions .ap-image-danger:hover:not(:disabled) {
+  background: #fef2f2;
+}
+
+.ap-image-item-actions button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* ===== 상품 목록 표의 상품 이미지 (클릭하면 이미지 관리 모달) ===== */
+
+.ap-product-image-button {
+  position: relative;
+
+  display: block;
+  flex: 0 0 62px;
+  width: 62px;
+  height: 52px;
+
+  overflow: hidden;
+  padding: 0;
+
+  background: #edf2f7;
+  border: 0;
+  border-radius: 9px;
+
+  cursor: pointer;
+}
+
+.ap-product-image-button img {
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+/* 이미지가 없을 때 */
+.ap-product-image-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+
+  color: #8393ac;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+/* 마우스를 올리면 "이미지 관리"가 보입니다 */
+.ap-product-image-button::after {
+  content: "画像管理";
+
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 700;
+
+  background: rgba(15, 23, 42, 0.55);
+  opacity: 0;
+
+  transition: opacity 0.15s ease;
+}
+
+.ap-product-image-button:hover::after,
+.ap-product-image-button:focus-visible::after {
+  opacity: 1;
+}
+
+@media (max-width: 640px) {
+  .ap-image-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

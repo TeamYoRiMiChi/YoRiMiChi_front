@@ -1,4 +1,5 @@
 import { useState } from "react";
+import AdminProductImagePicker from "./AdminProduct_ImagePicker";
 import "../../../assets/styles/Admin/ProductManagement/AdminProduct_RegisterModal.css";
 
 const initialForm = {
@@ -10,7 +11,6 @@ const initialForm = {
   priceJpy: "",
   originalPriceJpy: "",
   stock: "",
-  thumbnailUrl: "",
   status: "ACTIVE",
 
   // 공동구매 정보
@@ -28,6 +28,10 @@ function AdminProductRegisterModal({
 }) {
   const [formData, setFormData] =
     useState(initialForm);
+
+  // 상품 이미지 파일 (맨 앞이 대표 이미지). 상품 등록 직후 부모가 업로드합니다
+  const [imageFiles, setImageFiles] =
+    useState([]);
 
   const [isSubmitting, setIsSubmitting] =
     useState(false);
@@ -167,9 +171,6 @@ function AdminProductRegisterModal({
 
       stock: Number(formData.stock),
 
-      thumbnailUrl:
-        formData.thumbnailUrl.trim(),
-
       status: formData.status,
 
       /*
@@ -212,7 +213,7 @@ function AdminProductRegisterModal({
     try {
       setIsSubmitting(true);
 
-      await onRegister(registerData);
+      await onRegister(registerData, imageFiles);
     } finally {
       setIsSubmitting(false);
     }
@@ -414,18 +415,13 @@ function AdminProductRegisterModal({
               />
             </label>
 
-            <label className="ap-modal-full">
-              画像URL
-              <input
-                type="url"
-                name="thumbnailUrl"
-                value={
-                  formData.thumbnailUrl
-                }
-                onChange={handleChange}
-                placeholder="https://..."
-              />
-            </label>
+            {/* 상품 이미지 — 선택한 첫 번째가 대표 이미지 */}
+            <AdminProductImagePicker
+              files={imageFiles}
+              onChange={setImageFiles}
+              disabled={isSubmitting}
+            />
+
 
             {isGroupBuy && (
               <>

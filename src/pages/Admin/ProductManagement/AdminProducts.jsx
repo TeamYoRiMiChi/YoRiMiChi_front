@@ -26,6 +26,9 @@ import AdminProductTableFooter
 import AdminProductRegisterModal
   from "../../../components/Admin/ProductManagement/AdminProduct_RegisterModal";
 
+import AdminProductImageModal
+  from "../../../components/Admin/ProductManagement/AdminProduct_ImageModal";
+
 import AdminStatusBox
   from "../../../components/Admin/common/Admin_statusBox";
 
@@ -41,6 +44,7 @@ import {
   deleteAdminProduct,
   getAdminProducts,
   updateAdminProduct,
+  uploadAdminProductImages,
 } from "../../../api/Admin/ProductManagement/adminProductApi";
 
 import "./AdminProducts.css";
@@ -63,6 +67,10 @@ function AdminProducts() {
     isRegisterModalOpen,
     setIsRegisterModalOpen,
   ] = useState(false);
+
+  // 이미지 관리 모달에서 보고 있는 상품 (없으면 null)
+  const [imageTarget, setImageTarget] =
+    useState(null);
 
   /*
    * 관리자 상품 전체 조회
@@ -563,14 +571,56 @@ const updateData = {
  * POST /api/admin/products
  */
 const handleRegisterProduct = async (
-  registerData
+  registerData,
+  imageFiles = []
 ) => {
   try {
     const response =
       await createAdminProduct(registerData);
 
-    const createdProduct =
+    let createdProduct =
       response.data?.data ?? response.data;
+
+    /*
+     * 상품이 만들어진 뒤에 이미지를 올립니다.
+     * 이미지 업로드가 실패해도 상품은 이미 등록된 상태라서
+     * 등록 실패로 처리하지 않고 따로 안내합니다.
+     */
+    let imageUploadFailed = false;
+
+    if (
+      imageFiles.length > 0 &&
+      createdProduct?.productId
+    ) {
+      try {
+        const imageResponse =
+          await uploadAdminProductImages(
+            createdProduct.productId,
+            imageFiles
+          );
+
+        const imageBody =
+          imageResponse?.data ?? imageResponse;
+
+        const uploadedImages =
+          imageBody?.data ?? [];
+
+        // 목록은 대표 이미지가 맨 앞에 옵니다
+        createdProduct = {
+          ...createdProduct,
+          thumbnailUrl:
+            uploadedImages[0]?.imageUrl ??
+            createdProduct.thumbnailUrl,
+        };
+      } catch (imageError) {
+        console.error(
+          "상품 이미지 업로드 실패:",
+          imageError
+        );
+
+        imageUploadFailed = true;
+      }
+    }
 
     setProducts((current) => [
       createdProduct,
@@ -580,7 +630,11 @@ const handleRegisterProduct = async (
     setPage(1);
     setIsRegisterModalOpen(false);
 
-    alert("商品を登録しました。");
+    alert(
+      imageUploadFailed
+        ? "商品は登録されましたが、画像のアップロードに失敗しました。商品画像をクリックして「画像管理」から再度登録してください。"
+        : "商品を登録しました。"
+    );
   } catch (error) {
     console.error("상품 등록 실패:", error);
 
@@ -590,6 +644,28 @@ const handleRegisterProduct = async (
     );
   }
 };
+
+  /*
+   * 이미지 관리 모달에서 이미지가 바뀌면
+   * 상품 목록에 보이는 대표 이미지도 같이 바꿉니다.
+   * images는 대표 이미지가 맨 앞에 오는 서버 응답입니다.
+   */
+  const handleImagesChanged = (
+    productId,
+    images
+  ) => {
+    setProducts((current) =>
+      current.map((product) =>
+        product.productId === productId
+          ? {
+              ...product,
+              thumbnailUrl:
+                images[0]?.imageUrl ?? null,
+            }
+          : product
+      )
+    );
+  };
 
   return (
     <div className="ap-page">
@@ -653,6 +729,7 @@ const handleRegisterProduct = async (
   onSelectProduct={handleSelectProduct}
   onChange={handleProductChange}
   onSave={handleProductSave}
+  onOpenImages={setImageTarget}
 />
         <AdminProductTableFooter
           selectedCount={
@@ -683,6 +760,18 @@ const handleRegisterProduct = async (
           }
           onRegister={
             handleRegisterProduct
+          }
+        />
+      )}
+
+      {imageTarget && (
+        <AdminProductImageModal
+          product={imageTarget}
+          onClose={() =>
+            setImageTarget(null)
+          }
+          onChanged={
+            handleImagesChanged
           }
         />
       )}
