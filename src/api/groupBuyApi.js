@@ -54,6 +54,8 @@ export function toGroupBuyDetailView(dto) {
     // DB에 구성량 전용 컬럼이 생기기 전까지 한 상품을 한 세트 단위로 판매
     options: ['1セット'],
     thumbnailUrl: dto.thumbnailUrl ?? null,
+    // 상세 갤러리용 전체 이미지 (PRODUCT_IMAGE, 대표 이미지가 맨 앞)
+    images: Array.isArray(dto.images) ? dto.images : [],
   };
 }
 

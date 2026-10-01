@@ -66,6 +66,7 @@ function GroupPurchaseView() {
           <GroupPurchaseGallery
             productName={product.name}
             thumbnailUrl={product.thumbnailUrl}
+            imageUrls={product.images}
             status={product.displayStatus}
           />
 
@@ -83,7 +84,7 @@ function GroupPurchaseView() {
         <GroupPurchaseTabs product={product} />
 
         {/* 추천 상품 컴포넌트 */}
-        <RecommendedProducts />
+        <RecommendedProducts currentProductId={product.productId} />
       </div>
     </main>
   );

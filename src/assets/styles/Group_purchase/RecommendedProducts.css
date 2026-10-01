@@ -19,11 +19,13 @@
   font-size: 18px;
 }
 
-.recommended_products_heading button {
+.recommended_products_heading button,
+.recommended_products_heading a {
   border: 0;
   background: transparent;
   color: #237b39;
   cursor: pointer;
+  text-decoration: none;
 }
 
 /* 추천 상품 카드 목록 */
@@ -48,12 +50,26 @@
   height: 150px;
   background: #f7f5f1;
   color: #999;
+  text-decoration: none;
+  overflow: hidden;
+}
+
+/* 상품 이미지는 칸을 꽉 채워서 보여줍니다 */
+.recommended_product_image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* 추천 상품 이름과 가격 */
 .recommended_product_info {
   position: relative;
   padding: 14px;
+}
+
+.recommended_product_info a {
+  color: inherit;
+  text-decoration: none;
 }
 
 .recommended_product_info p {

@@ -58,6 +58,10 @@ export function toProductView(dto) {
     // 상품 이미지
     thumbnailUrl: dto.thumbnailUrl ?? null,
 
+    // 상세 갤러리용 전체 이미지 (PRODUCT_IMAGE, 대표 이미지가 맨 앞).
+    // 목록 응답에는 없고 상세 응답에만 있으므로 없으면 빈 배열입니다.
+    images: Array.isArray(dto.images) ? dto.images : [],
+
     // 이미지 없을 때 임시 문구
     placeholder: dto.brand || dto.productName || '',
 

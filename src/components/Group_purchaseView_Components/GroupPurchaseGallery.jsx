@@ -9,12 +9,16 @@ const STATUS_LABELS = {
   CLOSING_SOON: '締切間近!',
 };
 
-function GroupPurchaseGallery({ productName, thumbnailUrl, status }) {
+function GroupPurchaseGallery({ productName, thumbnailUrl, imageUrls = [], status }) {
   // Hook에서 선택된 이미지 번호와 선택 함수 가지고옴
   const { selectedImageIndex, handleSelectImage } = useGroupPurchaseGallery();
-  const images = thumbnailUrl
-    ? [{ id: 'thumbnail', src: thumbnailUrl }]
-    : groupPurchaseGalleryData;
+
+  // 이미지 출처 우선순위: PRODUCT_IMAGE 전체 → 기존 썸네일 하나 → 임시 갤러리 데이터
+  const images = imageUrls.length > 0
+    ? imageUrls.map((src, index) => ({ id: `image-${index}`, src }))
+    : thumbnailUrl
+      ? [{ id: 'thumbnail', src: thumbnailUrl }]
+      : groupPurchaseGalleryData;
   const selectedImage = images[selectedImageIndex] ?? images[0];
   const isClosed = ['SUCCESS', 'FAILED', 'CANCELLED'].includes(status);
   const statusLabel = STATUS_LABELS[status];
