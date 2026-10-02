@@ -154,6 +154,7 @@ export function toOrderView(dto) {
     items: (dto.items ?? []).map((it) => ({
       orderItemId: it.orderItemId,
       productId: it.productId,
+      saleType: it.saleType ?? 'OVERSEAS',
       brand: it.brand ?? '',
       name: it.productName ?? '',
       thumbnailUrl: it.thumbnailUrl ?? null,

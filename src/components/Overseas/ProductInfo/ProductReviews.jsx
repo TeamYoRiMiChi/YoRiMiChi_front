@@ -1,19 +1,37 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
-import {
-  MOCK_REVIEW_SUMMARY,
-  MOCK_REVIEWS,
-} from '../../../data/Overseas/productInfoData';
 import '../../../assets/styles/Overseas/ProductInfo/ProductReviews.css';
 
 /**
  * 리뷰 영역
  *
- * 아직 REVIEW 테이블 API가 없어서 임시 데이터를 씁니다.
- * 서버가 준비되면 props로 데이터를 받도록 바꾸면 됩니다.
+ * REVIEW 테이블 데이터를 그대로 보여줍니다.
+ * 데이터 조회는 상위(ProductTabs)에서 useProductReviews로 하고,
+ * 이 컴포넌트는 받은 값을 표시만 합니다.
+ *
+ * @param {Object}  summary   { average, total, bars: [{ star, percent }] }
+ * @param {Array}   reviews   [{ id, name, rating, content, date }]
+ * @param {boolean} isLoading 조회 중
+ * @param {string}  error     조회 실패 메시지
  */
-function ProductReviews() {
-  const { average, total, bars } = MOCK_REVIEW_SUMMARY;
+const ProductReviews = ({ summary, reviews, isLoading, error }) => {
+  const { average, total, bars } = summary;
+
+  if (isLoading) {
+    return <div className="pinfo-review-state">レビューを読み込み中...</div>;
+  }
+
+  if (error) {
+    return <div className="pinfo-review-state error">{error}</div>;
+  }
+
+  if (total === 0) {
+    return (
+      <div className="pinfo-review-state">
+        まだレビューがありません。ご購入後に最初のレビューを投稿してみませんか？
+      </div>
+    );
+  }
 
   return (
     <div className="pinfo-review-block">
@@ -21,7 +39,7 @@ function ProductReviews() {
       {/* 요약 */}
       <div className="pinfo-review-summary">
         <div className="pinfo-review-score">
-          <strong>{average}</strong>
+          <strong>{average.toFixed(1)}</strong>
           <div className="pinfo-review-stars">
             {[1, 2, 3, 4, 5].map((n) => (
               <FontAwesomeIcon
@@ -50,7 +68,7 @@ function ProductReviews() {
 
       {/* 목록 */}
       <ul className="pinfo-review-list">
-        {MOCK_REVIEWS.map((r) => (
+        {reviews.map((r) => (
           <li key={r.id}>
             <div className="pinfo-review-head">
               <div className="pinfo-review-user">
@@ -69,13 +87,13 @@ function ProductReviews() {
               </div>
             </div>
 
-            <p>{r.content}</p>
+            {r.content && <p>{r.content}</p>}
             <span className="date">{r.date}</span>
           </li>
         ))}
       </ul>
     </div>
   );
-}
+};
 
 export default ProductReviews;

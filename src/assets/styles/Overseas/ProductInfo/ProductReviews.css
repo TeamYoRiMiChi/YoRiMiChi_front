@@ -163,6 +163,27 @@
     color: #a3a8ba;
 }
 
+/* 작성자가 입력한 줄바꿈을 그대로 보여줍니다 */
+.pinfo-review-list p {
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+/* 로딩 · 실패 · 리뷰 없음 */
+.pinfo-review-state {
+    padding: 48px 16px;
+
+    border: 1px dashed var(--pi-line, #e7e9f2);
+    border-radius: 12px;
+    color: var(--pi-muted, #71768c);
+    font-size: 14px;
+    text-align: center;
+}
+
+.pinfo-review-state.error {
+    color: #d33b32;
+}
+
 /* =========================
    반응형
 ========================= */

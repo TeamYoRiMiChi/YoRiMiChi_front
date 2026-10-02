@@ -280,3 +280,24 @@
 .review_tab_content .review_card_list {
   margin-top: 24px;
 }
+
+/* 리뷰 로딩 · 실패 · 없음 */
+.group_purchase_detail_content .review_state {
+  padding: 48px 16px;
+
+  border: 1px dashed #e5e7eb;
+  border-radius: 12px;
+  color: #6b7280;
+  font-size: 14px;
+  text-align: center;
+}
+
+.group_purchase_detail_content .review_state.error {
+  color: #d33b32;
+}
+
+/* 작성자가 입력한 줄바꿈을 그대로 보여줍니다 */
+.group_purchase_detail_content .review_card p {
+  white-space: pre-wrap;
+  word-break: break-word;
+}

@@ -1,9 +1,12 @@
 import '../../assets/styles/Group_purchase/GroupPurchaseTabs.css';
 import groupPurchaseTabsData from '../../data/Group_purchase/groupPurchaseTabsData';
 import useGroupPurchaseView from '../../hooks/Group_purchase/useGroupPurchaseView';
+import { useProductReviews } from '../../hooks/Review/useProductReviews';
 
 function GroupPurchaseTabs({ product }) {
   const { activeTab, handleTabChange } = useGroupPurchaseView();
+  /* 리뷰 탭 버튼의 개수도 필요해서 여기서 조회합니다 (REVIEW 테이블 기준) */
+  const { summary, reviews, isLoading, error } = useProductReviews(product.productId);
   const tabData = groupPurchaseTabsData;
   const productInformation = [
     { label: '商品名', value: product.name || '情報なし' },
@@ -46,7 +49,7 @@ function GroupPurchaseTabs({ product }) {
           className={`detail_tab ${activeTab === 'review' ? 'active' : ''}`}
           onClick={() => handleTabChange('review')}
         >
-          レビュー（{tabData.review.count}）
+          レビュー（{summary.total}）
         </button>
 
         <button
@@ -107,48 +110,58 @@ function GroupPurchaseTabs({ product }) {
       {activeTab === 'review' && (
         <div className="group_purchase_tab_panel review_tab_panel">
           <div className="review_tab_content">
-            <h2>レビュー（{tabData.review.count}件）</h2>
+            <h2>レビュー（{summary.total}件）</h2>
 
-            <div className="review_content">
-              {/* 리뷰 평균 점수 */}
-              <div className="review_summary">
-                <strong className="review_score">{tabData.review.average}</strong>
-                <span className="review_stars">{tabData.review.stars}</span>
-                <p>{tabData.review.count}件のレビュー</p>
+            {isLoading && <p className="review_state">レビューを読み込み中...</p>}
 
-                <button type="button" className="review_more_button">
-                  すべてのレビューを見る
-                </button>
-              </div>
+            {!isLoading && error && <p className="review_state error">{error}</p>}
 
-              {/* 별점별 리뷰 비율 */}
-              <div className="review_statistics">
-                {tabData.review.statistics.map((statistic) => (
-                  <div key={statistic.score}>
-                    <span>{statistic.score} ★</span>
-                    <progress value={statistic.percentage} max="100"></progress>
-                    <span>{statistic.percentage}%</span>
+            {!isLoading && !error && summary.total === 0 && (
+              <p className="review_state">
+                まだレビューがありません。ご購入後に最初のレビューを投稿してみませんか？
+              </p>
+            )}
+
+            {!isLoading && !error && summary.total > 0 && (
+              <>
+                <div className="review_content">
+                  {/* 리뷰 평균 점수 */}
+                  <div className="review_summary">
+                    <strong className="review_score">{summary.average.toFixed(1)}</strong>
+                    <span className="review_stars">{toStarText(Math.round(summary.average))}</span>
+                    <p>{summary.total}件のレビュー</p>
                   </div>
-                ))}
-              </div>
-            </div>
 
-            {/* 작성된 리뷰 카드 목록 */}
-            <div className="review_card_list">
-              {tabData.review.items.map((review) => (
-                <article className="review_card" key={review.id}>
-                  <div className="review_user">
-                    <span className="review_avatar">{review.avatar}</span>
-                    <div>
-                      <strong>{review.name}</strong>
-                      <span>{review.ratingText}</span>
-                    </div>
+                  {/* 별점별 리뷰 비율 */}
+                  <div className="review_statistics">
+                    {summary.bars.map((bar) => (
+                      <div key={bar.star}>
+                        <span>{bar.star} ★</span>
+                        <progress value={bar.percent} max="100"></progress>
+                        <span>{bar.percent}%</span>
+                      </div>
+                    ))}
                   </div>
-                  <p>{review.content}</p>
-                  <time>{review.date}</time>
-                </article>
-              ))}
-            </div>
+                </div>
+
+                {/* 작성된 리뷰 카드 목록 */}
+                <div className="review_card_list">
+                  {reviews.map((review) => (
+                    <article className="review_card" key={review.id}>
+                      <div className="review_user">
+                        <span className="review_avatar">{review.name.charAt(0)}</span>
+                        <div>
+                          <strong>{review.name} さん</strong>
+                          <span>{toStarText(review.rating)} {review.rating}</span>
+                        </div>
+                      </div>
+                      {review.content && <p>{review.content}</p>}
+                      <time>{review.date}</time>
+                    </article>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
         </div>
       )}
@@ -165,5 +178,8 @@ function GroupPurchaseTabs({ product }) {
     </section>
   );
 }
+
+/** 별점 숫자 → ★★★☆☆ */
+const toStarText = (rating) => '★'.repeat(rating) + '☆'.repeat(5 - rating);
 
 export default GroupPurchaseTabs;

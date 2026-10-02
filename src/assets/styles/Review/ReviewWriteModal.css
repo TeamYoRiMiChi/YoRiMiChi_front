@@ -1,0 +1,366 @@
+/* =========================
+   리뷰 등록 모달
+   (document.body로 포탈되므로 변수는 폴백 값을 함께 씁니다)
+========================= */
+.rv-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+    background: rgba(17, 21, 47, 0.5);
+}
+
+.rv-modal {
+    width: 100%;
+    max-width: 520px;
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+
+    border-radius: 16px;
+    background: #fff;
+    color: #11152f;
+    box-shadow: 0 20px 60px rgba(17, 21, 47, 0.25);
+}
+
+.rv-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 20px 24px 14px;
+    border-bottom: 1px solid #e7e9f2;
+}
+
+.rv-header h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.rv-close {
+    width: 32px;
+    height: 32px;
+
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: #71768c;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.rv-close:hover:not(:disabled) {
+    background: #f6f7fb;
+}
+
+.rv-form {
+    padding: 8px 24px 24px;
+}
+
+.rv-section {
+    margin-top: 18px;
+}
+
+.rv-section h3 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    margin: 0 0 10px;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.rv-required,
+.rv-optional {
+    padding: 2px 7px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.rv-required {
+    background: #fdeceb;
+    color: #d33b32;
+}
+
+.rv-optional {
+    background: #f1f2f7;
+    color: #71768c;
+}
+
+/* 상품 */
+.rv-products {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.rv-product {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    width: 100%;
+    padding: 10px 12px;
+
+    border: 1px solid #e7e9f2;
+    border-radius: 12px;
+    background: #fff;
+    color: inherit;
+    font-family: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.rv-product:disabled {
+    cursor: default;
+}
+
+.rv-product.selected {
+    border-color: var(--brand, #5558e9);
+    background: var(--brand-soft, #f2f2ff);
+}
+
+.rv-product:disabled:not(.selected) {
+    opacity: 0.55;
+}
+
+.rv-product-thumb {
+    flex: 0 0 52px;
+    width: 52px;
+    height: 52px;
+
+    overflow: hidden;
+    border-radius: 8px;
+    background: #f1f2f7;
+}
+
+.rv-product-thumb img,
+.rv-product-thumb-empty {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.rv-product-info {
+    flex: 1;
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.rv-product-meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    font-size: 12px;
+    color: #71768c;
+}
+
+.rv-badge {
+    padding: 1px 7px;
+    border-radius: 999px;
+    background: #eef0ff;
+    color: var(--brand, #5558e9);
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 700;
+}
+
+.rv-product-name {
+    overflow: hidden;
+    font-size: 14px;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.rv-reviewed {
+    flex: none;
+    font-size: 12px;
+    font-weight: 700;
+    color: #71768c;
+}
+
+/* 별점 */
+.rv-stars {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.rv-star {
+    padding: 2px;
+
+    border: 0;
+    background: transparent;
+    color: #e2e1e9;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+.rv-star:hover:not(:disabled) {
+    transform: scale(1.12);
+}
+
+.rv-star.on {
+    color: #ffb020;
+}
+
+.rv-rating-label {
+    margin-left: 10px;
+    font-size: 13px;
+    color: #71768c;
+}
+
+/* 내용 */
+.rv-textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 14px;
+
+    border: 1px solid #e7e9f2;
+    border-radius: 10px;
+    background: #fff;
+    color: inherit;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.6;
+    resize: vertical;
+}
+
+.rv-textarea:focus {
+    outline: none;
+    border-color: var(--brand, #5558e9);
+}
+
+.rv-count {
+    margin: 6px 0 0;
+    text-align: right;
+    font-size: 12px;
+    color: #9a9eb2;
+}
+
+/* 에러 */
+.rv-error {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    margin: 16px 0 0;
+    padding: 10px 12px;
+
+    border-radius: 8px;
+    background: #fdeceb;
+    color: #d33b32;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* 버튼 */
+.rv-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+
+    margin-top: 22px;
+}
+
+.rv-btn {
+    padding: 12px 22px;
+
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s, opacity 0.15s;
+}
+
+.rv-btn:disabled {
+    opacity: 0.6;
+    cursor: default;
+}
+
+.rv-btn-line {
+    border: 1px solid #e7e9f2;
+    background: #fff;
+    color: #11152f;
+}
+
+.rv-btn-line:hover:not(:disabled) {
+    background: #f6f7fb;
+}
+
+.rv-btn-brand {
+    border: 0;
+    background: var(--brand, #5558e9);
+    color: #fff;
+}
+
+.rv-btn-brand:hover:not(:disabled) {
+    background: var(--brand-dark, #4245c8);
+}
+
+/* 완료 */
+.rv-done {
+    padding: 34px 24px 24px;
+    text-align: center;
+}
+
+.rv-done-icon {
+    font-size: 44px;
+    color: var(--brand, #5558e9);
+}
+
+.rv-done-title {
+    margin: 14px 0 4px;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.rv-done-text {
+    margin: 0;
+    font-size: 13px;
+    color: #71768c;
+}
+
+.rv-done .rv-actions {
+    justify-content: center;
+}
+
+@media (max-width: 600px) {
+    .rv-overlay {
+        padding: 12px;
+    }
+
+    .rv-form {
+        padding: 4px 18px 20px;
+    }
+
+    .rv-actions {
+        flex-direction: column-reverse;
+    }
+
+    .rv-btn {
+        width: 100%;
+    }
+}

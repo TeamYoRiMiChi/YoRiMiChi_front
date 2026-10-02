@@ -366,6 +366,31 @@
     background: var(--od-brand-dark, #4245c8);
 }
 
+/* 리뷰 작성 버튼 (<button>이라서 링크 버튼과 맞추는 스타일) */
+.oc-btn-review {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.oc-btn-review svg {
+    color: #ffb020;
+}
+
+.oc-btn-review:disabled {
+    color: var(--od-muted, #71768c);
+    background: #f6f7fb;
+    cursor: default;
+}
+
+.oc-btn-review:disabled svg {
+    color: #c9cbd8;
+}
+
 /* 반응형 */
 @media (max-width: 1024px) {
     .oc-layout {

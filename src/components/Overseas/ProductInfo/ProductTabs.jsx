@@ -1,13 +1,13 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import ProductReviews from './ProductReviews';
+import { useProductReviews } from '../../../hooks/Review/useProductReviews';
 import {
   PRODUCT_TABS,
   PRODUCT_FEATURES,
   PRODUCT_CAUTIONS,
   PRODUCT_FAQ,
   SHIPPING_STEPS,
-  MOCK_REVIEW_SUMMARY,
 } from '../../../data/Overseas/productInfoData';
 import '../../../assets/styles/Overseas/ProductInfo/ProductTabs.css';
 
@@ -23,6 +23,9 @@ import '../../../assets/styles/Overseas/ProductInfo/ProductTabs.css';
  * @param {Function} onTabChange 탭 변경 콜백
  */
 function ProductTabs({ product, productCode, activeTab, onTabChange }) {
+  /* 탭 버튼의 리뷰 개수도 필요해서 리뷰는 여기서 조회하고 리뷰 탭에 넘겨줍니다 */
+  const { summary, reviews, isLoading, error } = useProductReviews(product.id);
+
   return (
     <section className="pinfo-tabs-section">
 
@@ -37,7 +40,7 @@ function ProductTabs({ product, productCode, activeTab, onTabChange }) {
             onClick={() => onTabChange(tab.key)}
           >
             {tab.label}
-            {tab.key === 'review' && <em>（{MOCK_REVIEW_SUMMARY.total}）</em>}
+            {tab.key === 'review' && <em>（{summary.total}）</em>}
           </button>
         ))}
       </div>
@@ -124,7 +127,14 @@ function ProductTabs({ product, productCode, activeTab, onTabChange }) {
         )}
 
         {/* 리뷰 */}
-        {activeTab === 'review' && <ProductReviews />}
+        {activeTab === 'review' && (
+          <ProductReviews
+            summary={summary}
+            reviews={reviews}
+            isLoading={isLoading}
+            error={error}
+          />
+        )}
 
         {/* FAQ */}
         {activeTab === 'faq' && (

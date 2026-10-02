@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
+import { faCircleCheck, faStar } from '@fortawesome/free-solid-svg-icons';
 import OrderSteps from '../../components/Order/OrderSteps';
+import ReviewWriteModal from '../../components/Review/ReviewWriteModal';
 import { getOrder, toOrderView } from '../../api/orderApi';
+import { getReviewedItemIds } from '../../api/reviewApi';
 import '../../assets/styles/Order/OrderComplete.css';
 
 /**
@@ -23,6 +25,10 @@ function OrderComplete() {
   const [order, setOrder] = useState(() => (stateOrderDto ? toOrderView(stateOrderDto) : null));
   const [isLoading, setIsLoading] = useState(!stateOrderDto);
   const [loadError, setLoadError] = useState(null);
+
+  /* 리뷰 작성: 모달 열림 여부 / 이미 리뷰를 쓴 주문 상품 ID */
+  const [isReviewOpen, setIsReviewOpen] = useState(false);
+  const [reviewedItemIds, setReviewedItemIds] = useState([]);
 
   useEffect(() => {
     if (stateOrderDto) return;
@@ -54,6 +60,28 @@ function OrderComplete() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orderId]);
 
+  /*
+   * 이미 리뷰를 쓴 주문 상품
+   * 새로고침해도 버튼 상태가 맞도록 서버에서 가져옵니다.
+   * 실패해도 주문 완료 화면 자체는 그대로 보여줍니다.
+   */
+  useEffect(() => {
+    const currentOrderId = order?.orderId;
+    if (!currentOrderId) return undefined;
+
+    let ignore = false;
+
+    getReviewedItemIds(currentOrderId)
+      .then((res) => {
+        if (!ignore) setReviewedItemIds(res.data.data ?? []);
+      })
+      .catch(() => undefined);
+
+    return () => {
+      ignore = true;
+    };
+  }, [order?.orderId]);
+
   /* 불러오는 중 */
   if (isLoading) {
     return (
@@ -78,6 +106,18 @@ function OrderComplete() {
   }
 
   const { amounts } = order;
+
+  /* 취소된 주문에는 리뷰를 쓸 수 없습니다 */
+  const canReview = order.orderStatus !== 'CANCELLED' && order.items.length > 0;
+  const allReviewed =
+    order.items.length > 0 &&
+    order.items.every((it) => reviewedItemIds.includes(it.orderItemId));
+
+  const handleReviewSubmitted = (orderItemId) => {
+    setReviewedItemIds((prev) =>
+      prev.includes(orderItemId) ? prev : [...prev, orderItemId],
+    );
+  };
 
   return (
     <div className="oc-page">
@@ -175,10 +215,30 @@ function OrderComplete() {
         <Link to="/mypage" className="oc-btn oc-btn-outline">
           注文履歴を見る
         </Link>
+        {canReview && (
+          <button
+            type="button"
+            className="oc-btn oc-btn-outline oc-btn-review"
+            onClick={() => setIsReviewOpen(true)}
+            disabled={allReviewed}
+          >
+            <FontAwesomeIcon icon={faStar} />
+            {allReviewed ? 'レビュー投稿済み' : 'レビューを書く'}
+          </button>
+        )}
         <Link to="/overseas" className="oc-btn oc-btn-brand">
           買い物を続ける
         </Link>
       </div>
+
+      {isReviewOpen && (
+        <ReviewWriteModal
+          items={order.items}
+          reviewedItemIds={reviewedItemIds}
+          onClose={() => setIsReviewOpen(false)}
+          onSubmitted={handleReviewSubmitted}
+        />
+      )}
     </div>
   );
 }

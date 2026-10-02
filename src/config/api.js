@@ -23,6 +23,15 @@ export const ENDPOINTS = {
   // 주문
   ORDERS: "/orders",
 
+  /**
+   * 리뷰
+   *
+   * 백엔드: domain/review/controller/ReviewController.java
+   */
+  REVIEWS: "/reviews",
+  PRODUCT_REVIEWS: (productId) => `/products/${productId}/reviews`,
+  ORDER_REVIEWED_ITEMS: (orderId) => `/reviews/orders/${orderId}`,
+
   // 1:1 문의
   INQUIRIES: "/inquiries",
 
