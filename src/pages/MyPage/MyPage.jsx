@@ -1,5 +1,5 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useSearchParams } from 'react-router-dom';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useSearchParams } from "react-router-dom";
 import {
   faCreditCard,
   faWarehouse,
@@ -16,201 +16,118 @@ import {
   faLocationDot,
   faRightFromBracket,
   faChevronRight,
-  faCircleCheck,
   faTicket,
-} from '@fortawesome/free-solid-svg-icons';
-import '../../assets/styles/MyPage.css';
-import OrderStatusSummary from '../../components/MyPage/OrderStatusSummary/OrderStatusSummary';
-import OrderHistory from '../../components/MyPage/OrderHistory/OrderHistory';
-import GroupBuyParticipationStatus from '../../components/MyPage/GroupBuyParticipationStatus/GroupBuyParticipationStatus';
-import Wishlist from '../../components/MyPage/Wishlist/Wishlist';
-import MypageCart from '../../components/MyPage/MypageCart/MypageCart';
-import MyCoupons from '../../components/MyPage/MyCoupons/MyCoupons';
-import DeliveryTracking from '../../components/MyPage/DeliveryTracking/DeliveryTracking';
-import MyReview from '../../components/MyPage/MyReview/MyReview';
-import ProfileManagement from '../../components/MyPage/ProfileManagement/ProfileManagement';
-import AddressManagement from '../../components/MyPage/AddressManagement/AddressManagement';
-import MembershipWithdrawal from '../../components/MyPage/MembershipWithdrawal/MembershipWithdrawal';
-import useMyPageSideMenus from '../../hooks/MyPage/MyPage/useMyPageSideMenus';
+} from "@fortawesome/free-solid-svg-icons";
+import "../../assets/styles/MyPage.css";
+import OrderStatusSummary from "../../components/MyPage/OrderStatusSummary/OrderStatusSummary";
+import OrderHistory from "../../components/MyPage/OrderHistory/OrderHistory";
+import GroupBuyParticipationStatus from "../../components/MyPage/GroupBuyParticipationStatus/GroupBuyParticipationStatus";
+import Wishlist from "../../components/MyPage/Wishlist/Wishlist";
+import MypageCart from "../../components/MyPage/MypageCart/MypageCart";
+import MyCoupons from "../../components/MyPage/MyCoupons/MyCoupons";
+import DeliveryTracking from "../../components/MyPage/DeliveryTracking/DeliveryTracking";
+import MyReview from "../../components/MyPage/MyReview/MyReview";
+import ProfileManagement from "../../components/MyPage/ProfileManagement/ProfileManagement";
+import AddressManagement from "../../components/MyPage/AddressManagement/AddressManagement";
+import MembershipWithdrawal from "../../components/MyPage/MembershipWithdrawal/MembershipWithdrawal";
+import useMyPageSideMenus from "../../hooks/MyPage/MyPage/useMyPageSideMenus";
 
 /* ===== 주문 진행 현황 ===== */
 const ORDER_STATUS = [
-  { icon: faCreditCard, label: '결제완료', count: 1 },
-  { icon: faWarehouse, label: '현지창고', count: 1 },
-  { icon: faPlaneUp, label: '국제배송', count: 1 },
-  { icon: faFileShield, label: '통관중', count: 3 },
-  { icon: faHouseChimney, label: '배송완료', count: 5 },
+  { icon: faCreditCard, label: "결제완료", count: 1 },
+  { icon: faWarehouse, label: "현지창고", count: 1 },
+  { icon: faPlaneUp, label: "국제배송", count: 1 },
+  { icon: faFileShield, label: "통관중", count: 3 },
+  { icon: faHouseChimney, label: "배송완료", count: 5 },
 ];
 
 /* ===== 사이드 메뉴 ===== */
 const MENU_GROUPS = [
   {
-    title: 'ショッピング情報',
+    title: "ショッピング情報",
     items: [
-      { key: 'orders', icon: faBoxOpen, label: '注文履歴' },
-      { key: 'shipping', icon: faTruckFast, label: '配送状況確認' },
-      { key: 'groupbuy', icon: faUsers, label: '共同購入参加状況' },
+      { key: "orders", icon: faBoxOpen, label: "注文履歴" },
+      { key: "shipping", icon: faTruckFast, label: "配送状況確認" },
+      { key: "groupbuy", icon: faUsers, label: "共同購入参加状況" },
     ],
   },
   {
-    title: 'マイショッピング',
+    title: "マイショッピング",
     items: [
-      { key: 'wishlist', icon: faHeart, label: 'お気に入り商品' },
-      { key: 'cart', icon: faCartShopping, label: 'カート' },
-      { key: 'coupons', icon: faTicket, label: 'クーポン' },
-      { key: 'reviews', icon: faStar, label: 'マイレビュー' },
+      { key: "wishlist", icon: faHeart, label: "お気に入り商品" },
+      { key: "cart", icon: faCartShopping, label: "カート" },
+      { key: "coupons", icon: faTicket, label: "クーポン" },
+      { key: "reviews", icon: faStar, label: "マイレビュー" },
     ],
   },
   {
-    title: '会員情報',
+    title: "会員情報",
     items: [
-      { key: 'profile', icon: faUserPen, label: '会員情報修正' },
-      { key: 'address', icon: faLocationDot, label: '配送先管理' },
-      { key: 'withdraw', icon: faRightFromBracket, label: '会員退会' },
+      { key: "profile", icon: faUserPen, label: "会員情報修正" },
+      { key: "address", icon: faLocationDot, label: "配送先管理" },
+      { key: "withdraw", icon: faRightFromBracket, label: "会員退会" },
     ],
   },
 ];
 
 const WISH_ITEMS = [
-  { id: 11, name: '八咫鏡', price: 93500, soldOut: false },
-  { id: 12, name: '天叢雲剣', price: 121000, soldOut: false },
-  { id: 13, name: '八尺瓊勾玉', price: 60500, soldOut: false },
+  { id: 11, name: "八咫鏡", price: 93500, soldOut: false },
+  { id: 12, name: "天叢雲剣", price: 121000, soldOut: false },
+  { id: 13, name: "八尺瓊勾玉", price: 60500, soldOut: false },
 ];
 
 const GROUP_BUYS = [
   {
     id: 31,
-    title: '페스페 전권 공동구매',
-    status: '모집중',
-    statusType: 'ing',
+    title: "페스페 전권 공동구매",
+    status: "모집중",
+    statusType: "ing",
     current: 12,
     target: 20,
     myQty: 2,
-    endDate: '2026.09.05',
+    endDate: "2026.09.05",
   },
   {
     id: 32,
-    title: '虎屋羊羹',
-    status: '목표달성',
-    statusType: 'done',
+    title: "虎屋羊羹",
+    status: "목표달성",
+    statusType: "done",
     current: 10,
     target: 10,
     myQty: 5,
-    endDate: '2026.08.18',
-  },
-];
-
-const ORDER_STATUSES = [
-  {
-    orderNumber: 'YM-20260827-0012',
-    shipCarrier: 'Yamato Transport',
-    trackingNumber: '1234-5678-9012',
-    deliveryType: '국제배송',
-    statuses: [
-      {
-        icon: faWarehouse,
-        label: '현지창고',
-        date: '08.25',
-        done: true,
-      },
-      {
-        icon: faPlaneUp,
-        label: '국제배송',
-        date: '08.27',
-        done: true,
-        now: true,
-      },
-      {
-        icon: faFileShield,
-        label: '통관중',
-        date: '-',
-        done: false,
-      },
-      {
-        icon: faHouseChimney,
-        label: '국내배송',
-        date: '-',
-        done: false,
-      },
-      {
-        icon: faCircleCheck,
-        label: '배송완료',
-        date: '-',
-        done: false,
-      },
-    ],
-  },
-
-  {
-    orderNumber: 'YM-20260901-0123',
-    shipCarrier: 'Takeru Transport',
-    trackingNumber: '9012-5678-1234',
-    deliveryType: '행성간배송',
-    statuses: [
-      {
-        icon: faWarehouse,
-        label: '현지창고',
-        date: '09.01',
-        done: true,
-      },
-      {
-        icon: faPlaneUp,
-        label: '행성간배송',
-        date: '09.01',
-        done: true,
-      },
-      {
-        icon: faFileShield,
-        label: '통관중',
-        date: '09.02',
-        done: false,
-        now: true,
-      },
-      {
-        icon: faHouseChimney,
-        label: '대륙간배송',
-        date: '-',
-        done: false,
-      },
-      {
-        icon: faCircleCheck,
-        label: '배송완료',
-        date: '-',
-        done: false,
-      },
-    ],
+    endDate: "2026.08.18",
   },
 ];
 
 const MY_REVIEWS = [
   {
     id: 41,
-    product: 'Ｆａｔｅ／ｓｔｒａｎｇｅ　Ｆａｋｅ １０/ 成田良悟 (文庫)',
+    product: "Ｆａｔｅ／ｓｔｒａｎｇｅ　Ｆａｋｅ １０/ 成田良悟 (文庫)",
     rating: 4,
-    content: '안나왔어요',
-    date: '2026.08.22',
+    content: "안나왔어요",
+    date: "2026.08.22",
   },
   {
     id: 42,
-    product: 'Ｆａｔｅ／ｓｔｒａｎｇｅ　Ｆａｋｅ ９/ 成田良悟 (文庫)',
+    product: "Ｆａｔｅ／ｓｔｒａｎｇｅ　Ｆａｋｅ ９/ 成田良悟 (文庫)",
     rating: 5,
-    content: '개꿀잼이에요',
-    date: '2026.08.10',
+    content: "개꿀잼이에요",
+    date: "2026.08.10",
   },
 ];
 
 function MyPage() {
   const [searchParams] = useSearchParams();
   const user = {
-    name: '安徳',
-    email: 'antoku@yahoo.com',
-    joinDate: '1178.12.22',
-    grade: 'VIP',
+    name: "安徳",
+    email: "antoku@yahoo.com",
+    joinDate: "1178.12.22",
+    grade: "VIP",
   };
 
   const { menu, setMenu, currentLabel } = useMyPageSideMenus(
     MENU_GROUPS,
-    searchParams.get('menu') ?? 'orders',
+    searchParams.get("menu") ?? "orders",
   );
 
   return (
@@ -247,8 +164,8 @@ function MyPage() {
                 {group.items.map((item) => (
                   <li key={item.key}>
                     <button
-                      className={`mp_side_bt ${menu === item.key ? 'active' : ''} ${
-                        item.key === 'withdraw' ? 'danger' : ''
+                      className={`mp_side_bt ${menu === item.key ? "active" : ""} ${
+                        item.key === "withdraw" ? "danger" : ""
                       }`}
                       onClick={() => setMenu(item.key)}
                     >
@@ -274,38 +191,36 @@ function MyPage() {
           <h2 className="mp_content_title">{currentLabel}</h2>
 
           {/* ---- 주문 내역 ---- */}
-          {menu === 'orders' && <OrderHistory />}
+          {menu === "orders" && <OrderHistory />}
 
           {/* ---- 배송 조회 ---- */}
-          {menu === 'shipping' && (
-            <DeliveryTracking orderStatuses={ORDER_STATUSES} />
-          )}
+          {menu === "shipping" && <DeliveryTracking />}
 
           {/* ---- 공동구매 참여 ---- */}
-          {menu === 'groupbuy' && (
+          {menu === "groupbuy" && (
             <GroupBuyParticipationStatus groupBuys={GROUP_BUYS} />
           )}
 
           {/* ---- 찜한 상품 ---- */}
-          {menu === 'wishlist' && <Wishlist wishItems={WISH_ITEMS} />}
+          {menu === "wishlist" && <Wishlist wishItems={WISH_ITEMS} />}
 
           {/* ---- 장바구니 ---- */}
-          {menu === 'cart' && <MypageCart />}
+          {menu === "cart" && <MypageCart />}
 
           {/* ---- 쿠폰함 ---- */}
-          {menu === 'coupons' && <MyCoupons />}
+          {menu === "coupons" && <MyCoupons />}
 
           {/* ---- 내 리뷰 ---- */}
-          {menu === 'reviews' && <MyReview myReviews={MY_REVIEWS} />}
+          {menu === "reviews" && <MyReview myReviews={MY_REVIEWS} />}
 
           {/* ---- 회원정보 수정 ---- */}
-          {menu === 'profile' && <ProfileManagement user={user} />}
+          {menu === "profile" && <ProfileManagement user={user} />}
 
           {/* ---- 배송지 관리 ---- */}
-          {menu === 'address' && <AddressManagement />}
+          {menu === "address" && <AddressManagement />}
 
           {/* ---- 회원 탈퇴 ---- */}
-          {menu === 'withdraw' && <MembershipWithdrawal />}
+          {menu === "withdraw" && <MembershipWithdrawal />}
         </main>
       </div>
     </div>

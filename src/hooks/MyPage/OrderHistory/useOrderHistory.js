@@ -54,7 +54,6 @@ export function useOrderHistory(fallback = []) {
     return () => {
       ignore = true;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pagination.currentPage, reloadTrigger]);
 
   const handleCancelOrder = async (orderId) => {

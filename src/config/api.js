@@ -40,6 +40,9 @@ export const ENDPOINTS = {
   ORDERDETAIL: (orderId) => `/orderhistory/${orderId}`,
   ORDERCANCEL: (orderId) => `/orderhistory/${orderId}/cancel`,
 
+  // 배송 조회
+  DELIVERYTRACKING: "/deliverytracking",
+
   PROFILE: "/myprofile",
   PROFILE_WITHDRAWAL: "/myprofile/withdrawal",
   /**
