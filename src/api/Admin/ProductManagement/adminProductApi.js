@@ -1,5 +1,7 @@
 import axiosInstance from "../../axiosInstance";
 import { ENDPOINTS } from "../../../config/api";
+import { usesDirectImageUpload } from "../../../config/authMode";
+import { uploadImagesDirectly } from "./directImageUpload";
 
 /**
  * 관리자 상품 전체 조회
@@ -80,13 +82,28 @@ export const getAdminProductImages = (
  * 상품 이미지 업로드 (여러 장)
  *
  * POST /api/admin/products/{productId}/images
- * 파일을 multipart/form-data의 files 필드로 보냅니다.
+ * 백엔드가 s3 업로드를 지원하면 직접 업로드 후 키를 등록합니다.
+ * local 및 이전 백엔드에서는 multipart/form-data의 files 필드를 사용합니다.
  * 대표 이미지가 아직 없는 상품이면 첫 번째 파일이 대표 이미지가 됩니다.
  */
 export const uploadAdminProductImages = (
   productId,
   files
 ) => {
+  if (usesDirectImageUpload()) {
+    return uploadImagesDirectly({
+      files: Array.from(files),
+      requestUploadUrl: async (contentType) => {
+        const response = await axiosInstance.post(ENDPOINTS.ADMIN_IMAGE_UPLOAD_URL, { contentType });
+        return response.data;
+      },
+      registerImageKeys: (imageKeys) => axiosInstance.post(
+        `${ENDPOINTS.ADMIN_PRODUCTS}/${productId}/images`,
+        { imageKeys },
+        { timeout: 60000 }
+      ),
+    });
+  }
   const formData = new FormData();
 
   files.forEach((file) => {

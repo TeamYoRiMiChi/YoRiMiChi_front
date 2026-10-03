@@ -91,6 +91,7 @@ export const ENDPOINTS = {
   POSTAL_CODE: (zipcode) => `/postal-code/${zipcode}`,
 
   ADMIN_PRODUCTS: "/admin/products",
+  ADMIN_IMAGE_UPLOAD_URL: "/admin/images/presigned-url",
 
   // 관리자 - 주문
   ADMIN_ORDERS: "/admin/orders",
