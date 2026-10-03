@@ -1,11 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSearchParams } from "react-router-dom";
 import {
-  faCreditCard,
-  faWarehouse,
-  faPlaneUp,
-  faFileShield,
-  faHouseChimney,
   faBoxOpen,
   faTruckFast,
   faHeart,
@@ -19,7 +14,7 @@ import {
   faTicket,
 } from "@fortawesome/free-solid-svg-icons";
 import "../../assets/styles/MyPage.css";
-import OrderStatusSummary from "../../components/MyPage/OrderStatusSummary/OrderStatusSummary";
+import DeliveryStatusSummary from "../../components/MyPage/DeliveryStatusSummary/DeliveryStatusSummary";
 import OrderHistory from "../../components/MyPage/OrderHistory/OrderHistory";
 import GroupBuyParticipationStatus from "../../components/MyPage/GroupBuyParticipationStatus/GroupBuyParticipationStatus";
 import Wishlist from "../../components/MyPage/Wishlist/Wishlist";
@@ -31,15 +26,7 @@ import ProfileManagement from "../../components/MyPage/ProfileManagement/Profile
 import AddressManagement from "../../components/MyPage/AddressManagement/AddressManagement";
 import MembershipWithdrawal from "../../components/MyPage/MembershipWithdrawal/MembershipWithdrawal";
 import useMyPageSideMenus from "../../hooks/MyPage/MyPage/useMyPageSideMenus";
-
-/* ===== 주문 진행 현황 ===== */
-const ORDER_STATUS = [
-  { icon: faCreditCard, label: "결제완료", count: 1 },
-  { icon: faWarehouse, label: "현지창고", count: 1 },
-  { icon: faPlaneUp, label: "국제배송", count: 1 },
-  { icon: faFileShield, label: "통관중", count: 3 },
-  { icon: faHouseChimney, label: "배송완료", count: 5 },
-];
+import MyPageProfile from "../../components/MyPage/MyPageProfile/MyPageProfile";
 
 /* ===== 사이드 메뉴 ===== */
 const MENU_GROUPS = [
@@ -118,12 +105,6 @@ const MY_REVIEWS = [
 
 function MyPage() {
   const [searchParams] = useSearchParams();
-  const user = {
-    name: "安徳",
-    email: "antoku@yahoo.com",
-    joinDate: "1178.12.22",
-    grade: "VIP",
-  };
 
   const { menu, setMenu, currentLabel } = useMyPageSideMenus(
     MENU_GROUPS,
@@ -135,21 +116,10 @@ function MyPage() {
       {/* ===== 히어로 ===== */}
       <section className="mp_hero">
         <div className="mp_hero_inner">
-          <div className="mp_profile">
-            <div className="mp_avatar">{user.name.charAt(0)}</div>
-            <div className="mp_profile_text">
-              <p className="mp_greet">
-                <strong>{user.name}</strong>님, 안녕하세요
-              </p>
-              <p className="mp_email">{user.email}</p>
-              <div className="mp_meta">
-                <span className="mp_grade">{user.grade}</span>
-                <span className="mp_join">가입일 {user.joinDate}</span>
-              </div>
-            </div>
-          </div>
-          {/* 주문 진행 현황 */}
-          <OrderStatusSummary orderStatus={ORDER_STATUS} />
+          {/* 간략 프로필 */}
+          <MyPageProfile />
+          {/* 배송 진행 현황 */}
+          <DeliveryStatusSummary />
         </div>
       </section>
 

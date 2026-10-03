@@ -1,6 +1,6 @@
-.mp_status {
+.mp_status_summary {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   padding: 24px 20px;
   border: 1px solid var(--mp-border);
   border-radius: 18px;
@@ -39,6 +39,11 @@
   color: #c3c2cf;
 }
 
+.mp_status_error {
+  color: #d5395b;
+  background: #fde8ec;
+}
+
 .mp_status_icon.on {
   background-color: var(--mp-primary-light);
   color: var(--mp-primary);
@@ -56,8 +61,8 @@
 }
 
 @media (max-width: 700px) {
-  .mp_status {
-    grid-template-columns: repeat(3, 1fr);
+  .mp_status_summary {
+    grid-template-columns: repeat(2, 1fr);
     gap: 18px 0;
   }
 

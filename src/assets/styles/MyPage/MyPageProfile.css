@@ -1,0 +1,51 @@
+.mp_profile {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  margin-bottom: 30px;
+}
+
+.mp_avatar {
+  width: 72px;
+  height: 72px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--mp-primary) 0%, #9b7cff 100%);
+
+  font-size: 28px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.mp_greet {
+  margin: 0 0 5px;
+  font-size: 21px;
+  font-weight: 500;
+}
+
+.mp_greet strong {
+  font-weight: 700;
+}
+
+.mp_email {
+  margin: 0 0 10px;
+  font-size: 14px;
+  color: var(--mp-text-sub);
+}
+
+.mp_meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mp_join {
+  font-size: 12px;
+  color: var(--mp-text-light);
+}

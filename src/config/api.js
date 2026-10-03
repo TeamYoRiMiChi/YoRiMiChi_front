@@ -35,6 +35,12 @@ export const ENDPOINTS = {
   // 1:1 문의
   INQUIRIES: "/inquiries",
 
+  // 마이페이지 상단 프로필
+  MYPAGE_PROFILE: "/mypage-profile",
+
+  // 마이페이지 상단 배송 상태
+  DELIVERY_STATUS_SUMMARY: "/delivery-status-summary",
+
   // 주문 내역
   ORDERHISTORY: "/orderhistory",
   ORDERDETAIL: (orderId) => `/orderhistory/${orderId}`,
