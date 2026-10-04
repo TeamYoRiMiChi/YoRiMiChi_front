@@ -74,6 +74,9 @@ export const ENDPOINTS = {
   CLAIMABLE_COUPONS: "/coupons/claimable",
   COUPON_CLAIM: (couponId) => `/coupons/${couponId}/claim`,
 
+  // 리뷰 관리
+  MY_REVIEWS: "/myreviews",
+
   /**
    * 배송지 관리 (고객)
    *

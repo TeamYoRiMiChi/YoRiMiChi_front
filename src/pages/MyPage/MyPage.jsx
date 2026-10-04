@@ -86,23 +86,6 @@ const GROUP_BUYS = [
   },
 ];
 
-const MY_REVIEWS = [
-  {
-    id: 41,
-    product: "Ｆａｔｅ／ｓｔｒａｎｇｅ　Ｆａｋｅ １０/ 成田良悟 (文庫)",
-    rating: 4,
-    content: "안나왔어요",
-    date: "2026.08.22",
-  },
-  {
-    id: 42,
-    product: "Ｆａｔｅ／ｓｔｒａｎｇｅ　Ｆａｋｅ ９/ 成田良悟 (文庫)",
-    rating: 5,
-    content: "개꿀잼이에요",
-    date: "2026.08.10",
-  },
-];
-
 function MyPage() {
   const [searchParams] = useSearchParams();
 
@@ -181,10 +164,10 @@ function MyPage() {
           {menu === "coupons" && <MyCoupons />}
 
           {/* ---- 내 리뷰 ---- */}
-          {menu === "reviews" && <MyReview myReviews={MY_REVIEWS} />}
+          {menu === "reviews" && <MyReview />}
 
           {/* ---- 회원정보 수정 ---- */}
-          {menu === "profile" && <ProfileManagement user={user} />}
+          {menu === "profile" && <ProfileManagement />}
 
           {/* ---- 배송지 관리 ---- */}
           {menu === "address" && <AddressManagement />}

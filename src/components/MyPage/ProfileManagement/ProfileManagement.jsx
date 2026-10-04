@@ -3,18 +3,7 @@ import useProfileManagement from "../../../hooks/MyPage/ProfileManagement/usePro
 import JapaneseMobileFields from "../../Auth/JapaneseMobileFields";
 
 function ProfileManagement() {
-  // const user = {
-  //   name: "安徳",
-  //   email: "antoku@yahoo.com",
-  //   joinDate: "1178.12.22",
-  //   grade: "VIP",
-  // };
-
-  const {
-    handleSubmit,
-    profile,
-    setProfile,
-  } = useProfileManagement();
+  const { handleSubmit, profile, setProfile } = useProfileManagement();
 
   return (
     <div className="mp_panel">
@@ -45,9 +34,7 @@ function ProfileManagement() {
           <JapaneseMobileFields
             idPrefix="profile-phone"
             value={profile.phone}
-            onChange={(phone) =>
-              setProfile((prev) => ({ ...prev, phone }))
-            }
+            onChange={(phone) => setProfile((prev) => ({ ...prev, phone }))}
           />
         </div>
 
