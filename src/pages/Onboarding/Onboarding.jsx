@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleExclamation, faUser } from '@fortawesome/free-solid-svg-icons';
 import AuthLayout from '../../components/Auth/AuthLayout';
 import JapaneseMobileFields from '../../components/Auth/JapaneseMobileFields';
-import { onboardUser } from '../../features/auth/authSlice';
+import { onboardUser, logoutUser } from '../../features/auth/authSlice';
 import { toJapaneseMobileNumber } from '../../services/authentication';
 import '../../assets/styles/SignUp.css';
 
@@ -54,6 +54,11 @@ function Onboarding() {
 
   const isLoading = status === 'loading';
 
+  const handleCancel = async () => {
+    await dispatch(logoutUser());
+    navigate('/login', { replace: true });
+  };
+
   return (
     <div className="signup-page">
       <AuthLayout description={<>YoRiMiChiで使用する会員情報を入力してください。</>}>
@@ -98,6 +103,9 @@ function Onboarding() {
               {isLoading ? '登録中...' : '登録を完了'}
             </button>
           </form>
+          <button type="button" onClick={handleCancel} disabled={isLoading}>
+            キャンセルしてログインに戻る
+          </button>
         </section>
       </AuthLayout>
     </div>
