@@ -8,6 +8,10 @@ export async function uploadImagesDirectly({ files, requestUploadUrl, registerIm
     throw new Error("JPG・PNG・WEBP・GIFの画像ファイルを選択してください。");
   }
 
+  if (files.some((file) => file.size > 10 * 1024 * 1024)) {
+    throw new Error("画像は1枚あたり10MB以下にしてください。");
+  }
+
   const imageKeys = [];
   for (const file of files) {
     const { uploadUrl, imageKey } = await requestUploadUrl(file.type);

@@ -2,6 +2,16 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { uploadImagesDirectly } from '../src/api/Admin/ProductManagement/directImageUpload.js';
 
+test('oversized image is rejected before upload URL request', async () => {
+  let requested = false;
+  await assert.rejects(uploadImagesDirectly({
+    files: [{ type: 'image/gif', size: 10 * 1024 * 1024 + 1 }],
+    requestUploadUrl: async () => { requested = true; },
+    registerImageKeys: async () => {},
+  }), /10MB/);
+  assert.equal(requested, false);
+});
+
 test('uploads GIF bytes without auth headers and registers only after all uploads', async () => {
   const files = [{ type: 'image/gif', size: 12 }, { type: 'image/png', size: 20 }];
   const calls = [];
