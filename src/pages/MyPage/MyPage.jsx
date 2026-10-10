@@ -57,12 +57,6 @@ const MENU_GROUPS = [
   },
 ];
 
-const WISH_ITEMS = [
-  { id: 11, name: "八咫鏡", price: 93500, soldOut: false },
-  { id: 12, name: "天叢雲剣", price: 121000, soldOut: false },
-  { id: 13, name: "八尺瓊勾玉", price: 60500, soldOut: false },
-];
-
 const GROUP_BUYS = [
   {
     id: 31,

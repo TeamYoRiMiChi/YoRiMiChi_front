@@ -31,11 +31,11 @@ function MyPageProfile() {
       <div className="mp_avatar">{profile.name.charAt(0)}</div>
       <div className="mp_profile_text">
         <p className="mp_greet">
-          <strong>{profile.name}</strong>님, 안녕하세요
+          <strong>{profile.name}</strong>さん、こんにちは
         </p>
         <p className="mp_email">{profile.email}</p>
         <div className="mp_meta">
-          <span className="mp_join">가입일 {joinDate}</span>
+          <span className="mp_join">登録日 {joinDate}</span>
         </div>
       </div>
     </div>
