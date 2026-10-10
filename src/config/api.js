@@ -42,15 +42,15 @@ export const ENDPOINTS = {
   DELIVERY_STATUS_SUMMARY: "/delivery-status-summary",
 
   // 주문 내역
-  ORDERHISTORY: "/orderhistory",
-  ORDERDETAIL: (orderId) => `/orderhistory/${orderId}`,
-  ORDERCANCEL: (orderId) => `/orderhistory/${orderId}/cancel`,
+  ORDERHISTORY: "/order-history",
+  ORDERDETAIL: (orderId) => `/order-history/${orderId}`,
+  ORDERCANCEL: (orderId) => `/order-history/${orderId}/cancel`,
 
   // 배송 조회
-  DELIVERYTRACKING: "/deliverytracking",
+  DELIVERYTRACKING: "/delivery-tracking",
 
-  PROFILE: "/myprofile",
-  PROFILE_WITHDRAWAL: "/myprofile/withdrawal",
+  PROFILE: "/my-profile",
+  PROFILE_WITHDRAWAL: "/my-profile/withdrawal",
   /**
    * 관리자 - 쿠폰
    *
@@ -75,7 +75,7 @@ export const ENDPOINTS = {
   COUPON_CLAIM: (couponId) => `/coupons/${couponId}/claim`,
 
   // 리뷰 관리
-  MY_REVIEWS: "/myreviews",
+  MY_REVIEWS: "/my-reviews",
 
   /**
    * 배송지 관리 (고객)
