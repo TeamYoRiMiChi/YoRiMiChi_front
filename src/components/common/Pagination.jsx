@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import '../../assets/styles/common/Pagination.css';
@@ -8,10 +8,12 @@ import '../../assets/styles/common/Pagination.css';
  * 페이지가 많으면 가운데만 남기고 양쪽을 "..." 으로 접습니다.
  *
  * 예) 총 20페이지, 현재 10페이지, maxVisible 5
- *     → [1, '...', 9, 10, 11, '...', 20]
+ *     → [1, '...', 8, 9, 10, 11, 12, '...', 20]
  */
-function buildPageWindow(pages, currentPage, totalPages, maxVisible) {
-  if (totalPages <= maxVisible + 2) return pages;
+function buildPageWindow(currentPage, totalPages, maxVisible) {
+  if (totalPages <= maxVisible + 2) {
+    return Array.from({ length: totalPages }, (_, i) => i + 1);
+  }
 
   const half = Math.floor(maxVisible / 2);
   let start = Math.max(2, currentPage - half);
@@ -62,14 +64,23 @@ function Pagination({
   endIndex,
   totalItems,
 }) {
-  const pages = useMemo(
-    () => Array.from({ length: totalPages }, (_, i) => i + 1),
-    [totalPages]
+  const [isCompact, setIsCompact] = useState(
+    () => window.matchMedia('(max-width: 560px)').matches
   );
 
+  useEffect(() => {
+    const media = window.matchMedia('(max-width: 560px)');
+    const update = () => setIsCompact(media.matches);
+    update();
+    media.addEventListener('change', update);
+    return () => media.removeEventListener('change', update);
+  }, []);
+
+  const visibleCount = isCompact ? Math.min(maxVisible, 3) : maxVisible;
+
   const windowed = useMemo(
-    () => buildPageWindow(pages, currentPage, totalPages, maxVisible),
-    [pages, currentPage, totalPages, maxVisible]
+    () => buildPageWindow(currentPage, totalPages, visibleCount),
+    [currentPage, totalPages, visibleCount]
   );
 
   if (totalPages <= 1) return null;

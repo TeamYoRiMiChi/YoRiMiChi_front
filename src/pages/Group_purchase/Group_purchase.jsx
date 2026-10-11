@@ -3,6 +3,7 @@ import '../../assets/styles/Group_purchase/group_purchase.css';
 
 import { useSelector } from 'react-redux'; // Redux 상태를 가져오기 위해 useSelector를 사용합니다
 import Hero_slide from '../../components/common/Hero_slide';
+import Pagination from '../../components/common/Pagination';
 import Purchase_status from '../../components/Group_purchase/Purchase_status';
 import Purchase_product_card from '../../components/Group_purchase/Purchase_product_card';
 import GroupBuyCategorySelect from '../../components/Group_purchase/GroupBuyCategorySelect';
@@ -132,41 +133,11 @@ const handlePageChange = (nextPage) => {
                 {/* =========================
          purchase_footer_1
       ========================= */}
-             <div className="pagination">
-    <button
-        className="page_btn"
-        disabled={page === 1}
-        onClick={() => handlePageChange(page - 1)}
-    >
-        前へ
-    </button>
-
-    {Array.from({ length: totalPages }, (_, index) => {
-        const pageNumber = index + 1;
-
-        return (
-            <button
-                key={pageNumber}
-                className={
-                    page === pageNumber
-                        ? 'page_btn active'
-                        : 'page_btn'
-                }
-                onClick={() => handlePageChange(pageNumber)}
-            >
-                {pageNumber}
-            </button>
-        );
-    })}
-
-    <button
-        className="page_btn"
-        disabled={page === totalPages}
-        onClick={() => handlePageChange(page + 1)}
-    >
-        次へ
-    </button>
-</div>
+                <Pagination
+                    currentPage={page}
+                    totalPages={totalPages}
+                    onChange={handlePageChange}
+                />
 
                 <div className="purchase_footer_1">
 

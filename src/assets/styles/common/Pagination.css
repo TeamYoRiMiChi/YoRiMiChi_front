@@ -118,3 +118,22 @@
     height: 34px;
   }
 }
+
+@media (max-width: 360px) {
+  .pagination {
+    gap: 6px;
+  }
+
+  .page-numbers {
+    gap: 2px;
+  }
+
+  .page-numbers button,
+  .page-arrow {
+    width: 30px;
+  }
+
+  .page-ellipsis {
+    width: 18px;
+  }
+}
