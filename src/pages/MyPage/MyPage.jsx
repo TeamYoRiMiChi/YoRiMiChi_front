@@ -149,7 +149,7 @@ function MyPage() {
           )}
 
           {/* ---- 찜한 상품 ---- */}
-          {menu === "wishlist" && <Wishlist wishItems={WISH_ITEMS} />}
+          {menu === "wishlist" && <Wishlist />}
 
           {/* ---- 장바구니 ---- */}
           {menu === "cart" && <MypageCart />}
