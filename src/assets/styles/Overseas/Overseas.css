@@ -49,6 +49,8 @@
 }
 
 .overseas-page .overseas-intro {
+  /* Keep the background and photo consistent under browser auto dark mode. */
+  color-scheme: only light;
   background: #f2f1ff;
 }
 
