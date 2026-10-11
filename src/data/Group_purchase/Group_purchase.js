@@ -24,7 +24,7 @@ export const heroSlides = [
          title: 'カード決済でさらにお得',
          description: '対象カードのご利用で5%OFF',
          tone: 'light',
-         layout: 'copy-right photo-left',
+         layout: 'copy-left',
      },
      {
          image: premiumWeekBanner,

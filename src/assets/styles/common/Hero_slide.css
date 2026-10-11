@@ -48,10 +48,6 @@
   object-position: center;
 }
 
-.hero_slide.photo-left .hero_image {
-  transform: scaleX(-1);
-}
-
 .hero_copy {
   position: absolute;
   z-index: 2;

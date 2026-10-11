@@ -36,6 +36,67 @@
   width: 100%;
 }
 
+.overseas-page .hero_copy.overseas {
+  color: #25214d;
+}
+
+.overseas-page .hero_copy.overseas h2 {
+  white-space: pre-line;
+}
+
+.overseas-page .hero_copy.overseas span {
+  color: #5737bc;
+}
+
+.overseas-page .overseas-intro {
+  /* Keep the background and photo consistent under browser auto dark mode. */
+  color-scheme: only light;
+  background: #f2f1ff;
+}
+
+.overseas-page .overseas-intro .hero_image {
+  object-fit: contain;
+  object-position: right bottom;
+}
+
+@media (max-width: 640px) {
+  .overseas-page .hero_box .hero_slider {
+    height: 340px;
+  }
+
+  .overseas-page .hero_slide.copy-left .hero_copy {
+    left: 28px;
+    max-width: 66%;
+  }
+
+  .overseas-page .hero_copy h2 {
+    font-size: 22px;
+  }
+
+  .overseas-page .hero_copy p {
+    font-size: 12px;
+  }
+
+  .overseas-page .hero_slide.overseas-intro .hero_copy {
+    top: 24px;
+    left: 24px;
+    width: calc(100% - 48px);
+    max-width: none;
+    transform: none;
+  }
+
+  .overseas-page .overseas-intro .hero_copy h2 {
+    font-size: 20px;
+  }
+
+  .overseas-page .overseas-intro .hero_image {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    height: 180px;
+  }
+}
+
 /* =========================
    상품 섹션
 ========================= */
